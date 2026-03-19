@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Products — Defence Trading</title>
     <meta property="og:type" content="website">
     <meta property="og:title" content="Products — Defence Trading">
@@ -17,8 +17,9 @@
     <meta name="description" content="Browse Defence Trading's catalogue of military and defence products including firearms, ammunition, armoured vehicles, optics, and tactical equipment.">
     <meta name="keywords" content="defense products, military equipment, firearms catalogue, ammunition supplier, armoured vehicles, tactical gear, defence procurement">
 <style>
-  html { scrollbar-gutter: stable; }
+  html { scrollbar-gutter: stable; overflow-x: hidden; }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  img, video, iframe { max-width: 100%; }
   :root {
     --yellow: #F5C400;
     --black: #000000;
@@ -263,6 +264,8 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 767px) {
+    .sub-fields { grid-template-columns: 1fr; gap: 0; }
+    .sub-footer-row { flex-direction: column; align-items: flex-start; }
     .util-bar { padding: 0 16px; }
     .util-links a:not(.active) { display: none; }
     .main-nav { padding: 0 16px; }
