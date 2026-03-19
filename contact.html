@@ -299,7 +299,7 @@
         </div>
         <div class="form-field">
           <label>Phone Number</label>
-          <input type="tel" name="phone" placeholder="+1 000 000 0000">
+          <input type="tel" name="phone" placeholder="+1 000 000 0000" required>
         </div>
 
         <div class="form-field">
@@ -364,11 +364,11 @@
 
         <div class="form-field form-field--full">
           <label>How can we help you?</label>
-          <textarea name="message" placeholder="Describe your procurement requirement or enquiry…" rows="4"></textarea>
+          <textarea name="message" placeholder="Describe your procurement requirement or enquiry…" rows="4" required></textarea>
         </div>
 
         <div class="opt-in-row">
-          <input type="checkbox" id="contact-consent">
+          <input type="checkbox" id="contact-consent" required>
           <label for="contact-consent">Please click here to opt-in to receiving procurement insights and communications from Defence Trading. Data collected will be processed in accordance with our <a href="privacy.html" style="color:#000;font-weight:700;">privacy notice</a>. You may unsubscribe at any time.</label>
         </div>
 
@@ -442,11 +442,14 @@
 <script>
 async function submitContact(ev, f) {
   ev.preventDefault();
+  const interests = Array.from(f.querySelectorAll('input[name=interests]:checked')).map(c => c.value);
+  if (interests.length === 0) {
+    alert('Please select at least one area of interest.');
+    return;
+  }
   const btn = document.getElementById('contact-submit-btn');
   btn.disabled = true;
   btn.textContent = 'Submitting…';
-
-  const interests = Array.from(f.querySelectorAll('input[name=interests]:checked')).map(c => c.value);
 
   const payload = {
     first_name:   f.querySelector('[name=first_name]').value.trim(),
