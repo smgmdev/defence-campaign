@@ -322,8 +322,10 @@
   .enq-product-name { font-size: 13px; color: #555; margin-bottom: 24px; }
   .enq-field { margin-bottom: 16px; }
   .enq-field label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #333; margin-bottom: 6px; }
-  .enq-field input, .enq-field select { width: 100%; padding: 11px 14px; border: 1.5px solid #ccc; font-size: 14px; font-family: inherit; outline: none; box-sizing: border-box; transition: border-color 0.15s; }
-  .enq-field input:focus, .enq-field select:focus { border-color: #000; }
+  .enq-field input { width: 100%; padding: 11px 14px; border: 1.5px solid #ccc; font-size: 14px; font-family: inherit; outline: none; box-sizing: border-box; transition: border-color 0.15s; }
+  .enq-field input:focus { border-color: #000; }
+  .enq-field select { width: 100%; padding: 11px 40px 11px 14px; background: var(--black); color: var(--white); border: none; font-size: 14px; font-family: inherit; font-weight: 700; outline: none; box-sizing: border-box; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23f5c800' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
+  .enq-field select option { background: #222; color: #fff; font-weight: 400; }
   .enq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .enq-submit { width: 100%; background: #000; color: #fff; border: none; padding: 14px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; margin-top: 8px; transition: background 0.15s; }
   .enq-submit:hover { background: #c8102e; }
@@ -841,7 +843,7 @@ function prodCard(p) {
       <div class="prod-desc">${p.desc}</div>
     </div>
     <div class="prod-footer">
-      <button class="enquire-btn" data-product="${p.name.replace(/"/g,'&quot;')}" onclick="openEnquiry(this.dataset.product)">Enquire →</button>
+      <button class="enquire-btn" data-product="${p.name.replace(/"/g,'&quot;')}">Enquire →</button>
     </div>
   </div>`;
 }
@@ -855,7 +857,7 @@ function renderList() {
       <td style="font-size:13px;font-weight:700;">${p.calibre}</td>
       <td><span style="font-size:11px;font-weight:700;color:${CAT_COLORS[p.category]||'#555'};">${p.category}</span></td>
       <td style="font-size:12px;color:#555;">${p.type}</td>
-      <td><button class="enquire-btn" style="white-space:nowrap;" data-product="${p.name.replace(/"/g,'&quot;')}" onclick="openEnquiry(this.dataset.product)">Enquire →</button></td>
+      <td><button class="enquire-btn" style="white-space:nowrap;" data-product="${p.name.replace(/"/g,'&quot;')}">Enquire →</button></td>
     </tr>
   `).join('');
 }
@@ -932,9 +934,69 @@ function showSubToast(msg) {
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 4000);
 }
+
+// ── ENQUIRY MODAL ──────────────────────────────────────────
+var currentEnqProduct = '';
+
+function openEnquiry(productName) {
+  currentEnqProduct = productName;
+  document.getElementById('enq-product-name').textContent = productName;
+  document.getElementById('enq-form-wrap').style.display = 'block';
+  document.getElementById('enq-success').style.display = 'none';
+  document.getElementById('enq-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeEnquiry() {
+  document.getElementById('enq-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest('.enquire-btn');
+  if (btn) openEnquiry(btn.dataset.product);
+  if (e.target === document.getElementById('enq-overlay')) closeEnquiry();
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeEnquiry();
+});
+
+async function submitEnquiry(ev) {
+  ev.preventDefault();
+  const btn = document.getElementById('enq-submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  const payload = {
+    product:   currentEnqProduct,
+    full_name: document.getElementById('enq-fullname').value.trim(),
+    company:   document.getElementById('enq-company').value.trim(),
+    country:   document.getElementById('enq-country').value,
+    email:     document.getElementById('enq-email').value.trim(),
+    whatsapp:  document.getElementById('enq-whatsapp').value.trim()
+  };
+  try {
+    const res = await fetch('/api/enquiry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const d = await res.json();
+    if (d.ok) {
+      document.getElementById('enq-form-wrap').style.display = 'none';
+      document.getElementById('enq-success').style.display = 'block';
+    } else {
+      btn.disabled = false; btn.textContent = 'Send Enquiry →';
+      alert('Submission failed — please try again.');
+    }
+  } catch(e) {
+    btn.disabled = false; btn.textContent = 'Send Enquiry →';
+    alert('Submission failed — please try again.');
+  }
+}
 </script>
 <!-- ENQUIRY MODAL -->
-<div class="enq-overlay" id="enq-overlay" onclick="closeEnquiryOutside(event)">
+<div class="enq-overlay" id="enq-overlay">
   <div class="enq-modal" id="enq-modal">
     <button class="enq-modal-close" onclick="closeEnquiry()">×</button>
     <div id="enq-form-wrap">
@@ -981,63 +1043,5 @@ function showSubToast(msg) {
 </div>
 
 <div id="sub-toast"></div>
-<script>
-var currentEnqProduct = '';
-
-function openEnquiry(productName) {
-  currentEnqProduct = productName;
-  document.getElementById('enq-product-name').textContent = productName;
-  document.getElementById('enq-form-wrap').style.display = 'block';
-  document.getElementById('enq-success').style.display = 'none';
-  document.getElementById('enq-overlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeEnquiry() {
-  document.getElementById('enq-overlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function closeEnquiryOutside(e) {
-  if (e.target === document.getElementById('enq-overlay')) closeEnquiry();
-}
-
-async function submitEnquiry(ev) {
-  ev.preventDefault();
-  const btn = document.getElementById('enq-submit-btn');
-  btn.disabled = true;
-  btn.textContent = 'Sending…';
-
-  const payload = {
-    product:   currentEnqProduct,
-    full_name: document.getElementById('enq-fullname').value.trim(),
-    company:   document.getElementById('enq-company').value.trim(),
-    country:   document.getElementById('enq-country').value,
-    email:     document.getElementById('enq-email').value.trim(),
-    whatsapp:  document.getElementById('enq-whatsapp').value.trim()
-  };
-
-  try {
-    const res = await fetch('/api/enquiry', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    const d = await res.json();
-    if (d.ok) {
-      document.getElementById('enq-form-wrap').style.display = 'none';
-      document.getElementById('enq-success').style.display = 'block';
-    } else {
-      btn.disabled = false;
-      btn.textContent = 'Send Enquiry →';
-      alert('Submission failed — please try again.');
-    }
-  } catch(e) {
-    btn.disabled = false;
-    btn.textContent = 'Send Enquiry →';
-    alert('Submission failed — please try again.');
-  }
-}
-</script>
 </body>
 </html>
