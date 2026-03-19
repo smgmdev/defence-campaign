@@ -55,7 +55,7 @@ class handler(BaseHTTPRequestHandler):
                     self._respond(200, {"ok": True})
                 else:
                     err = e.read().decode()
-                    self._respond(500, {"ok": False, "error": err})
+                    self._respond(500, {"ok": False, "error": err, "status": e.code, "key_set": bool(RESEND_API_KEY)})
 
         except Exception as e:
             self._respond(500, {"ok": False, "error": str(e)})
