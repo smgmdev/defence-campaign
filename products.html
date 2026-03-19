@@ -310,6 +310,28 @@
     .sub-check { margin-bottom: 24px; }
     .sub-btn { width: 100%; text-align: center; }
   }
+
+  /* Enquiry Modal */
+  .enq-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9000; align-items: center; justify-content: center; padding: 20px; }
+  .enq-overlay.open { display: flex; }
+  .enq-modal { background: #fff; width: 100%; max-width: 520px; padding: 40px; position: relative; max-height: 90vh; overflow-y: auto; }
+  .enq-modal-close { position: absolute; top: 16px; right: 20px; font-size: 22px; font-weight: 300; cursor: pointer; color: #555; line-height: 1; background: none; border: none; }
+  .enq-modal-close:hover { color: #000; }
+  .enq-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #c8102e; margin-bottom: 8px; }
+  .enq-title { font-size: 20px; font-weight: 900; color: #000; margin-bottom: 6px; line-height: 1.2; }
+  .enq-product-name { font-size: 13px; color: #555; margin-bottom: 24px; }
+  .enq-field { margin-bottom: 16px; }
+  .enq-field label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #333; margin-bottom: 6px; }
+  .enq-field input, .enq-field select { width: 100%; padding: 11px 14px; border: 1.5px solid #ccc; font-size: 14px; font-family: inherit; outline: none; box-sizing: border-box; transition: border-color 0.15s; }
+  .enq-field input:focus, .enq-field select:focus { border-color: #000; }
+  .enq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .enq-submit { width: 100%; background: #000; color: #fff; border: none; padding: 14px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; margin-top: 8px; transition: background 0.15s; }
+  .enq-submit:hover { background: #c8102e; }
+  .enq-success { text-align: center; padding: 24px 0; }
+  .enq-success-icon { font-size: 40px; margin-bottom: 12px; }
+  .enq-success h3 { font-size: 20px; font-weight: 900; margin-bottom: 8px; }
+  .enq-success p { font-size: 14px; color: #555; }
+  @media (max-width: 540px) { .enq-grid { grid-template-columns: 1fr; } .enq-modal { padding: 28px 20px; } }
 </style>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -819,7 +841,7 @@ function prodCard(p) {
       <div class="prod-desc">${p.desc}</div>
     </div>
     <div class="prod-footer">
-      <a href="${p.url || 'index.html#contact'}" class="enquire-btn" ${p.url ? 'target="_blank" rel="noopener"' : ''}>Enquire →</a>
+      <button class="enquire-btn" onclick="openEnquiry(${JSON.stringify(p.name)})">Enquire →</button>
     </div>
   </div>`;
 }
@@ -833,7 +855,7 @@ function renderList() {
       <td style="font-size:13px;font-weight:700;">${p.calibre}</td>
       <td><span style="font-size:11px;font-weight:700;color:${CAT_COLORS[p.category]||'#555'};">${p.category}</span></td>
       <td style="font-size:12px;color:#555;">${p.type}</td>
-      <td><a href="${p.url || 'index.html#contact'}" class="enquire-btn" style="white-space:nowrap;" ${p.url ? 'target="_blank" rel="noopener"' : ''}>Enquire →</a></td>
+      <td><button class="enquire-btn" style="white-space:nowrap;" onclick="openEnquiry(${JSON.stringify(p.name)})">Enquire →</button></td>
     </tr>
   `).join('');
 }
@@ -911,6 +933,111 @@ function showSubToast(msg) {
   setTimeout(() => t.classList.remove('show'), 4000);
 }
 </script>
+<!-- ENQUIRY MODAL -->
+<div class="enq-overlay" id="enq-overlay" onclick="closeEnquiryOutside(event)">
+  <div class="enq-modal" id="enq-modal">
+    <button class="enq-modal-close" onclick="closeEnquiry()">×</button>
+    <div id="enq-form-wrap">
+      <div class="enq-label">Product Enquiry</div>
+      <div class="enq-title">Request Information</div>
+      <div class="enq-product-name" id="enq-product-name"></div>
+      <form onsubmit="submitEnquiry(event)">
+        <div class="enq-grid">
+          <div class="enq-field">
+            <label>Full Name *</label>
+            <input type="text" id="enq-fullname" placeholder="Your full name" required>
+          </div>
+          <div class="enq-field">
+            <label>Company Name *</label>
+            <input type="text" id="enq-company" placeholder="Organisation name" required>
+          </div>
+        </div>
+        <div class="enq-field">
+          <label>Country *</label>
+          <select id="enq-country" required>
+            <option value="">Select country…</option>
+            <option>Afghanistan</option><option>Albania</option><option>Algeria</option><option>Argentina</option><option>Australia</option><option>Austria</option><option>Azerbaijan</option><option>Bahrain</option><option>Bangladesh</option><option>Belgium</option><option>Brazil</option><option>Bulgaria</option><option>Canada</option><option>Chile</option><option>China</option><option>Colombia</option><option>Croatia</option><option>Czech Republic</option><option>Denmark</option><option>Egypt</option><option>Estonia</option><option>Ethiopia</option><option>Finland</option><option>France</option><option>Germany</option><option>Ghana</option><option>Greece</option><option>Hungary</option><option>India</option><option>Indonesia</option><option>Iran</option><option>Iraq</option><option>Ireland</option><option>Israel</option><option>Italy</option><option>Japan</option><option>Jordan</option><option>Kazakhstan</option><option>Kenya</option><option>Kuwait</option><option>Latvia</option><option>Lebanon</option><option>Libya</option><option>Lithuania</option><option>Malaysia</option><option>Mexico</option><option>Morocco</option><option>Netherlands</option><option>New Zealand</option><option>Nigeria</option><option>Norway</option><option>Oman</option><option>Pakistan</option><option>Peru</option><option>Philippines</option><option>Poland</option><option>Portugal</option><option>Qatar</option><option>Romania</option><option>Russia</option><option>Saudi Arabia</option><option>Serbia</option><option>Singapore</option><option>Slovakia</option><option>Slovenia</option><option>South Africa</option><option>South Korea</option><option>Spain</option><option>Sudan</option><option>Sweden</option><option>Switzerland</option><option>Syria</option><option>Taiwan</option><option>Thailand</option><option>Tunisia</option><option>Turkey</option><option>UAE</option><option>Ukraine</option><option>United Kingdom</option><option>United States</option><option>Vietnam</option><option>Yemen</option><option>Other</option>
+          </select>
+        </div>
+        <div class="enq-grid">
+          <div class="enq-field">
+            <label>Business Email *</label>
+            <input type="email" id="enq-email" placeholder="you@company.com" required>
+          </div>
+          <div class="enq-field">
+            <label>WhatsApp Number *</label>
+            <input type="tel" id="enq-whatsapp" placeholder="+1 000 000 0000" required>
+          </div>
+        </div>
+        <button type="submit" class="enq-submit" id="enq-submit-btn">Send Enquiry →</button>
+      </form>
+    </div>
+    <div id="enq-success" class="enq-success" style="display:none;">
+      <div class="enq-success-icon">✓</div>
+      <h3>Enquiry Sent</h3>
+      <p>Our procurement team will be in touch within 2 business days.</p>
+    </div>
+  </div>
+</div>
+
 <div id="sub-toast"></div>
+<script>
+var currentEnqProduct = '';
+
+function openEnquiry(productName) {
+  currentEnqProduct = productName;
+  document.getElementById('enq-product-name').textContent = productName;
+  document.getElementById('enq-form-wrap').style.display = 'block';
+  document.getElementById('enq-success').style.display = 'none';
+  document.getElementById('enq-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeEnquiry() {
+  document.getElementById('enq-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeEnquiryOutside(e) {
+  if (e.target === document.getElementById('enq-overlay')) closeEnquiry();
+}
+
+async function submitEnquiry(ev) {
+  ev.preventDefault();
+  const btn = document.getElementById('enq-submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  const payload = {
+    product:   currentEnqProduct,
+    full_name: document.getElementById('enq-fullname').value.trim(),
+    company:   document.getElementById('enq-company').value.trim(),
+    country:   document.getElementById('enq-country').value,
+    email:     document.getElementById('enq-email').value.trim(),
+    whatsapp:  document.getElementById('enq-whatsapp').value.trim()
+  };
+
+  try {
+    const res = await fetch('/api/enquiry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const d = await res.json();
+    if (d.ok) {
+      document.getElementById('enq-form-wrap').style.display = 'none';
+      document.getElementById('enq-success').style.display = 'block';
+    } else {
+      btn.disabled = false;
+      btn.textContent = 'Send Enquiry →';
+      alert('Submission failed — please try again.');
+    }
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = 'Send Enquiry →';
+    alert('Submission failed — please try again.');
+  }
+}
+</script>
 </body>
 </html>
