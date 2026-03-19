@@ -99,7 +99,14 @@
   .hero-right {
     background: url('adnoc-hero.jpg') center/cover no-repeat;
     min-height: 480px;
+    position: relative;
   }
+  .hero-right-spinner {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    background: #111;
+  }
+  .hero-right-spinner svg { animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
   /* ── TAB NAV ── */
   .tab-nav {
@@ -311,7 +318,14 @@
     <p>Our latest intelligence, analysis, and commentary on the global defence procurement market — covering industry news, regulatory updates, and geopolitical shifts.</p>
   </div>
   </div>
-  <div class="hero-right"></div>
+  <div class="hero-right" id="hero-right">
+    <div class="hero-right-spinner" id="hero-spinner">
+      <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(180,180,180,0.2)" stroke-width="3"/>
+        <path d="M18 4 A14 14 0 0 1 32 18" fill="none" stroke="#aaa" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
 </div>
 
 <!-- TAB NAV -->
@@ -616,5 +630,13 @@ async function subscribeForm(ev, f) { ev.preventDefault();
 }
 </script>
 <div id="sub-toast"></div>
+<script>
+  var img = new Image();
+  img.onload = function() {
+    var sp = document.getElementById('hero-spinner');
+    if (sp) sp.style.display = 'none';
+  };
+  img.src = 'adnoc-hero.jpg';
+</script>
 </body>
 </html>
