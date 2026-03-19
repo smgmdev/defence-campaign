@@ -392,7 +392,7 @@
 <div class="pg-wrap">
   <h2>Subscribe to Defence Trading's Insights</h2>
   <p class="sub-intro">To receive the latest procurement intelligence, product updates, and market analysis — sign up below.</p>
-  <form onsubmit="return subscribeForm(this)">
+  <form onsubmit="subscribeForm(event, this); return false;">
     <div class="sub-fields">
       <div class="sub-field">
         <label>Email <span>*</span></label>
@@ -469,7 +469,7 @@
 <script>
   // Make all article links on insights.html point to this template
 
-async function subscribeForm(f) {
+async function subscribeForm(ev, f) { ev.preventDefault();
   const email   = f.querySelector('input[type=email]').value.trim();
   const company = (f.querySelector('.sub-field input[type=text]') || {value:''}).value.trim();
   const btn     = f.querySelector('.sub-btn');
