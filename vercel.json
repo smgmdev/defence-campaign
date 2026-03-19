@@ -1,7 +1,7 @@
 {
   "functions": {
     "api/subscribe.py": {
-      "runtime": "vercel-python@latest"
+      "runtime": "vercel-python@0.1.0"
     }
   }
 }
