@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The new geography of defence procurement — Defence Trading Insights</title>
+<style>
+  html { scrollbar-gutter: stable; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --yellow: #F5C400;
+    --black:  #000000;
+    --red:    #E31837;
+    --white:  #ffffff;
+    --gray-light: #f5f5f5;
+    --gray:   #e0e0e0;
+    --navy:   #0a1628;
+    --text:   #1a1a1a;
+    --text-light: #666;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--white); color: var(--text); }
+
+  /* ── UTILITY BAR ── */
+  .util-bar {
+    background: var(--gray-light); border-bottom: 1px solid var(--gray);
+    padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 36px;
+  }
+  .util-links { display: flex; }
+  .util-links a {
+    color: var(--text-light); text-decoration: none; padding: 0 14px; height: 36px;
+    display: flex; align-items: center; border-right: 1px solid var(--gray); font-size: 12px;
+  }
+  .util-links a:first-child { padding-left: 0; }
+  .util-links a:hover, .util-links a.active { color: var(--black); font-weight: 600; }
+  .util-right { font-size: 12px; font-weight: 500; display: flex; align-items: center; gap: 4px; }
+  .util-right .chev { color: var(--red); font-size: 10px; }
+
+  /* ── NAV ── */
+  .main-nav {
+    background: var(--white); border-bottom: 1px solid var(--gray);
+    padding: 0 32px; display: flex; align-items: center; height: 56px; position: sticky; top: 0; z-index: 200;
+  }
+  .brand { font-size: 22px; font-weight: 900; color: var(--black); text-decoration: none; margin-right: 40px; letter-spacing: -1px; flex-shrink: 0; }
+  .brand span { color: var(--red); font-size: 8px; vertical-align: super; }
+  .nav-links { display: flex; flex: 1; }
+  .nav-links a {
+    color: var(--text); text-decoration: none; padding: 0 14px; height: 56px;
+    display: flex; align-items: center; font-size: 13px; font-weight: 500;
+    border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.15s;
+  }
+  .nav-links a:hover { border-bottom-color: var(--black); }
+  .nav-links a.active { border-bottom-color: var(--red); font-weight: 700; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; margin-left: auto; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--black); }
+  .mobile-nav {
+    display: none; position: absolute; top: 56px; left: 0; right: 0;
+    background: var(--white); border-bottom: 2px solid var(--black); z-index: 200; flex-direction: column;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a { padding: 14px 20px; font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--gray); }
+  .mobile-nav a.active { color: var(--red); }
+
+  /* ── PAGE CONTAINER ── */
+  .pg-wrap { max-width: 1440px; margin: 0 auto; padding: 0 48px; }
+
+  /* ── PAGE LAYOUT ── */
+  .page-wrap {
+    max-width: 780px; padding: 56px 0 100px;
+  }
+
+  /* ── BACK LINK ── */
+  .back-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 700; color: var(--text-light); text-decoration: none;
+    margin-bottom: 32px; transition: color 0.15s;
+  }
+  .back-link:hover { color: var(--black); }
+  .back-link .arr { font-size: 16px; line-height: 1; }
+
+  /* ── ARTICLE HEADER ── */
+  .art-category {
+    font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--text-light); margin-bottom: 20px; display: flex; align-items: center; gap: 8px;
+  }
+  .art-category-dot { width: 6px; height: 6px; background: var(--red); border-radius: 50%; }
+  .art-title {
+    font-size: clamp(28px, 4vw, 44px); font-weight: 900; color: var(--black);
+    line-height: 1.06; letter-spacing: -1px; margin-bottom: 24px;
+  }
+  .art-meta {
+    display: flex; align-items: center; gap: 0; margin-bottom: 36px;
+    font-size: 13px; color: var(--text-light);
+  }
+  .art-meta-author { font-weight: 700; color: var(--text); }
+  .art-meta-sep { margin: 0 10px; color: var(--gray); }
+
+  /* ── DIVIDER ── */
+  .rule { border: none; border-top: 1px solid var(--gray); margin: 36px 0; }
+  .rule-thick { border: none; border-top: 2px solid var(--black); margin: 40px 0; }
+
+  /* ── SHARE BAR ── */
+  .share-bar {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 40px;
+  }
+  .share-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-light); margin-right: 4px; }
+  .share-btn {
+    width: 34px; height: 34px; border: 1px solid var(--gray); background: var(--white);
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    font-size: 14px; text-decoration: none; color: var(--text); transition: all 0.15s;
+  }
+  .share-btn:hover { border-color: var(--black); background: var(--gray-light); }
+
+  /* ── ARTICLE BODY ── */
+  .art-body { font-size: 17px; line-height: 1.75; color: var(--text); }
+  .art-body p { margin-bottom: 24px; }
+  .art-body p:last-child { margin-bottom: 0; }
+  .art-body h2 {
+    font-size: 22px; font-weight: 800; color: var(--black);
+    letter-spacing: -0.3px; margin: 40px 0 16px; line-height: 1.2;
+  }
+  .art-body h3 {
+    font-size: 17px; font-weight: 700; color: var(--black);
+    margin: 32px 0 12px;
+  }
+  .art-body ul, .art-body ol {
+    padding-left: 24px; margin-bottom: 24px;
+  }
+  .art-body li { margin-bottom: 10px; line-height: 1.7; }
+  .art-body strong { font-weight: 700; color: var(--black); }
+  .art-body blockquote {
+    border-left: 4px solid var(--yellow); margin: 36px 0;
+    padding: 4px 0 4px 28px;
+    font-size: 20px; font-weight: 700; color: var(--black); line-height: 1.4;
+    font-style: normal;
+  }
+
+  /* ── ABOUT SECTION ── */
+  .about-section {
+    background: var(--gray-light); padding: 32px 36px; margin-top: 48px;
+  }
+  .about-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--text-light); margin-bottom: 12px; }
+  .about-section p { font-size: 14px; color: var(--text-light); line-height: 1.7; }
+
+  /* ── NEWSLETTER ── */
+  .newsletter {
+    border: 1px solid var(--gray); padding: 36px; margin-top: 32px;
+  }
+  .nl-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--text-light); margin-bottom: 12px; }
+  .newsletter h3 { font-size: 20px; font-weight: 800; color: var(--black); margin-bottom: 10px; letter-spacing: -0.3px; }
+  .newsletter p { font-size: 14px; color: var(--text-light); line-height: 1.65; margin-bottom: 20px; }
+  .nl-form { display: flex; gap: 0; }
+  .nl-input {
+    flex: 1; border: 1.5px solid var(--black); border-right: none;
+    padding: 11px 16px; font-size: 14px; font-family: inherit; outline: none;
+  }
+  .nl-input::placeholder { color: #aaa; }
+  .nl-btn {
+    background: var(--black); color: var(--white); border: 1.5px solid var(--black);
+    padding: 11px 22px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit;
+    white-space: nowrap; transition: background 0.15s;
+  }
+  .nl-btn:hover { background: #222; }
+
+  /* ── MORE ARTICLES ── */
+  .more-articles { margin-top: 56px; }
+  .more-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--text-light); margin-bottom: 24px; }
+  .more-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--gray); }
+  .more-card {
+    padding: 28px 28px; border-right: 1px solid var(--gray);
+    text-decoration: none; display: block; transition: background 0.15s;
+  }
+  .more-card:last-child { border-right: none; }
+  .more-card:hover { background: var(--gray-light); }
+  .more-card-cat { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-light); margin-bottom: 10px; }
+  .more-card-title { font-size: 16px; font-weight: 800; color: var(--black); line-height: 1.25; margin-bottom: 10px; }
+  .more-card-date { font-size: 12px; color: var(--text-light); }
+
+  /* ── FOOTER ── */
+/* ── FOOTER ── */
+  footer { background: #000; }
+  .footer-main { display: block; padding: 80px 0; }
+  .footer-main > .pg-wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: start; }
+  .footer-brand-col { padding-right: 48px; }
+  .footer-logo { font-size: 28px; font-weight: 900; color: #fff; letter-spacing: -1px; margin-bottom: 24px; }
+  .footer-logo span { color: var(--red); font-size: 9px; vertical-align: super; }
+  .footer-desc { font-size: 14px; color: rgba(255,255,255,0.9); line-height: 1.4; max-width: 420px; }
+  .footer-divider { width: 1px; background: #2a2a2a; margin: 0 48px; align-self: stretch; }
+  .footer-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .footer-col-label { font-size: 11px; font-weight: 800; letter-spacing: 2px; color: var(--red); text-transform: uppercase; margin-bottom: 24px; }
+  .footer-col a { display: block; font-size: 14px; font-weight: 700; color: #fff; text-decoration: none; margin-bottom: 18px; transition: color 0.15s; }
+  .footer-col a:hover { color: rgba(255,255,255,0.5); }
+  .footer-bottom { border-top: 1px solid #e0e0e0; background: #fff; padding: 20px 0; }
+  .footer-bottom > .pg-wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .footer-copy { font-size: 13px; color: #000; font-weight: 500; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 767px) {
+    .util-bar { padding: 0 16px; }
+    .util-links a:not(.active) { display: none; }
+    .main-nav { padding: 0 16px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .brand { font-size: 18px; margin-right: 0; }
+    .pg-wrap { padding: 0 20px; }
+    .page-wrap { padding: 36px 0 64px; }
+    .art-body { font-size: 16px; }
+    .nl-form { flex-direction: column; }
+    .nl-input { border-right: 1.5px solid var(--black); border-bottom: none; }
+    .more-grid { grid-template-columns: 1fr; }
+    .more-card { border-right: none; border-bottom: 1px solid var(--gray); }
+    .more-card:last-child { border-bottom: none; }
+.footer-main { padding: 48px 0; }
+    .footer-main > .pg-wrap { grid-template-columns: 1fr; }
+    .footer-brand-col { padding-right: 0; margin-bottom: 36px; }
+    .footer-divider { display: none; }
+    .footer-cols { grid-template-columns: 1fr 1fr; }
+    .footer-bottom { padding: 16px 0; }
+    .footer-bottom > .pg-wrap { flex-direction: column; }
+  }
+
+  /* ── SUBSCRIBE STRIP ── */
+  .subscribe-strip { background: #ffffff; border-top: 1px solid #e0e0e0; }
+  .subscribe-strip > .pg-wrap { padding-top: 64px; padding-bottom: 64px; }
+  .subscribe-strip h2 { font-size: clamp(22px, 3.5vw, 34px); font-weight: 900; color: #000; letter-spacing: -0.5px; margin-bottom: 10px; }
+  .subscribe-strip .sub-intro { font-size: 15px; color: #555; margin-bottom: 44px; }
+  .sub-fields { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 40px; margin-bottom: 32px; }
+  .sub-field { display: flex; flex-direction: column; border-bottom: 1.5px solid #000; padding-bottom: 8px; margin-bottom: 8px; }
+  .sub-field label { font-size: 13px; font-weight: 700; color: #000; margin-bottom: 6px; }
+  .sub-field label span { color: #E31837; }
+  .sub-field input, .sub-field select {
+    border: none; background: transparent; outline: none;
+    font-size: 15px; font-family: inherit; color: #000; padding: 4px 0;
+    -webkit-appearance: none; appearance: none;
+  }
+  .sub-field input::placeholder { color: #aaa; }
+  .sub-field select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23000' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 4px center; padding-right: 20px; }
+  .sub-field.focused { border-bottom-color: #000; }
+  .sub-check { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 40px; }
+  .sub-check input[type=checkbox] { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; cursor: pointer; -webkit-appearance: none; appearance: none; border: 1.5px solid #000; border-radius: 0; background: transparent; position: relative; } .sub-check input[type=checkbox]:checked::after { content: ""; position: absolute; left: 4px; top: 1px; width: 6px; height: 11px; border: 2px solid #000; border-top: none; border-left: none; transform: rotate(45deg); }
+  .sub-check label { font-size: 13px; color: #555; line-height: 1.55; cursor: pointer; }
+  .sub-footer-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .sub-required { font-size: 12px; color: #555; }
+  .sub-required a { color: #000; font-weight: 700; }
+  .sub-btn { background: #999; color: #fff; border: none; padding: 16px 36px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; white-space: nowrap; transition: background 0.15s; letter-spacing: 0.3px; }
+  .sub-btn:hover { background: #000; }
+  .sub-ok { font-size: 15px; font-weight: 700; color: #000; margin-top: 24px; display: none; }
+</style>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+</head>
+<body>
+<!-- NAV -->
+<div class="main-nav">
+  <a href="index.html" class="brand">DefenceTrading<span>®</span></a>
+  <div class="nav-links">
+    <a href="about-us.html">About Us</a>
+    <a href="products.html">Products</a>
+    <a href="companies.html">Companies</a>
+    <a href="insights.html" class="active">Insights</a>
+  </div>
+  <div class="hamburger" onclick="document.getElementById('mobile-nav').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="about-us.html">About Us</a>
+    <a href="products.html">Products</a>
+    <a href="companies.html">Companies</a>
+    <a href="insights.html" class="active">Insights</a>
+  </div>
+</div>
+
+<!-- ARTICLE -->
+<div class="pg-wrap">
+<div class="page-wrap">
+
+  <a href="insights.html" class="back-link"><span class="arr">←</span> Global Insights</a>
+
+  <div class="art-category">
+    <span class="art-category-dot"></span>
+    Director's Insight
+  </div>
+
+  <h1 class="art-title">The new geography of defence procurement: why the Middle East is reshaping global supply chains</h1>
+
+  <div class="art-meta">
+    <span class="art-meta-author">Paul — Director of Global Inquiries</span>
+    <span class="art-meta-sep">|</span>
+    <span>19 Mar 2026</span>
+    <span class="art-meta-sep">|</span>
+    <span>Defence Trading, Dubai UAE</span>
+  </div>
+
+  <div class="share-bar">
+    <span class="share-label">Share</span>
+    <a class="share-btn" href="#" title="Share on LinkedIn">in</a>
+    <a class="share-btn" href="#" title="Share on X">𝕏</a>
+    <a class="share-btn" href="#" title="Email article">✉</a>
+    <a class="share-btn" href="#" title="Print" onclick="window.print();return false;">⎙</a>
+  </div>
+
+  <hr class="rule-thick">
+
+  <div class="art-body">
+
+    <p>As NATO spending accelerates and Middle Eastern nations invest heavily in domestic defence capability, the procurement landscape is shifting in ways that are creating new opportunities — and new complexities — for licensed traders and prime contractors alike.</p>
+
+    <p>The convergence of three major forces — European rearmament, Gulf domestic investment, and African security demand — is creating a procurement environment unlike anything we have seen in the post-Cold War era. Licensed intermediaries with established trade routes, regulatory compliance frameworks, and vetted supplier networks are more relevant than ever.</p>
+
+    <blockquote>"The Middle East is no longer simply a buyer. It is becoming a hub — a transit point, a manufacturing base, and a regulatory gateway for compliant international defence commerce."</blockquote>
+
+    <h2>European rearmament is driving unprecedented demand</h2>
+
+    <p>SIPRI data confirms that global defence spending reached a record $2.2 trillion in 2024 — a third consecutive year of real-terms growth. NATO member states in Central and Eastern Europe have increased defence budgets by an average of 8.3% year-on-year, driven primarily by the ongoing conflict in Ukraine and new commitments to the 2% GDP target.</p>
+
+    <p>The practical consequence is a sustained shortfall in ammunition, artillery systems, and protective equipment across European theatres. Traditional Western manufacturers — many of whom operated at peacetime production rates for over a decade — cannot meet demand at pace. This gap is being filled, compliantly and legally, through licensed intermediaries operating from jurisdictions with the regulatory infrastructure to facilitate rapid cross-border procurement.</p>
+
+    <h2>The UAE as the world's defence trade hub</h2>
+
+    <p>The UAE's position is unique. It holds active defence trade licences that permit procurement from both Eastern and Western supply chains. It maintains credible end-user certification frameworks. And it hosts the world's premier defence exhibition — IDEX — which in 2025 generated over $5.2 billion in signed contracts.</p>
+
+    <p>Over $80 billion in defence contracts signed at IDEX since 2019 have passed through UAE-based intermediaries. The country's neutrality, regulatory maturity, and logistics infrastructure make it the natural hub for procurement flows that might otherwise be blocked by political constraints in other jurisdictions.</p>
+
+    <h2>What this means for procurement officers</h2>
+
+    <p>For procurement officers operating within NATO structures or allied governments, the opportunity is to work with UAE-licensed traders to access non-NATO standard munitions (122mm, 152mm artillery rounds, 82mm mortars, 7.62×54R), protective equipment categories, and manufactured-to-spec components that Western production pipelines cannot deliver at required timelines.</p>
+
+    <ul>
+      <li>Non-standard ammunition replenishment remains the single highest-demand category across European and Middle Eastern buyers</li>
+      <li>Protective equipment — particularly NIJ-certified ballistic protection — is seeing a second wave of demand as reserves drawn down during conflict replenishment programmes are reassessed</li>
+      <li>Communications gear and C4ISR integration components are increasingly being procured through UAE channels as supply chain diversification becomes a strategic priority</li>
+    </ul>
+
+    <h2>Looking ahead</h2>
+
+    <p>The geopolitical environment of 2026 is likely to sustain elevated defence procurement activity across all three regions — Middle East, Europe, and increasingly Africa. The Sahel, Horn of Africa, and Arabian Peninsula continue to see active counter-insurgency operations driving sustained demand for mortar systems, light weapons, and tactical equipment.</p>
+
+    <p>For Defence Trading, this represents both a responsibility and an opportunity. Our UAE licence, our established procurement network of 137 vetted partners, and our in-house manufacturing capability place us at the centre of compliant supply chain solutions for the challenges our partners face.</p>
+
+    <p>We welcome enquiries from procurement officers, prime contractors, and government agencies seeking a licensed, regulated, and operationally proven procurement partner.</p>
+
+  </div>
+
+  <hr class="rule">
+
+  <div class="about-section">
+    <div class="about-label">About Defence Trading</div>
+    <p>Defence Trading is a UAE-licensed defence trader and manufacturer headquartered in Dubai. We connect governments, armed forces, and prime defence contractors with certified military products through compliant, established procurement channels. Our network spans 137 verified partners across the Middle East, Europe, and North America, covering 9 military product categories including ammunition, protective equipment, communications, medical supplies, and military vehicles.</p>
+  </div>
+
+  <div class="newsletter">
+    <div class="nl-label">Stay Informed</div>
+    <h3>Receive Defence Trading's Global Insights</h3>
+    <p>Industry analysis, regulatory updates, and market intelligence delivered direct to your inbox.</p>
+    <div class="nl-form">
+      <input class="nl-input" type="email" placeholder="Work email address">
+      <button class="nl-btn">Subscribe →</button>
+    </div>
+  </div>
+
+  <div class="more-articles">
+    <div class="more-label">More from Global Insights</div>
+    <div class="more-grid">
+      <a href="article.html" class="more-card">
+        <div class="more-card-cat">Market Analysis</div>
+        <div class="more-card-title">European ammunition demand outpaces production — stockpile replenishment opens procurement window</div>
+        <div class="more-card-date">6 Mar 2026</div>
+      </a>
+      <a href="article.html" class="more-card">
+        <div class="more-card-cat">Industry News</div>
+        <div class="more-card-title">Global defence spending hits record $2.2 trillion in 2024 as NATO pledges accelerate</div>
+        <div class="more-card-date">14 Mar 2026</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- SUBSCRIBE STRIP -->
+<div class="subscribe-strip">
+<div class="pg-wrap">
+  <h2>Subscribe to Defence Trading's Insights</h2>
+  <p class="sub-intro">To receive the latest procurement intelligence, product updates, and market analysis — sign up below.</p>
+  <form onsubmit="return subscribeForm(this)">
+    <div class="sub-fields">
+      <div class="sub-field">
+        <label>Email <span>*</span></label>
+        <input type="email" placeholder="Work email address" required>
+      </div>
+      <div class="sub-field">
+        <label>Location <span>*</span></label>
+        <select required>
+          <option value="" disabled selected></option>
+          <option>United Arab Emirates</option>
+          <option>United States</option>
+          <option>United Kingdom</option>
+          <option>Germany</option>
+          <option>France</option>
+          <option>Poland</option>
+          <option>Saudi Arabia</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="sub-field">
+        <label>Company <span>*</span></label>
+        <input type="text" placeholder="Your organisation" required>
+      </div>
+    </div>
+    <div class="sub-check">
+      <input type="checkbox" id="sub-consent" required>
+      <label for="sub-consent">Please click here to opt-in to receiving procurement insights and marketing communications from Defence Trading. Data collected will be processed in accordance with our privacy notice. You may unsubscribe at any time.</label>
+    </div>
+    <div class="sub-footer-row">
+      <div class="sub-required">*Required information &nbsp;|&nbsp; Read our <a href="privacy.html">Privacy notice</a></div>
+      <button type="submit" class="sub-btn">Subscribe to Defence Trading</button>
+    </div>
+    <div class="sub-ok">&#10003; Thank you — you're now subscribed. We'll be in touch.</div>
+  </form>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-main">
+  <div class="pg-wrap">
+    <div class="footer-brand-col">
+      <div class="footer-logo">DefenceTrading<span>®</span></div>
+      <p class="footer-desc">As a defence trader, our role is to connect governments, armed forces, and defence contractors with certified military products through compliant and established procurement channels. We work exclusively with licensed enterprises and authorised suppliers, ensuring that all equipment is sourced from certified manufacturers and delivered in accordance with applicable regulatory and export control requirements.</p>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <div class="footer-col-label">Corporate</div>
+        <a href="about-us.html">About Us</a>
+        <a href="insights.html">Global Insights</a>
+        <a href="products.html">Products</a>
+        <a href="companies.html">Companies</a>
+        <a href="index.html#contact">Contact Us</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Legal</div>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Notice</a>
+        <a href="export-control.html">Export Control Policy</a>
+        <a href="end-user-certification.html">End-User Certification</a>
+        <a href="cookies.html">Cookie Notice</a>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="footer-bottom">
+  <div class="pg-wrap">
+    <span class="footer-copy">© 2026 Defence Trading. All rights reserved.</span>
+  </div>
+  </div>
+</footer>
+
+<script>
+  // Make all article links on insights.html point to this template
+
+async function subscribeForm(f) {
+  const email   = f.querySelector('input[type=email]').value.trim();
+  const company = (f.querySelector('.sub-field input[type=text]') || {value:''}).value.trim();
+  const btn     = f.querySelector('.sub-btn');
+  const orig    = btn.textContent;
+  btn.disabled  = true;
+  btn.textContent = 'Submitting…';
+  try {
+    const res = await fetch('/subscribe', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email, company})
+    });
+    const d = await res.json();
+    if (d.ok) {
+      f.querySelector('.sub-footer-row').style.display = 'none';
+      f.querySelector('.sub-ok').style.display = 'block';
+    } else {
+      btn.disabled = false;
+      btn.textContent = orig;
+      alert('Could not subscribe — please try again.');
+    }
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = orig;
+  }
+  return false;
+}
+</script>
+</body>
+</html>

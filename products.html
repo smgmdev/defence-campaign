@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Defence Trading — Product Catalogue</title>
+<style>
+  html { scrollbar-gutter: stable; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --yellow: #F5C400;
+    --black: #000000;
+    --red: #E31837;
+    --white: #ffffff;
+    --gray-light: #f0f0f0;
+    --gray: #e0e0e0;
+    --text: #1a1a1a;
+    --text-light: #555;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--white); color: var(--text); }
+
+  /* ── UTILITY BAR ── */
+  .util-bar {
+    background: var(--gray-light); border-bottom: 1px solid var(--gray);
+    padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 36px;
+  }
+  .util-links { display: flex; }
+  .util-links a {
+    color: var(--text-light); text-decoration: none; padding: 0 14px; height: 36px;
+    display: flex; align-items: center; border-right: 1px solid var(--gray); font-size: 12px;
+  }
+  .util-links a:first-child { padding-left: 0; }
+  .util-links a:hover, .util-links a.active { color: var(--black); font-weight: 600; }
+  .util-right { font-size: 12px; font-weight: 500; display: flex; align-items: center; gap: 4px; }
+  .util-right .chev { color: var(--red); font-size: 10px; }
+
+  /* ── NAV ── */
+  .main-nav {
+    background: var(--white); border-bottom: 1px solid var(--gray);
+    padding: 0 32px; display: flex; align-items: center; height: 56px; position: sticky; top: 0; z-index: 200;}
+  .brand { font-size: 22px; font-weight: 900; color: var(--black); text-decoration: none; margin-right: 40px; letter-spacing: -1px; flex-shrink: 0; }
+  .brand span { color: var(--red); font-size: 8px; vertical-align: super; }
+  .nav-links { display: flex; flex: 1; }
+  .nav-links a {
+    color: var(--text); text-decoration: none; padding: 0 14px; height: 56px;
+    display: flex; align-items: center; font-size: 13px; font-weight: 500;
+    border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.15s;
+  }
+  .nav-links a:hover { border-bottom-color: var(--black); }
+  .nav-links a.active { border-bottom-color: var(--red); font-weight: 700; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; margin-left: auto; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--black); }
+  .mobile-nav {
+    display: none; position: absolute; top: 56px; left: 0; right: 0;
+    background: var(--white); border-bottom: 2px solid var(--black); z-index: 200; flex-direction: column;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a { padding: 14px 20px; font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--gray); }
+  .mobile-nav a.active { color: var(--red); }
+
+  /* ── PAGE CONTAINER ── */
+  .pg-wrap { max-width: 1440px; margin: 0 auto; padding: 0 48px; }
+
+  /* ── HERO ── */
+  .hero { background: var(--yellow); padding: 36px 0 0; }
+  .hero h1 { font-size: clamp(32px, 7vw, 52px); font-weight: 900; color: var(--black); letter-spacing: -1px; line-height: 1; margin-bottom: 8px; }
+  .hero .sub { font-size: clamp(14px, 2.5vw, 19px); font-weight: 700; color: var(--black); margin-bottom: 20px; }
+  .notice-box {
+    background: rgba(255,255,255,0.45); border: 1px solid rgba(0,0,0,0.12);
+    padding: 14px 18px; font-size: 12px; color: #333; line-height: 1.6; margin-bottom: 0; max-width: 900px;
+  }
+
+  /* ── FILTER BAR ── */
+  .filter-bar {
+    background: var(--yellow); padding: 20px 0 28px;
+    display: flex; align-items: flex-end; gap: 24px; flex-wrap: wrap;
+  }
+  .filter-bar > .pg-wrap { display: flex; align-items: flex-end; gap: 24px; flex-wrap: wrap; width: 100%; }
+  .fg { display: flex; flex-direction: column; gap: 8px; }
+  .fg-label { font-size: 11px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; color: var(--black); }
+  .filter-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  .fbtn {
+    border: 1.5px solid var(--black); background: var(--white); padding: 11px 16px;
+    font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; color: var(--black);
+    display: flex; align-items: center; gap: 8px; white-space: nowrap; position: relative;
+    transition: all 0.15s;
+  }
+  .fbtn.active { background: var(--black); color: var(--white); }
+  .fbtn .chev { color: var(--red); font-size: 10px; }
+  .fbtn.active .chev { color: var(--yellow); }
+  .fbtn select { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; }
+  .search-wrap { display: flex; width: 100%; }
+  .search-input {
+    flex: 1; border: 2px solid var(--black); padding: 11px 16px;
+    font-size: 14px; font-family: inherit; outline: none; background: var(--white);
+  }
+  .search-input::placeholder { color: #999; }
+  .search-btn {
+    background: var(--black); border: none; width: 48px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .search-btn svg { width: 18px; height: 18px; fill: white; }
+
+  /* ── TOOLBAR ── */
+  .toolbar {
+    background: var(--white); border-bottom: 2px solid var(--black);
+    padding: 0; display: flex; align-items: center; gap: 0;
+    min-height: 52px; flex-wrap: wrap;
+  }
+  .toolbar > .pg-wrap { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; min-height: 52px; width: 100%; }
+  .view-toggle { display: flex; gap: 0; }
+  .vtbtn {
+    border: 1.5px solid var(--black); background: var(--white); padding: 0 14px;
+    font-size: 18px; cursor: pointer; font-family: inherit; transition: background 0.15s;
+    height: 36px; display: flex; align-items: center;
+  }
+  .vtbtn:first-child { border-right: none; }
+  .vtbtn.active { background: var(--black); color: var(--white); }
+  .reset-btn {
+    background: none; border: none; cursor: pointer; font-family: inherit;
+    font-size: 13px; font-weight: 600; color: var(--black); padding: 8px 4px;
+  }
+  .reset-btn:hover { opacity: 0.6; }
+  .count-label { margin-left: auto; font-size: 13px; color: var(--text-light); white-space: nowrap; }
+  .count-label strong { color: var(--black); }
+  .dl-btn {
+    border: 1.5px solid var(--black); background: var(--white); padding: 0 16px;
+    font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit;
+    display: flex; align-items: center; gap: 6px; height: 36px;
+  }
+  .dl-btn:hover { background: var(--gray-light); }
+
+  /* ── PRODUCT GRID ── */
+  .products-section { padding: 28px 0 100px; }
+  .cat-header {
+    font-size: 11px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--text-light); border-top: 2px solid var(--black); border-bottom: 1px solid var(--gray);
+    padding: 8px 0 8px 10px; margin: 32px 0 20px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .cat-header:first-of-type { margin-top: 0; }
+  .cat-header .cat-count { font-size: 11px; color: #aaa; font-weight: 400; letter-spacing: 0; }
+
+  /* Grid view */
+  .grid-view { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1px; background: var(--gray); }
+  .grid-view.hidden { display: none; }
+  .prod-card {
+    background: var(--white); display: flex; flex-direction: column;
+    transition: box-shadow 0.2s; cursor: default;
+  }
+  .prod-card:hover { box-shadow: 0 0 0 2px var(--black); z-index: 1; }
+  .prod-img {
+    width: 100%; aspect-ratio: 4/3; background: var(--gray-light);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; position: relative;
+  }
+  .prod-img img { width: 100%; height: 100%; object-fit: contain; padding: 16px; }
+  .prod-img .no-img { font-size: 40px; color: #ccc; }
+  .img-spinner {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    background: var(--gray-light); pointer-events: none;
+  }
+  .img-spinner::after {
+    content: ''; width: 28px; height: 28px; border-radius: 50%;
+    border: 3px solid #ddd; border-top-color: #999;
+    animation: spin 0.7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .img-spinner.done { display: none; }
+  .prod-img .cat-ribbon {
+    position: absolute; top: 12px; left: 10px; background: var(--white); border: 1px solid var(--black);
+    color: var(--black); font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    padding: 4px 10px; text-transform: uppercase;
+  }
+  .prod-info { padding: 16px; flex: 1; display: flex; flex-direction: column; }
+  .prod-name { font-size: 15px; font-weight: 900; color: var(--black); margin-bottom: 6px; line-height: 1.2; }
+  .prod-cal { display: inline-block; background: var(--yellow); color: var(--black); font-size: 10px; font-weight: 800; padding: 3px 8px; letter-spacing: 0.5px; margin-bottom: 10px; }
+  .prod-desc { font-size: 12px; color: var(--text-light); line-height: 1.6; flex: 1; }
+  .prod-footer {
+    padding: 12px 16px; border-top: 1px solid var(--gray);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .prod-tag { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #999; }
+  .enquire-btn {
+    background: var(--black); color: var(--white); border: none;
+    padding: 7px 14px; font-size: 11px; font-weight: 700; cursor: pointer;
+    font-family: inherit; letter-spacing: 0.5px; transition: background 0.15s;
+    text-decoration: none; display: inline-block;
+  }
+  .enquire-btn:hover { background: var(--red); }
+
+  /* List view */
+  .list-view { display: none; }
+  .list-view.show { display: block; }
+  .list-view table { width: 100%; border-collapse: collapse; }
+  .list-view thead tr { border-top: 2px solid var(--black); border-bottom: 2px solid var(--black); }
+  .list-view th { padding: 10px 12px; font-size: 11px; font-weight: 700; text-align: left; white-space: nowrap; cursor: pointer; }
+  .list-view th:hover { color: var(--red); }
+  .list-view td { padding: 14px 12px; border-bottom: 1px solid var(--gray); font-size: 13px; vertical-align: middle; }
+  .list-view tr:hover td { background: #fdf3c0; }
+  .list-thumb { width: 48px; height: 48px; object-fit: contain; background: var(--gray-light); padding: 4px; }
+  .list-no-img { width: 48px; height: 48px; background: var(--gray-light); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+
+  /* ── EMPTY ── */
+  .empty { text-align: center; padding: 60px 20px; }
+  .empty h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .empty p { color: var(--text-light); font-size: 14px; }
+
+  /* ── CTA STRIP ── */
+  .subscribe-strip { background: #ffffff; border-top: 1px solid #e0e0e0; }
+  .subscribe-strip > .pg-wrap { padding-top: 64px; padding-bottom: 64px; }
+  .subscribe-strip h2 { font-size: clamp(22px, 3.5vw, 34px); font-weight: 900; color: #000; letter-spacing: -0.5px; margin-bottom: 10px; }
+  .subscribe-strip .sub-intro { font-size: 15px; color: #555; margin-bottom: 44px; }
+  .sub-fields { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 40px; margin-bottom: 32px; }
+  .sub-field { display: flex; flex-direction: column; border-bottom: 1.5px solid #000; padding-bottom: 8px; margin-bottom: 8px; }
+  .sub-field label { font-size: 13px; font-weight: 700; color: #000; margin-bottom: 6px; }
+  .sub-field label span { color: #E31837; }
+  .sub-field input, .sub-field select { border: none; background: transparent; outline: none; font-size: 15px; font-family: inherit; color: #000; padding: 4px 0; -webkit-appearance: none; appearance: none; }
+  .sub-field input::placeholder { color: #aaa; }
+  .sub-field select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23000' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 4px center; padding-right: 20px; }
+  .sub-check { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 40px; }
+  .sub-check input[type=checkbox] { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; cursor: pointer; -webkit-appearance: none; appearance: none; border: 1.5px solid #000; border-radius: 0; background: transparent; position: relative; }
+  .sub-check input[type=checkbox]:checked::after { content: ""; position: absolute; left: 4px; top: 1px; width: 6px; height: 11px; border: 2px solid #000; border-top: none; border-left: none; transform: rotate(45deg); }
+  .sub-check label { font-size: 13px; color: #555; line-height: 1.55; cursor: pointer; }
+  .sub-footer-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .sub-required { font-size: 12px; color: #555; }
+  .sub-required a { color: #000; font-weight: 700; }
+  .sub-btn { background: #999; color: #fff; border: none; padding: 16px 36px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; white-space: nowrap; transition: background 0.15s; }
+  .sub-btn:hover { background: #000; }
+  .sub-ok { display: none; }
+  #sub-toast { position: fixed; bottom: 32px; right: 32px; background: #111; color: #fff; font-size: 14px; font-weight: 600; padding: 16px 24px; z-index: 9999; opacity: 0; transform: translateY(12px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; max-width: 340px; line-height: 1.4; }
+  #sub-toast.show { opacity: 1; transform: translateY(0); }
+
+  /* ── FOOTER ── */
+/* ── FOOTER ── */
+  footer { background: #000; }
+  .footer-main { display: block; padding: 80px 0; }
+  .footer-main > .pg-wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: start; }
+  .footer-brand-col { padding-right: 48px; }
+  .footer-logo { font-size: 28px; font-weight: 900; color: #fff; letter-spacing: -1px; margin-bottom: 24px; }
+  .footer-logo span { color: var(--red); font-size: 9px; vertical-align: super; }
+  .footer-desc { font-size: 14px; color: rgba(255,255,255,0.9); line-height: 1.4; max-width: 420px; }
+  .footer-divider { width: 1px; background: #2a2a2a; margin: 0 48px; align-self: stretch; }
+  .footer-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .footer-col-label { font-size: 11px; font-weight: 800; letter-spacing: 2px; color: var(--red); text-transform: uppercase; margin-bottom: 24px; }
+  .footer-col a { display: block; font-size: 14px; font-weight: 700; color: #fff; text-decoration: none; margin-bottom: 18px; transition: color 0.15s; }
+  .footer-col a:hover { color: rgba(255,255,255,0.5); }
+  .footer-bottom { border-top: 1px solid #e0e0e0; background: #fff; padding: 20px 0; }
+  .footer-bottom > .pg-wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .footer-copy { font-size: 13px; color: #000; font-weight: 500; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 767px) {
+    .util-bar { padding: 0 16px; }
+    .util-links a:not(.active) { display: none; }
+    .main-nav { padding: 0 16px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .brand { font-size: 18px; margin-right: 0; }
+    .hero { padding: 24px 0 0; }
+    .pg-wrap { padding: 0 20px; }
+    .filter-bar { padding: 16px 0 20px; flex-direction: column; align-items: stretch; gap: 16px; }
+    .filter-bar > .pg-wrap { flex-direction: column; align-items: stretch; gap: 16px; }
+    .fgrow { width: 100%; }
+    .filter-btns { flex-direction: column; }
+    .fbtn { width: 100%; }
+    .search-wrap { max-width: 100%; width: 100%; }
+    .filter-bar .fg[style] { flex: 0 0 100% !important; }
+    .toolbar > .pg-wrap { padding: 10px 20px; gap: 8px; }
+    .products-section { padding: 16px 0 40px; }
+    .products-section > .pg-wrap { padding-left: 20px; padding-right: 20px; }
+    .grid-view { grid-template-columns: repeat(2, 1fr); }
+    .cta-strip { padding: 36px 20px; }
+.footer-main { padding: 48px 0; }
+    .footer-main > .pg-wrap { grid-template-columns: 1fr; }
+    .footer-brand-col { padding-right: 0; margin-bottom: 36px; }
+    .footer-divider { display: none; }
+    .footer-cols { grid-template-columns: 1fr 1fr; }
+    .footer-bottom { padding: 16px 0; }
+    .footer-bottom > .pg-wrap { flex-direction: column; }
+  }
+  @media (max-width: 420px) {
+    .grid-view { grid-template-columns: 1fr; }
+  }
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .util-bar, .main-nav, .hero { padding-left: 20px; padding-right: 20px; }
+    .pg-wrap { padding: 0 20px; }
+    .grid-view { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+</head>
+<body>
+<!-- NAV -->
+<div class="main-nav">
+  <a href="index.html" class="brand">DefenceTrading<span>®</span></a>
+  <div class="nav-links">
+    <a href="about-us.html">About Us</a>
+    <a href="#" class="active">Products</a>
+    <a href="companies.html">Companies</a>
+    <a href="insights.html">Insights</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="about-us.html">About Us</a>
+    <a href="#" class="active">Products</a>
+    <a href="companies.html">Companies</a>
+    <a href="insights.html">Insights</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+<div class="pg-wrap">
+  <h1>Product catalogue</h1>
+  <div class="sub">Defence-grade ammunition, munitions &amp; ordnance supply</div>
+  <div class="notice-box">
+    Defence Trading supplies military and defence products through its licensed procurement network. All equipment is sourced exclusively from officially licensed and certified manufacturers and suppliers. Transactions are conducted in compliance with applicable export control regulations, end-user certification requirements, and relevant government authorisations. Please contact Defence Trading directly for pricing, availability, and compliance documentation.
+  </div>
+</div>
+</div>
+
+<!-- FILTERS -->
+<div class="filter-bar">
+<div class="pg-wrap">
+  <div class="fg fgrow">
+    <div class="fg-label">Category</div>
+    <div class="filter-btns">
+      <button class="fbtn active" id="fcat-btn" onclick="setCat('')">
+        All categories <span class="chev">▼</span>
+        <select id="f-cat" onchange="setCatFromSelect()">
+          <option value="">All categories</option>
+          <option>Standard Ammunition</option>
+          <option>Non-Standard Ammunition</option>
+          <option>Mortar Shells</option>
+          <option>Artillery Ammunition</option>
+          <option>Ammo Grenades</option>
+          <option>Mortars</option>
+          <option>Rockets &amp; Components</option>
+          <option>Fuzes &amp; Components</option>
+          <option>Ammo Boxes &amp; Tubes</option>
+          <option>AI Systems</option>
+        </select>
+      </button>
+    </div>
+  </div>
+  <div class="fg" style="flex:0 0 380px;">
+    <div class="fg-label">Find products by</div>
+    <div class="search-wrap">
+      <input class="search-input" type="text" id="f-search" placeholder="Search by name or calibre..." oninput="applyFilters()">
+      <button class="search-btn"><svg viewBox="0 0 24 24"><path d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1 0 6.15 6.15a7.5 7.5 0 0 0 10.5 10.5z" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+<div class="pg-wrap">
+  <div class="view-toggle">
+    <button class="vtbtn active" id="vt-grid" onclick="setView('grid')" title="Grid view">⊞</button>
+    <button class="vtbtn" id="vt-list" onclick="setView('list')" title="List view">☰</button>
+  </div>
+  <button class="dl-btn" onclick="exportCSV()">⬇ Download</button>
+  <button class="reset-btn" onclick="resetAll()">↺ Reset all</button>
+  <div class="count-label">Showing <strong id="count-num">0</strong> products</div>
+</div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="products-section" id="products-section">
+<div class="pg-wrap">
+  <div class="grid-view" id="grid-view"></div>
+  <div class="list-view" id="list-view">
+    <table>
+      <thead><tr>
+        <th style="width:60px;"></th>
+        <th onclick="sortList('name')">Product Name</th>
+        <th onclick="sortList('calibre')">Calibre</th>
+        <th onclick="sortList('category')">Category</th>
+        <th onclick="sortList('type')">Type</th>
+        <th></th>
+      </tr></thead>
+      <tbody id="list-tbody"></tbody>
+    </table>
+  </div>
+  <div id="empty" class="empty" style="display:none;">
+    <h3>No products found</h3>
+    <p>Try adjusting your search or filters.</p>
+  </div>
+</div>
+</div>
+
+<!-- CTA -->
+<!-- SUBSCRIBE STRIP -->
+<div class="subscribe-strip">
+<div class="pg-wrap">
+  <h2>Subscribe to Defence Trading's Insights</h2>
+  <p class="sub-intro">To receive the latest procurement intelligence, product updates, and market analysis — sign up below.</p>
+  <form onsubmit="return subscribeForm(this)">
+    <div class="sub-fields">
+      <div class="sub-field">
+        <label>Email <span>*</span></label>
+        <input type="email" placeholder="Work email address" required>
+      </div>
+      <div class="sub-field">
+        <label>Location <span>*</span></label>
+        <select required>
+          <option value="" disabled selected></option>
+          <option>United Arab Emirates</option>
+          <option>United States</option>
+          <option>United Kingdom</option>
+          <option>Germany</option>
+          <option>France</option>
+          <option>Poland</option>
+          <option>Saudi Arabia</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="sub-field">
+        <label>Company <span>*</span></label>
+        <input type="text" placeholder="Your organisation" required>
+      </div>
+    </div>
+    <div class="sub-check">
+      <input type="checkbox" id="sub-consent" required>
+      <label for="sub-consent">Please click here to opt-in to receiving procurement insights and marketing communications from Defence Trading. Data collected will be processed in accordance with our privacy notice. You may unsubscribe at any time.</label>
+    </div>
+    <div class="sub-footer-row">
+      <div class="sub-required">*Required information &nbsp;|&nbsp; Read our <a href="privacy.html">Privacy notice</a></div>
+      <button type="submit" class="sub-btn">Subscribe to Defence Trading</button>
+    </div>
+    <div class="sub-ok">&#10003; Thank you — you're now subscribed. We'll be in touch.</div>
+  </form>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-main">
+  <div class="pg-wrap">
+    <div class="footer-brand-col">
+      <div class="footer-logo">DefenceTrading<span>®</span></div>
+      <p class="footer-desc">As a defence trader, our role is to connect governments, armed forces, and defence contractors with certified military products through compliant and established procurement channels. We work exclusively with licensed enterprises and authorised suppliers, ensuring that all equipment is sourced from certified manufacturers and delivered in accordance with applicable regulatory and export control requirements.</p>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <div class="footer-col-label">Corporate</div>
+        <a href="about-us.html">About Us</a>
+        <a href="insights.html">Global Insights</a>
+        <a href="products.html">Products</a>
+        <a href="companies.html">Companies</a>
+        <a href="index.html#contact">Contact Us</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Legal</div>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Notice</a>
+        <a href="export-control.html">Export Control Policy</a>
+        <a href="end-user-certification.html">End-User Certification</a>
+        <a href="cookies.html">Cookie Notice</a>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="footer-bottom">
+  <div class="pg-wrap">
+    <span class="footer-copy">© 2026 Defence Trading. All rights reserved.</span>
+  </div>
+  </div>
+</footer>
+
+<script>
+const PRODUCTS = [
+  // ── AI SYSTEMS ───────────────────────────────────────────────
+  {
+    id: 32, name: "Arcana Precision", calibre: "AI threat detection", category: "AI Systems", type: "AI Software",
+    desc: "AI-powered precision targeting and fire control system by Arcana. Delivers advanced autonomous targeting solutions for modern defence platforms.",
+    img: "https://arcanamace.com/icon-512.png",
+    url: "https://arcanamace.com/arcana-precision",
+    tags: ["AI", "Precision", "Targeting", "Autonomous"]
+  },
+
+  // ── STANDARD AMMUNITION ──────────────────────────────────────
+  {
+    id: 1, name: "CAL 9×19MM", calibre: "9×19mm", category: "Standard Ammunition", type: "Handgun",
+    desc: "NATO-standard 9mm Parabellum pistol round. Widely used by military, police, and security forces globally. Available in FMJ, HP, and tracer variants.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=194,h=238,fit=crop/mePLErEQM3S6lbg2/caliber-9x19mm-2.pdf-dwxwbyqop6iqdnqv-AMqnZLrPRBSppzn9.png",
+    tags: ["NATO", "Pistol", "FMJ"]
+  },
+  {
+    id: 2, name: "CAL 5.56×45MM", calibre: "5.56×45mm", category: "Standard Ammunition", type: "Rifle",
+    desc: "NATO standard intermediate rifle cartridge. Optimised for assault rifles including M16, M4, and STANAG-compatible platforms. Available in SS109/M855 ball and tracer.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=278,h=346,fit=crop/mePLErEQM3S6lbg2/beluga---product-catalogue-10-aop6gvkr8os2gbwv-m6LvGW5ONPT4p6W2.png",
+    tags: ["NATO", "Rifle", "STANAG"]
+  },
+  {
+    id: 3, name: "CAL 7.62×51MM", calibre: "7.62×51mm", category: "Standard Ammunition", type: "Rifle / MG",
+    desc: "NATO standard rifle and machine gun cartridge. Used in FN MAG, M60, M240, and precision rifles. High reliability and terminal performance.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=242,h=297,fit=crop/mePLErEQM3S6lbg2/beluga---product-catalogue-13-a3qpjwb88ktjln0b-A85pGnkyWeuyoBnk.png",
+    tags: ["NATO", "Rifle", "MG"]
+  },
+  {
+    id: 4, name: "CAL 7.62×63MM", calibre: "7.62×63mm", category: "Standard Ammunition", type: "Rifle",
+    desc: ".30-06 Springfield round with proven combat heritage. Available for M1 Garand, M1919, and legacy platforms requiring this calibre.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=400,h=354,fit=crop/mePLErEQM3S6lbg2/beluga---product-catalogue-11-mep1nvkoklhl4lll-A0xNG7KQEbU7NMbQ.png",
+    tags: ["Rifle", "Legacy"]
+  },
+  {
+    id: 5, name: "CAL 7.9×57MM", calibre: "7.9×57mm", category: "Standard Ammunition", type: "Rifle",
+    desc: "8mm Mauser — widely fielded in legacy weapon systems across the Middle East and Africa. Available in ball and AP configurations.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=242,h=297,fit=crop/mePLErEQM3S6lbg2/7.9x57mm.pdf-mnl69vvzqwi9x7gq-AE0pGZqNwRfwRp1O.png",
+    tags: ["Rifle", "Legacy", "AP"]
+  },
+  {
+    id: 6, name: "CAL 12.7×99MM", calibre: "12.7×99mm", category: "Standard Ammunition", type: "Heavy MG",
+    desc: ".50 BMG — NATO heavy machine gun and anti-materiel round for M2HB, M107, and other heavy platforms. Ball, AP, and API variants available.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=327,h=256,fit=crop/mePLErEQM3S6lbg2/beluga---product-catalogue-14-mnl69vwz8mfwpo9n-mePLwp5p7zUlPMvq.png",
+    tags: ["NATO", "Heavy MG", "API"]
+  },
+
+  // ── NON-STANDARD AMMUNITION ─────────────────────────────────
+  {
+    id: 7, name: "CAL 7.62×54R", calibre: "7.62×54R", category: "Non-Standard Ammunition", type: "Rifle / MG",
+    desc: "Russian rimmed cartridge for PKM, SVD Dragunov, and Mosin-Nagant platforms. Extensive stockpiles available. Ball, PS, and armour-piercing variants.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=308,h=304,fit=crop/mePLErEQM3S6lbg2/7.62x39mm-aop6gvka44u1jrgk-d95pGwJlJGT6eDaX.png",
+    tags: ["Russian", "Rifle", "MG"]
+  },
+  {
+    id: 31, name: "CAL 82MM HE M71", calibre: "82mm", category: "Non-Standard Ammunition", type: "HE Mortar",
+    desc: "82mm High Explosive mortar bomb M71 listed under non-standard supply. Compatible with Soviet-pattern 82mm mortar systems. Available through non-NATO procurement channels with full compliance documentation.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=400,h=305,fit=crop/mePLErEQM3S6lbg2/beluga---product-catalogue-15-aq26ov5xxgszloxv-ALpJMx48E3tJO5gL.png",
+    tags: ["HE", "82mm", "Soviet-pattern", "Non-Standard"]
+  },
+  {
+    id: 8, name: "CAL 12.7×108MM", calibre: "12.7×108mm", category: "Non-Standard Ammunition", type: "Heavy MG",
+    desc: "Soviet/Russian heavy machine gun round for DShK, NSV, and Kord platforms. High-penetration API and HEI variants available for anti-materiel use.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=400,h=447,fit=crop/mePLErEQM3S6lbg2/beluga---product-catalogue-16-m5k2bwz2nxcrav3b-YBgpGnNaR8TkVXLG.png",
+    tags: ["Russian", "Heavy MG", "API"]
+  },
+
+  // ── MORTAR SHELLS ───────────────────────────────────────────
+  {
+    id: 9, name: "CAL 60MM HE M73", calibre: "60mm", category: "Mortar Shells", type: "HE Mortar",
+    desc: "60mm High Explosive mortar bomb M73. Lightweight, man-portable indirect fire support for light infantry. Reliable fuzing and fragmentation performance.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=143,h=351,fit=crop/mePLErEQM3S6lbg2/beluga---product-catalogue-17-mp47q2jw87fdmee9-A85pGK0yXpIvNG2w.png",
+    tags: ["HE", "60mm", "Infantry"]
+  },
+  {
+    id: 10, name: "CAL 82MM HE M71", calibre: "82mm", category: "Mortar Shells", type: "HE Mortar",
+    desc: "82mm High Explosive mortar bomb M71. Compatible with Soviet-pattern 82mm mortar systems. High fragmentation yield and reliable all-weather fuzing.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=278,h=349,fit=crop/mePLErEQM3S6lbg2/10---82-mm-he-mortar-bomb-m71-small-m5k2bmoqdqspjvvk-AzGrPwVELqcDrNBg.png",
+    tags: ["HE", "82mm", "Soviet-pattern"]
+  },
+  {
+    id: 11, name: "CAL 120MM HE M62 P3", calibre: "120mm", category: "Mortar Shells", type: "HE Mortar",
+    desc: "120mm Heavy mortar bomb HE M62 P3. Maximum indirect fire lethality for heavy mortar platforms. Extended range, high-explosive payload with multi-option fuze.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=400,h=500,fit=crop/mePLErEQM3S6lbg2/6049c5e0-2b58-412e-9c3a-e7c9b1c6c6ed-awvjkdvoxbtlnm87-ALpJMkr0JjUjeZPJ.png",
+    tags: ["HE", "120mm", "Heavy"]
+  },
+
+  // ── ARTILLERY AMMUNITION ────────────────────────────────────
+  {
+    id: 12, name: "CAL 122MM HE TF-462", calibre: "122mm", category: "Artillery Ammunition", type: "HE Artillery",
+    desc: "122mm High Explosive artillery round TF-462 for D-30 howitzers and BM-21 MLRS. Widely fielded across the Middle East, Africa, and Eastern Europe. Time fuze variant.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=256,h=321,fit=crop/mePLErEQM3S6lbg2/04---122-mm-he-tf-462-small-yrd6nwzq6gc4zwko-AQEJBOQvJKs3NVvV.png",
+    tags: ["HE", "122mm", "Howitzer"]
+  },
+  {
+    id: 13, name: "CAL 152MM HE M71", calibre: "152mm", category: "Artillery Ammunition", type: "HE Artillery",
+    desc: "152mm High Explosive artillery shell M71 for Soviet/Russian D-20 and 2S3 Akatsiya self-propelled howitzers. Heavy fire support with large fragmentation radius.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=256,h=321,fit=crop/mePLErEQM3S6lbg2/07---152-mm-he-m107-small-3-ykbar315zksewjeb-mP4p1awLO2FnGN8p.png",
+    tags: ["HE", "152mm", "SPH"]
+  },
+  {
+    id: 14, name: "CAL 155MM HE M107", calibre: "155mm", category: "Artillery Ammunition", type: "HE Artillery",
+    desc: "155mm NATO-standard High Explosive artillery projectile M107. Compatible with M109 Paladin, M198, M777, and all NATO 155mm artillery systems. Standard NATO stock number.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=352,h=440,fit=crop/mePLErEQM3S6lbg2/07---155-mm-he-m107-small-d953g1wwbdfempkz-Aq2Bw31XGecDG78x.png",
+    tags: ["HE", "155mm", "NATO", "M109"]
+  },
+
+  // ── AMMO GRENADES ────────────────────────────────────────────
+  {
+    id: 15, name: "CAL 40×46MM HE M6P", calibre: "40×46mm", category: "Ammo Grenades", type: "Grenade",
+    desc: "40×46mm Low-velocity High Explosive grenade round M6P. Designed for single-shot and rotary grenade launchers such as the M79 and M203. Effective area burst fragmentation.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=271,h=288,fit=crop,trim=51.73891625615764;344.0416666666667;61.320197044334975;17.25/mePLErEQM3S6lbg2/beluga---product-catalogue-7-aq26oeme1vspdekp-A0xNG5EMWKhe0P1D.png",
+    tags: ["HE", "40mm", "Grenade Launcher"]
+  },
+  {
+    id: 16, name: "CAL 40×53MM HE M9", calibre: "40×53mm", category: "Ammo Grenades", type: "Grenade",
+    desc: "40×53mm High-velocity High Explosive grenade round M9. For automatic grenade launchers including Mk 19 and HK GMG. High rate of fire capability with consistent performance.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=307,h=359,fit=crop,trim=21.302380952380954;43.497764530551414;35.195238095238096;293.3785394932936/mePLErEQM3S6lbg2/beluga---product-catalogue-7-aq26oeme1vspdekp-A0xNG5EMWKhe0P1D.png",
+    tags: ["HE", "40mm", "Auto Grenade Launcher"]
+  },
+
+  // ── MORTARS ──────────────────────────────────────────────────
+  {
+    id: 17, name: "60MM MORTAR M57", calibre: "60mm", category: "Mortars", type: "Mortar System",
+    desc: "60mm light infantry mortar M57. Compact, man-portable system ideal for platoon-level fire support. Simple operation with high rate of fire and minimal crew requirement.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=330,h=315,fit=crop/mePLErEQM3S6lbg2/60mm-m7-mp86qrzxxrtpeqle-Aq2BgzbZWDFpnGaX.png",
+    tags: ["60mm", "Light", "Infantry"]
+  },
+  {
+    id: 18, name: "81MM M69B / 82MM M69A", calibre: "81mm / 82mm", category: "Mortars", type: "Mortar System",
+    desc: "Medium mortar system available in NATO 81mm (M69B) and Soviet-pattern 82mm (M69A) variants. Company-level fire support with bipod, baseplate, and sight unit included.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=317,h=339,fit=crop/mePLErEQM3S6lbg2/81mm-m69b-ynqpp0jxvpuwjl5q-mePLq0EGWwt1OeVX.png",
+    tags: ["81mm", "82mm", "Medium", "NATO / Soviet"]
+  },
+  {
+    id: 19, name: "60MM M70 COMMANDO", calibre: "60mm", category: "Mortars", type: "Mortar System",
+    desc: "60mm Commando mortar M70. Ultralight variant for special operations and commando units. Fired from the hand without a baseplate for rapid deployment in confined terrain.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=252,h=349,fit=crop/mePLErEQM3S6lbg2/bulkwark-commando-ar07mrr6j3fjyevq-mv0jr9wbLZFVxNkj.png",
+    tags: ["60mm", "Commando", "Special Operations"]
+  },
+  {
+    id: 20, name: "120MM M74 / M75", calibre: "120mm", category: "Mortars", type: "Mortar System",
+    desc: "120mm heavy mortar system M74/M75. Provides battalion-level heavy fire support with long range and large HE payload. Towed or vehicle-mounted configurations available.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=297,h=372,fit=crop/mePLErEQM3S6lbg2/120mm-m74-m2wlazv7vmhneegd-A85pQkQpzMhLQgxp.png",
+    tags: ["120mm", "Heavy", "Battalion Support"]
+  },
+
+  // ── ROCKETS & COMPONENTS ─────────────────────────────────────
+  {
+    id: 21, name: "122MM ROCKET", calibre: "122mm", category: "Rockets & Components", type: "Rocket",
+    desc: "122mm unguided artillery rocket for BM-21 Grad and compatible MLRS platforms. High explosive warhead with extended range for deep fire support missions.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=256,h=399,fit=crop/mePLErEQM3S6lbg2/122-mm-rocket-m7vm5o2omjhl7wxn-ALpJyDalZgFeWK4V.png",
+    tags: ["122mm", "MLRS", "BM-21"]
+  },
+  {
+    id: 22, name: "122MM ROCKET COMPONENTS", calibre: "122mm", category: "Rockets & Components", type: "Components",
+    desc: "Sub-components and spare parts for 122mm rocket systems. Includes warheads, propellant charges, fuzes, and tail assemblies. Available individually or as complete assembly kits.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=107,h=498,fit=crop/mePLErEQM3S6lbg2/beluga---product-catalogue-20-mp472g7gqrfbvwg3-AR0J8nRqeBFNeNMx.png",
+    tags: ["122mm", "Components", "Spare Parts"]
+  },
+
+  // ── FUZES & COMPONENTS ───────────────────────────────────────
+  {
+    id: 23, name: "UTU M78 (AU 29)", calibre: "Multi", category: "Fuzes & Components", type: "Fuze",
+    desc: "Point-detonating fuze UTU M78 / AU 29. Instantaneous or delay action. Compatible with a range of artillery and mortar projectiles. High reliability under operational conditions.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=259,h=317,fit=crop/mePLErEQM3S6lbg2/utu-m78-yle6qjbpjeizxbep-m6LvQqznnLFov25o.png",
+    tags: ["Fuze", "Point-Detonating", "Artillery"]
+  },
+  {
+    id: 24, name: "UTU M68 P1", calibre: "Multi", category: "Fuzes & Components", type: "Fuze",
+    desc: "Point-detonating fuze UTU M68 P1 with superquick and delay modes. Designed for mortar bombs and artillery shells. Robust construction for all-weather reliability.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=252,h=314,fit=crop/mePLErEQM3S6lbg2/utm6-81-a3qpoedn1otnrkbp-A85pQqNMqki8aZOB.png",
+    tags: ["Fuze", "Point-Detonating", "Mortar"]
+  },
+  {
+    id: 25, name: "AU 32", calibre: "Multi", category: "Fuzes & Components", type: "Fuze",
+    desc: "Time and superquick fuze AU 32. Mechanical time setting for airburst and ground burst modes. Suitable for artillery shells requiring variable detonation timing.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=237,h=365,fit=crop/mePLErEQM3S6lbg2/au-32-a3qpoek9dxuzvqvg-YBgp9LqwR6FXPqrL.png",
+    tags: ["Fuze", "Time Fuze", "Airburst"]
+  },
+  {
+    id: 26, name: "AU-62", calibre: "Multi", category: "Fuzes & Components", type: "Fuze",
+    desc: "Point-detonating and delay fuze AU-62. Used with medium and large calibre artillery projectiles. Dual-mode operation for use against hardened and soft targets.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=273,h=394,fit=crop/mePLErEQM3S6lbg2/au62-1-mp472gew8ntr30xv-mP4plwDRnxsLaOr3.png",
+    tags: ["Fuze", "Delay", "Artillery"]
+  },
+  {
+    id: 27, name: "COMPONENTS", calibre: "Multi", category: "Fuzes & Components", type: "Components",
+    desc: "Fuze sub-components and assembly parts compatible with a range of artillery and mortar systems. Includes springs, detonators, booster cups, and housing assemblies for maintenance and overhaul.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=328,h=402,fit=crop/mePLErEQM3S6lbg2/bulwark-fuze-ykbae4y6vvizw27l-dJoJQEqg42fR2Zpz.png",
+    tags: ["Fuze", "Electronic", "Mortar"]
+  },
+
+  // ── AMMO BOXES & TUBES ───────────────────────────────────────
+  {
+    id: 28, name: "120MM MORTAR SHELL BOX", calibre: "120mm", category: "Ammo Boxes & Tubes", type: "Storage",
+    desc: "Ammunition storage and transport box for 120mm mortar shells. Sealed construction for environmental protection during storage and transit. Stackable for efficient logistics.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=400,h=291,fit=crop/mePLErEQM3S6lbg2/beluga---product-catalogue-21-aq26qeyegkulj41o-AwvrgEgZkNIllRqw.png",
+    tags: ["120mm", "Storage", "Packaging"]
+  },
+  {
+    id: 29, name: "122MM GRAD ROCKET BOX", calibre: "122mm", category: "Ammo Boxes & Tubes", type: "Storage",
+    desc: "Ammunition transport crate for 122mm BM-21 Grad rockets. Robust wooden and metal construction. Designed to hold two rockets with protective padding and securing hardware.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=286,h=300,fit=crop/mePLErEQM3S6lbg2/beluga---product-catalogue-23-mp86q5egpgu4n3gz-mk3Dg2gzo6hq0KeP.png",
+    tags: ["122mm", "Rocket", "Storage"]
+  },
+  {
+    id: 30, name: "120MM MORTAR SHELL TUBE", calibre: "120mm", category: "Ammo Boxes & Tubes", type: "Storage",
+    desc: "Plastic transport tube for individual 120mm mortar shells. Lightweight, weatherproof, and pressure-sealed. Ideal for forward deployment and rapid individual round distribution.",
+    img: "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=153,h=472,fit=crop/mePLErEQM3S6lbg2/beluga---product-catalogue-24-awvjdnloknikj6lm-AE0pQ5wz7JFXD7Dm.png",
+    tags: ["120mm", "Tube", "Packaging"]
+  },
+
+];
+
+const CAT_COLORS = {
+  "Standard Ammunition":     "#1a56db",
+  "Non-Standard Ammunition": "#7c3aed",
+  "Mortar Shells":           "#0a7c42",
+  "Artillery Ammunition":    "#b45309",
+  "Ammo Grenades":           "#c2410c",
+  "Mortars":                 "#0e7490",
+  "Rockets & Components":    "#be123c",
+  "Fuzes & Components":      "#4d7c0f",
+  "Ammo Boxes & Tubes":      "#6b7280",
+  "AI Systems":              "#0f172a",
+};
+
+let filtered = [...PRODUCTS], currentView = 'grid', activeCat = '', sortCol = 'id', sortDir = 1;
+
+function applyFilters() {
+  const q   = document.getElementById('f-search').value.toLowerCase();
+  const cat = document.getElementById('f-cat').value || activeCat;
+  filtered = PRODUCTS.filter(p => {
+    if (cat && p.category !== cat) return false;
+    if (q && !p.name.toLowerCase().includes(q) && !p.calibre.toLowerCase().includes(q) && !p.desc.toLowerCase().includes(q)) return false;
+    return true;
+  });
+  document.getElementById('count-num').textContent = filtered.length;
+  renderGrid();
+  renderList();
+}
+
+function setCat(cat) {
+  activeCat = cat;
+  document.getElementById('f-cat').value = cat;
+  const btn = document.getElementById('fcat-btn');
+  btn.className = 'fbtn' + (cat ? ' active' : ' active');
+  btn.querySelector('.fbtn').innerHTML; // no-op
+  // Update label text (first text node)
+  const label = cat || 'All categories';
+  btn.childNodes[0].textContent = label + ' ';
+  applyFilters();
+}
+
+function setCatFromSelect() {
+  activeCat = document.getElementById('f-cat').value;
+  const val = activeCat || 'All categories';
+  const btn = document.getElementById('fcat-btn');
+  btn.firstChild.textContent = val + ' ';
+  btn.className = 'fbtn active';
+  applyFilters();
+}
+
+function setView(v) {
+  currentView = v;
+  document.getElementById('grid-view').className = 'grid-view' + (v==='grid' ? '' : ' hidden');
+  document.getElementById('list-view').className = 'list-view' + (v==='list' ? ' show' : '');
+  document.getElementById('vt-grid').className = 'vtbtn' + (v==='grid' ? ' active' : '');
+  document.getElementById('vt-list').className = 'vtbtn' + (v==='list' ? ' active' : '');
+}
+
+function renderGrid() {
+  const gv = document.getElementById('grid-view');
+  const empty = document.getElementById('empty');
+  if (!filtered.length) { gv.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display='none';
+
+  // Group by category
+  const cats = {};
+  filtered.forEach(p => { (cats[p.category]=cats[p.category]||[]).push(p); });
+
+  let html = '';
+  for (const [cat, prods] of Object.entries(cats)) {
+    const col = CAT_COLORS[cat] || '#555';
+    html += `</div><div class="cat-header" style="grid-column:1/-1;">
+      <span style="color:#000;">${cat}</span>
+      <span class="cat-count">${prods.length} item${prods.length>1?'s':''}</span>
+    </div>`;
+    prods.forEach(p => { html += prodCard(p); });
+  }
+  // Remove leading </div>
+  gv.innerHTML = html.replace(/^<\/div>/, '');
+}
+
+function prodCard(p) {
+  const imgHtml = p.img
+    ? `<div class="img-spinner" id="sp-${p.id}"></div><img src="${p.img}" alt="${p.name}" loading="lazy" onload="document.getElementById('sp-${p.id}').classList.add('done')" onerror="this.parentElement.innerHTML='<div class=\\'no-img\\'>🎯</div>'">`
+    : `<div class="no-img">🎯</div>`;
+  const catColor = CAT_COLORS[p.category] || '#555';
+  return `<div class="prod-card">
+    <div class="prod-img">
+      ${imgHtml}
+      <div class="cat-ribbon">${p.type}</div>
+    </div>
+    <div class="prod-info">
+      <div class="prod-name">${p.name}</div>
+      <span class="prod-cal">${p.calibre}</span>
+      <div class="prod-desc">${p.desc}</div>
+    </div>
+    <div class="prod-footer">
+      <a href="${p.url || 'index.html#contact'}" class="enquire-btn" ${p.url ? 'target="_blank" rel="noopener"' : ''}>Enquire →</a>
+    </div>
+  </div>`;
+}
+
+function renderList() {
+  const tbody = document.getElementById('list-tbody');
+  tbody.innerHTML = filtered.map(p => `
+    <tr>
+      <td>${p.img ? `<img class="list-thumb" src="${p.img}" alt="${p.name}" loading="lazy">` : `<div class="list-no-img">🎯</div>`}</td>
+      <td><strong>${p.name}</strong><br><span style="font-size:11px;color:#999;">${p.tags.join(' · ')}</span></td>
+      <td style="font-size:13px;font-weight:700;">${p.calibre}</td>
+      <td><span style="font-size:11px;font-weight:700;color:${CAT_COLORS[p.category]||'#555'};">${p.category}</span></td>
+      <td style="font-size:12px;color:#555;">${p.type}</td>
+      <td><a href="${p.url || 'index.html#contact'}" class="enquire-btn" style="white-space:nowrap;" ${p.url ? 'target="_blank" rel="noopener"' : ''}>Enquire →</a></td>
+    </tr>
+  `).join('');
+}
+
+function sortList(col) {
+  if (sortCol===col) sortDir*=-1; else { sortCol=col; sortDir=1; }
+  filtered.sort((a,b)=>{
+    const av=(a[col]||'').toLowerCase(), bv=(b[col]||'').toLowerCase();
+    return av<bv?-sortDir:av>bv?sortDir:0;
+  });
+  renderList();
+}
+
+function resetAll() {
+  document.getElementById('f-search').value='';
+  document.getElementById('f-cat').value='';
+  activeCat='';
+  document.getElementById('fcat-btn').firstChild.textContent='All categories ';
+  applyFilters();
+}
+
+function exportCSV() {
+  const h=['Name','Calibre','Category','Type','Description'];
+  const rows=filtered.map(p=>[`"${p.name}"`,p.calibre,p.category,p.type,`"${p.desc.replace(/"/g,"'")}"`]);
+  const csv=[h,...rows].map(r=>r.join(',')).join('\n');
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download='defence-products.csv'; a.click();
+}
+
+function toggleMenu() {
+  document.getElementById('mobile-nav').classList.toggle('open');
+}
+
+window.onload = () => {
+  const sp = new URLSearchParams(window.location.search);
+  const sq = sp.get('search');
+  if (sq) document.getElementById('f-search').value = sq;
+  applyFilters();
+};
+
+async function subscribeForm(f) {
+  const email   = f.querySelector('input[type=email]').value.trim();
+  const company = (f.querySelector('.sub-field input[type=text]') || {value:''}).value.trim();
+  const btn     = f.querySelector('.sub-btn');
+  const orig    = btn.textContent;
+  btn.disabled  = true;
+  btn.textContent = 'Submitting…';
+  try {
+    const res = await fetch('/subscribe', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email, company})
+    });
+    const d = await res.json();
+    if (d.ok) {
+      f.reset();
+      btn.disabled = false;
+      btn.textContent = orig;
+      showSubToast("You have subscribed to Defence Trading's Insights.");
+    } else {
+      btn.disabled = false;
+      btn.textContent = orig;
+      showSubToast('Could not subscribe — please try again.');
+    }
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = orig;
+  }
+  return false;
+}
+function showSubToast(msg) {
+  const t = document.getElementById('sub-toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 4000);
+}
+</script>
+<div id="sub-toast"></div>
+</body>
+</html>

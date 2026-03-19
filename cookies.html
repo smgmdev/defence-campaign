@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cookie Notice — Defence Trading</title>
+<style>
+  html { scrollbar-gutter: stable; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --yellow: #F5C400; --black: #000000; --red: #E31837; --white: #ffffff;
+    --gray-light: #f5f5f5; --gray: #e0e0e0; --navy: #0a1628;
+    --text: #1a1a1a; --text-light: #666;
+  }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--white); color: var(--text); }
+  .pg-wrap { max-width: 1440px; margin: 0 auto; padding: 0 48px; }
+  /* NAV */
+  .main-nav { background: var(--white); border-bottom: 1px solid var(--gray); padding: 0 32px; display: flex; align-items: center; height: 56px; position: sticky; top: 0; z-index: 200; }
+  .brand { font-size: 22px; font-weight: 900; color: var(--black); text-decoration: none; margin-right: 40px; letter-spacing: -1px; flex-shrink: 0; }
+  .brand span { color: var(--red); font-size: 8px; vertical-align: super; }
+  .nav-links { display: flex; flex: 1; }
+  .nav-links a { color: var(--text); text-decoration: none; padding: 0 14px; height: 56px; display: flex; align-items: center; font-size: 13px; font-weight: 500; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.15s; }
+  .nav-links a:hover { border-bottom-color: var(--black); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; margin-left: auto; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--black); }
+  .mobile-nav { display: none; position: absolute; top: 56px; left: 0; right: 0; background: var(--white); border-bottom: 2px solid var(--black); z-index: 200; flex-direction: column; }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a { padding: 14px 20px; font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--gray); }
+  /* LEGAL LAYOUT */
+  .legal-header { border-bottom: 1px solid var(--gray); padding: 48px 0 36px; }
+  .legal-label { font-size: 11px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .legal-title { font-size: clamp(28px, 4vw, 48px); font-weight: 900; color: var(--black); letter-spacing: -1px; line-height: 1.05; margin-bottom: 16px; }
+  .legal-date { font-size: 13px; color: var(--text-light); }
+  .legal-body { max-width: 820px; padding: 56px 0 100px; }
+  .legal-body h2 { font-size: 18px; font-weight: 800; color: var(--black); margin: 40px 0 12px; letter-spacing: -0.2px; }
+  .legal-body h2:first-child { margin-top: 0; }
+  .legal-body p { font-size: 15px; line-height: 1.75; color: var(--text); margin-bottom: 18px; }
+  .legal-body ul { padding-left: 22px; margin-bottom: 18px; }
+  .legal-body li { font-size: 15px; line-height: 1.75; color: var(--text); margin-bottom: 8px; }
+  .legal-body a { color: var(--black); font-weight: 700; }
+  .rule { border: none; border-top: 1px solid var(--gray); margin: 36px 0; }
+  /* FOOTER */
+  footer { background: #000; }
+  .footer-main { display: block; padding: 80px 0; }
+  .footer-main > .pg-wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: start; }
+  .footer-brand-col { padding-right: 48px; }
+  .footer-logo { font-size: 28px; font-weight: 900; color: #fff; letter-spacing: -1px; margin-bottom: 24px; }
+  .footer-logo span { color: var(--red); font-size: 9px; vertical-align: super; }
+  .footer-desc { font-size: 14px; color: rgba(255,255,255,0.9); line-height: 1.4; max-width: 420px; }
+  .footer-divider { width: 1px; background: #2a2a2a; margin: 0 48px; align-self: stretch; }
+  .footer-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .footer-col-label { font-size: 11px; font-weight: 800; letter-spacing: 2px; color: var(--red); text-transform: uppercase; margin-bottom: 24px; }
+  .footer-col a { display: block; font-size: 14px; font-weight: 700; color: #fff; text-decoration: none; margin-bottom: 18px; transition: color 0.15s; }
+  .footer-col a:hover { color: rgba(255,255,255,0.5); }
+  .footer-bottom { border-top: 1px solid #e0e0e0; background: #fff; padding: 20px 0; }
+  .footer-bottom > .pg-wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .footer-copy { font-size: 13px; color: #000; font-weight: 500; }
+  @media (max-width: 767px) {
+    .main-nav { padding: 0 16px; } .nav-links { display: none; } .hamburger { display: flex; }
+    .brand { font-size: 18px; margin-right: 0; } .pg-wrap { padding: 0 20px; }
+    .legal-body { padding: 40px 0 64px; }
+    .footer-main { padding: 48px 0; } .footer-main > .pg-wrap { grid-template-columns: 1fr; }
+    .footer-brand-col { padding-right: 0; margin-bottom: 36px; } .footer-divider { display: none; }
+    .footer-bottom { padding: 16px 0; } .footer-bottom > .pg-wrap { flex-direction: column; }
+  }
+</style>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+</head>
+<body>
+<nav class="main-nav">
+  <a href="index.html" class="brand">DefenceTrading<span>®</span></a>
+  <div class="nav-links">
+    <a href="about-us.html">About Us</a>
+    <a href="products.html">Products</a>
+    <a href="companies.html">Companies</a>
+    <a href="insights.html">Insights</a>
+  </div>
+  <div class="hamburger" onclick="this.closest('nav').nextElementSibling.classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-nav">
+  <a href="about-us.html">About Us</a>
+  <a href="products.html">Products</a>
+  <a href="companies.html">Companies</a>
+  <a href="insights.html">Insights</a>
+</div>
+
+<div class="pg-wrap">
+  <div class="legal-header">
+    <div class="legal-label">Legal</div>
+    <h1 class="legal-title">Cookie Notice</h1>
+    <div class="legal-date">Last updated: March 2026</div>
+  </div>
+  <div class="legal-body">
+
+    <h2>1. What Are Cookies</h2>
+    <p>Cookies are small text files placed on your device when you visit a website. They are widely used to make websites function correctly, improve user experience, and provide information to website operators.</p>
+
+    <h2>2. How We Use Cookies</h2>
+    <p>The Defence Trading website uses a limited number of cookies to ensure the site functions properly and to understand how visitors interact with our content. We do not use cookies for advertising or tracking purposes.</p>
+
+    <h2>3. Types of Cookies We Use</h2>
+    <ul>
+      <li><strong>Strictly Necessary Cookies:</strong> Required for the website to function. These cannot be disabled as they are essential to core site functionality such as navigation and security.</li>
+      <li><strong>Analytics Cookies:</strong> Used to collect anonymised information about how visitors use the site, including pages visited and time spent. This helps us improve the site experience. No personally identifiable information is collected through these cookies.</li>
+      <li><strong>Preference Cookies:</strong> Allow the site to remember choices you have made (such as language or display preferences) to provide a more personalised experience.</li>
+    </ul>
+
+    <h2>4. Third-Party Cookies</h2>
+    <p>We may use third-party service providers whose tools place cookies on your device. These providers are subject to their own privacy and cookie policies. We ensure that any third-party services we use comply with applicable data protection standards.</p>
+
+    <h2>5. Managing Cookies</h2>
+    <p>You can control and manage cookies through your browser settings. Most browsers allow you to refuse or delete cookies. Please note that disabling cookies may affect the functionality of certain parts of the website. For guidance on managing cookies, refer to your browser's help documentation.</p>
+
+    <h2>6. Changes to This Notice</h2>
+    <p>This Cookie Notice may be updated from time to time. The date of the most recent update is shown at the top of this page.</p>
+
+    <h2>7. Contact</h2>
+    <p>For any questions regarding our use of cookies, please contact us at <a href="mailto:privacy@defencetrading.com">privacy@defencetrading.com</a>.</p>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-main">
+    <div class="pg-wrap">
+      <div class="footer-brand-col">
+        <div class="footer-logo">DefenceTrading<span>®</span></div>
+        <p class="footer-desc">As a defence trader, our role is to connect governments, armed forces, and defence contractors with certified military products through compliant and established procurement channels. We work exclusively with licensed enterprises and authorised suppliers, ensuring that all equipment is sourced from certified manufacturers and delivered in accordance with applicable regulatory and export control requirements.</p>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <div class="footer-col-label">Corporate</div>
+          <a href="about-us.html">About Us</a>
+          <a href="insights.html">Global Insights</a>
+          <a href="products.html">Products</a>
+          <a href="companies.html">Companies</a>
+          <a href="index.html#contact">Contact Us</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-label">Legal</div>
+          <a href="terms.html">Terms &amp; Conditions</a>
+          <a href="privacy.html">Privacy Notice</a>
+          <a href="export-control.html">Export Control Policy</a>
+          <a href="end-user-certification.html">End-User Certification</a>
+          <a href="cookies.html">Cookie Notice</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="pg-wrap">
+      <span class="footer-copy">© 2026 Defence Trading. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

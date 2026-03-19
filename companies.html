@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Defence Trading — Companies</title>
+<style>
+  html { scrollbar-gutter: stable; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --yellow: #F5C400;
+    --yellow-dark: #e6b800;
+    --yellow-light: #fdf0a0;
+    --black: #000000;
+    --red: #E31837;
+    --white: #ffffff;
+    --gray-light: #f0f0f0;
+    --gray: #e0e0e0;
+    --gray-mid: #999;
+    --text: #1a1a1a;
+    --text-light: #555;
+    --border: #d0d0d0;
+  }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--white); color: var(--text); font-size: 14px; }
+
+  /* ── UTILITY BAR ── */
+  .util-bar {
+    background: var(--gray-light);
+    border-bottom: 1px solid var(--gray);
+    padding: 0 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 36px; font-size: 12px;
+  }
+  .util-links { display: flex; gap: 0; overflow: hidden; }
+  .util-links a {
+    color: var(--text-light); text-decoration: none; padding: 0 12px; height: 36px;
+    display: flex; align-items: center; border-right: 1px solid var(--gray);
+    font-size: 12px; transition: color 0.15s; white-space: nowrap;
+  }
+  .util-links a:first-child { padding-left: 0; }
+  .util-links a:hover { color: var(--black); }
+  .util-links a.active { color: var(--black); font-weight: 600; }
+  .util-right { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text); font-weight: 500; cursor: pointer; white-space: nowrap; }
+  .util-right .chevron { color: var(--red); font-size: 10px; }
+
+  /* ── MAIN NAV ── */
+  .main-nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray);
+    padding: 0 32px;
+    display: flex; align-items: center; gap: 0;
+    height: 56px; position: sticky; top: 0; z-index: 200;
+  }
+  .brand {
+    font-size: 22px; font-weight: 900; color: var(--black);
+    text-decoration: none; margin-right: 40px; letter-spacing: -1px;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .brand span { color: var(--red); font-size: 8px; vertical-align: super; }
+  .main-nav-links { display: flex; flex: 1; gap: 0; }
+  .main-nav-links a {
+    color: var(--text); text-decoration: none; padding: 0 14px;
+    height: 56px; display: flex; align-items: center; font-size: 13px;
+    font-weight: 500; border-bottom: 3px solid transparent;
+    transition: all 0.15s; white-space: nowrap;
+  }
+  .main-nav-links a:hover { border-bottom-color: var(--black); }
+  .main-nav-links a.active { border-bottom-color: var(--red); font-weight: 700; }
+  .nav-search { margin-left: auto; cursor: pointer; font-size: 20px; color: var(--text); padding: 8px; flex-shrink: 0; }
+  /* Mobile hamburger */
+  .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; margin-left: auto; }
+  .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--black); }
+  /* Mobile menu */
+  .mobile-menu {
+    display: none; position: absolute; top: 56px; left: 0; right: 0;
+    background: var(--white); border-bottom: 2px solid var(--black); z-index: 200;
+    flex-direction: column;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    padding: 14px 20px; font-size: 15px; font-weight: 600; color: var(--text);
+    text-decoration: none; border-bottom: 1px solid var(--gray);
+  }
+  .mobile-menu a.active { color: var(--red); }
+
+  /* ── PAGE CONTAINER ── */
+  .pg-wrap { max-width: 1440px; margin: 0 auto; padding: 0 48px; }
+
+  /* ── HERO (YELLOW) ── */
+  .hero-yellow {
+    background: var(--yellow);
+    padding: 32px 0 0;
+  }
+  .hero-yellow h1 {
+    font-size: clamp(32px, 8vw, 52px); font-weight: 900; color: var(--black);
+    line-height: 1; letter-spacing: -1px; margin-bottom: 10px;
+  }
+  .hero-yellow .sub {
+    font-size: clamp(15px, 3vw, 20px); font-weight: 700; color: var(--black); margin-bottom: 20px;
+  }
+  .disclaimer-box {
+    background: rgba(255,255,255,0.45);
+    border: 1px solid rgba(0,0,0,0.1);
+    padding: 14px 18px; font-size: 12px; color: #333;
+    line-height: 1.6; margin-bottom: 0; max-width: 960px;
+  }
+
+  /* ── FILTER AREA ── */
+  .filter-area {
+    background: var(--yellow);
+    padding: 20px 0 28px;
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+  }
+  .filter-area > .pg-wrap { display: flex; align-items: flex-end; gap: 24px; flex-wrap: wrap; width: 100%; }
+  .filter-group { display: flex; flex-direction: column; gap: 8px; }
+  .filter-group-label {
+    font-size: 11px; font-weight: 900; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--black);
+  }
+  .filter-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+  .filter-btn {
+    display: flex; align-items: center; gap: 8px;
+    border: 1.5px solid var(--black); background: var(--white);
+    padding: 11px 16px; font-size: 13px; font-weight: 600;
+    cursor: pointer; font-family: inherit; color: var(--black);
+    transition: all 0.15s; position: relative; white-space: nowrap;
+  }
+  .filter-btn.active-btn {
+    background: var(--black); color: var(--white);
+  }
+  .filter-btn .btn-label { display: none; }
+  .filter-btn .btn-val { font-size: 13px; font-weight: 600; }
+  .filter-btn .chevron { color: var(--red); font-size: 10px; margin-left: 2px; }
+  .filter-btn.active-btn .chevron { color: var(--yellow); }
+  .filter-btn select {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%;
+  }
+
+  .search-group { display: flex; flex-direction: column; gap: 10px; flex: 1; max-width: 440px; }
+  .search-label { font-size: 11px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; color: var(--black); }
+  .search-wrap { display: flex; }
+  .search-input {
+    flex: 1; border: 2px solid var(--black); padding: 11px 16px;
+    font-size: 13px; font-family: inherit; outline: none;
+    background: var(--white); color: var(--black);
+  }
+  .search-input::placeholder { color: #999; }
+  .search-btn {
+    background: var(--black); border: none; width: 50px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .search-btn svg { width: 18px; height: 18px; fill: var(--white); }
+
+  /* ── TOOLBAR BAR ── */
+  .toolbar {
+    background: var(--white);
+    border-bottom: 2px solid var(--black);
+    padding: 0;
+    display: flex; align-items: center; gap: 0;
+    min-height: 52px; flex-wrap: wrap;
+  }
+  .toolbar > .pg-wrap { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; min-height: 52px; width: 100%; }
+  .data-view-btn {
+    background: var(--black); color: var(--white);
+    border: none; padding: 0 16px;
+    display: flex; flex-direction: column; justify-content: center;
+    cursor: pointer; font-family: inherit; min-width: 140px;
+    height: 36px; position: relative;
+  }
+  .data-view-btn .dv-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #aaa; line-height: 1; }
+  .data-view-btn .dv-val { font-size: 13px; font-weight: 700; color: var(--white); display: flex; align-items: center; gap: 6px; line-height: 1; margin-top: 3px; }
+  .data-view-btn .dv-val .chevron { color: var(--yellow); font-size: 10px; }
+  .data-view-btn select { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; }
+  .dl-btn {
+    border: 1.5px solid var(--black); background: var(--white);
+    padding: 0 16px; font-size: 12px; font-weight: 700;
+    cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 6px;
+    transition: background 0.15s; white-space: nowrap; height: 36px;
+  }
+  .dl-btn:hover { background: var(--gray-light); }
+  .reset-btn {
+    background: none; border: none; cursor: pointer; font-family: inherit;
+    font-size: 13px; font-weight: 600; color: var(--black); display: flex; align-items: center; gap: 6px;
+    padding: 8px 4px; transition: opacity 0.15s; white-space: nowrap;
+  }
+  .reset-btn:hover { opacity: 0.7; }
+  .showing-count { margin-left: auto; font-size: 13px; color: var(--text-light); white-space: nowrap; }
+  .showing-count strong { color: var(--black); }
+
+  /* ── TABLE ── */
+  .table-wrap { padding: 0 0 60px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; min-width: 600px; }
+  thead tr { border-top: 2px solid var(--black); border-bottom: 2px solid var(--black); }
+  th {
+    padding: 12px 10px; text-align: left; font-size: 12px; font-weight: 700;
+    color: var(--black); white-space: nowrap; cursor: pointer; user-select: none;
+    background: var(--white);
+  }
+  th:hover { color: var(--red); }
+  th.sorted { color: var(--red); }
+  th .sort-icon { font-size: 9px; margin-left: 3px; opacity: 0.5; }
+  th.sorted .sort-icon { opacity: 1; color: var(--red); }
+  td { padding: 16px 10px; border-bottom: 1px solid var(--gray); font-size: 13px; vertical-align: top; }
+  tr:hover td { background: #fafafa; }
+  .region-sep-row td {
+    background: var(--gray-light); padding: 8px 10px;
+    font-size: 11px; font-weight: 900; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--text-light);
+    border-bottom: 1px solid var(--gray);
+    border-top: 2px solid var(--black);
+  }
+  .company-name { font-weight: 700; color: var(--black); font-size: 14px; line-height: 1.3; }
+  .ticker-box {
+    display: inline-block; border: 1.5px solid var(--black); padding: 1px 5px;
+    font-size: 10px; font-weight: 700; color: var(--black); margin: 3px 4px 0 0;
+    vertical-align: middle; letter-spacing: 0.5px;
+  }
+  .factsheet-link { font-size: 12px; color: var(--text-light); text-decoration: underline; cursor: pointer; }
+  .factsheet-link:hover { color: var(--red); }
+  .email-link { color: #0066cc; font-size: 12px; text-decoration: none; }
+  .email-link:hover { text-decoration: underline; color: var(--red); }
+
+  .cat-tag {
+    display: inline-block; font-size: 11px; font-weight: 600;
+    padding: 2px 8px; border: 1px solid #000; white-space: nowrap;
+    background: #000; color: #fff;
+  }
+  .cat-pe, .cat-mu, .cat-cg, .cat-ls, .cat-ms, .cat-mv, .cat-ds { color: #fff; }
+
+  .size-pill {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    padding: 2px 8px; background: var(--gray-light); color: var(--text);
+  }
+
+  /* ── PAGINATION ── */
+  .pagination {
+    display: flex; align-items: center; justify-content: center; gap: 2px;
+    padding: 24px 32px; border-top: 1px solid var(--gray);
+  }
+  .pg-btn {
+    width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+    border: 1.5px solid var(--gray); background: var(--white);
+    font-size: 13px; cursor: pointer; font-family: inherit; font-weight: 500;
+    transition: all 0.15s; color: var(--text);
+  }
+  .pg-btn:hover { border-color: var(--black); }
+  .pg-btn.active { background: var(--black); border-color: var(--black); color: var(--white); font-weight: 700; }
+  .pg-btn:disabled { opacity: 0.3; cursor: default; }
+  .pg-btn:disabled:hover { border-color: var(--gray); }
+  .pg-info { font-size: 12px; color: var(--text-light); margin: 0 12px; }
+
+  /* ── FOOTER ── */
+/* ── FOOTER ── */
+  footer { background: #000; }
+  .footer-main { display: block; padding: 80px 0; }
+  .footer-main > .pg-wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: start; }
+  .footer-brand-col { padding-right: 48px; }
+  .footer-logo { font-size: 28px; font-weight: 900; color: #fff; letter-spacing: -1px; margin-bottom: 24px; }
+  .footer-logo span { color: var(--red); font-size: 9px; vertical-align: super; }
+  .footer-desc { font-size: 14px; color: rgba(255,255,255,0.9); line-height: 1.4; max-width: 420px; }
+  .footer-divider { width: 1px; background: #2a2a2a; margin: 0 48px; align-self: stretch; }
+  .footer-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .footer-col-label { font-size: 11px; font-weight: 800; letter-spacing: 2px; color: var(--red); text-transform: uppercase; margin-bottom: 24px; }
+  .footer-col a { display: block; font-size: 14px; font-weight: 700; color: #fff; text-decoration: none; margin-bottom: 18px; transition: color 0.15s; }
+  .footer-col a:hover { color: rgba(255,255,255,0.5); }
+  .footer-bottom { border-top: 1px solid #e0e0e0; background: #fff; padding: 20px 0; }
+  .footer-bottom > .pg-wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .footer-copy { font-size: 13px; color: #000; font-weight: 500; }
+
+  /* ── EMPTY ── */
+  .empty { text-align: center; padding: 60px 20px; color: var(--text-light); }
+  .empty h3 { font-size: 18px; font-weight: 700; color: var(--black); margin-bottom: 8px; }
+
+  /* ── MOBILE CARDS (shown instead of table on small screens) ── */
+  .cards-view { display: none; padding: 0 16px 40px; }
+  .lead-card {
+    border: 1.5px solid var(--gray); margin-bottom: 12px;
+    background: var(--white); overflow: hidden;
+  }
+  .lead-card-header {
+    background: var(--black); color: var(--white);
+    padding: 12px 16px; display: flex; justify-content: space-between; align-items: flex-start;
+  }
+  .lead-card-header .name { font-size: 15px; font-weight: 700; line-height: 1.3; }
+  .lead-card-header .abbr {
+    border: 1.5px solid rgba(255,255,255,0.4); padding: 2px 6px;
+    font-size: 10px; font-weight: 700; margin-top: 4px; display: inline-block;
+  }
+  .lead-card-body { padding: 14px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .lead-card-field .lbl { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #999; margin-bottom: 3px; }
+  .lead-card-field .val { font-size: 13px; color: var(--text); font-weight: 500; }
+  .lead-card-email { padding: 12px 16px; border-top: 1px solid var(--gray); background: #fafafa; }
+  .lead-card-email a { color: #0066cc; font-size: 13px; font-weight: 600; text-decoration: none; word-break: break-all; }
+  .lead-card-email a:hover { color: var(--red); }
+  .region-card-sep {
+    background: var(--gray-light); padding: 10px 16px; margin-bottom: 12px;
+    font-size: 11px; font-weight: 900; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--text-light);
+    border-top: 2px solid var(--black); border-bottom: 1px solid var(--gray);
+  }
+
+  /* ── MEDIA QUERIES ── */
+  @media (max-width: 767px) {
+    /* Utility bar — hide links on mobile, just show brand + location */
+    .util-links a:not(.active) { display: none; }
+    .util-bar { padding: 0 16px; }
+
+    /* Nav — hide desktop links, show hamburger */
+    .main-nav { padding: 0 16px; height: 52px; }
+    .main-nav-links { display: none; }
+    .nav-search { display: none; }
+    .nav-hamburger { display: flex; }
+    .brand { font-size: 18px; margin-right: 0; }
+    .mobile-menu { top: 52px; }
+
+    /* Page container */
+    .pg-wrap { padding: 0 20px; }
+
+    /* Hero */
+    .hero-yellow { padding: 24px 0 0; }
+    .disclaimer-box { font-size: 11px; padding: 12px 14px; margin-bottom: 20px; }
+
+    /* Filters — stack vertically */
+    .filter-area { padding: 16px 0 24px; }
+    .filter-area > .pg-wrap { gap: 16px; flex-direction: column; align-items: stretch; }
+    .filter-buttons { flex-direction: column; }
+    .filter-btn { min-width: unset; width: 100%; }
+    .search-group { max-width: 100%; }
+
+    /* Toolbar — wrap and simplify */
+    .toolbar > .pg-wrap { padding: 10px 20px; gap: 8px; min-height: unset; }
+    .data-view-btn { min-width: unset; flex: 1; }
+    .showing-count { width: 100%; margin-left: 0; font-size: 12px; padding: 4px 0; }
+
+    /* Hide desktop table, show cards */
+    .table-wrap { display: none; }
+    .cards-view { display: block; }
+    #pagination { padding: 16px; }
+.footer-main { padding: 48px 0; }
+    .footer-main > .pg-wrap { grid-template-columns: 1fr; }
+    .footer-brand-col { padding-right: 0; margin-bottom: 36px; }
+    .footer-divider { display: none; }
+    .footer-cols { grid-template-columns: 1fr 1fr; }
+    .footer-bottom { padding: 16px 0; }
+    .footer-bottom > .pg-wrap { flex-direction: column; }
+  }
+
+  @media (max-width: 480px) {
+    .lead-card-body { grid-template-columns: 1fr; gap: 8px; }
+    .pg-btn { width: 30px; height: 30px; font-size: 12px; }
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .main-nav { padding: 0 20px; }
+    .brand { margin-right: 24px; font-size: 20px; }
+    .main-nav-links a { padding: 0 10px; font-size: 12px; }
+    .pg-wrap { padding: 0 20px; }
+    .filter-btn { min-width: 100px; padding: 8px 12px; }
+    .data-view-btn { min-width: 160px; }
+  }
+
+  /* ── SUBSCRIBE STRIP ── */
+  .subscribe-strip { background: #ffffff; border-top: 1px solid #e0e0e0; }
+  .subscribe-strip > .pg-wrap { padding-top: 64px; padding-bottom: 64px; }
+  .subscribe-strip h2 { font-size: clamp(22px, 3.5vw, 34px); font-weight: 900; color: #000; letter-spacing: -0.5px; margin-bottom: 10px; }
+  .subscribe-strip .sub-intro { font-size: 15px; color: #555; margin-bottom: 44px; }
+  .sub-fields { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 40px; margin-bottom: 32px; }
+  .sub-field { display: flex; flex-direction: column; border-bottom: 1.5px solid #000; padding-bottom: 8px; margin-bottom: 8px; }
+  .sub-field label { font-size: 13px; font-weight: 700; color: #000; margin-bottom: 6px; }
+  .sub-field label span { color: #E31837; }
+  .sub-field input, .sub-field select {
+    border: none; background: transparent; outline: none;
+    font-size: 15px; font-family: inherit; color: #000; padding: 4px 0;
+    -webkit-appearance: none; appearance: none;
+  }
+  .sub-field input::placeholder { color: #aaa; }
+  .sub-field select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23000' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 4px center; padding-right: 20px; }
+  .sub-field.focused { border-bottom-color: #000; }
+  .sub-check { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 40px; }
+  .sub-check input[type=checkbox] { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; cursor: pointer; -webkit-appearance: none; appearance: none; border: 1.5px solid #000; border-radius: 0; background: transparent; position: relative; } .sub-check input[type=checkbox]:checked::after { content: ""; position: absolute; left: 4px; top: 1px; width: 6px; height: 11px; border: 2px solid #000; border-top: none; border-left: none; transform: rotate(45deg); }
+  .sub-check label { font-size: 13px; color: #555; line-height: 1.55; cursor: pointer; }
+  .sub-footer-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .sub-required { font-size: 12px; color: #555; }
+  .sub-required a { color: #000; font-weight: 700; }
+  .sub-btn { background: #999; color: #fff; border: none; padding: 16px 36px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; white-space: nowrap; transition: background 0.15s; letter-spacing: 0.3px; }
+  .sub-btn:hover { background: #000; }
+  .sub-ok { display: none; }
+  #sub-toast { position: fixed; bottom: 32px; right: 32px; background: #111; color: #fff; font-size: 14px; font-weight: 600; padding: 16px 24px; z-index: 9999; opacity: 0; transform: translateY(12px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; max-width: 340px; line-height: 1.4; }
+  #sub-toast.show { opacity: 1; transform: translateY(0); }
+</style>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+</head>
+<body>
+<!-- MAIN NAV -->
+<div class="main-nav">
+  <a href="index.html" class="brand">DefenceTrading<span>®</span></a>
+  <div class="main-nav-links">
+    <a href="about-us.html">About Us</a>
+    <a href="products.html">Products</a>
+    <a href="#" class="active">Companies</a>
+    <a href="insights.html">Insights</a>
+  </div>
+  <div class="nav-hamburger" onclick="toggleMenu()" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="about-us.html">About Us</a>
+    <a href="products.html">Products</a>
+    <a href="#" class="active">Companies</a>
+    <a href="insights.html">Insights</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero-yellow">
+<div class="pg-wrap">
+  <h1>Companies</h1>
+  <div class="sub">Verified B2B defence companies across North America and Europe</div>
+  <div class="disclaimer-box">
+    All contact information is sourced from publicly available company data and is intended for authorised B2B outreach only.
+    Contacts represent companies operating in defence, military supply, protective equipment, communications, logistics, medical, and vehicle sectors.
+    Defence Trading holds a valid UAE defence trade licence. All outreach must comply with applicable regulations including GDPR for European contacts.
+  </div>
+</div><!-- end pg-wrap -->
+
+<!-- FILTERS (inside yellow hero, same as products page) -->
+<div class="filter-area">
+<div class="pg-wrap">
+  <div class="filter-group">
+    <div class="filter-group-label">Filters</div>
+    <div class="filter-buttons">
+
+      <button class="filter-btn active-btn" id="btn-region">
+        <div>
+          <span class="btn-label">Region</span>
+          <span class="btn-val" id="btn-region-val">All regions</span>
+        </div>
+        <span class="chevron">▼</span>
+        <select id="f-region" onchange="onFilterChange()">
+          <option value="">All regions</option>
+          <option value="North America">North America</option>
+          <option value="Europe">Europe</option>
+        </select>
+      </button>
+
+      <button class="filter-btn" id="btn-cat">
+        <div>
+          <span class="btn-label">Category</span>
+          <span class="btn-val" id="btn-cat-val">All categories</span>
+        </div>
+        <span class="chevron" style="color:var(--red);">▼</span>
+        <select id="f-cat" onchange="onFilterChange()">
+          <option value="">All categories</option>
+          <option>Protective Equipment</option>
+          <option>Military Uniforms</option>
+          <option>Communications Gear</option>
+          <option>Logistics &amp; Supply</option>
+          <option>Medical Supplies</option>
+          <option>Military Vehicles</option>
+          <option>Defence Systems</option>
+        </select>
+      </button>
+
+      <button class="filter-btn" id="btn-size">
+        <div>
+          <span class="btn-label">Company size</span>
+          <span class="btn-val" id="btn-size-val">All sizes</span>
+        </div>
+        <span class="chevron" style="color:var(--red);">▼</span>
+        <select id="f-size" onchange="onFilterChange()">
+          <option value="">All sizes</option>
+          <option>Small</option>
+          <option>SME</option>
+          <option>Mid-size</option>
+          <option>Large</option>
+        </select>
+      </button>
+
+    </div>
+  </div>
+
+  <div class="search-group">
+    <div class="search-label">Find companies by <span style="font-size:12px;font-weight:400;letter-spacing:0;">ⓘ</span></div>
+    <div class="search-wrap">
+      <input class="search-input" type="text" id="f-search" placeholder="Enter company name or location..." oninput="onFilterChange()">
+      <button class="search-btn">
+        <svg viewBox="0 0 24 24"><path d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1 0 6.15 6.15a7.5 7.5 0 0 0 10.5 10.5z" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+</div><!-- end filter-area pg-wrap -->
+</div><!-- end filter-area -->
+</div><!-- end hero-yellow -->
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+<div class="pg-wrap">
+  <button class="data-view-btn">
+    <div class="dv-label">Data View</div>
+    <div class="dv-val"><span id="dv-val-text">All Companies</span> <span class="chevron">▼</span></div>
+    <select id="f-dataview" onchange="onDataViewChange()">
+      <option value="">All Companies</option>
+      <option value="North America">North America</option>
+      <option value="Europe">Europe</option>
+    </select>
+  </button>
+  <button class="dl-btn" onclick="exportCSV()">⬇ Download</button>
+  <button class="reset-btn" onclick="resetAll()">↺ Reset all</button>
+  <div class="showing-count">Showing all companies (<strong id="count-label">0</strong>)</div>
+</div>
+</div>
+
+<!-- TABLE -->
+<div class="table-wrap">
+<div class="pg-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th style="width:48px;color:#aaa;font-weight:500;">#</th>
+        <th style="min-width:220px;" onclick="sortBy('name')" id="th-name">Company Name <span class="sort-icon">↕</span></th>
+        <th onclick="sortBy('category')" id="th-category">Category <span class="sort-icon">↕</span></th>
+        <th onclick="sortBy('size')" id="th-size">Size <span class="sort-icon">↕</span></th>
+        <th onclick="sortBy('region')" id="th-region">Region <span class="sort-icon">↕</span></th>
+        <th onclick="sortBy('location')" id="th-location">Location <span class="sort-icon">↕</span></th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+  <div id="empty" class="empty" style="display:none;">
+    <h3>No results found</h3>
+    <p>Try adjusting your search or filters.</p>
+  </div>
+</div>
+</div>
+
+<!-- MOBILE CARDS -->
+<div class="cards-view" id="cards-view"></div>
+
+<!-- PAGINATION -->
+<div class="pagination" id="pagination"></div>
+
+<!-- SUBSCRIBE STRIP -->
+<div class="subscribe-strip">
+<div class="pg-wrap">
+  <h2>Subscribe to Defence Trading's Insights</h2>
+  <p class="sub-intro">To receive the latest procurement intelligence, product updates, and market analysis — sign up below.</p>
+  <form onsubmit="return subscribeForm(this)">
+    <div class="sub-fields">
+      <div class="sub-field">
+        <label>Email <span>*</span></label>
+        <input type="email" placeholder="Work email address" required>
+      </div>
+      <div class="sub-field">
+        <label>Location <span>*</span></label>
+        <select required>
+          <option value="" disabled selected></option>
+          <option>United Arab Emirates</option>
+          <option>United States</option>
+          <option>United Kingdom</option>
+          <option>Germany</option>
+          <option>France</option>
+          <option>Poland</option>
+          <option>Saudi Arabia</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="sub-field">
+        <label>Company <span>*</span></label>
+        <input type="text" placeholder="Your organisation" required>
+      </div>
+    </div>
+    <div class="sub-check">
+      <input type="checkbox" id="sub-consent" required>
+      <label for="sub-consent">Please click here to opt-in to receiving procurement insights and marketing communications from Defence Trading. Data collected will be processed in accordance with our privacy notice. You may unsubscribe at any time.</label>
+    </div>
+    <div class="sub-footer-row">
+      <div class="sub-required">*Required information &nbsp;|&nbsp; Read our <a href="privacy.html">Privacy notice</a></div>
+      <button type="submit" class="sub-btn">Subscribe to Defence Trading</button>
+    </div>
+    <div class="sub-ok">&#10003; Thank you — you're now subscribed. We'll be in touch.</div>
+  </form>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-main">
+  <div class="pg-wrap">
+    <div class="footer-brand-col">
+      <div class="footer-logo">DefenceTrading<span>®</span></div>
+      <p class="footer-desc">As a defence trader, our role is to connect governments, armed forces, and defence contractors with certified military products through compliant and established procurement channels. We work exclusively with licensed enterprises and authorised suppliers, ensuring that all equipment is sourced from certified manufacturers and delivered in accordance with applicable regulatory and export control requirements.</p>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <div class="footer-col-label">Corporate</div>
+        <a href="about-us.html">About Us</a>
+        <a href="insights.html">Global Insights</a>
+        <a href="products.html">Products</a>
+        <a href="companies.html">Companies</a>
+        <a href="index.html#contact">Contact Us</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Legal</div>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Notice</a>
+        <a href="export-control.html">Export Control Policy</a>
+        <a href="end-user-certification.html">End-User Certification</a>
+        <a href="cookies.html">Cookie Notice</a>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="footer-bottom">
+  <div class="pg-wrap">
+    <span class="footer-copy">© 2026 Defence Trading. All rights reserved.</span>
+  </div>
+  </div>
+</footer>
+
+<script>
+const LEADS = [
+  {id:1,  name:"Chase Tactical",           category:"Protective Equipment", size:"Small",    contact:"info@chasetactical.com",           location:"USA",                region:"North America"},
+  {id:2,  name:"Hard Head Veterans",        category:"Protective Equipment", size:"Small",    contact:"support@hardheadveterans.com",      location:"Sweetwater, TX",     region:"North America"},
+  {id:3,  name:"Hardwire LLC",              category:"Protective Equipment", size:"SME",      contact:"info@hardwirellc.com",              location:"Pocomoke City, MD",  region:"North America"},
+  {id:4,  name:"Sarkar Tactical",           category:"Protective Equipment", size:"SME",      contact:"contact@sarkartactical.com",        location:"El Paso, TX",        region:"North America"},
+  {id:5,  name:"RMA Armament",              category:"Protective Equipment", size:"Small",    contact:"info@rmadefense.com",               location:"Centerville, IA",    region:"North America"},
+  {id:6,  name:"Armor Express",             category:"Protective Equipment", size:"SME",      contact:"info@armorexpress.com",             location:"Eden, NC",           region:"North America"},
+  {id:7,  name:"Team Wendy",                category:"Protective Equipment", size:"SME",      contact:"info@teamwendy.com",                location:"Cleveland, OH",      region:"North America"},
+  {id:8,  name:"Gentex Corporation",        category:"Protective Equipment", size:"Mid-size", contact:"defense@gentexcorp.com",            location:"Carbondale, PA",     region:"North America"},
+  {id:9,  name:"Point Blank Enterprises",   category:"Protective Equipment", size:"Mid-size", contact:"info@pointblankenterprises.com",    location:"Pompano Beach, FL",  region:"North America"},
+  {id:10, name:"Revision Military",         category:"Protective Equipment", size:"SME",      contact:"info@revisionmilitary.com",         location:"Essex Junction, VT", region:"North America"},
+  {id:11, name:"United Shield Intl.",       category:"Protective Equipment", size:"SME",      contact:"info@unitedshield.com",             location:"Whitman, MA",        region:"North America"},
+  {id:12, name:"Eagle Industries",          category:"Protective Equipment", size:"SME",      contact:"sales@eagleindustries.com",         location:"Fenton, MO",         region:"North America"},
+  {id:13, name:"Atomic Defense",            category:"Protective Equipment", size:"Small",    contact:"support@atomicdefense.com",         location:"USA",                region:"North America"},
+  {id:14, name:"Premier Body Armor",        category:"Protective Equipment", size:"Small",    contact:"info@premierbodyarmor.com",         location:"USA",                region:"North America"},
+  {id:15, name:"Avon Protection",           category:"Protective Equipment", size:"Mid-size", contact:"defense@avon-protection.com",       location:"Cadillac, MI",       region:"North America"},
+  {id:16, name:"Crye Precision",            category:"Military Uniforms",    size:"Small",    contact:"info@cryeprecision.com",            location:"Brooklyn, NY",       region:"North America"},
+  {id:17, name:"Bluewater Defense",         category:"Military Uniforms",    size:"Small",    contact:"info@bluewaterdefense.com",         location:"USA",                region:"North America"},
+  {id:18, name:"Condor Outdoor Products",   category:"Military Uniforms",    size:"SME",      contact:"info@condoroutdoor.com",            location:"Irwindale, CA",      region:"North America"},
+  {id:19, name:"Massif",                    category:"Military Uniforms",    size:"Small",    contact:"sales@massif.com",                  location:"Ashland, OR",        region:"North America"},
+  {id:20, name:"Propper International",     category:"Military Uniforms",    size:"Mid-size", contact:"government@propper.com",            location:"St. Charles, MO",    region:"North America"},
+  {id:21, name:"Brookwood Companies",       category:"Military Uniforms",    size:"Mid-size", contact:"military@brookwoodcompanies.com",   location:"New York, NY",       region:"North America"},
+  {id:22, name:"Rothco",                    category:"Military Uniforms",    size:"SME",      contact:"sales@rothco.com",                  location:"Ronkonkoma, NY",     region:"North America"},
+  {id:23, name:"SNC Technical Services",    category:"Military Uniforms",    size:"Mid-size", contact:"info@snc.org",                      location:"Puerto Rico, USA",   region:"North America"},
+  {id:24, name:"Milliken & Company",        category:"Military Uniforms",    size:"Large",    contact:"government@milliken.com",           location:"Spartanburg, SC",    region:"North America"},
+  {id:25, name:"5.11 Tactical",             category:"Military Uniforms",    size:"Mid-size", contact:"customerservice@511tactical.com",   location:"Modesto, CA",        region:"North America"},
+  {id:26, name:"Tru-Spec",                  category:"Military Uniforms",    size:"SME",      contact:"sales@tru-spec.com",                location:"Atlanta, GA",        region:"North America"},
+  {id:27, name:"Beyond Clothing",           category:"Military Uniforms",    size:"Small",    contact:"info@beyondclothing.com",           location:"Seattle, WA",        region:"North America"},
+  {id:28, name:"Viasat Inc.",               category:"Communications Gear",  size:"Mid-size", contact:"defense@viasat.com",                location:"Carlsbad, CA",       region:"North America"},
+  {id:29, name:"Silvus Technologies",       category:"Communications Gear",  size:"SME",      contact:"info@silvustechnologies.com",       location:"Los Angeles, CA",    region:"North America"},
+  {id:30, name:"Kratos Defense",            category:"Communications Gear",  size:"Mid-size", contact:"info@kratosdefense.com",            location:"San Diego, CA",      region:"North America"},
+  {id:31, name:"Curtiss-Wright Defense",    category:"Communications Gear",  size:"Mid-size", contact:"defense@curtisswright.com",         location:"Davidson, NC",       region:"North America"},
+  {id:32, name:"Thales Defense & Security", category:"Communications Gear",  size:"Mid-size", contact:"info@thalesdsi.com",                location:"Clarksburg, MD",     region:"North America"},
+  {id:33, name:"Pacific Defense Solutions", category:"Communications Gear",  size:"SME",      contact:"info@pacificdefense.com",           location:"Honolulu, HI",       region:"North America"},
+  {id:34, name:"Persistent Systems LLC",    category:"Communications Gear",  size:"SME",      contact:"info@persistentsystems.com",        location:"New York, NY",       region:"North America"},
+  {id:35, name:"Leonardo DRS",              category:"Communications Gear",  size:"Mid-size", contact:"info@leonardodrs.com",              location:"Arlington, VA",      region:"North America"},
+  {id:36, name:"Triad RF Systems",          category:"Communications Gear",  size:"Small",    contact:"sales@triadrfsystems.com",          location:"Woodbury, NJ",       region:"North America"},
+  {id:37, name:"Barrett Communications",    category:"Communications Gear",  size:"SME",      contact:"sales@barrettcommunications.com",   location:"San Diego, CA",      region:"North America"},
+  {id:38, name:"ADS Inc.",                  category:"Logistics & Supply",   size:"Mid-size", contact:"info@adsinc.com",                   location:"Virginia Beach, VA", region:"North America"},
+  {id:39, name:"Darley Defense",            category:"Logistics & Supply",   size:"Mid-size", contact:"defense@darley.com",                location:"Itasca, IL",         region:"North America"},
+  {id:40, name:"SupplyCore Inc.",           category:"Logistics & Supply",   size:"SME",      contact:"info@supplycore.com",               location:"Rockford, IL",       region:"North America"},
+  {id:41, name:"Incredible Supply (ISL)",   category:"Logistics & Supply",   size:"SME",      contact:"info@incrediblesupply.com",         location:"USA",                region:"North America"},
+  {id:42, name:"Greenwood Aerospace",       category:"Logistics & Supply",   size:"SME",      contact:"info@governmentprocurement.com",    location:"Ponca City, OK",     region:"North America"},
+  {id:43, name:"Crane Worldwide Logistics", category:"Logistics & Supply",   size:"Mid-size", contact:"government@craneww.com",            location:"Houston, TX",        region:"North America"},
+  {id:44, name:"KLX Defense Services",      category:"Logistics & Supply",   size:"Mid-size", contact:"defense@klxaerospace.com",          location:"Miami, FL",          region:"North America"},
+  {id:45, name:"Federal Defense Inds",      category:"Logistics & Supply",   size:"SME",      contact:"info@fdi.us.com",                   location:"USA",                region:"North America"},
+  {id:46, name:"M1 Support Services",       category:"Logistics & Supply",   size:"Mid-size", contact:"info@m1support.com",                location:"Denton, TX",         region:"North America"},
+  {id:47, name:"Analytic Services Inc.",    category:"Logistics & Supply",   size:"Mid-size", contact:"info@anser.org",                    location:"Falls Church, VA",   region:"North America"},
+  {id:48, name:"Atlantic Diving Supply",    category:"Logistics & Supply",   size:"Mid-size", contact:"info@adsinc.com",                   location:"Virginia Beach, VA", region:"North America"},
+  {id:49, name:"Parsons Corporation",       category:"Logistics & Supply",   size:"Mid-size", contact:"defense@parsons.com",               location:"Centreville, VA",    region:"North America"},
+  {id:50, name:"McKesson Corporation",      category:"Medical Supplies",     size:"Large",    contact:"government@mckesson.com",           location:"Irving, TX",         region:"North America"},
+  {id:51, name:"Leidos Health",             category:"Medical Supplies",     size:"Large",    contact:"health@leidos.com",                 location:"Reston, VA",         region:"North America"},
+  {id:52, name:"Medline Industries",        category:"Medical Supplies",     size:"Large",    contact:"government@medline.com",            location:"Northfield, IL",     region:"North America"},
+  {id:53, name:"Cardinal Health",           category:"Medical Supplies",     size:"Large",    contact:"government@cardinalhealth.com",     location:"Dublin, OH",         region:"North America"},
+  {id:54, name:"North American Rescue",     category:"Medical Supplies",     size:"SME",      contact:"info@narescue.com",                 location:"Greer, SC",          region:"North America"},
+  {id:55, name:"Chinook Medical Gear",      category:"Medical Supplies",     size:"Small",    contact:"info@chinookmed.com",               location:"Durango, CO",        region:"North America"},
+  {id:56, name:"Bound Tree Medical",        category:"Medical Supplies",     size:"SME",      contact:"info@boundtree.com",                location:"Dublin, OH",         region:"North America"},
+  {id:57, name:"Oshkosh Defense",           category:"Military Vehicles",    size:"Large",    contact:"defense@oshkoshdefense.com",        location:"Oshkosh, WI",        region:"North America"},
+  {id:58, name:"AM General",                category:"Military Vehicles",    size:"Mid-size", contact:"info@amgeneral.com",                location:"South Bend, IN",     region:"North America"},
+  {id:59, name:"Flyer Defense LLC",         category:"Military Vehicles",    size:"SME",      contact:"info@flyerdefense.com",             location:"USA",                region:"North America"},
+  {id:60, name:"American Rheinmetall",      category:"Military Vehicles",    size:"Mid-size", contact:"info@american.rheinmetall.com",     location:"Biddeford, ME",      region:"North America"},
+  {id:61, name:"Navistar Defense",          category:"Military Vehicles",    size:"Mid-size", contact:"defense@navistar.com",              location:"Lisle, IL",          region:"North America"},
+  {id:62, name:"HDT Global",                category:"Military Vehicles",    size:"SME",      contact:"info@hdtglobal.com",                location:"Solon, OH",          region:"North America"},
+  {id:63, name:"Force Protection Inc.",     category:"Military Vehicles",    size:"SME",      contact:"info@forceprotection.net",          location:"Ladson, SC",         region:"North America"},
+  {id:64, name:"Polaris Defense",           category:"Military Vehicles",    size:"Mid-size", contact:"defense@polaris.com",               location:"Medina, MN",         region:"North America"},
+  {id:65, name:"Caterpillar Defense",       category:"Military Vehicles",    size:"Large",    contact:"government@cat.com",                location:"Deerfield, IL",      region:"North America"},
+  {id:66, name:"ND Defense LLC",            category:"Military Vehicles",    size:"SME",      contact:"info@nddefense.com",                location:"USA",                region:"North America"},
+  {id:67, name:"Indigen Armor",             category:"Military Vehicles",    size:"Small",    contact:"info@indigenarmor.com",             location:"USA",                region:"North America"},
+  {id:68, name:"MARS Armor",                category:"Protective Equipment", size:"SME",      contact:"info@marsarmor.com",                location:"Czech Republic",     region:"Europe"},
+  {id:69, name:"Protective Products Intl.", category:"Protective Equipment", size:"SME",      contact:"info@protectiveproducts.co.uk",     location:"UK",                 region:"Europe"},
+  {id:70, name:"Safariland Europe",         category:"Protective Equipment", size:"Mid-size", contact:"europe@safariland.com",             location:"Germany",            region:"Europe"},
+  {id:71, name:"Survitec Group",            category:"Protective Equipment", size:"Mid-size", contact:"defence@survitecgroup.com",         location:"UK",                 region:"Europe"},
+  {id:72, name:"TenCate Protective Fabrics",category:"Protective Equipment", size:"Mid-size", contact:"info@tencateprotective.com",        location:"Netherlands",        region:"Europe"},
+  {id:73, name:"Mehler Vario System",       category:"Protective Equipment", size:"SME",      contact:"info@mehler-vario-system.com",      location:"Germany",            region:"Europe"},
+  {id:74, name:"Ballistic Body Armor",      category:"Protective Equipment", size:"Small",    contact:"sales@ballisticbodyarmor.eu",       location:"Poland",             region:"Europe"},
+  {id:75, name:"SY Technology",             category:"Protective Equipment", size:"Small",    contact:"info@sytechnology.co.uk",           location:"UK",                 region:"Europe"},
+  {id:76, name:"Progarm",                   category:"Protective Equipment", size:"SME",      contact:"sales@progarm.com",                 location:"UK",                 region:"Europe"},
+  {id:77, name:"Protective Helmets BV",     category:"Protective Equipment", size:"Small",    contact:"info@protectivehelmets.nl",         location:"Netherlands",        region:"Europe"},
+  {id:78, name:"Lindberg & Sons",           category:"Military Uniforms",    size:"SME",      contact:"info@lindbergandsons.se",           location:"Sweden",             region:"Europe"},
+  {id:79, name:"Carrington Textiles",       category:"Military Uniforms",    size:"Mid-size", contact:"defence@carrington.co.uk",          location:"UK",                 region:"Europe"},
+  {id:80, name:"Helly Hansen Workwear",     category:"Military Uniforms",    size:"Mid-size", contact:"professional@hellyhansen.com",      location:"Norway",             region:"Europe"},
+  {id:81, name:"Leo Köhler",                category:"Military Uniforms",    size:"SME",      contact:"info@leo-koehler.de",               location:"Germany",            region:"Europe"},
+  {id:82, name:"Mil-Tec GmbH",              category:"Military Uniforms",    size:"SME",      contact:"info@mil-tec.com",                  location:"Germany",            region:"Europe"},
+  {id:83, name:"Helikon-Tex",               category:"Military Uniforms",    size:"SME",      contact:"b2b@helikon-tex.com",               location:"Poland",             region:"Europe"},
+  {id:84, name:"Uf Pro",                    category:"Military Uniforms",    size:"SME",      contact:"info@ufpro.com",                    location:"Slovenia",           region:"Europe"},
+  {id:85, name:"Defcon 5",                  category:"Military Uniforms",    size:"SME",      contact:"info@defcon5.it",                   location:"Italy",              region:"Europe"},
+  {id:86, name:"Niton GL",                  category:"Military Uniforms",    size:"Small",    contact:"sales@nitongl.com",                 location:"UK",                 region:"Europe"},
+  {id:87, name:"Texport",                   category:"Military Uniforms",    size:"SME",      contact:"office@texport.at",                 location:"Austria",            region:"Europe"},
+  {id:88, name:"Arktis",                    category:"Military Uniforms",    size:"Small",    contact:"sales@arktis.co.uk",                location:"UK",                 region:"Europe"},
+  {id:89, name:"Combat Systems",            category:"Military Uniforms",    size:"SME",      contact:"info@combatsystems.pl",             location:"Poland",             region:"Europe"},
+  {id:90, name:"Rohde & Schwarz",           category:"Communications Gear",  size:"Large",    contact:"defense@rohde-schwarz.com",         location:"Germany",            region:"Europe"},
+  {id:91, name:"Frequentis",                category:"Communications Gear",  size:"Mid-size", contact:"defence@frequentis.com",            location:"Austria",            region:"Europe"},
+  {id:92, name:"Cobham Advanced Electronics",category:"Communications Gear", size:"Mid-size", contact:"defence@cobham.com",                location:"UK",                 region:"Europe"},
+  {id:93, name:"Elbit Systems Europe",      category:"Communications Gear",  size:"Mid-size", contact:"info@elbitsystems.co.uk",           location:"UK",                 region:"Europe"},
+  {id:94, name:"ECA Group",                 category:"Communications Gear",  size:"Mid-size", contact:"defence@ecagroup.com",              location:"France",             region:"Europe"},
+  {id:95, name:"Sepura",                    category:"Communications Gear",  size:"SME",      contact:"sales@sepura.com",                  location:"UK",                 region:"Europe"},
+  {id:96, name:"Hytera Europe",             category:"Communications Gear",  size:"Mid-size", contact:"emea@hytera.com",                   location:"Germany",            region:"Europe"},
+  {id:97, name:"Zodiac Data Systems",       category:"Communications Gear",  size:"SME",      contact:"info@zodiac-data-systems.com",      location:"France",             region:"Europe"},
+  {id:98, name:"Saab AB (Comms Division)",  category:"Communications Gear",  size:"Large",    contact:"defence.comms@saabgroup.com",       location:"Sweden",             region:"Europe"},
+  {id:99, name:"Aeroflex",                  category:"Communications Gear",  size:"Mid-size", contact:"defence@aeroflex.com",              location:"UK",                 region:"Europe"},
+  {id:100,name:"Babcock International",     category:"Logistics & Supply",   size:"Large",    contact:"defence@babcockinternational.com",  location:"UK",                 region:"Europe"},
+  {id:101,name:"Chemring Group",            category:"Logistics & Supply",   size:"Mid-size", contact:"info@chemring.co.uk",               location:"UK",                 region:"Europe"},
+  {id:102,name:"Diehl Defence",             category:"Logistics & Supply",   size:"Mid-size", contact:"info@diehl-defence.com",            location:"Germany",            region:"Europe"},
+  {id:103,name:"Hensoldt",                  category:"Logistics & Supply",   size:"Large",    contact:"info@hensoldt.net",                 location:"Germany",            region:"Europe"},
+  {id:104,name:"ST Engineering Europe",     category:"Logistics & Supply",   size:"Mid-size", contact:"europe@stengg.com",                 location:"France",             region:"Europe"},
+  {id:105,name:"Nordic Defence Industries", category:"Logistics & Supply",   size:"SME",      contact:"info@ndi.no",                       location:"Norway",             region:"Europe"},
+  {id:106,name:"FN Herstal",                category:"Logistics & Supply",   size:"Large",    contact:"export@fnherstal.com",              location:"Belgium",            region:"Europe"},
+  {id:107,name:"Milrem Robotics",           category:"Logistics & Supply",   size:"SME",      contact:"info@milremrobotics.com",           location:"Estonia",            region:"Europe"},
+  {id:108,name:"Airbus Defence & Space",    category:"Logistics & Supply",   size:"Large",    contact:"defence@airbus.com",                location:"France",             region:"Europe"},
+  {id:109,name:"Defence Supply Group",      category:"Logistics & Supply",   size:"SME",      contact:"info@defencesupplygroup.com",       location:"UK",                 region:"Europe"},
+  {id:110,name:"Hartmann Group",            category:"Medical Supplies",     size:"Large",    contact:"defence@hartmann.info",             location:"Germany",            region:"Europe"},
+  {id:111,name:"B. Braun Melsungen",        category:"Medical Supplies",     size:"Large",    contact:"military@bbraun.com",               location:"Germany",            region:"Europe"},
+  {id:112,name:"Lohmann & Rauscher",        category:"Medical Supplies",     size:"Mid-size", contact:"defence@lohmann-rauscher.com",      location:"Germany",            region:"Europe"},
+  {id:113,name:"Combat Medical Systems EU", category:"Medical Supplies",     size:"SME",      contact:"info@combatmedical.eu",             location:"Belgium",            region:"Europe"},
+  {id:114,name:"H&H Medical",               category:"Medical Supplies",     size:"SME",      contact:"info@hhmedical.eu",                 location:"France",             region:"Europe"},
+  {id:115,name:"Trauma Care Consortium",    category:"Medical Supplies",     size:"Small",    contact:"info@traumacare.co.uk",             location:"UK",                 region:"Europe"},
+  {id:116,name:"Medi-Tech International",   category:"Medical Supplies",     size:"SME",      contact:"sales@medi-techintl.co.uk",         location:"UK",                 region:"Europe"},
+  {id:117,name:"Defibrillator Ltd",         category:"Medical Supplies",     size:"Small",    contact:"defence@defibrillator.co.uk",       location:"UK",                 region:"Europe"},
+  {id:118,name:"Patria",                    category:"Military Vehicles",    size:"Large",    contact:"info@patria.fi",                    location:"Finland",            region:"Europe"},
+  {id:119,name:"KNDS",                      category:"Military Vehicles",    size:"Large",    contact:"info@knds.com",                     location:"France/Germany",     region:"Europe"},
+  {id:120,name:"Arquus",                    category:"Military Vehicles",    size:"Large",    contact:"contact@arquus-defense.com",        location:"France",             region:"Europe"},
+  {id:121,name:"TATRA Defence Vehicle",     category:"Military Vehicles",    size:"Mid-size", contact:"defence@tatra.cz",                  location:"Czech Republic",     region:"Europe"},
+  {id:122,name:"Jankel Group",              category:"Military Vehicles",    size:"SME",      contact:"defence@jankelgroup.com",           location:"UK",                 region:"Europe"},
+  {id:123,name:"Supacat",                   category:"Military Vehicles",    size:"SME",      contact:"info@supacat.com",                  location:"UK",                 region:"Europe"},
+  {id:124,name:"Achleitner",                category:"Military Vehicles",    size:"SME",      contact:"office@achleitner.com",             location:"Austria",            region:"Europe"},
+  {id:125,name:"Renault Trucks Defense",    category:"Military Vehicles",    size:"Large",    contact:"defense@renault-trucks.com",        location:"France",             region:"Europe"},
+  {id:126,name:"Steyr Motors",              category:"Military Vehicles",    size:"Mid-size", contact:"defense@steyr-motors.com",          location:"Austria",            region:"Europe"},
+  {id:127,name:"Mercedes-Benz Special Veh.",category:"Military Vehicles",    size:"Large",    contact:"special.vehicles@mercedes-benz.com",location:"Germany",           region:"Europe"},
+  {id:128,name:"MBDA",                      category:"Defence Systems",      size:"Large",    contact:"info@mbda-systems.com",             location:"France/UK/Germany",  region:"Europe"},
+  {id:129,name:"Nammo",                     category:"Defence Systems",      size:"Mid-size", contact:"info@nammo.com",                    location:"Norway",             region:"Europe"},
+  {id:130,name:"Meggitt Defence",           category:"Defence Systems",      size:"Mid-size", contact:"defence@meggitt.com",               location:"UK",                 region:"Europe"},
+  {id:131,name:"QinetiQ",                   category:"Defence Systems",      size:"Large",    contact:"defence@qinetiq.com",               location:"UK",                 region:"Europe"},
+  {id:132,name:"Ultra Electronics",         category:"Defence Systems",      size:"Mid-size", contact:"defence@ultra-electronics.com",     location:"UK",                 region:"Europe"},
+  {id:133,name:"PGZ Polish Arms Group",     category:"Defence Systems",      size:"Large",    contact:"export@pgzsa.pl",                   location:"Poland",             region:"Europe"},
+  {id:134,name:"DEA Defence Equipment",     category:"Defence Systems",      size:"SME",      contact:"sales@dea-defence.co.uk",           location:"UK",                 region:"Europe"},
+  {id:135,name:"Elbit Systems UK",          category:"Defence Systems",      size:"Mid-size", contact:"info@elbitsystemsuk.com",           location:"UK",                 region:"Europe"},
+];
+
+const CAT_CLASS = {
+  "Protective Equipment":"cat-pe","Military Uniforms":"cat-mu","Communications Gear":"cat-cg",
+  "Logistics & Supply":"cat-ls","Medical Supplies":"cat-ms","Military Vehicles":"cat-mv","Defence Systems":"cat-ds"
+};
+
+let filtered = [...LEADS].sort((a,b)=>a.name.localeCompare(b.name)), sortCol = 'name', sortDir = 1, page = 1, perPage = 25;
+
+function onFilterChange() {
+  const region = document.getElementById('f-region').value;
+  const cat    = document.getElementById('f-cat').value;
+  const size   = document.getElementById('f-size').value;
+  const q      = document.getElementById('f-search').value.toLowerCase();
+
+  // Update button labels
+  document.getElementById('btn-region-val').textContent = region || 'All regions';
+  document.getElementById('btn-cat-val').textContent    = cat    || 'All categories';
+  document.getElementById('btn-size-val').textContent   = size   || 'All sizes';
+
+  // Toggle active style
+  document.getElementById('btn-region').className = 'filter-btn' + (region ? ' active-btn' : '');
+  document.getElementById('btn-cat').className    = 'filter-btn' + (cat    ? ' active-btn' : '');
+  document.getElementById('btn-size').className   = 'filter-btn' + (size   ? ' active-btn' : '');
+
+  filtered = LEADS.filter(l => {
+    if (region && l.region !== region)   return false;
+    if (cat    && l.category !== cat)    return false;
+    if (size   && l.size !== size)       return false;
+    if (q && !l.name.toLowerCase().includes(q) && !l.location.toLowerCase().includes(q)) return false;
+    return true;
+  });
+
+  doSort(); page = 1; render();
+}
+
+function doSort() {
+  filtered.sort((a,b) => {
+    let av = (a[sortCol]||'').toString().toLowerCase();
+    let bv = (b[sortCol]||'').toString().toLowerCase();
+    return av < bv ? -sortDir : av > bv ? sortDir : 0;
+  });
+}
+
+function sortBy(col) {
+  if (sortCol === col) sortDir *= -1; else { sortCol = col; sortDir = 1; }
+  ['name','category','size','region','location'].forEach(c => {
+    const th = document.getElementById('th-'+c);
+    if (!th) return;
+    th.classList.toggle('sorted', c === sortCol);
+    th.querySelector('.sort-icon').textContent = c === sortCol ? (sortDir===1?'▲':'▼') : '↕';
+  });
+  doSort(); render();
+}
+
+function render() {
+  const total = filtered.length;
+  const start = (page-1)*perPage;
+  const slice = filtered.slice(start, start+perPage);
+  document.getElementById('count-label').textContent = total;
+
+  const tbody = document.getElementById('tbody');
+  const cardsView = document.getElementById('cards-view');
+  const empty = document.getElementById('empty');
+
+  if (!slice.length) {
+    tbody.innerHTML=''; cardsView.innerHTML='';
+    empty.style.display='block';
+    document.getElementById('pagination').innerHTML=''; return;
+  }
+  empty.style.display='none';
+
+  let rows = '', cards = '';
+  slice.forEach((l) => { rows += row(l, filtered.indexOf(l)+1); cards += card(l); });
+
+  tbody.innerHTML = rows;
+  cardsView.innerHTML = cards;
+  renderPagination(total);
+}
+
+function card(l) {
+  const abbr = l.name.split(' ').map(w=>w[0]).join('').substring(0,4).toUpperCase();
+  const catClass = CAT_CLASS[l.category]||'';
+  return `<div class="lead-card">
+    <div class="lead-card-header">
+      <div>
+        <div class="name">${l.name}</div>
+        <span class="abbr">${abbr}</span>
+      </div>
+      <span class="cat-tag ${catClass}" style="font-size:10px;padding:2px 6px;">${l.category}</span>
+    </div>
+    <div class="lead-card-body">
+      <div class="lead-card-field"><div class="lbl">Size</div><div class="val">${l.size}</div></div>
+      <div class="lead-card-field"><div class="lbl">Region</div><div class="val">${l.region}</div></div>
+      <div class="lead-card-field" style="grid-column:1/-1"><div class="lbl">Location</div><div class="val">${l.location}</div></div>
+    </div>
+  </div>`;
+}
+
+function row(l, i) {
+  const abbr = l.name.split(' ').map(w=>w[0]).join('').substring(0,4).toUpperCase();
+  return `<tr>
+    <td style="font-size:12px;color:#aaa;font-weight:500;width:48px;">${i}</td>
+    <td>
+      <div class="company-name">${l.name}</div>
+      <span class="ticker-box">${abbr}</span>
+    </td>
+    <td><span class="cat-tag ${CAT_CLASS[l.category]||''}">${l.category}</span></td>
+    <td><span class="size-pill">${l.size}</span></td>
+    <td style="font-size:12px;color:#555;">${l.region}</td>
+    <td style="font-size:12px;color:#555;">${l.location}</td>
+  </tr>`;
+}
+
+function renderPagination(total) {
+  const tp = Math.ceil(total/perPage);
+  if (tp<=1) { document.getElementById('pagination').innerHTML=''; return; }
+  let h = `<button class="pg-btn" onclick="goPage(${page-1})" ${page===1?'disabled':''}>‹</button>`;
+  const r=[];
+  for(let i=1;i<=tp;i++){
+    if(i===1||i===tp||(i>=page-2&&i<=page+2)) r.push(i);
+    else if(r[r.length-1]!=='…') r.push('…');
+  }
+  r.forEach(p=>{
+    if(p==='…') h+=`<span style="padding:0 6px;color:#999;font-size:13px;display:flex;align-items:center;">…</span>`;
+    else h+=`<button class="pg-btn ${p===page?'active':''}" onclick="goPage(${p})">${p}</button>`;
+  });
+  h+=`<button class="pg-btn" onclick="goPage(${page+1})" ${page===tp?'disabled':''}>›</button>`;
+  h+=`<span class="pg-info">Page ${page} of ${tp}</span>`;
+  document.getElementById('pagination').innerHTML=h;
+}
+
+function goPage(p) {
+  const tp=Math.ceil(filtered.length/perPage);
+  if(p<1||p>tp) return;
+  page=p; render(); window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function onDataViewChange() {
+  const val = document.getElementById('f-dataview').value;
+  document.getElementById('dv-val-text').textContent = val || 'All Companies';
+  // Sync the region filter to match the data view selection
+  document.getElementById('f-region').value = val;
+  onFilterChange();
+}
+
+function resetAll() {
+  document.getElementById('f-region').value='';
+  document.getElementById('f-cat').value='';
+  document.getElementById('f-size').value='';
+  document.getElementById('f-search').value='';
+  document.getElementById('f-dataview').value='';
+  document.getElementById('dv-val-text').textContent='All Companies';
+  onFilterChange();
+}
+
+function exportCSV() {
+  const h=['Company','Category','Size','Region','Location'];
+  const rows=filtered.map(l=>[`"${l.name}"`,l.category,l.size,l.region,`"${l.location}"`]);
+  const csv=[h,...rows].map(r=>r.join(',')).join('\n');
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download='defence-companies.csv'; a.click();
+}
+
+window.onload = () => {
+  const sp = new URLSearchParams(window.location.search);
+  const sq = sp.get('search');
+  if (sq) {
+    document.getElementById('f-search').value = sq;
+    onFilterChange();
+  } else {
+    doSort(); render();
+  }
+};
+
+function toggleMenu() {
+  const m = document.getElementById('mobile-menu');
+  m.classList.toggle('open');
+}
+document.addEventListener('click', e => {
+  const menu = document.getElementById('mobile-menu');
+  const hamburger = document.getElementById('hamburger');
+  if (menu.classList.contains('open') && !menu.contains(e.target) && !hamburger.contains(e.target)) {
+    menu.classList.remove('open');
+  }
+});
+
+async function subscribeForm(f) {
+  const email   = f.querySelector('input[type=email]').value.trim();
+  const company = (f.querySelector('.sub-field input[type=text]') || {value:''}).value.trim();
+  const btn     = f.querySelector('.sub-btn');
+  const orig    = btn.textContent;
+  btn.disabled  = true;
+  btn.textContent = 'Submitting…';
+  try {
+    const res = await fetch('/subscribe', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email, company})
+    });
+    const d = await res.json();
+    if (d.ok) {
+      f.reset();
+      btn.disabled = false;
+      btn.textContent = orig;
+      showSubToast("You have subscribed to Defence Trading's Insights.");
+    } else {
+      btn.disabled = false;
+      btn.textContent = orig;
+      showSubToast('Could not subscribe — please try again.');
+    }
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = orig;
+  }
+  return false;
+}
+function showSubToast(msg) {
+  const t = document.getElementById('sub-toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 4000);
+}
+</script>
+<div id="sub-toast"></div>
+</body>
+</html>

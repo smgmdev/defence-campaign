@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Misc
+.DS_Store
+*.xlsx
+send_campaign.py
+campaign-manager.html
+email_preview.html
