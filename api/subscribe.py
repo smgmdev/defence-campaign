@@ -43,6 +43,7 @@ class handler(BaseHTTPRequestHandler):
                 headers={
                     "Authorization": f"Bearer {RESEND_API_KEY}",
                     "Content-Type":  "application/json",
+                    "User-Agent":    "DefenceTrading/1.0",
                 },
                 method="POST"
             )
