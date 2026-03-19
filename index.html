@@ -391,7 +391,7 @@
     .discovery { padding: 48px 0; }
     .disc-search { height: 60px; }
     .disc-search input { font-size: 14px; padding: 0 20px; }
-    .disc-search-btn { width: 46px; height: 46px; }
+    .disc-search-btn { width: 60px; height: 100%; }
     .stats-inner { grid-template-columns: 1fr 1fr; }
     .stat-item { padding: 32px 24px; }
     .stat-num { font-size: 36px; }
@@ -408,6 +408,14 @@
     .footer-bottom { padding: 16px 0; }
     .footer-bottom > .pg-wrap { flex-direction: column; }
     .sub-fields { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 767px) {
+    .subscribe-strip > .pg-wrap { padding-top: 40px; padding-bottom: 40px; }
+    .sub-fields { grid-template-columns: 1fr !important; gap: 0 !important; }
+    .sub-footer-row { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .sub-check { margin-bottom: 24px; }
+    .sub-btn { width: 100%; text-align: center; }
   }
 </style>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
