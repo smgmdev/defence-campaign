@@ -841,7 +841,7 @@ function prodCard(p) {
       <div class="prod-desc">${p.desc}</div>
     </div>
     <div class="prod-footer">
-      <button class="enquire-btn" onclick="openEnquiry(${JSON.stringify(p.name)})">Enquire →</button>
+      <button class="enquire-btn" data-product="${p.name.replace(/"/g,'&quot;')}" onclick="openEnquiry(this.dataset.product)">Enquire →</button>
     </div>
   </div>`;
 }
@@ -855,7 +855,7 @@ function renderList() {
       <td style="font-size:13px;font-weight:700;">${p.calibre}</td>
       <td><span style="font-size:11px;font-weight:700;color:${CAT_COLORS[p.category]||'#555'};">${p.category}</span></td>
       <td style="font-size:12px;color:#555;">${p.type}</td>
-      <td><button class="enquire-btn" style="white-space:nowrap;" onclick="openEnquiry(${JSON.stringify(p.name)})">Enquire →</button></td>
+      <td><button class="enquire-btn" style="white-space:nowrap;" data-product="${p.name.replace(/"/g,'&quot;')}" onclick="openEnquiry(this.dataset.product)">Enquire →</button></td>
     </tr>
   `).join('');
 }
