@@ -1,9 +1,10 @@
 import json
+import os
 import urllib.request
 import urllib.error
 from http.server import BaseHTTPRequestHandler
 
-RESEND_API_KEY = "re_hmAy6zqd_EY9FFWNQsBgPdBy8vGvQXbTS"
+RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
 AUDIENCE_ID    = "56eef90f-316b-4a16-9ba0-c1c0140fb864"
 
 
