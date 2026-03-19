@@ -10,7 +10,7 @@ import urllib.request
 import urllib.error
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
-RESEND_API_KEY = "re_hmAy6zqd_EY9FFWNQsBgPdBy8vGvQXbTS"
+RESEND_API_KEY = "re_YOUR_KEY_HERE"
 AUDIENCE_ID    = "56eef90f-316b-4a16-9ba0-c1c0140fb864"
 PORT           = 3000
 
