@@ -188,6 +188,7 @@
   gtag("js", new Date());
   gtag("config", "G-5F8DS9XVG4");
 </script>
+<script src="articles.js"></script>
 </head>
 <body>
 
@@ -317,21 +318,7 @@
       <div class="sidebar-block">
         <div class="sidebar-block-label">Related Articles</div>
         <div>
-          <div class="sidebar-related-item">
-            <div class="sidebar-related-cat">Market Analysis</div>
-            <a href="pentagon-886-billion-budget-americas-strategic-priorities.html" class="sidebar-related-title">The Pentagon's $886 billion budget and America's strategic priorities</a>
-            <div class="sidebar-related-date">8 Mar 2026</div>
-          </div>
-          <div class="sidebar-related-item">
-            <div class="sidebar-related-cat">Industry News</div>
-            <a href="defence-industry-best-decade-since-cold-war.html" class="sidebar-related-title">The defence industry just had its best decade since the Cold War</a>
-            <div class="sidebar-related-date">14 Feb 2026</div>
-          </div>
-          <div class="sidebar-related-item">
-            <div class="sidebar-related-cat">Geopolitical Analysis</div>
-            <a href="three-years-on-russias-war-economy-is-still-running.html" class="sidebar-related-title">Three years on, Russia's war economy is still running</a>
-            <div class="sidebar-related-date">17 Mar 2026</div>
-          </div>
+          <div id="related-articles"></div>
         </div>
       </div>
     </aside>
@@ -422,5 +409,6 @@ function showSubToast(msg) {
   setTimeout(() => t.classList.remove('show'), 4000);
 }
 </script>
+<script>renderMoreArticles("taiwan-is-not-ukraine-and-that-distinction-matters.html"); renderRelatedArticles("taiwan-is-not-ukraine-and-that-distinction-matters.html");</script>
 </body>
 </html>

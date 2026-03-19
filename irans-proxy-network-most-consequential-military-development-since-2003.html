@@ -141,6 +141,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5F8DS9XVG4"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-5F8DS9XVG4");</script>
+<script src="articles.js"></script>
 </head>
 <body>
 <div class="main-nav">
@@ -249,21 +250,7 @@
       <div class="sidebar-block">
         <div class="sidebar-block-label">Related Articles</div>
         <div>
-          <div class="sidebar-related-item">
-            <div class="sidebar-related-cat">Industry News</div>
-            <a href="red-sea-crisis-permanently-altered-gulf-defence-procurement.html" class="sidebar-related-title">The Red Sea crisis has permanently altered Gulf defence procurement thinking</a>
-            <div class="sidebar-related-date">5 Mar 2026</div>
-          </div>
-          <div class="sidebar-related-item">
-            <div class="sidebar-related-cat">Market Analysis</div>
-            <a href="saudi-arabia-50-percent-defence-manufacturing-by-2030.html" class="sidebar-related-title">Saudi Arabia wants to manufacture 50% of its own defence equipment by 2030</a>
-            <div class="sidebar-related-date">20 Feb 2026</div>
-          </div>
-          <div class="sidebar-related-item">
-            <div class="sidebar-related-cat">Geopolitical Analysis</div>
-            <a href="taiwan-is-not-ukraine-and-that-distinction-matters.html" class="sidebar-related-title">Taiwan is not Ukraine — and that distinction matters</a>
-            <div class="sidebar-related-date">15 Mar 2026</div>
-          </div>
+          <div id="related-articles"></div>
         </div>
       </div>
     </aside>
@@ -311,5 +298,6 @@
 async function subscribeForm(ev,f){ev.preventDefault();const email=f.querySelector('input[type=email]').value.trim();const company=(f.querySelector('.sub-field input[type=text]')||{value:''}).value.trim();const btn=f.querySelector('.sub-btn');const orig=btn.textContent;btn.disabled=true;btn.textContent='Submitting…';try{const res=await fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,company})});const d=await res.json();if(d.ok){f.reset();btn.disabled=false;btn.textContent=orig;showSubToast("You have subscribed to Defence Trading's Insights.");}else{btn.disabled=false;btn.textContent=orig;showSubToast('Could not subscribe — please try again.');}}catch(e){btn.disabled=false;btn.textContent=orig;}return false;}
 function showSubToast(msg){const t=document.getElementById('sub-toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),4000);}
 </script>
+<script>renderMoreArticles("irans-proxy-network-most-consequential-military-development-since-2003.html"); renderRelatedArticles("irans-proxy-network-most-consequential-military-development-since-2003.html");</script>
 </body>
 </html>

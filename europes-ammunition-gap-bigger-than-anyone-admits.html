@@ -141,6 +141,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5F8DS9XVG4"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-5F8DS9XVG4");</script>
+<script src="articles.js"></script>
 </head>
 <body>
 <div class="main-nav">
@@ -237,21 +238,7 @@
       <div class="sidebar-block">
         <div class="sidebar-block-label">Related Articles</div>
         <div>
-          <div class="sidebar-related-item">
-            <div class="sidebar-related-cat">Geopolitical Analysis</div>
-            <a href="three-years-on-russias-war-economy-is-still-running.html" class="sidebar-related-title">Three years on, Russia's war economy is still running</a>
-            <div class="sidebar-related-date">17 Mar 2026</div>
-          </div>
-          <div class="sidebar-related-item">
-            <div class="sidebar-related-cat">Geopolitical Analysis</div>
-            <a href="north-korean-shells-fired-at-ukrainian-positions.html" class="sidebar-related-title">North Korean artillery shells are being fired at Ukrainian positions</a>
-            <div class="sidebar-related-date">2 Mar 2026</div>
-          </div>
-          <div class="sidebar-related-item">
-            <div class="sidebar-related-cat">Market Analysis</div>
-            <a href="germanys-zeitenwende-is-real-this-time.html" class="sidebar-related-title">Germany's Zeitenwende is real this time — and the numbers finally back it up</a>
-            <div class="sidebar-related-date">26 Feb 2026</div>
-          </div>
+          <div id="related-articles"></div>
         </div>
       </div>
     </aside>
@@ -299,5 +286,6 @@
 async function subscribeForm(ev,f){ev.preventDefault();const email=f.querySelector('input[type=email]').value.trim();const company=(f.querySelector('.sub-field input[type=text]')||{value:''}).value.trim();const btn=f.querySelector('.sub-btn');const orig=btn.textContent;btn.disabled=true;btn.textContent='Submitting…';try{const res=await fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,company})});const d=await res.json();if(d.ok){f.reset();btn.disabled=false;btn.textContent=orig;showSubToast("You have subscribed to Defence Trading's Insights.");}else{btn.disabled=false;btn.textContent=orig;showSubToast('Could not subscribe — please try again.');}}catch(e){btn.disabled=false;btn.textContent=orig;}return false;}
 function showSubToast(msg){const t=document.getElementById('sub-toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),4000);}
 </script>
+<script>renderMoreArticles("europes-ammunition-gap-bigger-than-anyone-admits.html"); renderRelatedArticles("europes-ammunition-gap-bigger-than-anyone-admits.html");</script>
 </body>
 </html>

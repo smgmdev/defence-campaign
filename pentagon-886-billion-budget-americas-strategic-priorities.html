@@ -141,6 +141,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5F8DS9XVG4"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-5F8DS9XVG4");</script>
+<script src="articles.js"></script>
 </head>
 <body>
 <div class="main-nav">
@@ -237,21 +238,7 @@
       <div class="sidebar-block">
         <div class="sidebar-block-label">Related Articles</div>
         <div>
-          <div class="sidebar-related-item">
-            <div class="sidebar-related-cat">Geopolitical Analysis</div>
-            <a href="taiwan-is-not-ukraine-and-that-distinction-matters.html" class="sidebar-related-title">Taiwan is not Ukraine — and that distinction matters</a>
-            <div class="sidebar-related-date">15 Mar 2026</div>
-          </div>
-          <div class="sidebar-related-item">
-            <div class="sidebar-related-cat">Industry News</div>
-            <a href="defence-industry-best-decade-since-cold-war.html" class="sidebar-related-title">The defence industry just had its best decade since the Cold War</a>
-            <div class="sidebar-related-date">14 Feb 2026</div>
-          </div>
-          <div class="sidebar-related-item">
-            <div class="sidebar-related-cat">Market Analysis</div>
-            <a href="europes-ammunition-gap-bigger-than-anyone-admits.html" class="sidebar-related-title">Europe's ammunition gap is bigger than anyone admits</a>
-            <div class="sidebar-related-date">10 Mar 2026</div>
-          </div>
+          <div id="related-articles"></div>
         </div>
       </div>
     </aside>
@@ -299,5 +286,6 @@
 async function subscribeForm(ev,f){ev.preventDefault();const email=f.querySelector('input[type=email]').value.trim();const company=(f.querySelector('.sub-field input[type=text]')||{value:''}).value.trim();const btn=f.querySelector('.sub-btn');const orig=btn.textContent;btn.disabled=true;btn.textContent='Submitting…';try{const res=await fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,company})});const d=await res.json();if(d.ok){f.reset();btn.disabled=false;btn.textContent=orig;showSubToast("You have subscribed to Defence Trading's Insights.");}else{btn.disabled=false;btn.textContent=orig;showSubToast('Could not subscribe — please try again.');}}catch(e){btn.disabled=false;btn.textContent=orig;}return false;}
 function showSubToast(msg){const t=document.getElementById('sub-toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),4000);}
 </script>
+<script>renderMoreArticles("pentagon-886-billion-budget-americas-strategic-priorities.html"); renderRelatedArticles("pentagon-886-billion-budget-americas-strategic-priorities.html");</script>
 </body>
 </html>

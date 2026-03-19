@@ -261,6 +261,7 @@
   gtag("js", new Date());
   gtag("config", "G-5F8DS9XVG4");
 </script>
+<script src="articles.js"></script>
 </head>
 <body>
 
@@ -409,24 +410,9 @@
       <div class="sidebar-block">
         <div class="sidebar-block-label">Related Articles</div>
         <div>
-          <div class="sidebar-related-item">
-            <div class="sidebar-related-cat">Market Analysis</div>
-            <a href="article.html" class="sidebar-related-title">European ammunition demand outpaces production capacity</a>
-            <div class="sidebar-related-date">6 Mar 2026</div>
-          </div>
-          <div class="sidebar-related-item">
-            <div class="sidebar-related-cat">Regulation</div>
-            <a href="article.html" class="sidebar-related-title">UAE strengthens defence export licensing framework ahead of IDEX 2026</a>
-            <div class="sidebar-related-date">1 Mar 2026</div>
-          </div>
-          <div class="sidebar-related-item">
-            <div class="sidebar-related-cat">Industry News</div>
-            <a href="article.html" class="sidebar-related-title">Global defence spending hits record $2.2 trillion in 2024</a>
-            <div class="sidebar-related-date">14 Mar 2026</div>
-          </div>
+          <div id="related-articles"></div>
         </div>
       </div>
-
     </aside>
 
   </div>
@@ -556,5 +542,6 @@ function showSubToast(msg) {
   setTimeout(() => t.classList.remove('show'), 4000);
 }
 </script>
+<script>renderMoreArticles("article.html"); renderRelatedArticles("article.html");</script>
 </body>
 </html>
