@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Pentagon's $886 billion budget — Defence Trading Insights</title>
+<title>Taiwan is not Ukraine — and that distinction matters — Defence Trading Insights</title>
     <meta property="og:type" content="website">
     <meta property="og:title" content="Global Insights — Defence Trading">
     <meta property="og:description" content="Global Insights by Defence Trading — analysis, news, and regulatory updates on international defence procurement, export policy, and arms trade.">
@@ -19,45 +19,87 @@
 <style>
   html { scrollbar-gutter: stable; }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root { --black: #000000; --red: #E31837; --white: #ffffff; --gray-light: #f5f5f5; --gray: #e0e0e0; --text: #1a1a1a; --text-light: #666; }
+  :root {
+    --yellow: #F5C400;
+    --black:  #000000;
+    --red:    #E31837;
+    --white:  #ffffff;
+    --gray-light: #f5f5f5;
+    --gray:   #e0e0e0;
+    --text:   #1a1a1a;
+    --text-light: #666;
+  }
   html { scroll-behavior: smooth; }
   body { font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--white); color: var(--text); }
-  .main-nav { background: var(--white); border-bottom: 1px solid var(--gray); padding: 0 32px; display: flex; align-items: center; height: 56px; position: sticky; top: 0; z-index: 200; }
+  .main-nav {
+    background: var(--white); border-bottom: 1px solid var(--gray);
+    padding: 0 32px; display: flex; align-items: center; height: 56px; position: sticky; top: 0; z-index: 200;
+  }
   .brand { font-size: 22px; font-weight: 900; color: var(--black); text-decoration: none; margin-right: 40px; letter-spacing: -1px; flex-shrink: 0; }
   .brand span { color: var(--red); font-size: 8px; vertical-align: super; }
   .nav-links { display: flex; flex: 1; }
-  .nav-links a { color: var(--text); text-decoration: none; padding: 0 14px; height: 56px; display: flex; align-items: center; font-size: 13px; font-weight: 500; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.15s; }
+  .nav-links a {
+    color: var(--text); text-decoration: none; padding: 0 14px; height: 56px;
+    display: flex; align-items: center; font-size: 13px; font-weight: 500;
+    border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.15s;
+  }
   .nav-links a:hover { border-bottom-color: var(--black); }
   .nav-links a.active { border-bottom-color: var(--red); font-weight: 700; }
   .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; margin-left: auto; }
   .hamburger span { display: block; width: 22px; height: 2px; background: var(--black); }
-  .mobile-nav { display: none; position: absolute; top: 56px; left: 0; right: 0; background: var(--white); border-bottom: 2px solid var(--black); z-index: 200; flex-direction: column; }
+  .mobile-nav {
+    display: none; position: absolute; top: 56px; left: 0; right: 0;
+    background: var(--white); border-bottom: 2px solid var(--black); z-index: 200; flex-direction: column;
+  }
   .mobile-nav.open { display: flex; }
   .mobile-nav a { padding: 14px 20px; font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--gray); }
   .mobile-nav a.active { color: var(--red); }
   .pg-wrap { max-width: 1440px; margin: 0 auto; padding: 0 48px; }
   .art-header { border-bottom: 1px solid var(--gray); padding: 56px 0 48px; }
-  .art-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-light); margin-bottom: 32px; }
+  .art-breadcrumb {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--text-light); margin-bottom: 32px;
+  }
   .art-breadcrumb a { color: var(--text-light); text-decoration: none; transition: color 0.15s; }
   .art-breadcrumb a:hover { color: var(--black); }
   .art-breadcrumb-sep { color: var(--gray); font-size: 14px; }
   .art-breadcrumb-current { color: var(--black); }
-  .art-tag { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
-  .art-headline { font-size: clamp(28px, 3.5vw, 48px); font-weight: 900; color: var(--black); line-height: 1.05; letter-spacing: -1.5px; max-width: 860px; margin-bottom: 32px; }
-  .art-header-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 0; font-size: 13px; color: var(--text-light); margin-bottom: 28px; }
+  .art-tag {
+    display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--red); margin-bottom: 20px;
+  }
+  .art-headline {
+    font-size: clamp(28px, 3.5vw, 48px); font-weight: 900; color: var(--black);
+    line-height: 1.05; letter-spacing: -1.5px; max-width: 860px; margin-bottom: 32px;
+  }
+  .art-header-meta {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 0;
+    font-size: 13px; color: var(--text-light); margin-bottom: 28px;
+  }
   .art-header-meta-author { font-weight: 700; color: var(--text); }
   .art-header-meta-sep { margin: 0 12px; color: var(--gray); }
   .art-share-row { display: flex; align-items: center; gap: 10px; }
   .share-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-light); margin-right: 4px; }
-  .share-btn { width: 34px; height: 34px; border: 1px solid var(--gray); background: var(--white); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 13px; text-decoration: none; color: var(--text); transition: all 0.15s; }
+  .share-btn {
+    width: 34px; height: 34px; border: 1px solid var(--gray); background: var(--white);
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    font-size: 13px; text-decoration: none; color: var(--text); transition: all 0.15s;
+  }
   .share-btn:hover { border-color: var(--black); background: var(--gray-light); }
   .art-layout { display: grid; grid-template-columns: 1fr 320px; gap: 64px; padding: 56px 0 100px; align-items: start; }
   .art-body { font-size: 17px; line-height: 1.8; color: var(--text); }
   .art-body p { margin-bottom: 26px; }
   .art-body p:last-child { margin-bottom: 0; }
   .art-body h2 { font-size: 23px; font-weight: 900; color: var(--black); letter-spacing: -0.4px; margin: 44px 0 16px; line-height: 1.2; }
+  .art-body h3 { font-size: 17px; font-weight: 700; color: var(--black); margin: 32px 0 12px; }
+  .art-body ul, .art-body ol { padding-left: 24px; margin-bottom: 26px; }
+  .art-body li { margin-bottom: 10px; line-height: 1.75; }
   .art-body strong { font-weight: 700; color: var(--black); }
-  .art-body blockquote { border-left: 4px solid var(--black); margin: 40px 0; padding: 8px 0 8px 28px; font-size: 21px; font-weight: 800; color: var(--black); line-height: 1.4; font-style: normal; letter-spacing: -0.3px; }
+  .art-body blockquote {
+    border-left: 4px solid var(--black); margin: 40px 0; padding: 8px 0 8px 28px;
+    font-size: 21px; font-weight: 800; color: var(--black); line-height: 1.4; font-style: normal; letter-spacing: -0.3px;
+  }
   .rule { border: none; border-top: 1px solid var(--gray); margin: 40px 0; }
   .about-section { background: var(--gray-light); padding: 32px 36px; margin-top: 48px; }
   .about-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--text-light); margin-bottom: 12px; }
@@ -140,25 +182,53 @@
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5F8DS9XVG4"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-5F8DS9XVG4");</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-5F8DS9XVG4");
+</script>
 </head>
 <body>
+
+<!-- NAV -->
 <div class="main-nav">
   <a href="index.html" class="brand">DefenceTrading<span>®</span></a>
-  <div class="nav-links"><a href="about-us.html">About Us</a><a href="products.html">Products</a><a href="companies.html">Companies</a><a href="insights.html" class="active">Insights</a></div>
-  <div class="hamburger" onclick="document.getElementById('mobile-nav').classList.toggle('open')"><span></span><span></span><span></span></div>
-  <div class="mobile-nav" id="mobile-nav"><a href="about-us.html">About Us</a><a href="products.html">Products</a><a href="companies.html">Companies</a><a href="insights.html" class="active">Insights</a></div>
+  <div class="nav-links">
+    <a href="about-us.html">About Us</a>
+    <a href="products.html">Products</a>
+    <a href="companies.html">Companies</a>
+    <a href="insights.html" class="active">Insights</a>
+  </div>
+  <div class="hamburger" onclick="document.getElementById('mobile-nav').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="about-us.html">About Us</a>
+    <a href="products.html">Products</a>
+    <a href="companies.html">Companies</a>
+    <a href="insights.html" class="active">Insights</a>
+  </div>
 </div>
 
+<!-- ARTICLE HEADER -->
 <div class="art-header">
   <div class="pg-wrap">
-    <div class="art-breadcrumb"><a href="index.html">Home</a><span class="art-breadcrumb-sep">/</span><a href="insights.html">Global Insights</a><span class="art-breadcrumb-sep">/</span><span class="art-breadcrumb-current">Market Analysis</span></div>
-    <div class="art-tag">Market Analysis</div>
-    <h1 class="art-headline">The Pentagon's $886 billion budget tells you everything about America's strategic priorities — if you know how to read it</h1>
+    <div class="art-breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="art-breadcrumb-sep">/</span>
+      <a href="insights.html">Global Insights</a>
+      <span class="art-breadcrumb-sep">/</span>
+      <span class="art-breadcrumb-current">Geopolitical Analysis</span>
+    </div>
+    <div class="art-tag">Geopolitical Analysis</div>
+    <h1 class="art-headline">Taiwan is not Ukraine — and that distinction matters more than most defence planners admit</h1>
     <div class="art-header-meta">
       <span class="art-header-meta-author">Editorial Team — Defence Trading</span>
-      <span class="art-header-meta-sep">|</span><span>8 Mar 2026</span>
-      <span class="art-header-meta-sep">|</span><span>North America</span>
+      <span class="art-header-meta-sep">|</span>
+      <span>15 Mar 2026</span>
+      <span class="art-header-meta-sep">|</span>
+      <span>Global</span>
     </div>
     <div class="art-share-row">
       <span class="share-label">Share</span>
@@ -170,50 +240,58 @@
   </div>
 </div>
 
+<!-- ARTICLE BODY + SIDEBAR -->
 <div class="pg-wrap">
   <div class="art-layout">
     <div>
       <div class="art-body">
 
-        <p>The FY2026 defence budget request of $886 billion is a document that rewards careful reading and punishes superficial interpretation. The headline number — the largest in absolute terms in American history — tends to dominate coverage, but the distribution of that spending tells a more revealing story about where the United States believes its security challenges actually lie and which industrial sectors are about to receive very significant investment attention.</p>
+        <p>The tendency to use Ukraine as the template for how a Taiwan contingency might unfold is understandable — it is the most recent high-intensity conventional conflict in living memory, and the parallels at the rhetorical level are superficially appealing. A major power attempting to absorb a smaller neighbour by force; Western arms transfers as the contested variable; the moral clarity of the defending state. But operationally, strategically, and logistically, the two scenarios are so different that applying Ukrainian lessons to Taiwan planning without significant qualification is a useful way to arrive at wrong conclusions.</p>
 
-        <p>The Pacific Deterrence Initiative received $9.9 billion — a figure that represents the single largest year-on-year increase in the programme's short history and reflects a strategic consensus in Washington that the Indo-Pacific theatre is the defining security challenge of the next decade. The investment goes into pre-positioned munitions stocks across the Pacific island chain, hardened facilities in Guam and Japan, undersea warfare capabilities, and the logistics infrastructure needed to sustain high-intensity operations at enormous distances from the continental United States. If you want to understand what American grand strategy looks like translated into procurement decisions, this is probably the most important single line in the document.</p>
+        <p>The Taiwan Strait scenario is, at its core, an amphibious operation — and amphibious operations are among the most logistically complex and meteorologically constrained military undertakings in existence. The PLA has a usable weather window of approximately six weeks per year in which sea states in the Strait are consistently calm enough to support a large-scale amphibious assault. Miss that window, or have it disrupted by interdiction, and the entire operational timeline shifts by months. This is not a minor logistical consideration — it is the central variable around which any credible invasion scenario is built, and it provides defenders with a structural advantage that has no equivalent in the land-war context of eastern Ukraine.</p>
 
-        <h2>The Air Force's difficult choices</h2>
+        <h2>The naval balance has shifted — but not decisively</h2>
 
-        <p>The cancellation of the Next Generation Air Dominance programme — the planned successor to the F-22 — was the most significant single procurement decision in the budget and the one that has generated the most controversy within the Air Force community. NGAD was designed to provide manned sixth-generation air superiority in a contested environment. Its cancellation does not signal that the Air Force has abandoned air superiority as a mission; it signals that the conclusion has been reached, after considerable internal debate, that the specific solution NGAD represented — an extraordinarily expensive manned platform optimised for a relatively narrow set of scenarios — does not represent the best use of limited investment dollars compared to the alternatives.</p>
+        <p>China's People's Liberation Army Navy has undergone a transformation that is genuinely without modern precedent in its speed and scale. Since 2015, the PLAN has roughly doubled in total tonnage. It now fields the world's largest navy by number of hulls — over 355 warships and submarines — and is adding Type 055 destroyers and Type 075 landing helicopter docks at a pace that reflects genuine industrial ambition. By 2030, US Naval Intelligence estimates suggest PLAN could field over 400 battle force ships.</p>
 
-        <p>Those alternatives include the Collaborative Combat Aircraft programme — autonomous wingmen that can operate alongside fourth and fifth-generation platforms at a fraction of the cost of a manned fighter — and continued investment in the electronic warfare, long-range strike, and space-based capabilities that define the modern air combat environment. The shift is real, and it has implications for the entire prime contractor ecosystem built around the manned fighter procurement pipeline.</p>
+        <p>But number of hulls is a misleading metric without accounting for experience, training, and the specific demands of contested amphibious operations. The last time China conducted an opposed amphibious landing of any scale was in 1955. The gap between platform inventory and operational proficiency is real, and it is not the kind of gap that disappears on a production schedule.</p>
 
-        <blockquote>"Washington is spending more on defence than at any point since World War Two and simultaneously arguing about whether it can afford to."</blockquote>
+        <p>Taiwan's own defence posture has evolved in ways that complicate simple PLA planning assumptions. The island's defence budget reached $19 billion in 2025, driven partly by domestic political will and partly by sustained US pressure to take the threat more seriously. The shift toward asymmetric deterrence — sea mines, anti-ship missiles, mobile coastal defence systems, and the kind of ground-based anti-access capabilities that make amphibious landings genuinely costly — reflects a strategic maturation that was less evident a decade ago.</p>
 
-        <h2>The Ukraine fatigue factor</h2>
+        <blockquote>"The question isn't whether China can cross the strait — it's whether Beijing believes the cost is worth it. Right now, that calculus is genuinely uncertain."</blockquote>
 
-        <p>Congressional Ukraine fatigue is real and should not be dismissed by those who find it politically inconvenient. The FY2026 supplemental Ukraine assistance request was the smallest since 2022, and the political coalition required to pass it was assembled with considerably more difficulty than its predecessors. This does not represent a strategic shift away from European security — the separate NATO commitments line items in the budget are, if anything, increasing — but it does reflect a genuine political recalibration in which the domestic political cost of sustaining Ukraine support has risen faster than the strategic case for doing so has been made.</p>
+        <h2>US arms commitments and the delivery problem</h2>
 
-        <p>The defence industrial base investment line is one of the most consequential in the budget for the global procurement community, though it receives far less attention than platforms and programmes. The administration has requested $4.2 billion for defence industrial base resilience — effectively a CHIPS Act equivalent for weapons manufacturing. This investment targets the specific supply chain bottlenecks that have emerged most painfully from the Ukraine experience: propellant production, precision guidance electronics, energetic materials, and titanium forgings. The timelines for this investment to translate into production capacity remain three to five years out.</p>
+        <p>Washington has committed approximately $20 billion in arms sales to Taiwan since 2022 — F-16 upgrades, Harpoon coastal defence systems, HIMARS, Stinger MANPADS, M1A2 tanks, and a range of munitions packages. The political signal is clear. The operational reality is more complicated: delivery timelines on much of this equipment stretch well beyond 2027, in some cases beyond 2030. A backlog driven partly by US domestic production constraints and partly by competing priority demands from Ukraine and other partners means that the committed capability and the delivered capability are meaningfully different things.</p>
 
-        <h2>Arms export policy and allied implications</h2>
+        <p>The TSMC factor adds a dimension to this scenario that has no equivalent in European security debates. Taiwan Semiconductor Manufacturing Company produces approximately 92% of the world's most advanced semiconductors. The economic leverage this creates cuts in multiple directions simultaneously — it is both a deterrent (the global economic disruption of any conflict over Taiwan would be catastrophic, and Beijing understands this) and a strategic objective (control of TSMC's capabilities would represent an extraordinary industrial prize). Whether this leverage ultimately deters or incentivises is one of the genuinely contested questions in contemporary strategic analysis.</p>
 
-        <p>US arms export policy under the current administration has become more transactional and less ideologically constrained than its predecessor's approach. The practical consequence for allied buyers is both positive and negative: access to previously restricted categories has improved, but the predictability and consistency of the approval process has not. Procurement officers in allied governments who are building multi-year acquisition programmes on the assumption of US export approval should stress-test that assumption more rigorously than they have in previous budget cycles.</p>
+        <h2>Regional procurement implications</h2>
 
-        <p>The AUKUS submarine timeline is the most visible example of the gap between political commitment and industrial delivery. The Virginia-class attack submarine transfers to Australia were promised on a schedule that most naval analysts — and, increasingly, official Australian assessments — acknowledge cannot be met given current US shipyard capacity constraints. The programme is real, the political will is genuine, but the delivery mechanism is under strain that has not been publicly resolved. This is a pattern worth watching across the broader US arms export landscape.</p>
+        <p>Japan, South Korea, the Philippines, and Australia are all recalibrating their procurement programmes with a Taiwan contingency somewhere in the planning assumptions. Japan's defence budget has doubled to 2% of GDP ahead of its own 2027 target — a political transformation as significant as Germany's Zeitenwende, and arguably more operationally consequential given Japan's geographic proximity to the scenario. The Philippines has concluded new basing agreements with the United States, expanded its own acquisition programme, and is buying coastal defence systems at a pace that reflects genuine anxiety rather than symbolic reassurance-seeking.</p>
+
+        <p>For the global defence supply chain, the Indo-Pacific pivot is creating demand signals that will shape procurement markets for the next decade. The specific requirements — maritime surveillance, anti-ship capabilities, mine warfare, air defence, and the logistics infrastructure to sustain island-based resistance — are different enough from European theatre requirements to create distinct and sometimes competing demands on manufacturers already operating at capacity.</p>
+
+        <p>The Taiwan scenario will not resolve itself in the near term, and the strategic ambiguity that has preserved peace in the Strait for decades is unlikely to disappear. But the procurement consequences of treating it as a live planning assumption — rather than a theoretical future concern — are already being felt across every major Indo-Pacific defence market.</p>
 
       </div>
+
       <hr class="rule">
+
       <div class="about-section">
         <div class="about-label">About Defence Trading</div>
         <p>Defence Trading is a B2B defence procurement platform headquartered in Dubai. We connect governments, armed forces, and prime defence contractors with certified military products through compliant, established procurement channels. Our network spans verified partners across the Middle East, Europe, and North America, covering military product categories including ammunition, protective equipment, communications, medical supplies, and military vehicles.</p>
       </div>
+
       <div class="more-articles">
         <div class="more-label">More from Global Insights</div>
         <div class="more-grid">
-          <a href="china-taiwan.html" class="more-card">
-            <div class="more-card-cat">Geopolitical Analysis</div>
-            <div class="more-card-title">Taiwan is not Ukraine — and that distinction matters more than most defence planners admit</div>
-            <div class="more-card-date">15 Mar 2026</div>
+          <a href="pentagon-886-billion-budget-americas-strategic-priorities.html" class="more-card">
+            <div class="more-card-cat">Market Analysis</div>
+            <div class="more-card-title">The Pentagon's $886 billion budget tells you everything about America's strategic priorities</div>
+            <div class="more-card-date">8 Mar 2026</div>
           </a>
-          <a href="global-economy-defence.html" class="more-card">
+          <a href="defence-industry-best-decade-since-cold-war.html" class="more-card">
             <div class="more-card-cat">Industry News</div>
             <div class="more-card-title">The defence industry just had its best decade since the Cold War</div>
             <div class="more-card-date">14 Feb 2026</div>
@@ -221,6 +299,8 @@
         </div>
       </div>
     </div>
+
+    <!-- SIDEBAR -->
     <aside class="art-sidebar">
       <div class="sidebar-block">
         <div class="sidebar-block-label">Contact Us</div>
@@ -238,19 +318,19 @@
         <div class="sidebar-block-label">Related Articles</div>
         <div>
           <div class="sidebar-related-item">
-            <div class="sidebar-related-cat">Geopolitical Analysis</div>
-            <a href="china-taiwan.html" class="sidebar-related-title">Taiwan is not Ukraine — and that distinction matters</a>
-            <div class="sidebar-related-date">15 Mar 2026</div>
+            <div class="sidebar-related-cat">Market Analysis</div>
+            <a href="pentagon-886-billion-budget-americas-strategic-priorities.html" class="sidebar-related-title">The Pentagon's $886 billion budget and America's strategic priorities</a>
+            <div class="sidebar-related-date">8 Mar 2026</div>
           </div>
           <div class="sidebar-related-item">
             <div class="sidebar-related-cat">Industry News</div>
-            <a href="global-economy-defence.html" class="sidebar-related-title">The defence industry just had its best decade since the Cold War</a>
+            <a href="defence-industry-best-decade-since-cold-war.html" class="sidebar-related-title">The defence industry just had its best decade since the Cold War</a>
             <div class="sidebar-related-date">14 Feb 2026</div>
           </div>
           <div class="sidebar-related-item">
-            <div class="sidebar-related-cat">Market Analysis</div>
-            <a href="ukraine-ammunition.html" class="sidebar-related-title">Europe's ammunition gap is bigger than anyone admits</a>
-            <div class="sidebar-related-date">10 Mar 2026</div>
+            <div class="sidebar-related-cat">Geopolitical Analysis</div>
+            <a href="three-years-on-russias-war-economy-is-still-running.html" class="sidebar-related-title">Three years on, Russia's war economy is still running</a>
+            <div class="sidebar-related-date">17 Mar 2026</div>
           </div>
         </div>
       </div>
@@ -258,6 +338,7 @@
   </div>
 </div>
 
+<!-- SUBSCRIBE STRIP -->
 <div class="subscribe-strip">
 <div class="pg-wrap">
   <h2>Subscribe to Defence Trading's Insights</h2>
@@ -268,7 +349,10 @@
       <div class="sub-field"><label>Location <span>*</span></label><select required><option value="" disabled selected></option><option>United Arab Emirates</option><option>United States</option><option>United Kingdom</option><option>Germany</option><option>France</option><option>Poland</option><option>Saudi Arabia</option><option>Other</option></select></div>
       <div class="sub-field"><label>Company <span>*</span></label><input type="text" placeholder="Your organisation" required></div>
     </div>
-    <div class="sub-check"><input type="checkbox" id="sub-consent" required><label for="sub-consent">Please click here to opt-in to receiving procurement insights and marketing communications from Defence Trading. Data collected will be processed in accordance with our privacy notice. You may unsubscribe at any time.</label></div>
+    <div class="sub-check">
+      <input type="checkbox" id="sub-consent" required>
+      <label for="sub-consent">Please click here to opt-in to receiving procurement insights and marketing communications from Defence Trading. Data collected will be processed in accordance with our privacy notice. You may unsubscribe at any time.</label>
+    </div>
     <div class="sub-footer-row">
       <div class="sub-required">*Required information &nbsp;|&nbsp; Read our <a href="privacy.html">Privacy notice</a></div>
       <button type="submit" class="sub-btn">Subscribe to Defence Trading</button>
@@ -277,27 +361,66 @@
 </div>
 </div>
 
+<!-- FOOTER -->
 <footer>
-  <div class="footer-main"><div class="pg-wrap">
+  <div class="footer-main">
+  <div class="pg-wrap">
     <div class="footer-brand-col">
       <div class="footer-logo">DefenceTrading<span>®</span></div>
       <p class="footer-desc">As a defence trader, our role is to connect governments, armed forces, and defence contractors with certified military products through compliant and established procurement channels. We work exclusively with licensed enterprises and authorised suppliers, ensuring that all equipment is sourced from certified manufacturers and delivered in accordance with applicable regulatory and export control requirements.</p>
     </div>
     <div class="footer-divider"></div>
     <div class="footer-cols">
-      <div class="footer-col"><div class="footer-col-label">Corporate</div><a href="about-us.html">About Us</a><a href="insights.html">Global Insights</a><a href="products.html">Products</a><a href="companies.html">Companies</a><a href="index.html#contact">Contact Us</a></div>
-      <div class="footer-col"><div class="footer-col-label">Legal</div><a href="terms.html">Terms &amp; Conditions</a><a href="privacy.html">Privacy Notice</a><a href="export-control.html">Export Control Policy</a><a href="end-user-certification.html">End-User Certification</a><a href="cookies.html">Cookie Notice</a></div>
+      <div class="footer-col">
+        <div class="footer-col-label">Corporate</div>
+        <a href="about-us.html">About Us</a>
+        <a href="insights.html">Global Insights</a>
+        <a href="products.html">Products</a>
+        <a href="companies.html">Companies</a>
+        <a href="index.html#contact">Contact Us</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Legal</div>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Notice</a>
+        <a href="export-control.html">Export Control Policy</a>
+        <a href="end-user-certification.html">End-User Certification</a>
+        <a href="cookies.html">Cookie Notice</a>
+      </div>
     </div>
-  </div></div>
-  <div class="footer-bottom"><div class="pg-wrap">
+  </div>
+  </div>
+  <div class="footer-bottom">
+  <div class="pg-wrap">
     <span class="footer-copy">© 2026 Defence Trading. All rights reserved.</span>
-    <div class="footer-legal"><a href="terms.html">Terms &amp; Conditions</a><a href="privacy.html">Privacy Notice</a><a href="export-control.html">Export Control</a><a href="cookies.html">Cookies</a></div>
-  </div></div>
+    <div class="footer-legal">
+      <a href="terms.html">Terms &amp; Conditions</a>
+      <a href="privacy.html">Privacy Notice</a>
+      <a href="export-control.html">Export Control</a>
+      <a href="cookies.html">Cookies</a>
+    </div>
+  </div>
+  </div>
 </footer>
 <div id="sub-toast"></div>
 <script>
-async function subscribeForm(ev,f){ev.preventDefault();const email=f.querySelector('input[type=email]').value.trim();const company=(f.querySelector('.sub-field input[type=text]')||{value:''}).value.trim();const btn=f.querySelector('.sub-btn');const orig=btn.textContent;btn.disabled=true;btn.textContent='Submitting…';try{const res=await fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,company})});const d=await res.json();if(d.ok){f.reset();btn.disabled=false;btn.textContent=orig;showSubToast("You have subscribed to Defence Trading's Insights.");}else{btn.disabled=false;btn.textContent=orig;showSubToast('Could not subscribe — please try again.');}}catch(e){btn.disabled=false;btn.textContent=orig;}return false;}
-function showSubToast(msg){const t=document.getElementById('sub-toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),4000);}
+async function subscribeForm(ev, f) { ev.preventDefault();
+  const email = f.querySelector('input[type=email]').value.trim();
+  const company = (f.querySelector('.sub-field input[type=text]') || {value:''}).value.trim();
+  const btn = f.querySelector('.sub-btn'); const orig = btn.textContent;
+  btn.disabled = true; btn.textContent = 'Submitting…';
+  try {
+    const res = await fetch('/api/subscribe', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({email, company}) });
+    const d = await res.json();
+    if (d.ok) { f.reset(); btn.disabled = false; btn.textContent = orig; showSubToast("You have subscribed to Defence Trading's Insights."); }
+    else { btn.disabled = false; btn.textContent = orig; showSubToast('Could not subscribe — please try again.'); }
+  } catch(e) { btn.disabled = false; btn.textContent = orig; }
+  return false;
+}
+function showSubToast(msg) {
+  const t = document.getElementById('sub-toast'); t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 4000);
+}
 </script>
 </body>
 </html>
