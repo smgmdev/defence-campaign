@@ -983,15 +983,17 @@ async function submitEnquiry(ev) {
     });
     const d = await res.json();
     if (d.ok) {
-      document.getElementById('enq-form-wrap').style.display = 'none';
-      document.getElementById('enq-success').style.display = 'block';
+      closeEnquiry();
+      document.getElementById('enq-form-wrap').querySelector('form').reset();
+      btn.disabled = false; btn.textContent = 'Send Enquiry →';
+      showSubToast('Your enquiry has been sent. We will be in touch within 2 business days.');
     } else {
       btn.disabled = false; btn.textContent = 'Send Enquiry →';
-      alert('Submission failed — please try again.');
+      showSubToast('Submission failed — please try again.');
     }
   } catch(e) {
     btn.disabled = false; btn.textContent = 'Send Enquiry →';
-    alert('Submission failed — please try again.');
+    showSubToast('Submission failed — please try again.');
   }
 }
 </script>
