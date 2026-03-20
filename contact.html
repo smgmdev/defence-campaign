@@ -86,6 +86,7 @@
   /* INTERESTED IN */
   .interests-section { grid-column: 1 / -1; margin-bottom: 36px; }
   .interests-label { font-size: 13px; font-weight: 700; color: var(--black); margin-bottom: 20px; display: block; }
+  .interests-label span { color: var(--red); }
   .interests-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px 24px; }
   .interest-item { display: flex; align-items: center; gap: 10px; cursor: pointer; }
   .interest-item input[type=checkbox] {
@@ -296,7 +297,7 @@
           </select>
         </div>
         <div class="form-field">
-          <label>Phone Number</label>
+          <label>Phone Number <span>*</span></label>
           <input type="tel" name="phone" placeholder="+1 000 000 0000" required>
         </div>
 
@@ -341,7 +342,7 @@
 
         <!-- INTERESTED IN -->
         <div class="interests-section">
-          <span class="interests-label">Interested In</span>
+          <span class="interests-label">Interested In <span>*</span></span>
           <div class="interests-grid">
             <label class="interest-item"><input type="checkbox" name="interests" value="Ammunition & Ordnance"><label>Ammunition &amp; Ordnance</label></label>
             <label class="interest-item"><input type="checkbox" name="interests" value="Protective Equipment"><label>Protective Equipment</label></label>
@@ -361,7 +362,7 @@
         <hr class="form-divider">
 
         <div class="form-field form-field--full">
-          <label>How can we help you?</label>
+          <label>How can we help you? <span>*</span></label>
           <textarea name="message" placeholder="Describe your procurement requirement or enquiry…" rows="4" required></textarea>
         </div>
 
