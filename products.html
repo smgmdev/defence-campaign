@@ -399,6 +399,7 @@
           <option>Fuzes &amp; Components</option>
           <option>Ammo Boxes &amp; Tubes</option>
           <option>AI Systems</option>
+          <option>Weapons &amp; Firearms</option>
         </select>
       </button>
     </div>
@@ -745,6 +746,20 @@ const PRODUCTS = [
     tags: ["120mm", "Tube", "Packaging"]
   },
 
+  // ── WEAPONS & FIREARMS ───────────────────────────────────────
+  {
+    id: 33, name: "AK-47 ASSAULT RIFLE", calibre: "7.62×39mm", category: "Weapons & Firearms", type: "Assault Rifle",
+    desc: "Kalashnikov AK-47 assault rifle, cal. 7.62×39mm. Wooden stock, MD 1963 configuration. Supplied with 2×30 round magazines, cleaning rod, sling, and cleaning kit. One of the most widely fielded infantry rifles globally, known for reliability in extreme conditions.",
+    img: "https://upload.wikimedia.org/wikipedia/commons/6/65/AK-47_type_II_noBG.png",
+    tags: ["AK-47", "Kalashnikov", "Assault Rifle", "7.62×39mm"]
+  },
+  {
+    id: 34, name: "PSL MACHINE GUN", calibre: "7.62×54R", category: "Weapons & Firearms", type: "Designated Marksman Rifle",
+    desc: "Romanian PSL (Puşcă Semiautomată cu Luneta) cal. 7.62×54R. Supplied with optical scope, 2×10 round magazines, cleaning rod, sling, and cleaning kit. Semi-automatic designated marksman rifle effective to 800m. Compatible with Soviet 7.62×54R ammunition.",
+    img: "https://upload.wikimedia.org/wikipedia/commons/e/e9/SVD_Dragunov-removebg-preview.png",
+    tags: ["PSL", "DMR", "7.62×54R", "Scoped"]
+  },
+
 ];
 
 const CAT_COLORS = {
@@ -758,6 +773,7 @@ const CAT_COLORS = {
   "Fuzes & Components":      "#6b7280",
   "Ammo Boxes & Tubes":      "#6b7280",
   "AI Systems":              "#6b7280",
+  "Weapons & Firearms":      "#6b7280",
 };
 
 let filtered = [...PRODUCTS], currentView = 'grid', activeCat = '', sortCol = 'id', sortDir = 1;
