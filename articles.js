@@ -1,5 +1,11 @@
 const ARTICLES = [
   {
+    title: "The most traded military products in 2026 — and what the demand tells us about where the world is heading",
+    url:   "most-traded-military-products-2026.html",
+    cat:   "Market Analysis",
+    date:  "24 Mar 2026"
+  },
+  {
     title: "Three years on, Russia's war economy is still running — and Europe is only just waking up",
     url:   "three-years-on-russias-war-economy-is-still-running.html",
     cat:   "Geopolitical Analysis",
