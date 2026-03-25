@@ -1,5 +1,11 @@
 const ARTICLES = [
   {
+    title: "How to prepare for World War 3 — what individuals, businesses, and governments should be doing now",
+    url:   "how-to-prepare-for-world-war-3.html",
+    cat:   "Defence & Preparedness",
+    date:  "25 Mar 2026"
+  },
+  {
     title: "The most traded military products in 2026 — and what the demand tells us about where the world is heading",
     url:   "most-traded-military-products-2026.html",
     cat:   "Market Analysis",
