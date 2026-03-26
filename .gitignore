@@ -10,6 +10,12 @@ env/
 # Misc
 .DS_Store
 *.xlsx
-send_campaign.py
-campaign-manager.html
+# Campaign & send scripts (local only)
+send_*.py
+arcana_mace_*.py
+
+# Private email drafts & tools (local only)
+arcanamace-email-draft.html
+email-draft-preview.html
 email_preview.html
+campaign-manager.html
