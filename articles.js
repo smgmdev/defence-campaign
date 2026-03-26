@@ -1,5 +1,11 @@
 const ARTICLES = [
   {
+    title: "What are the actual chances of World War 3 starting in the Middle East in 2026?",
+    url:   "world-war-3-middle-east-chances-2026.html",
+    cat:   "Geopolitical Analysis",
+    date:  "26 Mar 2026"
+  },
+  {
     title: "How to prepare for World War 3 — what individuals, businesses, and governments should be doing now",
     url:   "how-to-prepare-for-world-war-3.html",
     cat:   "Defence & Preparedness",
