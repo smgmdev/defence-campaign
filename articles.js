@@ -1,5 +1,11 @@
 const ARTICLES = [
   {
+    title: "Arcana Precision: The AI software built to see what radar misses — now on the Defence Trading product list",
+    url:   "arcana-precision-ai-sky-threat-detection.html",
+    cat:   "Defence Technology",
+    date:  "27 Mar 2026"
+  },
+  {
     title: "What are the actual chances of World War 3 starting in the Middle East in 2026?",
     url:   "world-war-3-middle-east-chances-2026.html",
     cat:   "Geopolitical Analysis",
