@@ -1,5 +1,11 @@
 const ARTICLES = [
   {
+    title: "The 155mm shell is now the single most consequential munition in the world — and everyone is racing to make more of them",
+    url:   "155mm-artillery-shells-dominating-global-defence-market.html",
+    cat:   "Defence Markets",
+    date:  "28 Mar 2026"
+  },
+  {
     title: "Arcana Precision: The AI software built to see what radar misses — now on the Defence Trading product list",
     url:   "arcana-precision-ai-sky-threat-detection.html",
     cat:   "Defence Technology",
