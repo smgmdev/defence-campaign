@@ -138,6 +138,23 @@
   }
   .btn-outline-white:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
 
+  /* ── HERO SPINNER ── */
+  .hero-spinner {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; align-items: center; justify-content: center;
+    background: #0a0a0a;
+    transition: opacity 0.4s ease;
+  }
+  .hero-spinner.hidden { opacity: 0; pointer-events: none; }
+  .hero-spinner-ring {
+    width: 48px; height: 48px;
+    border: 3px solid rgba(255,255,255,0.15);
+    border-top-color: rgba(255,255,255,0.75);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
   /* ── ABOUT SPLIT (yellow) ── */
   .about-split { display: grid; grid-template-columns: 1fr 1fr; min-height: 440px; background: var(--yellow); }
   .about-text { padding: 80px 64px; display: flex; flex-direction: column; justify-content: center; }
@@ -464,9 +481,10 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg">
-    <video class="hero-video" autoplay muted loop playsinline preload="auto">
+    <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="auto">
       <source src="hero-bg.mp4" type="video/mp4">
     </video>
+    <div class="hero-spinner" id="heroSpinner"><div class="hero-spinner-ring"></div></div>
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-content pg-wrap">
@@ -709,5 +727,18 @@ function showSubToast(msg) {
 
 </script>
 <div id="sub-toast"></div>
+<script>
+  (function() {
+    var video = document.getElementById('heroVideo');
+    var spinner = document.getElementById('heroSpinner');
+    function hideSpinner() { spinner.classList.add('hidden'); }
+    if (video) {
+      video.addEventListener('canplay', hideSpinner, { once: true });
+      // Fallback: hide after 3s if canplay never fires (e.g. video cached)
+      if (video.readyState >= 3) { hideSpinner(); }
+      else { setTimeout(hideSpinner, 3000); }
+    }
+  })();
+</script>
 </body>
 </html>
