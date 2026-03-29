@@ -1,5 +1,11 @@
 const ARTICLES = [
   {
+    title: "How long can Iran actually keep the Strait of Hormuz closed — and what are the long-term consequences?",
+    url:   "iran-strait-of-hormuz-closure-how-long-consequences.html",
+    cat:   "Geopolitical Analysis",
+    date:  "29 Mar 2026"
+  },
+  {
     title: "The most important war events happening in the world right now",
     url:   "most-important-war-events-world-2026.html",
     cat:   "Geopolitical Analysis",
