@@ -169,6 +169,8 @@
             <option value="Middle East">🕌 Middle East</option>
             <option value="Asia-Pacific">🌏 Asia-Pacific</option>
             <option value="Global">🌐 Global</option>
+            <option value="Africa">🌍 Africa</option>
+            <option value="Latin America">🌎 Latin America</option>
           </select>
           <select class="filter" id="cat-filter" onchange="filterLeads()">
             <option value="">All Categories</option>
@@ -197,6 +199,39 @@
             <option>Global Military Surplus</option>
             <option>Defence Intermediary / Manufacturer</option>
             <option>Defence Broker</option>
+            <option>Defence Electronics</option>
+            <option>Doppler Radar / Air Defence</option>
+            <option>Naval Radar / Combat Management</option>
+            <option>Naval Shipbuilding</option>
+            <option>Small Arms / Military Weapons</option>
+            <option>Small Arms / Military Export</option>
+            <option>Small Arms / Weapons Manufacturer</option>
+            <option>Ammunition / Ordnance</option>
+            <option>Ammunition / Military Equipment</option>
+            <option>Ammunition / Small Arms</option>
+            <option>Rockets / Missiles / MLRS</option>
+            <option>Rockets / Missiles / Guided Weapons</option>
+            <option>Arms Broker / Military Trader</option>
+            <option>Arms Trading / Export</option>
+            <option>Defence Trading / Export Agency</option>
+            <option>Defence Trading / Military Supply</option>
+            <option>Defence Procurement Agency</option>
+            <option>Government Military Procurement</option>
+            <option>Defence Manufacturing</option>
+            <option>Defence Manufacturing / MRO</option>
+            <option>Defence Manufacturing / Export</option>
+            <option>Defence Logistics / Military Cargo</option>
+            <option>Defence Logistics / Warehousing</option>
+            <option>Military Surplus Vehicles / Parts</option>
+            <option>Military Survivability / Armour</option>
+            <option>Aerospace & Defence / APCs</option>
+            <option>Military Aircraft / Aerospace</option>
+            <option>Armoured Vehicles / Military Transport</option>
+            <option>Arms / Ammunition / Armoured Vehicles</option>
+            <option>Military Electronics / UAVs</option>
+            <option>Defence C2 / Software</option>
+            <option>MRO / Aerospace & Defence</option>
+            <option>Defence Electronics / C4ISR</option>
           </select>
           <select class="filter" id="country-filter" onchange="filterLeads()">
             <option value="">All Countries</option>
@@ -231,6 +266,37 @@
             <option value="South Korea">🇰🇷 South Korea</option>
             <option value="Australia">🇦🇺 Australia</option>
             <option value="Canada">🇨🇦 Canada</option>
+            <option value="Denmark">🇩🇰 Denmark</option>
+            <option value="Netherlands">🇳🇱 Netherlands</option>
+            <option value="Belgium">🇧🇪 Belgium</option>
+            <option value="Austria">🇦🇹 Austria</option>
+            <option value="Switzerland">🇨🇭 Switzerland</option>
+            <option value="Spain">🇪🇸 Spain</option>
+            <option value="Italy">🇮🇹 Italy</option>
+            <option value="Greece">🇬🇷 Greece</option>
+            <option value="Romania">🇷🇴 Romania</option>
+            <option value="Serbia">🇷🇸 Serbia</option>
+            <option value="Bulgaria">🇧🇬 Bulgaria</option>
+            <option value="Croatia">🇭🇷 Croatia</option>
+            <option value="Sweden">🇸🇪 Sweden</option>
+            <option value="Ukraine">🇺🇦 Ukraine</option>
+            <option value="South Africa">🇿🇦 South Africa</option>
+            <option value="Egypt">🇪🇬 Egypt</option>
+            <option value="Nigeria">🇳🇬 Nigeria</option>
+            <option value="Kenya">🇰🇪 Kenya</option>
+            <option value="Brazil">🇧🇷 Brazil</option>
+            <option value="Colombia">🇨🇴 Colombia</option>
+            <option value="Chile">🇨🇱 Chile</option>
+            <option value="Mexico">🇲🇽 Mexico</option>
+            <option value="Peru">🇵🇪 Peru</option>
+            <option value="Malaysia">🇲🇾 Malaysia</option>
+            <option value="Indonesia">🇮🇩 Indonesia</option>
+            <option value="Vietnam">🇻🇳 Vietnam</option>
+            <option value="Pakistan">🇵🇰 Pakistan</option>
+            <option value="Bangladesh">🇧🇩 Bangladesh</option>
+            <option value="Bahrain">🇧🇭 Bahrain</option>
+            <option value="Iraq">🇮🇶 Iraq</option>
+            <option value="Oman">🇴🇲 Oman</option>
           </select>
           <select class="filter" id="size-filter" onchange="filterLeads()">
             <option value="">All Sizes</option>
@@ -1105,6 +1171,76 @@ const LEADS = [
   {id:669, name:"Elbit Systems UK",           category:"European Defence Trading",         size:"Mid-size", contact:"Via form — elbitsystems.co.uk",        location:"Bristol, UK",            region:"Europe"},
   {id:670, name:"Defense Trade Solutions",    category:"Defence Broker",                   size:"Small",    contact:"Via LinkedIn",                         location:"USA / Global",           region:"Global"},
   {id:671, name:"Paragon Brokerage Inc.",     category:"Defence Broker",                   size:"Small",    contact:"Via LinkedIn",                         location:"USA / Global",           region:"Global"},
+
+  // ── NORDIC / WESTERN EUROPE ───────────────────────────────────────────────
+  {id:672, name:"Terma A/S",                          category:"Defence Electronics",              size:"Large",    contact:"terma.hq@terma.com",                   location:"Lystrup, Denmark",       region:"Europe"},
+  {id:673, name:"Weibel Scientific A/S",              category:"Doppler Radar / Air Defence",      size:"SME",      contact:"sales@weibel.dk",                      location:"Allerød, Denmark",       region:"Europe"},
+  {id:674, name:"Systematic A/S",                     category:"Defence C2 / Software",            size:"Mid-size", contact:"samantha.chapman@systematic.com",      location:"Aarhus, Denmark",        region:"Europe"},
+  {id:675, name:"Thales Nederland B.V.",              category:"Naval Radar / Combat Management",  size:"Large",    contact:"info@nl.thalesgroup.com",              location:"Hengelo, Netherlands",   region:"Europe"},
+  {id:676, name:"FN Herstal",                         category:"Small Arms / Military Weapons",    size:"Large",    contact:"info@fnherstal.com",                   location:"Herstal, Belgium",       region:"Europe"},
+  {id:677, name:"Steyr Arms GmbH",                    category:"Small Arms / Military Export",     size:"SME",      contact:"office@steyr-arms.com",                location:"Steyr, Austria",         region:"Europe"},
+  {id:678, name:"STG Defence",                        category:"Camouflage / Signature Mgmt",      size:"SME",      contact:"info@stg-defence.com",                 location:"London, UK / Austria",   region:"Europe"},
+  {id:679, name:"RUAG International",                 category:"MRO / Aerospace & Defence",        size:"Large",    contact:"info.ch.aerostructures@ruag.com",      location:"Bern, Switzerland",      region:"Europe"},
+  {id:680, name:"Indra Sistemas",                     category:"Defence Electronics / C4ISR",      size:"Large",    contact:"info@indracompany.com",                location:"Madrid, Spain",          region:"Europe"},
+  {id:681, name:"Navantia S.A.",                      category:"Naval Shipbuilding",               size:"Large",    contact:"info@navantia.es",                     location:"Madrid, Spain",          region:"Europe"},
+  {id:682, name:"Fincantieri S.p.A.",                 category:"Naval Shipbuilding",               size:"Large",    contact:"sustainability@fincantieri.it",        location:"Trieste, Italy",         region:"Europe"},
+  {id:683, name:"Leonardo S.p.A.",                    category:"Aerospace, Defence & Security",    size:"Large",    contact:"leonardopressoffice@leonardo.com",     location:"Rome, Italy",            region:"Europe"},
+  {id:684, name:"Hellenic Defence Systems (EAS)",     category:"Ammunition / Weapon Systems",      size:"Mid-size", contact:"sales@eas.gr",                         location:"Athens, Greece",         region:"Europe"},
+  {id:685, name:"Romarm S.A.",                        category:"Ammunition / Military Equipment",  size:"Large",    contact:"office@romarm.ro",                     location:"Bucharest, Romania",     region:"Europe"},
+  {id:686, name:"Yugoimport SDPR",                    category:"Defence Trading / Export Agency",  size:"Large",    contact:"office@yugoimport.com",                location:"Belgrade, Serbia",       region:"Europe"},
+  {id:687, name:"Zastava Arms",                       category:"Small Arms / Weapons Manufacturer",size:"Mid-size", contact:"impex@zastava-arms.rs",                location:"Belgrade, Serbia",       region:"Europe"},
+  {id:688, name:"VMZ Sopot",                          category:"Ammunition / Ordnance",            size:"Large",    contact:"office@vmz.bg",                        location:"Sopot, Bulgaria",        region:"Europe"},
+  {id:689, name:"Armaco JSC",                         category:"Arms Broker / Military Trader",    size:"SME",      contact:"sales@armaco.bg",                      location:"Sofia, Bulgaria",        region:"Europe"},
+  {id:690, name:"Armatec LLC",                        category:"Arms Dealer / NATO Certified",     size:"SME",      contact:"info@armatec.bg",                      location:"Sofia, Bulgaria",        region:"Europe"},
+  {id:691, name:"Bulcomersks Ltd",                    category:"Arms Trading / Export",            size:"SME",      contact:"office@bulcomersks.com",               location:"Sofia, Bulgaria",        region:"Europe"},
+  {id:692, name:"Apolo Engineering Ltd",              category:"Arms & Dual-Use / Optical",        size:"SME",      contact:"sales@apolobg.com",                    location:"Sofia, Bulgaria",        region:"Europe"},
+  {id:693, name:"Agencija Alan d.o.o.",               category:"Defence Import/Export Agency",     size:"SME",      contact:"export.dep1@aalan.hr",                 location:"Zagreb, Croatia",        region:"Europe"},
+  {id:694, name:"Scan Global Logistics",              category:"Defence Logistics / Military Cargo",size:"Large",   contact:"thlc@scangl.com",                      location:"Copenhagen, Denmark",    region:"Europe"},
+  {id:712, name:"Roketsan",                           category:"Rockets / Missiles / Guided Weapons",size:"Large",  contact:"info@roketsan.com.tr",                 location:"Ankara, Turkey",         region:"Europe"},
+  {id:719, name:"NVL Group (Naval Vessels Lürssen)", category:"Naval Shipbuilding",               size:"Large",    contact:"oliver.gruen@nvl.de",                  location:"Hamburg, Germany",       region:"Europe"},
+  {id:722, name:"House of Guns Poland",               category:"Arms Broker / Weapons Wholesaler", size:"SME",      contact:"sales@houseofguns.pl",                 location:"Warsaw, Poland",         region:"Europe"},
+  {id:723, name:"Armatec Survivability AB",           category:"Military Survivability / Armour",  size:"SME",      contact:"info@armatec.se",                      location:"Gothenburg, Sweden",     region:"Europe"},
+  {id:724, name:"Ukrainian Defense Industry JSC",     category:"Defence Manufacturing / Export",   size:"Large",    contact:"press@ukroboronprom.com.ua",            location:"Kyiv, Ukraine",          region:"Europe"},
+  {id:729, name:"Bulmar Trade",                       category:"Arms & Military Equipment Trading",size:"SME",      contact:"info@bulmartrade.com",                 location:"Sofia, Bulgaria",        region:"Europe"},
+  {id:730, name:"Indra Defence Portal",               category:"Defence Electronics / EW Export",  size:"Large",    contact:"defence@indragroup.com",               location:"Madrid, Spain",          region:"Europe"},
+
+  // ── AFRICA ────────────────────────────────────────────────────────────────
+  {id:695, name:"Armscor SOC Ltd",                    category:"Defence Procurement Agency",       size:"Large",    contact:"info@armscor.co.za",                   location:"Pretoria, South Africa", region:"Africa"},
+  {id:696, name:"Denel SOC Ltd",                      category:"Defence Manufacturing / MRO",      size:"Large",    contact:"marketing@denel.co.za",                location:"Centurion, South Africa",region:"Africa"},
+  {id:697, name:"Milkor (Pty) Ltd",                   category:"Aerospace & Defence / APCs",       size:"Mid-size", contact:"info@milkor.com",                      location:"Pretoria, South Africa", region:"Africa"},
+  {id:698, name:"Arab Organisation for Industrialisation",category:"Defence Manufacturing",        size:"Large",    contact:"info@aoi.org.eg",                      location:"Cairo, Egypt",           region:"Africa"},
+  {id:699, name:"Defence Industries Corp. of Nigeria",category:"Defence Manufacturing",            size:"Large",    contact:"contacthq@dicon.gov.ng",               location:"Kaduna, Nigeria",        region:"Africa"},
+  {id:700, name:"Kenya Defence Forces Procurement",   category:"Government Military Procurement",  size:"Large",    contact:"publicaffairs@mod.go.ke",              location:"Nairobi, Kenya",         region:"Africa"},
+
+  // ── LATIN AMERICA ─────────────────────────────────────────────────────────
+  {id:701, name:"Embraer Defence & Security",         category:"Military Aircraft / Aerospace",    size:"Large",    contact:"embraer.ds@embraer.com.br",            location:"São José dos Campos, Brazil",region:"Latin America"},
+  {id:702, name:"EMGEPRON",                           category:"Naval Procurement / Shipbuilding", size:"Large",    contact:"emgepron@emgepron.gov.br",             location:"Rio de Janeiro, Brazil", region:"Latin America"},
+  {id:703, name:"Avibras Indústria Aeroespacial",    category:"Rockets / Missiles / MLRS",        size:"Mid-size", contact:"contact@avibras.com.br",               location:"Jacareí, Brazil",        region:"Latin America"},
+  {id:704, name:"COTECMAR",                           category:"Naval Shipbuilding / Defence Eng.",size:"Mid-size", contact:"srodriguezl@cotecmar.com",             location:"Cartagena, Colombia",    region:"Latin America"},
+  {id:705, name:"FAMAE",                              category:"Small Arms / Ammunition",          size:"Mid-size", contact:"famae@famae.cl",                       location:"Santiago, Chile",        region:"Latin America"},
+  {id:706, name:"SEDENA Mexico",                      category:"Government Military Procurement",  size:"Large",    contact:"atn_ciudadana@defensa.gob.mx",         location:"Mexico City, Mexico",    region:"Latin America"},
+  {id:721, name:"SIMA Peru",                          category:"Naval Shipbuilding / Procurement", size:"Large",    contact:"contacto@sima.com.pe",                 location:"Callao, Peru",           region:"Latin America"},
+
+  // ── ASIA-PACIFIC ──────────────────────────────────────────────────────────
+  {id:707, name:"Deftech (DRB-HICOM Defence Tech.)", category:"Armoured Vehicles / Military Transport",size:"Large",contact:"fazley.ariffin@deftech.com.my",       location:"Shah Alam, Malaysia",    region:"Asia-Pacific"},
+  {id:708, name:"PT Pindad (Persero)",                category:"Arms / Ammunition / Armoured Vehicles",size:"Large",contact:"humas@pindad.com",                     location:"Bandung, Indonesia",     region:"Asia-Pacific"},
+  {id:709, name:"Viettel Military Industry",          category:"Military Electronics / UAVs",      size:"Large",    contact:"iproduct@viettel.com.vn",              location:"Hanoi, Vietnam",         region:"Asia-Pacific"},
+  {id:710, name:"Pakistan Ordnance Factories (POF)",  category:"Ammunition / Small Arms",          size:"Large",    contact:"export@pof.gov.pk",                    location:"Wah Cantt, Pakistan",    region:"Asia-Pacific"},
+  {id:711, name:"DGDP Bangladesh",                    category:"Military Procurement Agency",      size:"Large",    contact:"dgdp@army.mil.bd",                     location:"Dhaka, Bangladesh",      region:"Asia-Pacific"},
+
+  // ── MIDDLE EAST ───────────────────────────────────────────────────────────
+  {id:713, name:"Al Hamra Group",                     category:"Defence Trading / Military Supply", size:"SME",      contact:"info@alhamragroup.com",                location:"Abu Dhabi, UAE",         region:"Middle East"},
+  {id:714, name:"EDGE Group",                         category:"Defence Conglomerate / Procurement",size:"Large",   contact:"info@edgegroup.ae",                    location:"Abu Dhabi, UAE",         region:"Middle East"},
+  {id:715, name:"Bahrain Defence Force Procurement",  category:"Government Military Procurement",  size:"Large",    contact:"procurement@bdf.gov.bh",               location:"Riffa, Bahrain",         region:"Middle East"},
+  {id:716, name:"Iraq MoD Directorate of Contracts",  category:"Government Military Procurement",  size:"Large",    contact:"mod.contracts@mod.mil.iq",             location:"Baghdad, Iraq",          region:"Middle East"},
+  {id:717, name:"Oman MoD Procurement",               category:"Government Military Procurement",  size:"Large",    contact:"procurement@mod.gov.om",               location:"Muscat, Oman",           region:"Middle East"},
+  {id:727, name:"Al-Luar LLC",                        category:"Defence & Security Equipment Supply",size:"SME",    contact:"info@al-luar.com",                     location:"Muscat, Oman",           region:"Middle East"},
+  {id:728, name:"Milanion Group",                     category:"Defence Distributor / MLRS Systems",size:"SME",     contact:"info@milaniongroup.com",               location:"Dubai, UAE",             region:"Middle East"},
+
+  // ── NORTH AMERICA (NEW) ───────────────────────────────────────────────────
+  {id:720, name:"Memphis Equipment Company",          category:"Military Surplus Vehicles / Parts", size:"SME",      contact:"info@memphisequipment.com",            location:"Memphis, TN, USA",       region:"North America"},
+  {id:725, name:"Defense Trading Corporation",        category:"Defence Contractor / Equip Supply", size:"SME",      contact:"info@defensetradingcorp.com",          location:"Washington DC, USA",     region:"North America"},
+  {id:726, name:"SEKO Logistics Government & Defence",category:"Defence Logistics / Warehousing",   size:"Large",    contact:"government@sekologistics.com",         location:"Chicago, IL, USA",       region:"North America"},
 ];
 
 let sentCount = 0;
