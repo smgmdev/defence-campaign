@@ -96,7 +96,13 @@
   }
   .hero-bg {
     position: absolute; inset: 0;
-    background: url('https://images.unsplash.com/photo-1578496479531-32e296d5c6e1?w=1920&q=80') center/cover no-repeat;
+    background: #0a0a0a;
+  }
+  .hero-video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center;
+    opacity: 0.6;
   }
   .hero-overlay {
     position: absolute; inset: 0;
@@ -454,6 +460,25 @@
   </div>
 </nav>
 
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <video class="hero-video" autoplay muted loop playsinline preload="auto">
+      <source src="hero-bg.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content pg-wrap">
+    <div class="hero-eyebrow">UAE-Licensed Defence Trading</div>
+    <h1>The global marketplace for defence procurement</h1>
+    <p>Certified products, verified companies, and documented procurement channels — serving government and military clients worldwide.</p>
+    <div class="hero-cta">
+      <a href="products.html" style="display:inline-block;background:#E31837;color:#fff;padding:14px 32px;font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;">Browse Products</a>
+      <a href="contact.html" style="display:inline-block;background:transparent;color:#fff;padding:13px 32px;font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;border:1px solid rgba(255,255,255,0.5);">Contact Us</a>
+    </div>
+  </div>
+</section>
 
 <!-- DISCOVERY SECTION (cream) -->
 <section class="discovery">
