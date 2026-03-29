@@ -1,5 +1,11 @@
 const ARTICLES = [
   {
+    title: "The most important war events happening in the world right now",
+    url:   "most-important-war-events-world-2026.html",
+    cat:   "Geopolitical Analysis",
+    date:  "29 Mar 2026"
+  },
+  {
     title: "The 155mm shell is now the single most consequential munition in the world — and everyone is racing to make more of them",
     url:   "155mm-artillery-shells-dominating-global-defence-market.html",
     cat:   "Defence Markets",
