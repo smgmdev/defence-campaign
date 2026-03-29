@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Defence Trading — Campaign Manager</title>
+<style>
+  html { scrollbar-gutter: stable; overflow-x: hidden; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0a1628; --navy2: #1d3557; --gold: #c9a84c; --gold-light: #e6c76a;
+    --bg: #0d1117; --surface: #161b27; --surface2: #1e2535; --border: #2a3448;
+    --text: #e6f1ff; --muted: #8892b0; --green: #3fb950; --red: #f85149; --blue: #58a6ff;
+  }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); display: flex; height: 100vh; overflow: hidden; }
+  #sidebar { width: 220px; min-width: 220px; background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+  .sidebar-logo { padding: 24px 20px 20px; border-bottom: 1px solid var(--border); }
+  .sidebar-logo .brand { font-size: 15px; font-weight: 700; color: var(--text); }
+  .sidebar-logo .sub { font-size: 11px; color: var(--gold); margin-top: 2px; }
+  nav { flex: 1; padding: 12px 0; }
+  nav a { display: flex; align-items: center; gap: 10px; padding: 10px 20px; color: var(--muted); text-decoration: none; font-size: 13.5px; cursor: pointer; border-left: 3px solid transparent; transition: all 0.15s; }
+  nav a:hover { color: var(--text); background: var(--surface2); }
+  nav a.active { color: var(--gold); border-left-color: var(--gold); background: rgba(201,168,76,0.08); }
+  nav a .icon { font-size: 16px; width: 20px; text-align: center; }
+  .sidebar-stats { padding: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+  .sidebar-stats .stat { display: flex; justify-content: space-between; margin-bottom: 6px; }
+  .sidebar-stats .stat span:last-child { color: var(--text); font-weight: 600; }
+  #main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  .topbar { padding: 16px 28px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--surface); }
+  .topbar h1 { font-size: 17px; font-weight: 600; }
+  .topbar .actions { display: flex; gap: 10px; }
+  .content { flex: 1; overflow-y: auto; padding: 28px; }
+  .tab { display: none; } .tab.active { display: block; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 28px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; position: relative; overflow: hidden; }
+  .card .label { font-size: 12px; color: var(--muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .card .value { font-size: 28px; font-weight: 700; color: var(--text); }
+  .card .sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .card .accent { position: absolute; right: 20px; top: 20px; font-size: 28px; opacity: 0.3; }
+  .btn { padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.15s; display: inline-flex; align-items: center; gap: 6px; }
+  .btn-gold { background: var(--gold); color: #000; } .btn-gold:hover { background: var(--gold-light); }
+  .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); } .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .btn-sm { padding: 5px 12px; font-size: 12px; }
+  .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .table-header { padding: 14px 16px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); background: var(--surface2); }
+  td { padding: 9px 14px; border-bottom: 1px solid var(--border); color: var(--text); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .region-header td { background: var(--surface2); color: var(--gold); font-weight: 700; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; padding: 8px 14px; border-bottom: 1px solid var(--border); }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .badge-small { background: #1a3a5c; color: #58a6ff; }
+  .badge-sme { background: #2a2a1a; color: #e3b341; }
+  .badge-mid { background: #1a3a2a; color: #3fb950; }
+  .badge-large { background: #3a1a3a; color: #d2a8ff; }
+  .badge-cat { background: var(--surface2); color: var(--muted); font-size: 10px; }
+  .badge-na { background: #1a2a4a; color: #58a6ff; }
+  .badge-eu { background: #1a3a2a; color: #3fb950; }
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .form-group input, .form-group textarea, .form-group select { width: 100%; background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 10px 14px; border-radius: 6px; font-size: 14px; font-family: inherit; outline: none; transition: border-color 0.15s; }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--gold); }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .panel-header { padding: 14px 20px; border-bottom: 1px solid var(--border); font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: space-between; background: var(--surface2); }
+  .panel-body { padding: 20px; }
+  .search-input { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 7px 14px; border-radius: 6px; font-size: 13px; outline: none; width: 200px; }
+  .search-input:focus { border-color: var(--gold); }
+  select.filter { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 7px 12px; border-radius: 6px; font-size: 13px; outline: none; cursor: pointer; }
+  #preview-frame { width: 100%; border: none; border-radius: 0 0 10px 10px; background: #f4f4f4; min-height: 520px; }
+  #send-log { background: #0a0f1a; border: 1px solid var(--border); border-radius: 8px; padding: 16px; font-family: monospace; font-size: 12px; color: #8892b0; max-height: 300px; overflow-y: auto; margin-top: 16px; display: none; }
+  #send-log .ok { color: var(--green); } #send-log .err { color: var(--red); } #send-log .info { color: var(--blue); }
+  .toggle-wrap { display: flex; align-items: center; gap: 10px; }
+  .toggle { position: relative; width: 44px; height: 24px; }
+  .toggle input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider { position: absolute; inset: 0; background: var(--border); border-radius: 24px; cursor: pointer; transition: 0.2s; }
+  .toggle-slider:before { content: ''; position: absolute; width: 18px; height: 18px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: 0.2s; }
+  .toggle input:checked + .toggle-slider { background: var(--gold); }
+  .toggle input:checked + .toggle-slider:before { transform: translateX(20px); }
+  .alert { padding: 12px 16px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; }
+  .alert-info { background: #1a2a4a; border: 1px solid #2a4a8a; color: var(--blue); }
+  .alert-warning { background: #3a2a1a; border: 1px solid #6a4a2a; color: #e3b341; }
+  .progress-bar { height: 4px; background: var(--border); border-radius: 4px; margin-top: 12px; overflow: hidden; display: none; }
+  .progress-fill { height: 100%; background: var(--gold); border-radius: 4px; transition: width 0.3s; }
+  .tag { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 11px; background: rgba(201,168,76,0.15); color: var(--gold); margin: 2px; }
+  .section-title { font-size: 14px; font-weight: 600; margin-bottom: 16px; color: var(--text); }
+  hr.divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+</style>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5F8DS9XVG4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-5F8DS9XVG4");
+</script>
+</head>
+<body>
+
+<div id="sidebar">
+  <div class="sidebar-logo">
+    <div class="brand">Defence Trading</div>
+    <div class="sub">Campaign Manager</div>
+  </div>
+  <nav>
+    <a class="active" onclick="showTab('dashboard')" data-tab="dashboard"><span class="icon">📊</span> Dashboard</a>
+    <a onclick="showTab('leads')" data-tab="leads"><span class="icon">👥</span> Leads</a>
+    <a onclick="showTab('template')" data-tab="template"><span class="icon">✉️</span> Email Template</a>
+    <a onclick="showTab('campaign')" data-tab="campaign"><span class="icon">🚀</span> Send Campaign</a>
+    <a onclick="showTab('settings')" data-tab="settings"><span class="icon">⚙️</span> Settings</a>
+  </nav>
+  <div class="sidebar-stats">
+    <div class="stat"><span>Total Leads</span><span id="sb-total">0</span></div>
+    <div class="stat"><span>PR Agencies</span><span id="sb-pr">0</span></div>
+    <div class="stat"><span>N. America</span><span id="sb-na">0</span></div>
+    <div class="stat"><span>Europe</span><span id="sb-eu">0</span></div>
+    <div class="stat"><span>Asia Pacific</span><span id="sb-apac">0</span></div>
+    <div class="stat"><span>Sent</span><span id="sb-sent">0</span></div>
+  </div>
+</div>
+
+<div id="main">
+  <div class="topbar">
+    <h1 id="tab-title">Dashboard</h1>
+    <div class="actions">
+      <button class="btn btn-outline btn-sm" onclick="exportScript()">⬇ Export Script</button>
+      <button class="btn btn-gold btn-sm" onclick="showTab('campaign')">🚀 Launch Campaign</button>
+    </div>
+  </div>
+  <div class="content">
+
+    <!-- DASHBOARD -->
+    <div id="tab-dashboard" class="tab active">
+      <div class="cards">
+        <div class="card"><div class="label">Total Leads</div><div class="value" id="d-total">0</div><div class="sub">Direct email only</div><div class="accent">🏢</div></div>
+        <div class="card"><div class="label">N. America</div><div class="value" id="d-na">0</div><div class="sub">US & Canada</div><div class="accent">🌎</div></div>
+        <div class="card"><div class="label">Europe</div><div class="value" id="d-eu">0</div><div class="sub">EU companies</div><div class="accent">🌍</div></div>
+        <div class="card"><div class="label">Emails Sent</div><div class="value" id="d-sent">0</div><div class="sub">This session</div><div class="accent">✅</div></div>
+      </div>
+      <div class="split">
+        <div class="panel"><div class="panel-header">By Category</div><div class="panel-body" id="cat-breakdown"></div></div>
+        <div class="panel"><div class="panel-header">By Size</div><div class="panel-body" id="size-breakdown"></div></div>
+      </div>
+      <hr class="divider">
+      <div class="section-title">Quick Actions</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <button class="btn btn-gold" onclick="showTab('campaign')">🚀 Start Campaign</button>
+        <button class="btn btn-outline" onclick="showTab('template')">✉️ Edit Template</button>
+        <button class="btn btn-outline" onclick="showTab('leads')">👥 View All Leads</button>
+        <button class="btn btn-outline" onclick="exportScript()">⬇ Export Script</button>
+      </div>
+    </div>
+
+    <!-- LEADS -->
+    <div id="tab-leads" class="tab">
+      <div class="table-wrap">
+        <div class="table-header">
+          <input class="search-input" type="text" placeholder="Search company..." id="lead-search" oninput="filterLeads()">
+          <select class="filter" id="region-filter" onchange="filterLeads()">
+            <option value="">All Regions</option>
+            <option value="North America">🌎 North America</option>
+            <option value="Europe">🌍 Europe</option>
+            <option value="Middle East">🕌 Middle East</option>
+            <option value="Asia-Pacific">🌏 Asia-Pacific</option>
+            <option value="Global">🌐 Global</option>
+          </select>
+          <select class="filter" id="cat-filter" onchange="filterLeads()">
+            <option value="">All Categories</option>
+            <option>PR Agency</option>
+            <option>Protective Equipment</option>
+            <option>Military Uniforms</option>
+            <option>Communications Gear</option>
+            <option>Logistics & Supply</option>
+            <option>Medical Supplies</option>
+            <option>Military Vehicles</option>
+            <option>Defence Systems</option>
+            <option>Commodity Trading</option>
+            <option>Defence Equipment</option>
+            <option>Crypto & Web3</option>
+            <option>Lifestyle & Wellness</option>
+            <option>European Defence Trading</option>
+            <option>Eastern European Defence</option>
+            <option>Middle East Procurement</option>
+            <option>Middle East Defence</option>
+            <option>Middle East Defence Logistics</option>
+            <option>Asian Defence</option>
+            <option>Australian Defence</option>
+            <option>Canadian Defence</option>
+            <option>UK Military Surplus Trading</option>
+            <option>European Military Surplus Platform</option>
+            <option>Global Military Surplus</option>
+            <option>Defence Intermediary / Manufacturer</option>
+            <option>Defence Broker</option>
+          </select>
+          <select class="filter" id="country-filter" onchange="filterLeads()">
+            <option value="">All Countries</option>
+            <option value="UK">🇬🇧 UK</option>
+            <option value="USA">🇺🇸 USA</option>
+            <option value="Australia">🇦🇺 Australia</option>
+            <option value="Vietnam">🇻🇳 Vietnam</option>
+            <option value="Singapore">🇸🇬 Singapore</option>
+            <option value="Hong Kong">🇭🇰 Hong Kong</option>
+            <option value="Thailand">🇹🇭 Thailand</option>
+            <option value="Malaysia">🇲🇾 Malaysia</option>
+            <option value="Philippines">🇵🇭 Philippines</option>
+            <option value="Indonesia">🇮🇩 Indonesia</option>
+            <option value="Japan">🇯🇵 Japan</option>
+            <option value="South Korea">🇰🇷 South Korea</option>
+            <option value="UAE">🇦🇪 UAE</option>
+            <option value="Germany">🇩🇪 Germany</option>
+            <option value="France">🇫🇷 France</option>
+            <option value="Norway">🇳🇴 Norway</option>
+            <option value="Finland">🇫🇮 Finland</option>
+            <option value="Sweden">🇸🇪 Sweden</option>
+            <option value="Estonia">🇪🇪 Estonia</option>
+            <option value="Poland">🇵🇱 Poland</option>
+            <option value="Czech Republic">🇨🇿 Czech Republic</option>
+            <option value="Turkey">🇹🇷 Turkey</option>
+            <option value="Israel">🇮🇱 Israel</option>
+            <option value="Saudi Arabia">🇸🇦 Saudi Arabia</option>
+            <option value="Qatar">🇶🇦 Qatar</option>
+            <option value="Kuwait">🇰🇼 Kuwait</option>
+            <option value="Jordan">🇯🇴 Jordan</option>
+            <option value="India">🇮🇳 India</option>
+            <option value="South Korea">🇰🇷 South Korea</option>
+            <option value="Australia">🇦🇺 Australia</option>
+            <option value="Canada">🇨🇦 Canada</option>
+          </select>
+          <select class="filter" id="size-filter" onchange="filterLeads()">
+            <option value="">All Sizes</option>
+            <option>Small</option><option>SME</option><option>Mid-size</option><option>Large</option>
+          </select>
+          <span id="lead-count" style="font-size:12px;color:var(--muted);margin-left:auto;"></span>
+        </div>
+        <div style="overflow-x:auto;"><table><thead><tr>
+          <th>#</th><th>Company</th><th>Region</th><th>Category</th><th>Size</th><th>Location</th><th>Email</th>
+        </tr></thead><tbody id="leads-table"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- TEMPLATE -->
+    <div id="tab-template" class="tab">
+      <div class="split">
+        <div>
+          <div class="panel">
+            <div class="panel-header">Email Template Editor <button class="btn btn-sm btn-outline" onclick="resetTemplate()">Reset</button></div>
+            <div class="panel-body">
+              <div class="form-group"><label>Subject Line</label><input type="text" id="t-subject" oninput="updatePreview()"></div>
+              <div class="form-group">
+                <label>Email Body</label>
+                <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">
+                  Variables: <span class="tag">{{company}}</span><span class="tag">{{category}}</span><span class="tag">{{location}}</span><span class="tag">{{from_name}}</span>
+                </div>
+                <textarea id="t-body" rows="22" oninput="updatePreview()"></textarea>
+              </div>
+              <div style="display:flex;gap:10px;">
+                <button class="btn btn-gold" onclick="saveTemplate()">💾 Save Template</button>
+                <button class="btn btn-outline" onclick="updatePreview()">👁 Refresh Preview</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="panel" style="position:sticky;top:0;">
+            <div class="panel-header">Live Preview
+              <select id="preview-lead" onchange="updatePreview()" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:4px 8px;border-radius:4px;font-size:12px;"></select>
+            </div>
+            <iframe id="preview-frame" title="Email Preview"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CAMPAIGN -->
+    <div id="tab-campaign" class="tab">
+      <div class="split">
+        <div>
+          <div class="panel">
+            <div class="panel-header">Campaign Settings</div>
+            <div class="panel-body">
+              <div class="form-group"><label>Region</label>
+                <select id="c-region" style="width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:6px;font-size:14px;" onchange="updateCampaignPreview()">
+                  <option value="">All Regions</option>
+                  <option value="North America">🌎 North America only</option>
+                  <option value="Europe">🌍 Europe only</option>
+                  <option value="Middle East">🕌 Middle East only</option>
+                  <option value="Asia Pacific">🌏 Asia Pacific only</option>
+                </select>
+              </div>
+              <div class="form-group"><label>Filter by Category</label>
+                <select id="c-cat" style="width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:6px;font-size:14px;" onchange="updateCampaignPreview()">
+                  <option value="">All Categories</option>
+                  <option>PR Agency</option>
+                  <option>Protective Equipment</option><option>Military Uniforms</option>
+                  <option>Communications Gear</option><option>Logistics & Supply</option>
+                  <option>Medical Supplies</option><option>Military Vehicles</option><option>Defence Systems</option>
+                  <option>Commodity Trading</option><option>Defence Equipment</option>
+                </select>
+              </div>
+              <div class="form-group"><label>Filter by Size</label>
+                <select id="c-size" style="width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:6px;font-size:14px;" onchange="updateCampaignPreview()">
+                  <option value="">All Sizes</option>
+                  <option>Small</option><option>SME</option><option>Mid-size</option><option>Large</option>
+                </select>
+              </div>
+              <div class="form-group"><label>Delay Between Emails (seconds)</label><input type="number" id="c-delay" value="2" min="1" max="30"></div>
+              <div class="form-group"><label>Mode</label>
+                <div class="toggle-wrap" style="margin-top:8px;">
+                  <label class="toggle"><input type="checkbox" id="c-testmode" checked onchange="updateCampaignPreview()"><span class="toggle-slider"></span></label>
+                  <span id="mode-label" style="font-size:13px;">Test Mode (no emails sent)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="panel">
+            <div class="panel-header">Campaign Summary</div>
+            <div class="panel-body">
+              <div class="cards" style="grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;">
+                <div class="card" style="padding:12px;"><div class="label">Total</div><div class="value" id="c-count">0</div></div>
+                <div class="card" style="padding:12px;"><div class="label">N. America</div><div class="value" id="c-count-na">0</div></div>
+                <div class="card" style="padding:12px;"><div class="label">Europe</div><div class="value" id="c-count-eu">0</div></div>
+              </div>
+              <div id="alert-config" class="alert alert-warning" style="display:none;">⚠ Set your API Key and From Email in Settings before sending.</div>
+              <div id="alert-testmode" class="alert alert-info">ℹ Test Mode is ON — emails will be previewed but not sent.</div>
+              <button class="btn btn-gold" style="width:100%;justify-content:center;padding:12px;" onclick="runCampaign()" id="send-btn">🚀 Run Campaign</button>
+              <div class="progress-bar" id="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+              <div id="send-log"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:24px;">
+        <div class="panel-header">Leads Queued — by Region</div>
+        <div style="overflow-x:auto;"><table><thead><tr>
+          <th>#</th><th>Company</th><th>Region</th><th>Category</th><th>Size</th><th>Email</th><th>Status</th>
+        </tr></thead><tbody id="campaign-table"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="tab-settings" class="tab">
+      <div style="max-width:600px;">
+        <div class="panel">
+          <div class="panel-header">Sender Configuration</div>
+          <div class="panel-body">
+            <div class="form-group"><label>Resend API Key</label><input type="password" id="s-apikey" placeholder="re_..."></div>
+            <div class="form-group"><label>From Email</label><input type="email" id="s-email"></div>
+            <div class="form-group"><label>Company / Sender Name</label><input type="text" id="s-name"></div>
+            <div class="form-group"><label>Your Name</label><input type="text" id="s-yourname"></div>
+            <div class="form-group"><label>Your Title</label><input type="text" id="s-title"></div>
+            <div class="form-group"><label>Phone</label><input type="text" id="s-phone"></div>
+            <div class="form-group"><label>Website</label><input type="text" id="s-website"></div>
+            <button class="btn btn-gold" onclick="saveSettings()">💾 Save Settings</button>
+            <div id="settings-saved" style="display:none;margin-top:10px;font-size:13px;color:var(--green);">✓ Saved</div>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="panel"><div class="panel-header">Export</div><div class="panel-body">
+          <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Download the Python script with your current settings pre-filled.</p>
+          <button class="btn btn-outline" onclick="exportScript()">⬇ Download send_campaign.py</button>
+        </div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const LEADS = [
+  // ── NORTH AMERICA — PROTECTIVE EQUIPMENT ─────────────────────
+  {id:1,  name:"Chase Tactical",           category:"Protective Equipment", size:"Small",    contact:"info@chasetactical.com",           location:"USA",                region:"North America"},
+  {id:2,  name:"Hard Head Veterans",        category:"Protective Equipment", size:"Small",    contact:"support@hardheadveterans.com",      location:"Sweetwater, TX",     region:"North America"},
+  {id:3,  name:"Hardwire LLC",              category:"Protective Equipment", size:"SME",      contact:"info@hardwirellc.com",              location:"Pocomoke City, MD",  region:"North America"},
+  {id:4,  name:"Sarkar Tactical",           category:"Protective Equipment", size:"SME",      contact:"contact@sarkartactical.com",        location:"El Paso, TX",        region:"North America"},
+  {id:5,  name:"RMA Armament",              category:"Protective Equipment", size:"Small",    contact:"info@rmadefense.com",               location:"Centerville, IA",    region:"North America"},
+  {id:6,  name:"Armor Express",             category:"Protective Equipment", size:"SME",      contact:"info@armorexpress.com",             location:"Eden, NC",           region:"North America"},
+  {id:7,  name:"Team Wendy",                category:"Protective Equipment", size:"SME",      contact:"info@teamwendy.com",                location:"Cleveland, OH",      region:"North America"},
+  {id:8,  name:"Gentex Corporation",        category:"Protective Equipment", size:"Mid-size", contact:"defense@gentexcorp.com",            location:"Carbondale, PA",     region:"North America"},
+  {id:9,  name:"Point Blank Enterprises",   category:"Protective Equipment", size:"Mid-size", contact:"info@pointblankenterprises.com",    location:"Pompano Beach, FL",  region:"North America"},
+  {id:10, name:"Revision Military",         category:"Protective Equipment", size:"SME",      contact:"info@revisionmilitary.com",         location:"Essex Junction, VT", region:"North America"},
+  {id:11, name:"United Shield Intl.",       category:"Protective Equipment", size:"SME",      contact:"info@unitedshield.com",             location:"Whitman, MA",        region:"North America"},
+  {id:12, name:"Eagle Industries",          category:"Protective Equipment", size:"SME",      contact:"sales@eagleindustries.com",         location:"Fenton, MO",         region:"North America"},
+  {id:13, name:"Atomic Defense",            category:"Protective Equipment", size:"Small",    contact:"support@atomicdefense.com",         location:"USA",                region:"North America"},
+  {id:14, name:"Premier Body Armor",        category:"Protective Equipment", size:"Small",    contact:"info@premierbodyarmor.com",         location:"USA",                region:"North America"},
+  {id:15, name:"Avon Protection",           category:"Protective Equipment", size:"Mid-size", contact:"defense@avon-protection.com",       location:"Cadillac, MI",       region:"North America"},
+  // ── NORTH AMERICA — MILITARY UNIFORMS ────────────────────────
+  {id:16, name:"Crye Precision",            category:"Military Uniforms",    size:"Small",    contact:"info@cryeprecision.com",            location:"Brooklyn, NY",       region:"North America"},
+  {id:17, name:"Bluewater Defense",         category:"Military Uniforms",    size:"Small",    contact:"info@bluewaterdefense.com",         location:"USA",                region:"North America"},
+  {id:18, name:"Condor Outdoor Products",   category:"Military Uniforms",    size:"SME",      contact:"info@condoroutdoor.com",            location:"Irwindale, CA",      region:"North America"},
+  {id:19, name:"Massif",                    category:"Military Uniforms",    size:"Small",    contact:"sales@massif.com",                  location:"Ashland, OR",        region:"North America"},
+  {id:20, name:"Propper International",     category:"Military Uniforms",    size:"Mid-size", contact:"government@propper.com",            location:"St. Charles, MO",    region:"North America"},
+  {id:21, name:"Brookwood Companies",       category:"Military Uniforms",    size:"Mid-size", contact:"military@brookwoodcompanies.com",   location:"New York, NY",       region:"North America"},
+  {id:22, name:"Rothco",                    category:"Military Uniforms",    size:"SME",      contact:"sales@rothco.com",                  location:"Ronkonkoma, NY",     region:"North America"},
+  {id:23, name:"SNC Technical Services",    category:"Military Uniforms",    size:"Mid-size", contact:"info@snc.org",                      location:"Puerto Rico, USA",   region:"North America"},
+  {id:24, name:"Milliken & Company",        category:"Military Uniforms",    size:"Large",    contact:"government@milliken.com",           location:"Spartanburg, SC",    region:"North America"},
+  {id:25, name:"5.11 Tactical",             category:"Military Uniforms",    size:"Mid-size", contact:"customerservice@511tactical.com",   location:"Modesto, CA",        region:"North America"},
+  {id:26, name:"Tru-Spec",                  category:"Military Uniforms",    size:"SME",      contact:"sales@tru-spec.com",                location:"Atlanta, GA",        region:"North America"},
+  {id:27, name:"Beyond Clothing",           category:"Military Uniforms",    size:"Small",    contact:"info@beyondclothing.com",           location:"Seattle, WA",        region:"North America"},
+  // ── NORTH AMERICA — COMMUNICATIONS GEAR ──────────────────────
+  {id:28, name:"Viasat Inc.",               category:"Communications Gear",  size:"Mid-size", contact:"defense@viasat.com",                location:"Carlsbad, CA",       region:"North America"},
+  {id:29, name:"Silvus Technologies",       category:"Communications Gear",  size:"SME",      contact:"info@silvustechnologies.com",       location:"Los Angeles, CA",    region:"North America"},
+  {id:30, name:"Kratos Defense",            category:"Communications Gear",  size:"Mid-size", contact:"info@kratosdefense.com",            location:"San Diego, CA",      region:"North America"},
+  {id:31, name:"Curtiss-Wright Defense",    category:"Communications Gear",  size:"Mid-size", contact:"defense@curtisswright.com",         location:"Davidson, NC",       region:"North America"},
+  {id:32, name:"Thales Defense & Security", category:"Communications Gear",  size:"Mid-size", contact:"info@thalesdsi.com",                location:"Clarksburg, MD",     region:"North America"},
+  {id:33, name:"Pacific Defense Solutions", category:"Communications Gear",  size:"SME",      contact:"info@pacificdefense.com",           location:"Honolulu, HI",       region:"North America"},
+  {id:34, name:"Persistent Systems LLC",    category:"Communications Gear",  size:"SME",      contact:"info@persistentsystems.com",        location:"New York, NY",       region:"North America"},
+  {id:35, name:"Leonardo DRS",              category:"Communications Gear",  size:"Mid-size", contact:"info@leonardodrs.com",              location:"Arlington, VA",      region:"North America"},
+  {id:36, name:"Triad RF Systems",          category:"Communications Gear",  size:"Small",    contact:"sales@triadrfsystems.com",          location:"Woodbury, NJ",       region:"North America"},
+  {id:37, name:"Barrett Communications",   category:"Communications Gear",  size:"SME",      contact:"sales@barrettcommunications.com",   location:"San Diego, CA",      region:"North America"},
+  // ── NORTH AMERICA — LOGISTICS & SUPPLY ───────────────────────
+  {id:38, name:"ADS Inc.",                  category:"Logistics & Supply",   size:"Mid-size", contact:"info@adsinc.com",                   location:"Virginia Beach, VA", region:"North America"},
+  {id:39, name:"Darley Defense",            category:"Logistics & Supply",   size:"Mid-size", contact:"defense@darley.com",                location:"Itasca, IL",         region:"North America"},
+  {id:40, name:"SupplyCore Inc.",           category:"Logistics & Supply",   size:"SME",      contact:"info@supplycore.com",               location:"Rockford, IL",       region:"North America"},
+  {id:41, name:"Incredible Supply (ISL)",   category:"Logistics & Supply",   size:"SME",      contact:"info@incrediblesupply.com",         location:"USA",                region:"North America"},
+  {id:42, name:"Greenwood Aerospace",       category:"Logistics & Supply",   size:"SME",      contact:"info@governmentprocurement.com",    location:"Ponca City, OK",     region:"North America"},
+  {id:43, name:"Crane Worldwide Logistics", category:"Logistics & Supply",   size:"Mid-size", contact:"government@craneww.com",            location:"Houston, TX",        region:"North America"},
+  {id:44, name:"KLX Defense Services",      category:"Logistics & Supply",   size:"Mid-size", contact:"defense@klxaerospace.com",          location:"Miami, FL",          region:"North America"},
+  {id:45, name:"Federal Defense Inds",      category:"Logistics & Supply",   size:"SME",      contact:"info@fdi.us.com",                   location:"USA",                region:"North America"},
+  {id:46, name:"M1 Support Services",       category:"Logistics & Supply",   size:"Mid-size", contact:"info@m1support.com",                location:"Denton, TX",         region:"North America"},
+  {id:47, name:"Analytic Services Inc.",    category:"Logistics & Supply",   size:"Mid-size", contact:"info@anser.org",                    location:"Falls Church, VA",   region:"North America"},
+  {id:48, name:"Atlantic Diving Supply",    category:"Logistics & Supply",   size:"Mid-size", contact:"info@adsinc.com",                   location:"Virginia Beach, VA", region:"North America"},
+  {id:49, name:"Parsons Corporation",       category:"Logistics & Supply",   size:"Mid-size", contact:"defense@parsons.com",               location:"Centreville, VA",    region:"North America"},
+  // ── NORTH AMERICA — MEDICAL SUPPLIES ─────────────────────────
+  {id:50, name:"McKesson Corporation",      category:"Medical Supplies",     size:"Large",    contact:"government@mckesson.com",           location:"Irving, TX",         region:"North America"},
+  {id:51, name:"Leidos Health",             category:"Medical Supplies",     size:"Large",    contact:"health@leidos.com",                 location:"Reston, VA",         region:"North America"},
+  {id:52, name:"Medline Industries",        category:"Medical Supplies",     size:"Large",    contact:"government@medline.com",            location:"Northfield, IL",     region:"North America"},
+  {id:53, name:"Cardinal Health",           category:"Medical Supplies",     size:"Large",    contact:"government@cardinalhealth.com",     location:"Dublin, OH",         region:"North America"},
+  {id:54, name:"North American Rescue",     category:"Medical Supplies",     size:"SME",      contact:"info@narescue.com",                 location:"Greer, SC",          region:"North America"},
+  {id:55, name:"Chinook Medical Gear",      category:"Medical Supplies",     size:"Small",    contact:"info@chinookmed.com",               location:"Durango, CO",        region:"North America"},
+  {id:56, name:"Bound Tree Medical",        category:"Medical Supplies",     size:"SME",      contact:"info@boundtree.com",                location:"Dublin, OH",         region:"North America"},
+  // ── NORTH AMERICA — MILITARY VEHICLES ────────────────────────
+  {id:57, name:"Oshkosh Defense",           category:"Military Vehicles",    size:"Large",    contact:"defense@oshkoshdefense.com",        location:"Oshkosh, WI",        region:"North America"},
+  {id:58, name:"AM General",                category:"Military Vehicles",    size:"Mid-size", contact:"info@amgeneral.com",                location:"South Bend, IN",     region:"North America"},
+  {id:59, name:"Flyer Defense LLC",         category:"Military Vehicles",    size:"SME",      contact:"info@flyerdefense.com",             location:"USA",                region:"North America"},
+  {id:60, name:"American Rheinmetall",      category:"Military Vehicles",    size:"Mid-size", contact:"info@american.rheinmetall.com",     location:"Biddeford, ME",      region:"North America"},
+  {id:61, name:"Navistar Defense",          category:"Military Vehicles",    size:"Mid-size", contact:"defense@navistar.com",              location:"Lisle, IL",          region:"North America"},
+  {id:62, name:"HDT Global",                category:"Military Vehicles",    size:"SME",      contact:"info@hdtglobal.com",                location:"Solon, OH",          region:"North America"},
+  {id:63, name:"Force Protection Inc.",     category:"Military Vehicles",    size:"SME",      contact:"info@forceprotection.net",          location:"Ladson, SC",         region:"North America"},
+  {id:64, name:"Polaris Defense",           category:"Military Vehicles",    size:"Mid-size", contact:"defense@polaris.com",               location:"Medina, MN",         region:"North America"},
+  {id:65, name:"Caterpillar Defense",       category:"Military Vehicles",    size:"Large",    contact:"government@cat.com",                location:"Deerfield, IL",      region:"North America"},
+  {id:66, name:"ND Defense LLC",            category:"Military Vehicles",    size:"SME",      contact:"info@nddefense.com",                location:"USA",                region:"North America"},
+  {id:67, name:"Indigen Armor",             category:"Military Vehicles",    size:"Small",    contact:"info@indigenarmor.com",             location:"USA",                region:"North America"},
+
+  // ══ EUROPE ═══════════════════════════════════════════════════
+  // ── EUROPE — PROTECTIVE EQUIPMENT ────────────────────────────
+  {id:68, name:"MARS Armor",                category:"Protective Equipment", size:"SME",      contact:"info@marsarmor.com",                location:"Czech Republic",     region:"Europe"},
+  {id:69, name:"Protective Products Intl.", category:"Protective Equipment", size:"SME",      contact:"info@protectiveproducts.co.uk",     location:"UK",                 region:"Europe"},
+  {id:70, name:"Safariland Europe",         category:"Protective Equipment", size:"Mid-size", contact:"europe@safariland.com",             location:"Germany",            region:"Europe"},
+  {id:71, name:"Survitec Group",            category:"Protective Equipment", size:"Mid-size", contact:"defence@survitecgroup.com",         location:"UK",                 region:"Europe"},
+  {id:72, name:"TenCate Protective Fabrics",category:"Protective Equipment", size:"Mid-size", contact:"info@tencateprotective.com",        location:"Netherlands",        region:"Europe"},
+  {id:73, name:"Mehler Vario System",       category:"Protective Equipment", size:"SME",      contact:"info@mehler-vario-system.com",      location:"Germany",            region:"Europe"},
+  {id:74, name:"Ballistic Body Armor",      category:"Protective Equipment", size:"Small",    contact:"sales@ballisticbodyarmor.eu",       location:"Poland",             region:"Europe"},
+  {id:75, name:"SY Technology",             category:"Protective Equipment", size:"Small",    contact:"info@sytechnology.co.uk",           location:"UK",                 region:"Europe"},
+  {id:76, name:"Progarm",                   category:"Protective Equipment", size:"SME",      contact:"sales@progarm.com",                 location:"UK",                 region:"Europe"},
+  {id:77, name:"Protective Helmets BV",     category:"Protective Equipment", size:"Small",    contact:"info@protectivehelmets.nl",         location:"Netherlands",        region:"Europe"},
+  // ── EUROPE — MILITARY UNIFORMS ────────────────────────────────
+  {id:78, name:"Lindberg & Sons",           category:"Military Uniforms",    size:"SME",      contact:"info@lindbergandsons.se",           location:"Sweden",             region:"Europe"},
+  {id:79, name:"Carrington Textiles",       category:"Military Uniforms",    size:"Mid-size", contact:"defence@carrington.co.uk",          location:"UK",                 region:"Europe"},
+  {id:80, name:"Helly Hansen Workwear",     category:"Military Uniforms",    size:"Mid-size", contact:"professional@hellyhansen.com",      location:"Norway",             region:"Europe"},
+  {id:81, name:"Leo Köhler",                category:"Military Uniforms",    size:"SME",      contact:"info@leo-koehler.de",               location:"Germany",            region:"Europe"},
+  {id:82, name:"Mil-Tec GmbH",              category:"Military Uniforms",    size:"SME",      contact:"info@mil-tec.com",                  location:"Germany",            region:"Europe"},
+  {id:83, name:"Helikon-Tex",               category:"Military Uniforms",    size:"SME",      contact:"b2b@helikon-tex.com",               location:"Poland",             region:"Europe"},
+  {id:84, name:"Uf Pro",                    category:"Military Uniforms",    size:"SME",      contact:"info@ufpro.com",                    location:"Slovenia",           region:"Europe"},
+  {id:85, name:"Defcon 5",                  category:"Military Uniforms",    size:"SME",      contact:"info@defcon5.it",                   location:"Italy",              region:"Europe"},
+  {id:86, name:"Niton GL",                  category:"Military Uniforms",    size:"Small",    contact:"sales@nitongl.com",                 location:"UK",                 region:"Europe"},
+  {id:87, name:"Texport",                   category:"Military Uniforms",    size:"SME",      contact:"office@texport.at",                 location:"Austria",            region:"Europe"},
+  {id:88, name:"Arktis",                    category:"Military Uniforms",    size:"Small",    contact:"sales@arktis.co.uk",                location:"UK",                 region:"Europe"},
+  {id:89, name:"Combat Systems",            category:"Military Uniforms",    size:"SME",      contact:"info@combatsystems.pl",             location:"Poland",             region:"Europe"},
+  // ── EUROPE — COMMUNICATIONS GEAR ─────────────────────────────
+  {id:90, name:"Rohde & Schwarz",           category:"Communications Gear",  size:"Large",    contact:"defense@rohde-schwarz.com",         location:"Germany",            region:"Europe"},
+  {id:91, name:"Frequentis",                category:"Communications Gear",  size:"Mid-size", contact:"defence@frequentis.com",            location:"Austria",            region:"Europe"},
+  {id:92, name:"Cobham Advanced Electronics",category:"Communications Gear", size:"Mid-size", contact:"defence@cobham.com",                location:"UK",                 region:"Europe"},
+  {id:93, name:"Elbit Systems Europe",      category:"Communications Gear",  size:"Mid-size", contact:"info@elbitsystems.co.uk",           location:"UK",                 region:"Europe"},
+  {id:94, name:"ECA Group",                 category:"Communications Gear",  size:"Mid-size", contact:"defence@ecagroup.com",              location:"France",             region:"Europe"},
+  {id:95, name:"Sepura",                    category:"Communications Gear",  size:"SME",      contact:"sales@sepura.com",                  location:"UK",                 region:"Europe"},
+  {id:96, name:"Hytera Europe",             category:"Communications Gear",  size:"Mid-size", contact:"emea@hytera.com",                   location:"Germany",            region:"Europe"},
+  {id:97, name:"Zodiac Data Systems",       category:"Communications Gear",  size:"SME",      contact:"info@zodiac-data-systems.com",      location:"France",             region:"Europe"},
+  {id:98, name:"Saab AB (Comms Division)",  category:"Communications Gear",  size:"Large",    contact:"defence.comms@saabgroup.com",       location:"Sweden",             region:"Europe"},
+  {id:99, name:"Aeroflex (now Cobham)",     category:"Communications Gear",  size:"Mid-size", contact:"defence@aeroflex.com",              location:"UK",                 region:"Europe"},
+  // ── EUROPE — LOGISTICS & SUPPLY ──────────────────────────────
+  {id:100,name:"Babcock International",     category:"Logistics & Supply",   size:"Large",    contact:"defence@babcockinternational.com",  location:"UK",                 region:"Europe"},
+  {id:101,name:"Chemring Group",            category:"Logistics & Supply",   size:"Mid-size", contact:"info@chemring.co.uk",               location:"UK",                 region:"Europe"},
+  {id:102,name:"Diehl Defence",             category:"Logistics & Supply",   size:"Mid-size", contact:"info@diehl-defence.com",            location:"Germany",            region:"Europe"},
+  {id:103,name:"Hensoldt",                  category:"Logistics & Supply",   size:"Large",    contact:"info@hensoldt.net",                 location:"Germany",            region:"Europe"},
+  {id:104,name:"ST Engineering Europe",     category:"Logistics & Supply",   size:"Mid-size", contact:"europe@stengg.com",                 location:"France",             region:"Europe"},
+  {id:105,name:"Nordic Defence Industries", category:"Logistics & Supply",   size:"SME",      contact:"info@ndi.no",                       location:"Norway",             region:"Europe"},
+  {id:106,name:"FN Herstal (Supply Div.)",  category:"Logistics & Supply",   size:"Large",    contact:"export@fnherstal.com",              location:"Belgium",            region:"Europe"},
+  {id:107,name:"Milrem Robotics",           category:"Logistics & Supply",   size:"SME",      contact:"info@milremrobotics.com",           location:"Estonia",            region:"Europe"},
+  {id:108,name:"Cassidian (Airbus DS)",     category:"Logistics & Supply",   size:"Large",    contact:"defence@airbus.com",                location:"France",             region:"Europe"},
+  {id:109,name:"Defence Supply Group",      category:"Logistics & Supply",   size:"SME",      contact:"info@defencesupplygroup.com",       location:"UK",                 region:"Europe"},
+  // ── EUROPE — MEDICAL SUPPLIES ─────────────────────────────────
+  {id:110,name:"Hartmann Group",            category:"Medical Supplies",     size:"Large",    contact:"defence@hartmann.info",             location:"Germany",            region:"Europe"},
+  {id:111,name:"B. Braun Melsungen",        category:"Medical Supplies",     size:"Large",    contact:"military@bbraun.com",               location:"Germany",            region:"Europe"},
+  {id:112,name:"Lohmann & Rauscher",        category:"Medical Supplies",     size:"Mid-size", contact:"defence@lohmann-rauscher.com",      location:"Germany",            region:"Europe"},
+  {id:113,name:"Combat Medical Systems EU", category:"Medical Supplies",     size:"SME",      contact:"info@combatmedical.eu",             location:"Belgium",            region:"Europe"},
+  {id:114,name:"H&H Medical",               category:"Medical Supplies",     size:"SME",      contact:"info@hhmedical.eu",                 location:"France",             region:"Europe"},
+  {id:115,name:"Trauma Care Consortium",    category:"Medical Supplies",     size:"Small",    contact:"info@traumacare.co.uk",             location:"UK",                 region:"Europe"},
+  {id:116,name:"Medi-Tech International",   category:"Medical Supplies",     size:"SME",      contact:"sales@medi-techintl.co.uk",         location:"UK",                 region:"Europe"},
+  {id:117,name:"Defibrillator Ltd",         category:"Medical Supplies",     size:"Small",    contact:"defence@defibrillator.co.uk",       location:"UK",                 region:"Europe"},
+  // ── EUROPE — MILITARY VEHICLES ────────────────────────────────
+  {id:118,name:"Patria",                    category:"Military Vehicles",    size:"Large",    contact:"info@patria.fi",                    location:"Finland",            region:"Europe"},
+  {id:119,name:"KNDS (Nexter/KMW)",         category:"Military Vehicles",    size:"Large",    contact:"info@knds.com",                     location:"France/Germany",     region:"Europe"},
+  {id:120,name:"Arquus",                    category:"Military Vehicles",    size:"Large",    contact:"contact@arquus-defense.com",        location:"France",             region:"Europe"},
+  {id:121,name:"TATRA Defence Vehicle",     category:"Military Vehicles",    size:"Mid-size", contact:"defence@tatra.cz",                  location:"Czech Republic",     region:"Europe"},
+  {id:122,name:"Jankel Group",              category:"Military Vehicles",    size:"SME",      contact:"defence@jankelgroup.com",           location:"UK",                 region:"Europe"},
+  {id:123,name:"Supacat",                   category:"Military Vehicles",    size:"SME",      contact:"info@supacat.com",                  location:"UK",                 region:"Europe"},
+  {id:124,name:"Achleitner",                category:"Military Vehicles",    size:"SME",      contact:"office@achleitner.com",             location:"Austria",            region:"Europe"},
+  {id:125,name:"Renault Trucks Defense",    category:"Military Vehicles",    size:"Large",    contact:"defense@renault-trucks.com",        location:"France",             region:"Europe"},
+  {id:126,name:"Steyr Motors",              category:"Military Vehicles",    size:"Mid-size", contact:"defense@steyr-motors.com",          location:"Austria",            region:"Europe"},
+  {id:127,name:"Mercedes-Benz Special Veh.",category:"Military Vehicles",    size:"Large",    contact:"special.vehicles@mercedes-benz.com",location:"Germany",           region:"Europe"},
+  // ── EUROPE — DEFENCE SYSTEMS ──────────────────────────────────
+  {id:128,name:"MBDA",                      category:"Defence Systems",      size:"Large",    contact:"info@mbda-systems.com",             location:"France/UK/Germany",  region:"Europe"},
+  {id:129,name:"Nammo",                     category:"Defence Systems",      size:"Mid-size", contact:"info@nammo.com",                    location:"Norway",             region:"Europe"},
+  {id:130,name:"Meggitt Defence",           category:"Defence Systems",      size:"Mid-size", contact:"defence@meggitt.com",               location:"UK",                 region:"Europe"},
+  {id:131,name:"QinetiQ",                   category:"Defence Systems",      size:"Large",    contact:"defence@qinetiq.com",               location:"UK",                 region:"Europe"},
+  {id:132,name:"Ultra Electronics",         category:"Defence Systems",      size:"Mid-size", contact:"defence@ultra-electronics.com",     location:"UK",                 region:"Europe"},
+  {id:133,name:"Forter",                    category:"Defence Systems",      size:"SME",      contact:"info@forter-defence.com",           location:"Czech Republic",     region:"Europe"},
+  {id:134,name:"PGZ (Polish Arms Group)",   category:"Defence Systems",      size:"Large",    contact:"export@pgzsa.pl",                   location:"Poland",             region:"Europe"},
+  {id:135,name:"Eurosatory Dynamics",       category:"Defence Systems",      size:"SME",      contact:"info@eurosatorydynamics.com",       location:"France",             region:"Europe"},
+  {id:136,name:"DEA (Defence Equipment)",   category:"Defence Systems",      size:"SME",      contact:"sales@dea-defence.co.uk",           location:"UK",                 region:"Europe"},
+  {id:137,name:"Elbit Systems UK",          category:"Defence Systems",      size:"Mid-size", contact:"info@elbitsystemsuk.com",           location:"UK",                 region:"Europe"},
+  // ── COMMODITY TRADING ─────────────────────────────────────────────────────
+  {id:138, name:"Glow Oil",                          category:"Commodity Trading", size:"Mid-size", contact:"info@glowoil.ae",                      location:"Dubai, UAE",               region:"Global"},
+  {id:139, name:"New Emirates Oil Corporation",      category:"Commodity Trading", size:"Mid-size", contact:"info@emiratesoil.ae",                  location:"Dubai, UAE",               region:"Global"},
+  {id:140, name:"Flair Oil Trading DMCC",            category:"Commodity Trading", size:"Mid-size", contact:"info@flair-oiltrading.com",             location:"Dubai, UAE",               region:"Global"},
+  {id:141, name:"Ultimate Oil and Gas",              category:"Commodity Trading", size:"Mid-size", contact:"info@ultimateoilngas.com",              location:"Dubai, UAE",               region:"Global"},
+  {id:142, name:"E3 Energy DMCC",                   category:"Commodity Trading", size:"Mid-size", contact:"info@e3dubai.com",                      location:"Dubai, UAE",               region:"Global"},
+  {id:143, name:"First Petroleum DMCC",              category:"Commodity Trading", size:"Small",    contact:"info@firstpetroleum.ae",                location:"Dubai, UAE",               region:"Global"},
+  {id:144, name:"Black Rock Petroleum DMCC",         category:"Commodity Trading", size:"Small",    contact:"admin@blackrockdmcc.ae",                location:"Dubai, UAE",               region:"Global"},
+  {id:145, name:"Blaze Petroleum",                   category:"Commodity Trading", size:"Mid-size", contact:"info@blaze-petroleum.com",              location:"Dubai, UAE",               region:"Global"},
+  {id:146, name:"Pacific Petroleum Group",           category:"Commodity Trading", size:"Small",    contact:"info@pacificpetroleumltd.com",           location:"Dubai, UAE",               region:"Global"},
+  {id:147, name:"North Star Oil Trading",            category:"Commodity Trading", size:"Small",    contact:"info@northstaroil.ae",                  location:"UAE",                      region:"Global"},
+  {id:148, name:"Great Harbour Refined Oil Trading", category:"Commodity Trading", size:"Small",    contact:"info@greatharbour.ae",                  location:"Dubai, UAE",               region:"Global"},
+  {id:149, name:"Oando Trading DMCC",                category:"Commodity Trading", size:"Mid-size", contact:"info@oandotrading.com",                 location:"Dubai, UAE",               region:"Global"},
+  {id:150, name:"OLEO Energy DMCC",                  category:"Commodity Trading", size:"Mid-size", contact:"info@oleo-energy.com",                  location:"Dubai, UAE",               region:"Global"},
+  {id:151, name:"AEG Fuels",                         category:"Commodity Trading", size:"Mid-size", contact:"dispatch@aegfuels.com",                 location:"Dubai, UAE",               region:"Global"},
+  {id:152, name:"GPS Bunkers",                       category:"Commodity Trading", size:"Mid-size", contact:"fujbunkers@gpsbunkers.com",             location:"Fujairah, UAE",            region:"Global"},
+  {id:153, name:"Valor International FZC",           category:"Commodity Trading", size:"Mid-size", contact:"info@valorfzc.com",                     location:"Fujairah, UAE",            region:"Global"},
+  {id:154, name:"Integral Petroleum",                category:"Commodity Trading", size:"Mid-size", contact:"info@integral-petroleum.ch",            location:"Geneva, Switzerland",      region:"Global"},
+  {id:155, name:"Petroleum Trading Group",           category:"Commodity Trading", size:"Small",    contact:"operations@ptgroup.ch",                 location:"Geneva, Switzerland",      region:"Global"},
+  {id:156, name:"Suisse International Petroleum",    category:"Commodity Trading", size:"Small",    contact:"info@suisseinternationalpetroleum.com", location:"Geneva, Switzerland",      region:"Global"},
+  {id:157, name:"ASCON Group",                       category:"Commodity Trading", size:"Mid-size", contact:"contact@ascongroup.de",                 location:"Hamburg, Germany",         region:"Global"},
+  {id:158, name:"ElbOil GmbH",                       category:"Commodity Trading", size:"Mid-size", contact:"trading@elboil.com",                    location:"Hamburg, Germany",         region:"Global"},
+  {id:159, name:"Oil Brokerage Ltd",                 category:"Commodity Trading", size:"Mid-size", contact:"enquiries@oilbrokerage.net",            location:"London, UK",               region:"Global"},
+  {id:160, name:"Int'l Oil Trading Vis",             category:"Commodity Trading", size:"Small",    contact:"sales@oiltradingvis.com",               location:"Rotterdam, Netherlands",   region:"Global"},
+  {id:161, name:"Hedge Commodities",                 category:"Commodity Trading", size:"Small",    contact:"info@hedgecommodities.eu",              location:"Rotterdam, Netherlands",   region:"Global"},
+  {id:162, name:"Nidegro International Trading",     category:"Commodity Trading", size:"Small",    contact:"info@nidegro.nl",                       location:"Rotterdam, Netherlands",   region:"Global"},
+  {id:163, name:"TCT The Commodity Traders BV",      category:"Commodity Trading", size:"Mid-size", contact:"info@thecommoditytraders.com",          location:"Rotterdam, Netherlands",   region:"Global"},
+  {id:164, name:"UK TRG International Petroleum",    category:"Commodity Trading", size:"Mid-size", contact:"info@uktrg.com",                        location:"Istanbul, Turkey",         region:"Global"},
+  {id:165, name:"Eurasia Petrol",                    category:"Commodity Trading", size:"Small",    contact:"info@eurasiapetrol.com",                location:"Antalya, Turkey",          region:"Global"},
+  {id:166, name:"Singapore LNG Corporation",         category:"Commodity Trading", size:"Large",    contact:"enquiries@slngcorp.com",                location:"Singapore",                region:"Global"},
+  {id:167, name:"Wellbred Group",                    category:"Commodity Trading", size:"Mid-size", contact:"info@wellbred.com",                     location:"Singapore",                region:"Global"},
+  {id:168, name:"Fortrec Chemicals and Petroleum",   category:"Commodity Trading", size:"Mid-size", contact:"trade@fortrec.com",                     location:"Singapore",                region:"Global"},
+  {id:169, name:"Sinaco Industries",                 category:"Commodity Trading", size:"Mid-size", contact:"sales@sinaco.sg",                       location:"Singapore",                region:"Global"},
+  {id:170, name:"ChemTradeAsia (Tradeasia Intl)",    category:"Commodity Trading", size:"Mid-size", contact:"contact@chemtradeasia.com",             location:"Singapore",                region:"Global"},
+  {id:171, name:"Montfort Group",                    category:"Commodity Trading", size:"Mid-size", contact:"info@mont-fort.com",                    location:"Dubai/Singapore/Geneva",   region:"Global"},
+  {id:172, name:"Midstar Management Ltd",            category:"Commodity Trading", size:"Mid-size", contact:"info@midstar.com",                      location:"Dubai, UAE",               region:"Global"},
+  {id:173, name:"GVS Trading Dubai",                 category:"Commodity Trading", size:"Mid-size", contact:"office@gvs-dubai.ae",                  location:"Dubai, UAE",               region:"Global"},
+  {id:174, name:"Ashoka Global FZCO",                category:"Commodity Trading", size:"Mid-size", contact:"info@ashokaglobal.ae",                  location:"Dubai, UAE",               region:"Global"},
+  {id:175, name:"Gold Standard FZCO DMCC",           category:"Commodity Trading", size:"Small",    contact:"admin@goldstandarddmcc.com",            location:"Dubai, UAE",               region:"Global"},
+  {id:176, name:"APM Bullion Trading LLC",           category:"Commodity Trading", size:"Small",    contact:"info@apmbullion.ae",                    location:"Dubai, UAE",               region:"Global"},
+  {id:177, name:"Ultra Gold and Diamond",            category:"Commodity Trading", size:"Small",    contact:"info@ultragold.ae",                     location:"Dubai, UAE",               region:"Global"},
+  {id:178, name:"Raza Gems LLC",                     category:"Commodity Trading", size:"Small",    contact:"info@razagems.com",                     location:"Dubai, UAE",               region:"Global"},
+  {id:179, name:"Lamar Commodity Trading DMCC",      category:"Commodity Trading", size:"Mid-size", contact:"info@lamarcommodity.com",               location:"Dubai, UAE",               region:"Global"},
+  {id:180, name:"Suisse Commodity LLC",              category:"Commodity Trading", size:"Mid-size", contact:"info@suissecommodity.com",              location:"Dubai, UAE",               region:"Global"},
+  {id:181, name:"EMCO International DMCC",           category:"Commodity Trading", size:"Mid-size", contact:"trade@emco.ae",                         location:"Dubai, UAE",               region:"Global"},
+  {id:182, name:"Aegan International DMCC",          category:"Commodity Trading", size:"Mid-size", contact:"mail@aegangroup.com",                   location:"Dubai, UAE",               region:"Global"},
+  {id:183, name:"Cobblestone Energy",                category:"Commodity Trading", size:"Mid-size", contact:"info@cobblestoneenergy.com",            location:"Dubai, UAE / London, UK",  region:"Global"},
+  {id:184, name:"SINCONA TRADING AG",                category:"Commodity Trading", size:"Mid-size", contact:"info@sincona-trading.com",              location:"Zurich, Switzerland",      region:"Global"},
+  {id:185, name:"Schweizer Edelmetallhandel",        category:"Commodity Trading", size:"Small",    contact:"info@schweizer-edelmetallhandel.ch",    location:"Switzerland",              region:"Global"},
+  {id:186, name:"Platinum Trader UK",                category:"Commodity Trading", size:"Small",    contact:"sales@platinumtrader.co.uk",            location:"UK",                       region:"Global"},
+  {id:187, name:"GoldSilver Central",                category:"Commodity Trading", size:"Mid-size", contact:"info@goldsilvercentral.com.sg",         location:"Singapore",                region:"Global"},
+  {id:188, name:"Phillip Nova",                      category:"Commodity Trading", size:"Large",    contact:"nova@phillip.com.sg",                   location:"Singapore",                region:"Global"},
+  {id:189, name:"RSBL RiddhiSiddhi Bullions",        category:"Commodity Trading", size:"Large",    contact:"info@rsbl.co.in",                       location:"Mumbai, India",            region:"Global"},
+  {id:190, name:"KH Chemicals",                      category:"Commodity Trading", size:"Mid-size", contact:"info@khchemicals.com",                  location:"Netherlands",              region:"Global"},
+  {id:191, name:"Devine Chemicals Ltd",              category:"Commodity Trading", size:"Mid-size", contact:"hello@devinechemicals.co.uk",           location:"UK",                       region:"Global"},
+  {id:192, name:"Blagden Specialty Chemicals",       category:"Commodity Trading", size:"Mid-size", contact:"enquiries@blagden.com",                 location:"UK",                       region:"Global"},
+  {id:193, name:"HELM AG",                           category:"Commodity Trading", size:"Large",    contact:"info@helmag.com",                       location:"Hamburg, Germany",         region:"Global"},
+  {id:194, name:"SFK Chemicals Trading LLC",         category:"Commodity Trading", size:"Small",    contact:"info@sfkchem.com",                      location:"Dubai, UAE",               region:"Global"},
+  {id:195, name:"Al Taher Chemicals",                category:"Commodity Trading", size:"Small",    contact:"info@altaherchemicals.com",              location:"Ajman, UAE",               region:"Global"},
+  {id:196, name:"Innoveda IIGT Chemicals",           category:"Commodity Trading", size:"Mid-size", contact:"info@iigtchem.com",                     location:"Dubai, UAE",               region:"Global"},
+  {id:197, name:"Servochem LLC",                     category:"Commodity Trading", size:"Mid-size", contact:"inquiry@servochem.com",                 location:"Dubai, UAE",               region:"Global"},
+  {id:198, name:"Yingli Trading Co",                 category:"Commodity Trading", size:"Mid-size", contact:"sales-support@yinglitr.com",            location:"Hong Kong",                region:"Global"},
+  {id:199, name:"Hong Kong Petrochemical Co Ltd",    category:"Commodity Trading", size:"Mid-size", contact:"sales@hkpetro.com.hk",                 location:"Hong Kong",                region:"Global"},
+  {id:200, name:"Hong Kong Commodities Limited",     category:"Commodity Trading", size:"Small",    contact:"admin@hkcommodities.com",               location:"Hong Kong",                region:"Global"},
+  {id:201, name:"ARIAT Technology Limited",          category:"Commodity Trading", size:"Mid-size", contact:"info@ariat.hk",                         location:"Hong Kong",                region:"Global"},
+  {id:202, name:"FTC Electronics",                   category:"Commodity Trading", size:"Mid-size", contact:"info@ftcelectronics.com",               location:"Hong Kong / Singapore",    region:"Global"},
+  {id:203, name:"Component Trader",                  category:"Commodity Trading", size:"Small",    contact:"vincent@componenttrader.com",           location:"USA",                      region:"Americas"},
+  {id:204, name:"4 Star Electronics",                category:"Commodity Trading", size:"Mid-size", contact:"info@4starelectronics.com",              location:"Irvine, CA, USA",          region:"Americas"},
+  {id:205, name:"Klimes Trading sro",                category:"Commodity Trading", size:"Small",    contact:"sales@klimes.eu",                       location:"Prague, Czech Republic",   region:"Global"},
+  {id:206, name:"Sansing HK",                        category:"Commodity Trading", size:"Mid-size", contact:"hongkong@sansinghk.com",                location:"Hong Kong",                region:"Global"},
+  {id:207, name:"Asian Metal Resources Group",       category:"Commodity Trading", size:"Mid-size", contact:"info@amrg.hk",                          location:"Hong Kong",                region:"Global"},
+  {id:208, name:"ATC Metals GmbH",                   category:"Commodity Trading", size:"Mid-size", contact:"info@atc-metals.com",                   location:"Hamburg, Germany",         region:"Global"},
+  {id:209, name:"The Mineral Corporation",           category:"Commodity Trading", size:"Mid-size", contact:"business@mineralcorp.co.za",            location:"Johannesburg, South Africa",region:"Global"},
+  {id:210, name:"MMTC Limited",                      category:"Commodity Trading", size:"Large",    contact:"mmtc@mmtclimited.com",                  location:"New Delhi, India",         region:"Global"},
+  {id:211, name:"Gustav Kindt GmbH",                 category:"Commodity Trading", size:"Mid-size", contact:"trade@gustav-kindt.com",                location:"Hamburg, Germany",         region:"Global"},
+  {id:212, name:"AgriFood Ingredients BV",           category:"Commodity Trading", size:"Mid-size", contact:"info@agrifoodingredients.com",           location:"Netherlands",              region:"Global"},
+  {id:213, name:"Mega Grain Trading Co",             category:"Commodity Trading", size:"Mid-size", contact:"info@megagrain.com",                    location:"India",                    region:"Global"},
+  {id:214, name:"GranoSwiss",                        category:"Commodity Trading", size:"Small",    contact:"info@granoswiss.com",                   location:"Switzerland",              region:"Global"},
+  {id:215, name:"UK Global Commodities Ltd",         category:"Commodity Trading", size:"Mid-size", contact:"sales@ukglobalcommodities.com",          location:"London, UK",               region:"Global"},
+  {id:216, name:"Sucden Financial Limited",          category:"Commodity Trading", size:"Large",    contact:"financialinfo@sucden.com",              location:"London, UK",               region:"Global"},
+  {id:217, name:"Commodity Centre Amsterdam",        category:"Commodity Trading", size:"Mid-size", contact:"sales@commoditycentre.com",             location:"Amsterdam, Netherlands",   region:"Global"},
+  {id:218, name:"Dreymoor Fertilizers Overseas",     category:"Commodity Trading", size:"Large",    contact:"singapore@dreymoorfert.com",            location:"Singapore",                region:"Global"},
+  {id:219, name:"Liven Agrichem",                    category:"Commodity Trading", size:"Mid-size", contact:"info@livenagrichem.com",                location:"Singapore",                region:"Global"},
+  {id:220, name:"HPM Chemicals & Fertilizers",       category:"Commodity Trading", size:"Mid-size", contact:"info@hpmindia.com",                     location:"India",                    region:"Global"},
+  {id:221, name:"Global Farm Trade Sdn Bhd",         category:"Commodity Trading", size:"Mid-size", contact:"sales@thefarmtrade.com",                location:"Malaysia",                 region:"Global"},
+  {id:222, name:"Union Oil Impex",                   category:"Commodity Trading", size:"Mid-size", contact:"info@unionoilimpex.com",                location:"India",                    region:"Global"},
+  {id:223, name:"Anik Industries Ltd",               category:"Commodity Trading", size:"Mid-size", contact:"anik@anikgroup.com",                    location:"India",                    region:"Global"},
+  {id:224, name:"Bombay Petroleum Group",            category:"Commodity Trading", size:"Mid-size", contact:"info@bombaypetroleum.com",              location:"Mumbai, India",            region:"Global"},
+  {id:225, name:"Tactical Trading Dubai",            category:"Commodity Trading", size:"Small",    contact:"info@tactical-trading.com",             location:"Dubai, UAE",               region:"Global"},
+  {id:226, name:"Milkor UAE",                        category:"Commodity Trading", size:"Mid-size", contact:"info@milkor.ae",                         location:"UAE",                      region:"Global"},
+  {id:227, name:"Carbonmall Coal Trading",           category:"Commodity Trading", size:"Mid-size", contact:"reception@coal.ae",                     location:"Dubai, UAE",               region:"Global"},
+  {id:228, name:"GCC Supply & Trading",              category:"Commodity Trading", size:"Mid-size", contact:"marketing@gccbunkers.com",              location:"Houston, TX, USA",         region:"Americas"},
+  {id:229, name:"MTC Group India",                   category:"Commodity Trading", size:"Mid-size", contact:"info@mtcgroup.in",                       location:"Mumbai, India",            region:"Global"},
+  {id:230, name:"Juzco International",               category:"Commodity Trading", size:"Small",    contact:"info@juzco.com",                         location:"Karachi, Pakistan",        region:"Global"},
+  {id:231, name:"IMC Trading Amsterdam",             category:"Commodity Trading", size:"Large",    contact:"contact.amsterdam@imc.com",             location:"Amsterdam, Netherlands",   region:"Global"},
+  {id:232, name:"Bluequest Metals",                  category:"Commodity Trading", size:"Mid-size", contact:"info@bluequest.com",                    location:"Baar, Switzerland",        region:"Global"},
+  {id:233, name:"Alecar Trading SA",                 category:"Commodity Trading", size:"Small",    contact:"info@alecar.ch",                         location:"Switzerland",              region:"Global"},
+  {id:234, name:"SNS International Chemicals LLC",   category:"Commodity Trading", size:"Mid-size", contact:"sales@snschemicals.com",                location:"Ajman, UAE",               region:"Global"},
+  {id:235, name:"Wiselink Technology Pte Ltd",       category:"Commodity Trading", size:"Mid-size", contact:"info@wiselink.com.sg",                  location:"Singapore",                region:"Global"},
+  {id:236, name:"Soilfert Trading LLC",              category:"Commodity Trading", size:"Small",    contact:"osman@soilfert.ae",                     location:"Dubai, UAE",               region:"Global"},
+  {id:237, name:"Ngai Hing Hong Plastic Materials",  category:"Commodity Trading", size:"Mid-size", contact:"info@nhh.com.hk",                       location:"Hong Kong",                region:"Global"},
+  {id:238, name:"Kose Trade",                        category:"Commodity Trading", size:"Small",    contact:"info@kosetrade.com",                    location:"Izmir, Turkey",            region:"Global"},
+  {id:239, name:"Pak Rice Export",                   category:"Commodity Trading", size:"Small",    contact:"hello@pakriceexport.com",               location:"Lahore, Pakistan",         region:"Global"},
+  {id:240, name:"Lotus Resources Singapore",         category:"Commodity Trading", size:"Mid-size", contact:"info@lotus-resources.com",              location:"Singapore",                region:"Global"},
+  {id:241, name:"RSBL RiddhiSiddhi Bullions",        category:"Commodity Trading", size:"Large",    contact:"info@rsbl.co.in",                       location:"Mumbai, India",            region:"Global"},
+  {id:242, name:"Sin Hong Poh Metal Trading",        category:"Commodity Trading", size:"Small",    contact:"admin@sinhongpoh.com",                  location:"Singapore",                region:"Global"},
+  {id:243, name:"Conwill Pakistan Pvt Ltd",          category:"Commodity Trading", size:"Mid-size", contact:"traffic@conwill.com.pk",                location:"Pakistan",                 region:"Global"},
+  {id:244, name:"Naaraayani Minerals Pvt Ltd",       category:"Commodity Trading", size:"Small",    contact:"info@naaraayani.com",                   location:"India",                    region:"Global"},
+  {id:245, name:"Shrih Trading Co",                  category:"Commodity Trading", size:"Small",    contact:"info@shrihtrading.com",                 location:"India",                    region:"Global"},
+  {id:246, name:"Grain Asia Pakistan",               category:"Commodity Trading", size:"Small",    contact:"grainasia@yahoo.com",                   location:"Karachi, Pakistan",        region:"Global"},
+  {id:247, name:"Ag Com Inc",                        category:"Commodity Trading", size:"Small",    contact:"info@agcominc.com",                     location:"USA",                      region:"Americas"},
+  {id:248, name:"Lian Tian Trading Pte Ltd",         category:"Commodity Trading", size:"Small",    contact:"liantian@singnet.com.sg",               location:"Singapore",                region:"Global"},
+
+  // Asia Pacific Defence Agencies
+  {id:249, name:"Hanwha Defence Australia",           category:"Defence Equipment", size:"Large",   contact:"business@hanwha-defence.com.au",         location:"Australia",                region:"Asia Pacific"},
+  {id:250, name:"Bale Defence",                       category:"Defence Equipment", size:"SME",     contact:"sales@baledefence.com",                  location:"Australia",                region:"Asia Pacific"},
+  {id:251, name:"NIOA Group",                         category:"Defence Equipment", size:"Large",   contact:"govtsales@nioa.com.au",                  location:"Australia",                region:"Asia Pacific"},
+  {id:252, name:"NIOA Group Enquiries",               category:"Defence Equipment", size:"Large",   contact:"enquiries@nioa.com.au",                  location:"Australia",                region:"Asia Pacific"},
+  {id:253, name:"Babcock Australasia",                category:"Defence Equipment", size:"Large",   contact:"info@babcockinternational.com.au",        location:"Australia",                region:"Asia Pacific"},
+  {id:254, name:"GME Pty Ltd",                        category:"Defence Equipment", size:"SME",     contact:"info@gme.net.au",                        location:"Australia",                region:"Asia Pacific"},
+  {id:255, name:"GME International Sales",            category:"Defence Equipment", size:"SME",     contact:"international@gme.net.au",               location:"Australia",                region:"Asia Pacific"},
+  {id:256, name:"Codan Limited",                      category:"Defence Equipment", size:"Mid-size",contact:"info@codan.com.au",                      location:"Australia",                region:"Asia Pacific"},
+  {id:257, name:"Citadel Secure Pty Ltd",             category:"Defence Equipment", size:"Small",   contact:"team@citadelsecure.com.au",              location:"Australia",                region:"Asia Pacific"},
+  {id:258, name:"Salentis International",             category:"Defence Equipment", size:"SME",     contact:"apacadmin@salentis.com",                 location:"Australia",                region:"Asia Pacific"},
+  {id:259, name:"Mackay Defence",                     category:"Defence Equipment", size:"SME",     contact:"defence@mackayrubber.com.au",            location:"Australia",                region:"Asia Pacific"},
+  {id:260, name:"TLR Global Pty Ltd",                 category:"Defence Equipment", size:"Small",   contact:"contact@tlr.global",                    location:"Australia",                region:"Asia Pacific"},
+  {id:261, name:"Marand Precision Engineering",       category:"Defence Equipment", size:"SME",     contact:"sales@marand.com.au",                   location:"Australia",                region:"Asia Pacific"},
+  {id:262, name:"MFB Products Pty Ltd",               category:"Defence Equipment", size:"Small",   contact:"sales@mfb.com.au",                      location:"Australia",                region:"Asia Pacific"},
+  {id:263, name:"Benelec Pty Ltd",                    category:"Defence Equipment", size:"Small",   contact:"reception@benelec.com.au",              location:"Australia",                region:"Asia Pacific"},
+  {id:264, name:"Tidd Ross Todd (TRT)",               category:"Defence Equipment", size:"SME",     contact:"trt@trt.co.nz",                         location:"New Zealand",              region:"Asia Pacific"},
+  {id:265, name:"Trade In Military NZ",               category:"Defence Equipment", size:"Small",   contact:"tradeinmilitary@yahoo.co.nz",           location:"New Zealand",              region:"Asia Pacific"},
+  {id:266, name:"RYCA Pte Ltd",                       category:"Defence Equipment", size:"Small",   contact:"ryca@military.sg",                      location:"Singapore",                region:"Asia Pacific"},
+  {id:267, name:"Unicorn International Pte Ltd",      category:"Defence Equipment", size:"SME",     contact:"unicorn@stengg.com",                    location:"Singapore",                region:"Asia Pacific"},
+  {id:268, name:"133 Trading Singapore",              category:"Defence Equipment", size:"Small",   contact:"info@133trading.com.sg",                location:"Singapore",                region:"Asia Pacific"},
+  {id:269, name:"PT Pindad (Persero)",                category:"Defence Equipment", size:"Large",   contact:"info@pindad.com",                       location:"Indonesia",                region:"Asia Pacific"},
+  {id:270, name:"PT Pindad Jakarta Office",           category:"Defence Equipment", size:"Large",   contact:"pindadjkt@pindad.com",                  location:"Jakarta, Indonesia",       region:"Asia Pacific"},
+  {id:271, name:"DEFTECH Malaysia",                   category:"Defence Equipment", size:"Large",   contact:"sales@deftech.com.my",                  location:"Malaysia",                 region:"Asia Pacific"},
+  {id:272, name:"AIROD Sdn Bhd",                      category:"Defence Equipment", size:"Mid-size",contact:"marketing@airod.com.my",                location:"Malaysia",                 region:"Asia Pacific"},
+  {id:273, name:"NTK International Corporation",      category:"Defence Equipment", size:"SME",     contact:"info@ntkinternational.com",              location:"Japan",                    region:"Asia Pacific"},
+  {id:274, name:"BDB India Private Limited",          category:"Defence Equipment", size:"SME",     contact:"info@bdbipl.com",                       location:"India",                    region:"Asia Pacific"},
+  {id:275, name:"Mistral Solutions Pvt Ltd",          category:"Defence Equipment", size:"SME",     contact:"info@mistralsolutions.com",              location:"India",                    region:"Asia Pacific"},
+  {id:276, name:"Alpha Design Technologies",          category:"Defence Equipment", size:"SME",     contact:"contact@adtl.co.in",                    location:"India",                    region:"Asia Pacific"},
+  {id:277, name:"Paras Defence & Space Technologies", category:"Defence Equipment", size:"SME",     contact:"business@parasdefence.com",              location:"India",                    region:"Asia Pacific"},
+  {id:278, name:"Solar Industries India Ltd",         category:"Defence Equipment", size:"Large",   contact:"solar@solargroup.com",                  location:"India",                    region:"Asia Pacific"},
+  {id:279, name:"Kalyani Strategic Systems Ltd",      category:"Defence Equipment", size:"Mid-size",contact:"contact@kssl.in",                       location:"India",                    region:"Asia Pacific"},
+  {id:280, name:"Global Defence Mart",                category:"Defence Equipment", size:"SME",     contact:"info@globaldefencemart.com",             location:"India",                    region:"Asia Pacific"},
+  {id:281, name:"Centum Electronics Ltd",             category:"Defence Equipment", size:"Mid-size",contact:"info@centumelectronics.com",             location:"India",                    region:"Asia Pacific"},
+  {id:282, name:"Astra Microwave Products Ltd",       category:"Defence Equipment", size:"Mid-size",contact:"info@astramwp.com",                     location:"India",                    region:"Asia Pacific"},
+  {id:283, name:"United Defense Manufacturing Corp",  category:"Defence Equipment", size:"SME",     contact:"inquiries@udmc-weapons.com",             location:"Philippines",              region:"Asia Pacific"},
+  {id:284, name:"Chaiseri Metal & Rubber Co Ltd",     category:"Defence Equipment", size:"Mid-size",contact:"info@chaiseri-defense.com",              location:"Thailand",                 region:"Asia Pacific"},
+  {id:285, name:"Korea Aerospace Industries (KAI)",   category:"Defence Equipment", size:"Large",   contact:"kai@koreaaero.com",                     location:"South Korea",              region:"Asia Pacific"},
+  {id:286, name:"Viettel High Tech Industries",       category:"Defence Equipment", size:"Large",   contact:"info@viettelhightech.vn",               location:"Vietnam",                  region:"Asia Pacific"},
+  {id:287, name:"NCSIST Taiwan",                      category:"Defence Equipment", size:"Large",   contact:"intl@ncsist.org.tw",                    location:"Taiwan",                   region:"Asia Pacific"},
+  {id:288, name:"Indonesia Defence Services",         category:"Defence Equipment", size:"SME",     contact:"info@indonesiadefenceservices.com",      location:"Indonesia",                region:"Asia Pacific"},
+  {id:289, name:"ADCG Pty Ltd",                       category:"Defence Equipment", size:"Small",   contact:"info@adcg.com.au",                      location:"Australia",                region:"Asia Pacific"},
+  {id:290, name:"Defence Equipment Company",          category:"Defence Equipment", size:"SME",     contact:"sales@defeqp.com",                      location:"Australia",                region:"Asia Pacific"},
+  {id:291, name:"SMPP Limited India",                 category:"Defence Equipment", size:"SME",     contact:"compliance@smgroupindia.com",            location:"India",                    region:"Asia Pacific"},
+  {id:292, name:"Hanwha Defence Australia Supply",    category:"Defence Equipment", size:"Large",   contact:"aip@hanwha-defence.com.au",              location:"Australia",                region:"Asia Pacific"},
+  {id:293, name:"Hanwha Defence Communications",      category:"Defence Equipment", size:"Large",   contact:"communications@hanwha-defence.com.au",   location:"Australia",                region:"Asia Pacific"},
+  {id:294, name:"ARIS ZINC GROUP",                    category:"Defence Equipment", size:"Small",   contact:"info@ariszincgroup.com.au",              location:"Australia",                region:"Asia Pacific"},
+  {id:295, name:"G Military Singapore",               category:"Defence Equipment", size:"Small",   contact:"ghsgifts@gmail.com",                    location:"Singapore",                region:"Asia Pacific"},
+  {id:296, name:"Israel Military Products",           category:"Defence Equipment", size:"SME",     contact:"info@israelmilitary.com",               location:"Israel",                   region:"Asia Pacific"},
+  {id:297, name:"Defence Support Ltd",                category:"Defence Equipment", size:"SME",     contact:"sales@defencesupport.com",              location:"Australia",                region:"Asia Pacific"},
+  {id:298, name:"Hanwha Defence International",       category:"Defence Equipment", size:"Large",   contact:"business@hanwha-defence.com.au",         location:"South Korea",              region:"Asia Pacific"},
+
+  // Middle East Defence Agencies
+  {id:299, name:"DDST Defence Dynamics UAE",          category:"Defence Equipment", size:"SME",     contact:"sales@ddst.ae",                         location:"UAE",                      region:"Middle East"},
+  {id:300, name:"Al Seer Marine Supplies",            category:"Defence Equipment", size:"Mid-size",contact:"info@alseermarine.com",                  location:"UAE",                      region:"Middle East"},
+  {id:301, name:"PX TAC Military Equipment UAE",      category:"Defence Equipment", size:"Small",   contact:"info@pxtac.com",                        location:"UAE",                      region:"Middle East"},
+  {id:302, name:"DS Group Defence Solutions UAE",     category:"Defence Equipment", size:"SME",     contact:"info@defence-s.org",                    location:"UAE",                      region:"Middle East"},
+  {id:303, name:"EDGE Group UAE",                     category:"Defence Equipment", size:"Large",   contact:"info@edgegroup.ae",                     location:"UAE",                      region:"Middle East"},
+  {id:304, name:"NIMR Automotive UAE",                category:"Defence Equipment", size:"Large",   contact:"info@nimr.ae",                          location:"UAE",                      region:"Middle East"},
+  {id:305, name:"HALCON UAE",                         category:"Defence Equipment", size:"Large",   contact:"info@halcon.ae",                        location:"UAE",                      region:"Middle East"},
+  {id:306, name:"Tawazun Holdings UAE",               category:"Defence Equipment", size:"Large",   contact:"info@tawazun.ae",                       location:"UAE",                      region:"Middle East"},
+  {id:307, name:"Caracal International UAE",          category:"Defence Equipment", size:"Large",   contact:"info@caracaluae.com",                   location:"UAE",                      region:"Middle East"},
+  {id:308, name:"Defence Store Dubai",                category:"Defence Equipment", size:"Small",   contact:"info@defencestore.ae",                  location:"UAE",                      region:"Middle East"},
+  {id:309, name:"IGG UAE Industrial Group",           category:"Defence Equipment", size:"Mid-size",contact:"info@iggroup.ae",                       location:"UAE",                      region:"Middle East"},
+  {id:310, name:"SCOPA Industries Saudi Arabia",      category:"Defence Equipment", size:"Large",   contact:"info@scopa.com.sa",                     location:"Saudi Arabia",             region:"Middle East"},
+  {id:311, name:"Scopadef Saudi Arabia",              category:"Defence Equipment", size:"Mid-size",contact:"info@scopadef.com",                     location:"Saudi Arabia",             region:"Middle East"},
+  {id:312, name:"Saudi Arabian Military Industries",  category:"Defence Equipment", size:"Large",   contact:"info@sami.com.sa",                      location:"Saudi Arabia",             region:"Middle East"},
+  {id:313, name:"GDC Middle East",                    category:"Defence Equipment", size:"Mid-size",contact:"info@gdcme.com",                        location:"Saudi Arabia",             region:"Middle East"},
+  {id:314, name:"SmartEQ Saudi Arabia",               category:"Defence Equipment", size:"SME",     contact:"info@smarteq-sa.com",                   location:"Saudi Arabia",             region:"Middle East"},
+  {id:315, name:"Smartblast Trading Saudi Arabia",    category:"Defence Equipment", size:"SME",     contact:"info@smartblastme.com",                 location:"Saudi Arabia",             region:"Middle East"},
+  {id:316, name:"General Trading & Equipment (GTE)",  category:"Defence Equipment", size:"Mid-size",contact:"info@gtecorp.com",                      location:"Saudi Arabia",             region:"Middle East"},
+  {id:317, name:"METQA Qatar",                        category:"Defence Equipment", size:"SME",     contact:"info@metqa.com",                        location:"Qatar",                    region:"Middle East"},
+  {id:318, name:"Al Hamad Trading Qatar",             category:"Defence Equipment", size:"SME",     contact:"info@ahtqatar.com",                     location:"Qatar",                    region:"Middle East"},
+  {id:319, name:"Barzan Holdings Qatar",              category:"Defence Equipment", size:"Large",   contact:"recruitment@barzanholdings.com",         location:"Qatar",                    region:"Middle East"},
+  {id:320, name:"JADARA Defence Systems Jordan",      category:"Defence Equipment", size:"Mid-size",contact:"info@jadara.jo",                        location:"Jordan",                   region:"Middle East"},
+  {id:321, name:"JODDB Jordan",                       category:"Defence Equipment", size:"Mid-size",contact:"info@joddb.com",                        location:"Jordan",                   region:"Middle East"},
+  {id:322, name:"General Trading Company Kuwait",     category:"Defence Equipment", size:"Mid-size",contact:"info@gtckuwait.com",                    location:"Kuwait",                   region:"Middle East"},
+  {id:323, name:"DEFCON Support Kuwait",              category:"Defence Equipment", size:"SME",     contact:"info@defconsupport.com",                location:"Kuwait",                   region:"Middle East"},
+  {id:324, name:"Kuwait MOD Foreign Procurement",     category:"Defence Equipment", size:"Large",   contact:"FPS@mod.gov.kw",                        location:"Kuwait",                   region:"Middle East"},
+  {id:325, name:"Dahra Engineering Oman",             category:"Defence Equipment", size:"Mid-size",contact:"info@dahra.com",                        location:"Oman",                     region:"Middle East"},
+  {id:326, name:"Technical Trading Co Oman",         category:"Defence Equipment", size:"SME",     contact:"info@ttcoman.com",                      location:"Oman",                     region:"Middle East"},
+  {id:327, name:"Al Hassan LLC Oman",                 category:"Defence Equipment", size:"SME",     contact:"info@alhassanllc.com",                  location:"Oman",                     region:"Middle East"},
+  {id:328, name:"JANADA Group Bahrain",               category:"Defence Equipment", size:"SME",     contact:"info@janada.net",                       location:"Bahrain",                  region:"Middle East"},
+  {id:329, name:"IWI Israel Weapon Industries",       category:"Defence Equipment", size:"Large",   contact:"info@iwi.net",                          location:"Israel",                   region:"Middle East"},
+  {id:330, name:"Silver Shadow Security Systems",     category:"Defence Equipment", size:"Mid-size",contact:"info@silver-shadow.com",                location:"Israel",                   region:"Middle East"},
+  {id:331, name:"Aeronautics Defense Systems",        category:"Defence Equipment", size:"Mid-size",contact:"info@aeronautics-sys.com",              location:"Israel",                   region:"Middle East"},
+  {id:332, name:"Kasda Israeli Army Store",           category:"Defence Equipment", size:"Small",   contact:"info@kasda.co.il",                      location:"Israel",                   region:"Middle East"},
+  {id:333, name:"Menatek Defense Technologies",       category:"Defence Equipment", size:"SME",     contact:"info@menatek.com.tr",                   location:"Turkey",                   region:"Middle East"},
+  {id:334, name:"FNSS Savunma Sistemleri",            category:"Defence Equipment", size:"Large",   contact:"fnss@fnss.com.tr",                      location:"Turkey",                   region:"Middle East"},
+  {id:335, name:"Otokar Defence Vehicles",            category:"Defence Equipment", size:"Large",   contact:"otokar@otokar.com.tr",                  location:"Turkey",                   region:"Middle East"},
+  {id:336, name:"Baykar Technology Turkey",           category:"Defence Equipment", size:"Large",   contact:"info@baykartech.com",                   location:"Turkey",                   region:"Middle East"},
+  {id:337, name:"Roketsan Turkey",                    category:"Defence Equipment", size:"Large",   contact:"roketsan@roketsan.com.tr",              location:"Turkey",                   region:"Middle East"},
+  {id:338, name:"ASELSAN Turkey",                     category:"Defence Equipment", size:"Large",   contact:"aselsan@aselsan.com.tr",                location:"Turkey",                   region:"Middle East"},
+  {id:339, name:"STM Defence Technologies Turkey",    category:"Defence Equipment", size:"Large",   contact:"info@stm.com.tr",                       location:"Turkey",                   region:"Middle East"},
+  {id:340, name:"MDS Modern Defence Solutions",       category:"Defence Equipment", size:"SME",     contact:"info@mdsdefense.com",                   location:"Turkey",                   region:"Middle East"},
+  {id:341, name:"Turkey Sourcing Agency Defence",     category:"Defence Equipment", size:"Small",   contact:"info@turkeysourcingagency.com",          location:"Turkey",                   region:"Middle East"},
+  {id:342, name:"Arab Organization for Industrialization", category:"Defence Equipment", size:"Large", contact:"info@aoi.com.eg",                  location:"Egypt",                    region:"Middle East"},
+  {id:343, name:"Egyptian Procurement Office",        category:"Defence Equipment", size:"Large",   contact:"epo@mod.gov.eg",                        location:"Egypt",                    region:"Middle East"},
+
+  // Apollo CEO Contacts
+  {id:344, name:"Phoenix Defense LLC",                category:"Defence Equipment", size:"SME",     contact:"afunderburk@phxlogistics.com",           location:"Phoenix, Arizona, USA",     region:"North America"},
+  {id:345, name:"Military Equipment Denmark",         category:"Defence Equipment", size:"Small",   contact:"mrm@med.dk",                            location:"Denmark",                  region:"Europe"},
+  {id:346, name:"ADOR Defense Industry & Trading",   category:"Defence Equipment", size:"Small",   contact:"onur@adordefense.com",                  location:"Ankara, Turkey",           region:"Middle East"},
+  {id:347, name:"American Defense International",    category:"Defence Equipment", size:"Small",   contact:"mherson@americandefense.com",            location:"Washington DC, USA",       region:"North America"},
+  {id:348, name:"GLOMEX Military Supplies",          category:"Defence Equipment", size:"SME",     contact:"lukas.dedina@glomex-ms.com",             location:"Czech Republic",           region:"Europe"},
+  {id:349, name:"Ultra Defense Corp (UDC)",          category:"Defence Equipment", size:"SME",     contact:"matthew.herring@udcusa.com",             location:"Canada",                   region:"North America"},
+  {id:350, name:"Pioneer Industries LLC",            category:"Defence Equipment", size:"SME",     contact:"dyormack@pioneerspares.com",             location:"USA",                      region:"North America"},
+  {id:351, name:"Riveter Defense",                   category:"Defence Equipment", size:"Small",   contact:"jalbers@riveterdefense.com",             location:"USA",                      region:"North America"},
+  {id:352, name:"BZ Defense LLC",                    category:"Defence Equipment", size:"Small",   contact:"bz@bzdefense.com",                      location:"USA",                      region:"North America"},
+  {id:353, name:"Petro Defense S.L.",                category:"Defence Equipment", size:"Small",   contact:"sherif@petrodefense.org",               location:"Spain",                    region:"Europe"},
+  {id:354, name:"Tricion Defense Group",             category:"Defence Equipment", size:"SME",     contact:"nalghrairi@tricion.com",                location:"UAE",                      region:"Middle East"},
+  {id:355, name:"Mack Defense LLC",                  category:"Defence Equipment", size:"SME",     contact:"david.hartzell@mackdefense.com",         location:"USA",                      region:"North America"},
+  {id:356, name:"Natstar Defense",                   category:"Defence Equipment", size:"Small",   contact:"ali@natstardefense.com",                location:"USA",                      region:"North America"},
+  {id:357, name:"Element US Space & Defense",        category:"Defence Equipment", size:"SME",     contact:"dennis.pyatt@elementdefense.com",        location:"USA",                      region:"North America"},
+  {id:358, name:"Maxim Defense Industries",          category:"Defence Equipment", size:"SME",     contact:"mgw@maximdefense.com",                  location:"USA",                      region:"North America"},
+  {id:359, name:"Defense United LLC",                category:"Defence Equipment", size:"SME",     contact:"ali@defutd.com",                        location:"Kuwait",                   region:"Middle East"},
+  {id:360, name:"Defense Advancement",               category:"Defence Equipment", size:"Small",   contact:"caroline@defenseadvancement.com",        location:"United Kingdom",           region:"Europe"},
+
+  // New York Defence Companies
+  {id:361, name:"DUMBO Defense",                     category:"Defence Equipment", size:"Small",   contact:"Sales@DUMBODefense.com",                 location:"Brooklyn, New York, USA",  region:"North America"},
+  {id:362, name:"Areios Defense LLC",                category:"Defence Equipment", size:"Small",   contact:"sales@areiosdefense.com",                location:"Manhattan, New York, USA", region:"North America"},
+  {id:363, name:"SESCO Industries",                  category:"Defence Equipment", size:"SME",     contact:"info@sescoindustries.com",               location:"College Point, NY, USA",   region:"North America"},
+  {id:364, name:"Air Industries Group",              category:"Defence Equipment", size:"Mid-size",contact:"info@airindustriesgroup.com",            location:"Bay Shore, NY, USA",       region:"North America"},
+  {id:365, name:"ADDAPT NY",                         category:"Defence Equipment", size:"SME",     contact:"info@addaptny.org",                      location:"Long Island, NY, USA",     region:"North America"},
+  {id:366, name:"EPS Corporation",                   category:"Defence Equipment", size:"SME",     contact:"info@epscorp.com",                       location:"New York, USA",            region:"North America"},
+
+  // US States Defence Companies
+  {id:367, name:"Defense Technology Equipment Inc",  category:"Defence Equipment", size:"SME",     contact:"sales@defense-tech.com",                 location:"Sterling, Virginia, USA",  region:"North America"},
+  {id:368, name:"Defense Trading Corporation",       category:"Defence Equipment", size:"SME",     contact:"info@defensetradingcorp.com",            location:"Washington DC, USA",       region:"North America"},
+  {id:369, name:"Target Defense",                    category:"Defence Equipment", size:"SME",     contact:"contact@targetdefense.com",              location:"Orlando, Florida, USA",    region:"North America"},
+  {id:370, name:"Armtec Defense Technologies",       category:"Defence Equipment", size:"Mid-size",contact:"sales@armtecdefense.com",               location:"Coachella, California, USA",region:"North America"},
+  {id:371, name:"AMS Group Inc",                     category:"Defence Equipment", size:"SME",     contact:"info@amsgroup.net",                      location:"Alexandria, Virginia, USA",region:"North America"},
+  {id:372, name:"Custom Manufacturing & Engineering",category:"Defence Equipment", size:"SME",     contact:"sales@custom-mfg-eng.com",               location:"Pinellas Park, Florida, USA",region:"North America"},
+  {id:373, name:"Thaler Defense Systems",            category:"Defence Equipment", size:"SME",     contact:"sales@thalerdefense.com",                location:"Springboro, Ohio, USA",    region:"North America"},
+  {id:374, name:"Tactical Gear Distributors",        category:"Defence Equipment", size:"SME",     contact:"sales@TacticalGearDistributors.com",     location:"Aberdeen, North Carolina, USA",region:"North America"},
+  {id:375, name:"WG Henschen",                       category:"Defence Equipment", size:"Mid-size",contact:"quotes@wghco.com",                       location:"Peoria, Arizona, USA",     region:"North America"},
+  {id:376, name:"FDH Aero Electronics Division",     category:"Defence Equipment", size:"Mid-size",contact:"ok.sales@electroenterprises.com",        location:"Oklahoma City, Oklahoma, USA",region:"North America"},
+  {id:377, name:"Kellstrom Aerospace",               category:"Defence Equipment", size:"Mid-size",contact:"sales@kellstromaerospace.com",           location:"Roselle, Illinois, USA",   region:"North America"},
+  {id:378, name:"Midwest Military Equipment",        category:"Defence Equipment", size:"Small",   contact:"jbizal@MidwestMilitary.net",             location:"Prior Lake, Minnesota, USA",region:"North America"},
+  {id:379, name:"Centerline Manufacturing Ltd",      category:"Defence Equipment", size:"SME",     contact:"quotes@centerlinemanufacturingltd.com",  location:"Houston, Texas, USA",       region:"North America"},
+  {id:380, name:"ATX Defense",                       category:"Defence Equipment", size:"Small",   contact:"zach@atxdefense.com",                    location:"Austin, Texas, USA",        region:"North America"},
+  {id:381, name:"Vanguard Defense",                  category:"Defence Equipment", size:"Small",   contact:"johnny@vanguarddefense.us",              location:"Texas, USA",               region:"North America"},
+  {id:382, name:"SURVICE Engineering Company",       category:"Defence Equipment", size:"Mid-size",contact:"info@survice.com",                       location:"Belcamp, Maryland, USA",    region:"North America"},
+  {id:383, name:"IMCO America (ADTi)",               category:"Defence Equipment", size:"SME",     contact:"sales@adti.com",                         location:"Windsor Mill, Maryland, USA",region:"North America"},
+  {id:384, name:"Senior Aerospace Connecticut",      category:"Defence Equipment", size:"Mid-size",contact:"info@senioraerospace.com",               location:"Enfield, Connecticut, USA", region:"North America"},
+  {id:385, name:"A.G. Miller Company",               category:"Defence Equipment", size:"SME",     contact:"info@agmiller.com",                      location:"Springfield, Massachusetts, USA",region:"North America"},
+  {id:386, name:"Davidson Fabricating Inc",          category:"Defence Equipment", size:"SME",     contact:"sales@davidsonfab.com",                  location:"West Chester, Pennsylvania, USA",region:"North America"},
+  {id:387, name:"SpaceWorks Enterprises",            category:"Defence Equipment", size:"Small",   contact:"info@spaceworks.aero",                   location:"Atlanta, Georgia, USA",     region:"North America"},
+  {id:388, name:"ECI Defense Group",                 category:"Defence Equipment", size:"SME",     contact:"sales@ecidg.com",                        location:"Lyles, Tennessee, USA",     region:"North America"},
+  {id:389, name:"Asymmetric Solutions USA",          category:"Defence Equipment", size:"SME",     contact:"info@asymmetricsolutionsusa.com",         location:"Farmington, Missouri, USA", region:"North America"},
+  {id:390, name:"Heizer Defense LLC",                category:"Defence Equipment", size:"SME",     contact:"sales@heizerdefense.com",                location:"Pevely, Missouri, USA",     region:"North America"},
+  {id:391, name:"DESE Research Inc",                 category:"Defence Equipment", size:"Small",   contact:"pprice@dese.com",                        location:"Huntsville, Alabama, USA",  region:"North America"},
+  {id:392, name:"Challenger Defense Solutions",      category:"Defence Equipment", size:"Small",   contact:"info@challengerdefense.com",             location:"Huntsville, Alabama, USA",  region:"North America"},
+  {id:393, name:"Visser Precision",                  category:"Defence Equipment", size:"SME",     contact:"info@visserprecision.com",               location:"Denver, Colorado, USA",     region:"North America"},
+  {id:394, name:"Angel Armor",                       category:"Defence Equipment", size:"Small",   contact:"info@angelarmor.com",                    location:"Fort Collins, Colorado, USA",region:"North America"},
+  {id:395, name:"TMF Inc",                           category:"Defence Equipment", size:"Small",   contact:"sales@tmf-inc.com",                      location:"Poulsbo, Washington, USA",  region:"North America"},
+  {id:396, name:"Federal Army & Navy Surplus",       category:"Defence Equipment", size:"Small",   contact:"fans@gr8gear.com",                       location:"Seattle, Washington, USA",  region:"North America"},
+  {id:397, name:"Defense Engineering Services",      category:"Defence Equipment", size:"Small",   contact:"bob.cole@defengserv.com",                location:"Charleston, South Carolina, USA",region:"North America"},
+  {id:398, name:"DC Machine",                        category:"Defence Equipment", size:"SME",     contact:"sales@dcmachine.net",                    location:"Summerville, South Carolina, USA",region:"North America"},
+  {id:399, name:"Tactical Defense Manufacturing",    category:"Defence Equipment", size:"Small",   contact:"info@tdm-llc.com",                       location:"Madisonville, Kentucky, USA",region:"North America"},
+  {id:400, name:"Advanced Weapons Technology",       category:"Defence Equipment", size:"Small",   contact:"dfraley@awtllc.net",                     location:"Russell, Kentucky, USA",    region:"North America"},
+  {id:401, name:"Hydro-Blade Manufacturing",         category:"Defence Equipment", size:"Small",   contact:"sales@hydroblademfg.com",                location:"Lafayette, Louisiana, USA", region:"North America"},
+  {id:402, name:"Horsburgh & Scott",                 category:"Defence Equipment", size:"Mid-size",contact:"mbagwell@horsburgh-scott.com",           location:"Slidell, Louisiana, USA",   region:"North America"},
+  {id:403, name:"US Defense Systems",                category:"Defence Equipment", size:"Small",   contact:"info@usdefensesystems.com",              location:"Lindon, Utah, USA",         region:"North America"},
+  {id:404, name:"Fitz Manufacturing",                category:"Defence Equipment", size:"SME",     contact:"info@fitzmanufacturing.com",             location:"Troy, Michigan, USA",       region:"North America"},
+  {id:405, name:"NTL Industries Inc",                category:"Defence Equipment", size:"Small",   contact:"sales@ntlindustries.com",                location:"Sterling Heights, Michigan, USA",region:"North America"},
+  {id:406, name:"BLUSA Defense Manufacturing",       category:"Defence Equipment", size:"Small",   contact:"info@blusadefense.com",                  location:"Mount Laurel, New Jersey, USA",region:"North America"},
+  {id:407, name:"GPR Company Inc",                   category:"Defence Equipment", size:"SME",     contact:"sales@gprco.com",                        location:"Fairfield, New Jersey, USA",region:"North America"},
+  {id:408, name:"NJ Precision Technologies",         category:"Defence Equipment", size:"SME",     contact:"sales@njpt.com",                         location:"Mountainside, New Jersey, USA",region:"North America"},
+  {id:409, name:"Absolute Machining LLC",            category:"Defence Equipment", size:"Small",   contact:"shop@absmach.com",                       location:"Fort Wayne, Indiana, USA",  region:"North America"},
+  {id:410, name:"IMH Products Inc",                  category:"Defence Equipment", size:"SME",     contact:"sales@imh.com",                          location:"Indianapolis, Indiana, USA",region:"North America"},
+  {id:411, name:"Olson Custom Designs",              category:"Defence Equipment", size:"Small",   contact:"brian@ocdfab.com",                       location:"Indianapolis, Indiana, USA",region:"North America"},
+  {id:412, name:"Viking Arms Ltd",                   category:"Defence Equipment", size:"SME",     contact:"pmd@vikingarms.com",                     location:"Harrogate, UK",             region:"Europe"},
+  {id:413, name:"BCB International Ltd",             category:"Defence Equipment", size:"SME",     contact:"info@bcbin.com",                         location:"Cardiff, UK",               region:"Europe"},
+  {id:414, name:"CDS Defence & Security Ltd",        category:"Defence Equipment", size:"SME",     contact:"enquiries@cdsds.uk",                     location:"Cheltenham, UK",            region:"Europe"},
+  {id:415, name:"Becketts Store",                    category:"Defence Equipment", size:"Small",   contact:"enquiries@beckettsstore.com",            location:"Norwich, UK",               region:"Europe"},
+  {id:416, name:"Autoflug GmbH",                     category:"Defence Equipment", size:"SME",     contact:"sales@autoflug.de",                      location:"Rellingen, Germany",        region:"Europe"},
+  {id:417, name:"FFG Flensburger Fahrzeugbau",       category:"Defence Equipment", size:"Mid-size",contact:"info@ffg-flensburg.de",                  location:"Flensburg, Germany",        region:"Europe"},
+  {id:418, name:"CNIM Systemes Industriels",         category:"Defence Equipment", size:"Mid-size",contact:"contact-systemes-industriels@cnim.com",  location:"La Seyne-sur-Mer, France",  region:"Europe"},
+  {id:419, name:"Lacroix Defence",                   category:"Defence Equipment", size:"Mid-size",contact:"info@etienne-lacroix.com",               location:"Mazeres, France",           region:"Europe"},
+  {id:420, name:"Lubawa S.A.",                       category:"Defence Equipment", size:"Mid-size",contact:"export@lubawa.com",                      location:"Ostrow Wielkopolski, Poland",region:"Europe"},
+  {id:421, name:"MESKO S.A.",                        category:"Defence Equipment", size:"Mid-size",contact:"info@mesko.com.pl",                      location:"Skarzysko-Kamienna, Poland",region:"Europe"},
+  {id:422, name:"RADMOR S.A.",                       category:"Defence Equipment", size:"SME",     contact:"export@radmor.com.pl",                   location:"Gdynia, Poland",            region:"Europe"},
+  {id:423, name:"Dutch Military Vehicles",           category:"Defence Equipment", size:"Small",   contact:"info@dutchmilitaryvehicles.com",         location:"Etten-Leur, Netherlands",   region:"Europe"},
+  {id:424, name:"Artillerie Inrichtingen Armaments", category:"Defence Equipment", size:"SME",     contact:"info@ai-armaments.com",                  location:"Tilburg, Netherlands",      region:"Europe"},
+  {id:425, name:"Swebor Stal Svenska AB",            category:"Defence Equipment", size:"SME",     contact:"info@swebor.se",                         location:"Lulea, Sweden",             region:"Europe"},
+  {id:426, name:"Kebni AB",                          category:"Defence Equipment", size:"SME",     contact:"kristian.wallin@kebni.com",              location:"Kista, Sweden",             region:"Europe"},
+  {id:427, name:"S.L.S. Italia",                     category:"Defence Equipment", size:"SME",     contact:"info@slsitalia.it",                      location:"Rome, Italy",               region:"Europe"},
+  {id:428, name:"OMS S.r.l.",                        category:"Defence Equipment", size:"SME",     contact:"info@omsht.it",                          location:"Avigliana, Italy",          region:"Europe"},
+  {id:429, name:"Fiocchi Munizioni",                 category:"Defence Equipment", size:"Mid-size",contact:"info@fiocchi.com",                       location:"Lecco, Italy",              region:"Europe"},
+  {id:430, name:"Escribano Mechanical & Engineering",category:"Defence Equipment", size:"Mid-size",contact:"info@eme-es.com",                        location:"Madrid, Spain",             region:"Europe"},
+  {id:431, name:"Grupo Amper",                       category:"Defence Equipment", size:"Mid-size",contact:"comunicacion@grupoamper.com",            location:"Madrid, Spain",             region:"Europe"},
+  {id:432, name:"Tecnobit - Grupo Oesia",            category:"Defence Equipment", size:"Mid-size",contact:"marketing@oesia.com",                    location:"Madrid, Spain",             region:"Europe"},
+  {id:433, name:"Czech Defence Systems",             category:"Defence Equipment", size:"SME",     contact:"info@cdsystems.cz",                      location:"Prague, Czech Republic",    region:"Europe"},
+  {id:434, name:"Excalibur Army",                    category:"Defence Equipment", size:"Mid-size",contact:"info@excaliburarmy.cz",                  location:"Sternberk, Czech Republic", region:"Europe"},
+  {id:435, name:"Ceska Zbrojovka (CZUB)",            category:"Defence Equipment", size:"Mid-size",contact:"media@czub.cz",                          location:"Uhersky Brod, Czech Republic",region:"Europe"},
+  {id:436, name:"ROMTEHNICA S.A.",                   category:"Defence Equipment", size:"Mid-size",contact:"marketing@romtehnica.com.ro",            location:"Bucharest, Romania",        region:"Europe"},
+  {id:437, name:"CN ROMARM S.A.",                    category:"Defence Equipment", size:"Mid-size",contact:"solicitareinformatii@romarm.ro",         location:"Bucharest, Romania",        region:"Europe"},
+  {id:438, name:"Condor S.A.",                       category:"Defence Equipment", size:"SME",     contact:"valeriu.harcovei@condoraviation.ro",     location:"Bucharest, Romania",        region:"Europe"},
+  {id:439, name:"Rooster PR",                        category:"PR Agency",         size:"SME",     contact:"hello@rooster.co.uk",                    location:"London, UK",                region:"Europe"},
+  {id:440, name:"Rostrum Agency",                    category:"PR Agency",         size:"SME",     contact:"hello@rostrum.agency",                   location:"London, UK",                region:"Europe"},
+  {id:441, name:"Seven Hills",                       category:"PR Agency",         size:"Mid-size",contact:"hello@wearesevenhills.com",              location:"London, UK",                region:"Europe"},
+  {id:442, name:"CCgroup",                           category:"PR Agency",         size:"SME",     contact:"hello@ccgrouppr.com",                    location:"London, UK",                region:"Europe"},
+  {id:443, name:"Red Lorry Yellow Lorry",            category:"PR Agency",         size:"SME",     contact:"hello@rlyl.co.uk",                       location:"London, UK",                region:"Europe"},
+  {id:444, name:"Hudson Sandler",                    category:"PR Agency",         size:"Mid-size",contact:"hello@hudsonsandler.com",                location:"London, UK",                region:"Europe"},
+  {id:445, name:"Say Communications",                category:"PR Agency",         size:"Small",   contact:"hello@saycomms.co.uk",                   location:"London, UK",                region:"Europe"},
+  {id:446, name:"Threepipe",                         category:"PR Agency",         size:"Mid-size",contact:"hello@threepipe.co.uk",                  location:"London, UK",                region:"Europe"},
+  {id:447, name:"Fieldhouse Associates",             category:"PR Agency",         size:"Small",   contact:"hello@fieldhouseassociates.com",          location:"London, UK",                region:"Europe"},
+  {id:448, name:"CommsCo",                           category:"PR Agency",         size:"Small",   contact:"hello@thecommsco.com",                   location:"London, UK",                region:"Europe"},
+  {id:449, name:"Transmission Private",              category:"PR Agency",         size:"Small",   contact:"enquiry@transmission-private.com",       location:"London, UK",                region:"Europe"},
+  {id:450, name:"Cherish PR",                        category:"PR Agency",         size:"Small",   contact:"info@cherishpr.com",                     location:"London, UK",                region:"Europe"},
+  {id:451, name:"Midas PR",                          category:"PR Agency",         size:"SME",     contact:"info@midaspr.co.uk",                     location:"London, UK",                region:"Europe"},
+  {id:452, name:"Kaizo PR",                          category:"PR Agency",         size:"SME",     contact:"info@kaizo.co.uk",                       location:"London, UK",                region:"Europe"},
+  {id:453, name:"Roche Communications",              category:"PR Agency",         size:"Small",   contact:"info@rochecom.com",                      location:"London, UK",                region:"Europe"},
+  {id:454, name:"Platform Communications",           category:"PR Agency",         size:"SME",     contact:"info@platformcomms.com",                 location:"London, UK",                region:"Europe"},
+  {id:455, name:"Spreckley Partners",                category:"PR Agency",         size:"Small",   contact:"info@spreckley.co.uk",                   location:"London, UK",                region:"Europe"},
+  {id:456, name:"Clementine Communications",         category:"PR Agency",         size:"Small",   contact:"info@clementinecom.com",                 location:"London, UK",                region:"Europe"},
+  {id:457, name:"Gosh PR",                           category:"PR Agency",         size:"Small",   contact:"info@goshpr.co.uk",                      location:"London, UK",                region:"Europe"},
+  {id:458, name:"The Whitehouse Consultancy",        category:"PR Agency",         size:"SME",     contact:"info@whitehouseconsulting.co.uk",        location:"London, UK",                region:"Europe"},
+  {id:459, name:"SE10",                              category:"PR Agency",         size:"SME",     contact:"info.uk@se10.com",                       location:"London, UK",                region:"Europe"},
+  {id:460, name:"PR Office",                         category:"PR Agency",         size:"Small",   contact:"info@theproffice.com",                   location:"London, UK",                region:"Europe"},
+  {id:461, name:"Gresham PR",                        category:"PR Agency",         size:"Small",   contact:"neil.boom@greshampr.co.uk",              location:"London, UK",                region:"Europe"},
+  {id:462, name:"Munch PR",                          category:"PR Agency",         size:"Small",   contact:"theteam@munchpr.com",                    location:"London, UK",                region:"Europe"},
+  {id:463, name:"Lily Pad PR",                       category:"PR Agency",         size:"Small",   contact:"hello@lilypadpr.co.uk",                  location:"London, UK",                region:"Europe"},
+  {id:464, name:"Eskenzi PR",                        category:"PR Agency",         size:"SME",     contact:"katie@eskenzipr.com",                    location:"London, UK",                region:"Europe"},
+  {id:465, name:"Whiteoaks PR",                      category:"PR Agency",         size:"SME",     contact:"hello@whiteoaks.co.uk",                  location:"Hook, Surrey, UK",           region:"Europe"},
+  {id:466, name:"Citypress",                         category:"PR Agency",         size:"Mid-size",contact:"hello@citypress.co.uk",                  location:"Manchester, UK",            region:"Europe"},
+  {id:467, name:"Brazen PR",                         category:"PR Agency",         size:"Mid-size",contact:"info@wearebrazenpr.com",                 location:"Manchester, UK",            region:"Europe"},
+  {id:468, name:"Sugar PR",                          category:"PR Agency",         size:"SME",     contact:"hello@sugarpr.co.uk",                    location:"Manchester, UK",            region:"Europe"},
+  {id:469, name:"Galibier PR",                       category:"PR Agency",         size:"Small",   contact:"jobs@galibierpr.co.uk",                  location:"Manchester, UK",            region:"Europe"},
+  {id:470, name:"Vitis PR",                          category:"PR Agency",         size:"SME",     contact:"info@vitispr.com",                       location:"Birmingham, UK",            region:"Europe"},
+  {id:471, name:"Prohibition PR",                    category:"PR Agency",         size:"SME",     contact:"hello@prohibitionpr.co.uk",              location:"Leeds, UK",                 region:"Europe"},
+  {id:472, name:"MacComms",                          category:"PR Agency",         size:"Small",   contact:"info@maccomms.net",                      location:"Leeds, UK",                 region:"Europe"},
+  {id:473, name:"Aberfield Communications",          category:"PR Agency",         size:"SME",     contact:"hello@aberfield.com",                    location:"Leeds, UK",                 region:"Europe"},
+  {id:474, name:"Stripe Communications",             category:"PR Agency",         size:"Mid-size",contact:"hello@stripecommunications.com",         location:"Edinburgh, UK",             region:"Europe"},
+  {id:475, name:"Acumen PR",                         category:"PR Agency",         size:"Small",   contact:"kevin.dorrian@acumen-pr.com",            location:"Edinburgh, UK",             region:"Europe"},
+  {id:476, name:"Holyrood PR",                       category:"PR Agency",         size:"SME",     contact:"info@holyroodpr.co.uk",                  location:"Edinburgh, UK",             region:"Europe"},
+  {id:477, name:"Perceptive Communicators",          category:"PR Agency",         size:"Small",   contact:"info@perceptivecommunicators.co.uk",     location:"Glasgow, UK",               region:"Europe"},
+  {id:478, name:"Tigerbond",                         category:"PR Agency",         size:"SME",     contact:"hello@tigerbond.com",                    location:"Glasgow, UK",               region:"Europe"},
+  {id:479, name:"Highlight PR",                      category:"PR Agency",         size:"SME",     contact:"hello@highlightpr.co.uk",                location:"Bristol, UK",               region:"Europe"},
+  {id:480, name:"Purplefish",                        category:"PR Agency",         size:"Small",   contact:"hello@purplefish.agency",                location:"Bristol, UK",               region:"Europe"},
+  {id:481, name:"Ambitious PR",                      category:"PR Agency",         size:"SME",     contact:"hello@ambitiouspr.co.uk",                location:"Bristol, UK",               region:"Europe"},
+  {id:482, name:"Harvey & Hugo",                     category:"PR Agency",         size:"SME",     contact:"info@harveyandhugo.com",                 location:"Newcastle, UK",             region:"Europe"},
+  {id:483, name:"Viva PR",                           category:"PR Agency",         size:"SME",     contact:"hello@vivapr.co.uk",                     location:"Liverpool, UK",             region:"Europe"},
+  {id:484, name:"Propel PR",                         category:"PR Agency",         size:"Small",   contact:"info@propelpr.co.uk",                    location:"Liverpool, UK",             region:"Europe"},
+  {id:485, name:"Altitude PR",                       category:"PR Agency",         size:"Small",   contact:"info@altitudepr.co.uk",                  location:"Sheffield, UK",             region:"Europe"},
+  {id:486, name:"Dragonfly PR",                      category:"PR Agency",         size:"Small",   contact:"hello@dragonflypr.co.uk",                location:"Sheffield, UK",             region:"Europe"},
+  {id:487, name:"Motive PR",                         category:"PR Agency",         size:"SME",     contact:"hello@motivepr.co.uk",                   location:"Nottingham, UK",            region:"Europe"},
+  {id:488, name:"Tank PR",                           category:"PR Agency",         size:"SME",     contact:"info@tank.co.uk",                        location:"Nottingham, UK",            region:"Europe"},
+
+  // ── ASIA PACIFIC PR AGENCIES ──────────────────────────────────
+  // Vietnam
+  {id:489, name:"EloQ Communications",               category:"PR Agency",         size:"SME",     contact:"hello@eloqasia.com",                     location:"Vietnam",                   region:"Asia Pacific"},
+  {id:490, name:"ERA Communications",                category:"PR Agency",         size:"SME",     contact:"info@eracommunications.com",              location:"Vietnam",                   region:"Asia Pacific"},
+  {id:491, name:"Ivy+Partners",                      category:"PR Agency",         size:"Small",   contact:"ivy@ivynpartners.com",                   location:"Vietnam",                   region:"Asia Pacific"},
+  {id:492, name:"Kreativa Media Vietnam",            category:"PR Agency",         size:"Small",   contact:"yen.hoang@kreativa.vn",                  location:"Vietnam",                   region:"Asia Pacific"},
+  {id:493, name:"Spotlight Asia Vietnam",            category:"PR Agency",         size:"Small",   contact:"info@spotlightasia.net",                 location:"Vietnam",                   region:"Asia Pacific"},
+  {id:494, name:"Be Up To Date",                     category:"PR Agency",         size:"Small",   contact:"contact@beuptodate.vn",                  location:"Vietnam",                   region:"Asia Pacific"},
+  // Singapore
+  {id:495, name:"Affluence PR",                      category:"PR Agency",         size:"SME",     contact:"prominence@affluencepr.com",             location:"Singapore",                 region:"Asia Pacific"},
+  {id:496, name:"Alexander PR Group",                category:"PR Agency",         size:"Small",   contact:"marie@apr.sg",                           location:"Singapore",                 region:"Asia Pacific"},
+  {id:497, name:"Grow Public Relations",             category:"PR Agency",         size:"SME",     contact:"hello@growpublicrelations.com",           location:"Singapore",                 region:"Asia Pacific"},
+  {id:498, name:"LITMUS PR",                         category:"PR Agency",         size:"SME",     contact:"hello@litmuspr.com.sg",                  location:"Singapore",                 region:"Asia Pacific"},
+  {id:499, name:"Publicist PR",                      category:"PR Agency",         size:"SME",     contact:"hello@publicistpr.com",                  location:"Singapore",                 region:"Asia Pacific"},
+  {id:500, name:"SYNC PR",                           category:"PR Agency",         size:"Small",   contact:"hello@syncpr.co",                        location:"Singapore",                 region:"Asia Pacific"},
+  // Hong Kong
+  {id:501, name:"Eight Public Relations",            category:"PR Agency",         size:"Mid-size",contact:"info@eightpr.com",                       location:"Hong Kong",                 region:"Asia Pacific"},
+  {id:502, name:"SPRG",                              category:"PR Agency",         size:"Large",   contact:"richard.tsang@sprg.com.hk",              location:"Hong Kong",                 region:"Asia Pacific"},
+  {id:503, name:"Chance Communications",             category:"PR Agency",         size:"Small",   contact:"jeff@chancecomm.com",                    location:"Hong Kong",                 region:"Asia Pacific"},
+  {id:504, name:"Echolade",                          category:"PR Agency",         size:"Small",   contact:"hello@echolade.com",                     location:"Hong Kong",                 region:"Asia Pacific"},
+  {id:505, name:"FINN Partners Hong Kong",           category:"PR Agency",         size:"Mid-size",contact:"hongkong@finnpartners.com",              location:"Hong Kong",                 region:"Asia Pacific"},
+  // Thailand
+  {id:506, name:"Midas PR Thailand",                 category:"PR Agency",         size:"SME",     contact:"info@midas-pr.com",                      location:"Thailand",                  region:"Asia Pacific"},
+  {id:507, name:"Infinity Communications",           category:"PR Agency",         size:"SME",     contact:"bdm@infinity-comms.com",                 location:"Thailand",                  region:"Asia Pacific"},
+  {id:508, name:"Ario Marketing",                    category:"PR Agency",         size:"Small",   contact:"info@ariomarketing.com",                 location:"Thailand",                  region:"Asia Pacific"},
+  {id:509, name:"Gemini PR Bangkok",                 category:"PR Agency",         size:"Small",   contact:"gemini@best-pr-agency.com",              location:"Thailand",                  region:"Asia Pacific"},
+  {id:510, name:"Vivaldi PR",                        category:"PR Agency",         size:"SME",     contact:"english@vivaldipr.com",                  location:"Thailand",                  region:"Asia Pacific"},
+  {id:511, name:"TQPR Thailand",                     category:"PR Agency",         size:"Mid-size",contact:"thailand@tqpr.com",                      location:"Thailand",                  region:"Asia Pacific"},
+  // Malaysia
+  {id:512, name:"TQPR Malaysia",                     category:"PR Agency",         size:"Mid-size",contact:"malaysia@tqpr.com",                      location:"Malaysia",                  region:"Asia Pacific"},
+  {id:513, name:"Impact Communications",             category:"PR Agency",         size:"SME",     contact:"info@impactcommunications.com.my",        location:"Malaysia",                  region:"Asia Pacific"},
+  {id:514, name:"GO Communications",                 category:"PR Agency",         size:"SME",     contact:"gocomm@gocomm.com.my",                   location:"Malaysia",                  region:"Asia Pacific"},
+  {id:515, name:"SLPR Worldwide",                    category:"PR Agency",         size:"SME",     contact:"leontang@slpr.com.my",                   location:"Malaysia",                  region:"Asia Pacific"},
+  {id:516, name:"The Hoffman Agency Malaysia",       category:"PR Agency",         size:"Mid-size",contact:"malaysia@hoffman.com",                   location:"Malaysia",                  region:"Asia Pacific"},
+  {id:517, name:"TEAM LEWIS Malaysia",               category:"PR Agency",         size:"Mid-size",contact:"kualalumpur@teamlewis.com",               location:"Malaysia",                  region:"Asia Pacific"},
+  // Philippines
+  {id:518, name:"Dominguez Marketing Comms",         category:"PR Agency",         size:"SME",     contact:"pr@dominguez.com.ph",                    location:"Philippines",               region:"Asia Pacific"},
+  {id:519, name:"Full Circle Communications",        category:"PR Agency",         size:"SME",     contact:"info.fcc@fullcirclecomms-pr.com",         location:"Philippines",               region:"Asia Pacific"},
+  {id:520, name:"NGP Integrated Marketing",          category:"PR Agency",         size:"SME",     contact:"hello@ngpimc.com",                       location:"Philippines",               region:"Asia Pacific"},
+  {id:521, name:"M2.0 Communications",               category:"PR Agency",         size:"SME",     contact:"hello@m2comms.com",                      location:"Philippines",               region:"Asia Pacific"},
+  {id:522, name:"PRWorks Inc.",                      category:"PR Agency",         size:"Small",   contact:"doris.mongaya@prworksph.com",             location:"Philippines",               region:"Asia Pacific"},
+  {id:523, name:"Ardent Communications",             category:"PR Agency",         size:"Small",   contact:"info@ardentcomms.com.ph",                location:"Philippines",               region:"Asia Pacific"},
+  // Indonesia
+  {id:524, name:"Imogen Public Relations",           category:"PR Agency",         size:"SME",     contact:"hello@imogenpr.co.id",                   location:"Indonesia",                 region:"Asia Pacific"},
+  {id:525, name:"Inke Maris & Associates",           category:"PR Agency",         size:"Mid-size",contact:"info@inkemaris.com",                     location:"Indonesia",                 region:"Asia Pacific"},
+  {id:526, name:"Praxis",                            category:"PR Agency",         size:"SME",     contact:"admin@praxis.co.id",                     location:"Indonesia",                 region:"Asia Pacific"},
+  {id:527, name:"Mandreel",                          category:"PR Agency",         size:"SME",     contact:"info@mandreel.com",                      location:"Indonesia",                 region:"Asia Pacific"},
+  {id:528, name:"Genaya PR",                         category:"PR Agency",         size:"Small",   contact:"hello@genayapr.com",                     location:"Indonesia",                 region:"Asia Pacific"},
+  {id:529, name:"The Hoffman Agency Indonesia",      category:"PR Agency",         size:"Mid-size",contact:"indonesia@hoffman.com",                  location:"Indonesia",                 region:"Asia Pacific"},
+  // Japan
+  {id:530, name:"Kyodo PR",                          category:"PR Agency",         size:"Mid-size",contact:"info@kyodo-pr.co.jp",                    location:"Japan",                     region:"Asia Pacific"},
+  {id:531, name:"Tokyo PR Inc.",                     category:"PR Agency",         size:"SME",     contact:"pr@tokyopr.co.jp",                       location:"Japan",                     region:"Asia Pacific"},
+  {id:532, name:"TOCS",                              category:"PR Agency",         size:"SME",     contact:"info@pr-tocs.co.jp",                     location:"Japan",                     region:"Asia Pacific"},
+  {id:533, name:"URALA International",               category:"PR Agency",         size:"Small",   contact:"build@uralaverse.com",                   location:"Japan",                     region:"Asia Pacific"},
+  {id:534, name:"FleishmanHillard Tokyo",            category:"PR Agency",         size:"Large",   contact:"tokyo@fleishman.com",                    location:"Japan",                     region:"Asia Pacific"},
+  // South Korea
+  {id:535, name:"Prain Global",                      category:"PR Agency",         size:"Large",   contact:"prain@prain.com",                        location:"South Korea",               region:"Asia Pacific"},
+  {id:536, name:"Edge Communications",               category:"PR Agency",         size:"SME",     contact:"info@edgecomms.net",                     location:"South Korea",               region:"Asia Pacific"},
+  {id:537, name:"KPR & Associates",                  category:"PR Agency",         size:"Mid-size",contact:"kpr@kpr.co.kr",                          location:"South Korea",               region:"Asia Pacific"},
+  {id:538, name:"Weber Shandwick Korea",             category:"PR Agency",         size:"Large",   contact:"korea@webershandwick.com",               location:"South Korea",               region:"Asia Pacific"},
+  // Australia
+  {id:539, name:"Thrive PR + Communications",        category:"PR Agency",         size:"SME",     contact:"fly@thrivepr.com.au",                    location:"Australia",                 region:"Asia Pacific"},
+  {id:540, name:"AMPR Group",                        category:"PR Agency",         size:"SME",     contact:"ampr@ampr.com.au",                       location:"Australia",                 region:"Asia Pacific"},
+  {id:541, name:"Pure Public Relations",             category:"PR Agency",         size:"SME",     contact:"phoebe@purepublicrelations.com.au",       location:"Australia",                 region:"Asia Pacific"},
+  {id:542, name:"The Red Republic",                  category:"PR Agency",         size:"Mid-size",contact:"hello@theredrepublic.com",               location:"Australia",                 region:"Asia Pacific"},
+  {id:543, name:"Soda Communications",               category:"PR Agency",         size:"SME",     contact:"chat@sodacommunications.com.au",          location:"Australia",                 region:"Asia Pacific"},
+  {id:544, name:"Neon Black",                        category:"PR Agency",         size:"Small",   contact:"team@neon.black",                        location:"Australia",                 region:"Asia Pacific"},
+  {id:545, name:"Media Key",                         category:"PR Agency",         size:"Small",   contact:"mediakey@pacific.net.au",                location:"Australia",                 region:"Asia Pacific"},
+
+  // ── USA PR AGENCIES ───────────────────────────────────────────
+  {id:546, name:"5W Public Relations",               category:"PR Agency",         size:"Large",   contact:"info@5wpr.com",                          location:"New York, USA",             region:"North America"},
+  {id:547, name:"Macias PR",                         category:"PR Agency",         size:"SME",     contact:"mark@maciaspr.com",                      location:"New York, USA",             region:"North America"},
+  {id:548, name:"Praytell Agency",                   category:"PR Agency",         size:"Mid-size",contact:"hello@praytellagency.com",               location:"New York, USA",             region:"North America"},
+  {id:549, name:"DKC",                               category:"PR Agency",         size:"Large",   contact:"ny@dkcnews.com",                         location:"New York, USA",             region:"North America"},
+  {id:550, name:"Crenshaw Communications",           category:"PR Agency",         size:"SME",     contact:"olivia@crenshawcomm.com",                location:"New York, USA",             region:"North America"},
+  {id:551, name:"BPCM New York",                     category:"PR Agency",         size:"Mid-size",contact:"ny@bpcm.com",                            location:"New York, USA",             region:"North America"},
+  {id:552, name:"MikeWorldWide",                     category:"PR Agency",         size:"Large",   contact:"bwerner@mww.com",                        location:"New York, USA",             region:"North America"},
+  {id:553, name:"Zapwater Communications",           category:"PR Agency",         size:"SME",     contact:"david@zapwater.com",                     location:"Chicago, USA",              region:"North America"},
+  {id:554, name:"CarusoPR",                          category:"PR Agency",         size:"SME",     contact:"info@carusopr.com",                      location:"Chicago, USA",              region:"North America"},
+  {id:555, name:"Mekky Media Relations",             category:"PR Agency",         size:"SME",     contact:"hello@mekkymedia.com",                   location:"Chicago, USA",              region:"North America"},
+  {id:556, name:"Public Haus Agency",                category:"PR Agency",         size:"SME",     contact:"biz@publichausagency.com",               location:"Los Angeles, USA",          region:"North America"},
+  {id:557, name:"BPCM Los Angeles",                  category:"PR Agency",         size:"Mid-size",contact:"la@bpcm.com",                            location:"Los Angeles, USA",          region:"North America"},
+  {id:558, name:"Roar Media",                        category:"PR Agency",         size:"Mid-size",contact:"info@roarmedia.com",                     location:"Miami, USA",                region:"North America"},
+  {id:559, name:"Levy Public Relations",             category:"PR Agency",         size:"SME",     contact:"info@levypublicrelations.com",            location:"Miami, USA",                region:"North America"},
+  {id:560, name:"Cultivate PR",                      category:"PR Agency",         size:"SME",     contact:"sdemaria@cultivate-pr.com",              location:"Miami, USA",                region:"North America"},
+  {id:561, name:"Heyday Marketing + PR",             category:"PR Agency",         size:"SME",     contact:"emoya@heydaymarketing.com",              location:"Miami, USA",                region:"North America"},
+  {id:562, name:"INK Communications Co.",            category:"PR Agency",         size:"SME",     contact:"kersa@ink-co.com",                       location:"Austin, USA",               region:"North America"},
+  {id:563, name:"The PR Boutique",                   category:"PR Agency",         size:"SME",     contact:"info@theprboutique.com",                 location:"Austin, USA",               region:"North America"},
+  {id:564, name:"Pierpont Communications",           category:"PR Agency",         size:"Mid-size",contact:"info@piercom.com",                       location:"Houston, USA",              region:"North America"},
+  {id:565, name:"Singer Associates PR",              category:"PR Agency",         size:"SME",     contact:"info@singersf.com",                      location:"San Francisco, USA",        region:"North America"},
+  {id:566, name:"Bospar",                            category:"PR Agency",         size:"Mid-size",contact:"results@bospar.com",                     location:"San Francisco, USA",        region:"North America"},
+  {id:567, name:"Landis Communications",             category:"PR Agency",         size:"SME",     contact:"info@landispr.com",                      location:"San Francisco, USA",        region:"North America"},
+  {id:568, name:"Chamberlin PR",                     category:"PR Agency",         size:"SME",     contact:"info@chamberlinpr.com",                  location:"San Francisco, USA",        region:"North America"},
+  {id:569, name:"Communique PR",                     category:"PR Agency",         size:"SME",     contact:"info@communiquepr.com",                  location:"Seattle, USA",              region:"North America"},
+  {id:570, name:"HMA PR",                            category:"PR Agency",         size:"SME",     contact:"info@hmapr.com",                         location:"Scottsdale, USA",           region:"North America"},
+  {id:571, name:"Adler Public Relations",            category:"PR Agency",         size:"SME",     contact:"jennifer@adlerpublicrelations.com",       location:"Scottsdale, USA",           region:"North America"},
+  {id:572, name:"A.wordsmith",                       category:"PR Agency",         size:"SME",     contact:"info@awordsmith.com",                    location:"Portland, USA",             region:"North America"},
+  {id:573, name:"Crowe PR",                          category:"PR Agency",         size:"SME",     contact:"info@crowepr.com",                       location:"San Diego, USA",            region:"North America"},
+  {id:574, name:"Lee and London PR",                 category:"PR Agency",         size:"SME",     contact:"info@leeandlondon.com",                  location:"San Diego, USA",            region:"North America"},
+  {id:575, name:"J. Walcher Communications",         category:"PR Agency",         size:"SME",     contact:"pr@jwalcher.com",                        location:"San Diego, USA",            region:"North America"},
+  {id:576, name:"Maccabee PR",                       category:"PR Agency",         size:"SME",     contact:"paul@maccabee.com",                      location:"Minneapolis, USA",          region:"North America"},
+  {id:577, name:"Bellmont Partners",                 category:"PR Agency",         size:"SME",     contact:"info@bellmontpartners.com",              location:"Minneapolis, USA",          region:"North America"},
+  {id:578, name:"Lola Red PR",                       category:"PR Agency",         size:"SME",     contact:"partnerships@lolared.com",               location:"Minneapolis, USA",          region:"North America"},
+  {id:579, name:"Beehive Strategic Communication",   category:"PR Agency",         size:"SME",     contact:"info@beehivepr.biz",                     location:"St. Paul, USA",             region:"North America"},
+  {id:580, name:"Reed Public Relations",             category:"PR Agency",         size:"SME",     contact:"hello@reedpublicrelations.com",           location:"Nashville, USA",            region:"North America"},
+  {id:581, name:"Parson + Associates",               category:"PR Agency",         size:"SME",     contact:"team@parsonkc.com",                      location:"Kansas City, USA",          region:"North America"},
+  {id:582, name:"Common Ground PR",                  category:"PR Agency",         size:"SME",     contact:"info@commongroundpr.com",                location:"St. Louis, USA",            region:"North America"},
+  {id:583, name:"Rasky Partners",                    category:"PR Agency",         size:"Mid-size",contact:"raskypartners@rasky.com",                location:"Boston, USA",               region:"North America"},
+  {id:584, name:"Eleven Eleven PR",                  category:"PR Agency",         size:"Small",   contact:"sara@elevenelevenpr.co",                 location:"Washington DC, USA",        region:"North America"},
+  {id:585, name:"PIVOT PR",                          category:"PR Agency",         size:"SME",     contact:"info@pivot-pr.com",                      location:"Charlotte, USA",            region:"North America"},
+  {id:586, name:"McKeeman Communications",           category:"PR Agency",         size:"Small",   contact:"kim@mckeemanpr.com",                     location:"Raleigh, USA",              region:"North America"},
+  {id:587, name:"Kirvin Doak Communications",        category:"PR Agency",         size:"Mid-size",contact:"info@kirvindoak.com",                    location:"Las Vegas, USA",            region:"North America"},
+  {id:588, name:"GYC Vegas",                         category:"PR Agency",         size:"SME",     contact:"info@gycvegas.com",                      location:"Las Vegas, USA",            region:"North America"},
+  {id:589, name:"Rossetti PR",                       category:"PR Agency",         size:"SME",     contact:"hello@rossettipr.com",                   location:"Las Vegas, USA",            region:"North America"},
+  {id:590, name:"BrandBomb PR",                      category:"PR Agency",         size:"SME",     contact:"pr@brandbombpr.com",                     location:"Las Vegas, USA",            region:"North America"},
+  {id:591, name:"Authentic Public Relations",        category:"PR Agency",         size:"SME",     contact:"contact@authenticpublicrelations.com",   location:"Las Vegas, USA",            region:"North America"},
+
+  // ── CRYPTO & WEB3 ─────────────────────────────────────────────
+  {id:592, name:"Cryptomus",          category:"Crypto & Web3",    size:"Small",    contact:"support@cryptomus.com",        location:"Global",               region:"Global"},
+  {id:593, name:"Confirmo",           category:"Crypto & Web3",    size:"Small",    contact:"support@confirmo.net",         location:"Prague, Czech Republic",region:"Europe"},
+  {id:594, name:"Sequere",            category:"Crypto & Web3",    size:"Small",    contact:"info@sequere.com",             location:"Canada/India",          region:"Global"},
+  {id:595, name:"Ronins",             category:"Crypto & Web3",    size:"Small",    contact:"hello@ronins.co.uk",           location:"London, UK",            region:"Europe"},
+  {id:596, name:"Unifold",            category:"Crypto & Web3",    size:"Small",    contact:"hello@unifold.io",             location:"Global",               region:"Global"},
+  {id:597, name:"Backed Finance",     category:"Crypto & Web3",    size:"Small",    contact:"contact@backed.fi",            location:"Switzerland",           region:"Europe"},
+  {id:598, name:"RWA.xyz",            category:"Crypto & Web3",    size:"Small",    contact:"team@rwa.xyz",                 location:"New York, USA",         region:"North America"},
+  {id:599, name:"Orderly Network",    category:"Crypto & Web3",    size:"SME",      contact:"listing@orderly.network",      location:"Global",               region:"Global"},
+  {id:600, name:"Drift Protocol",     category:"Crypto & Web3",    size:"SME",      contact:"hello@drift.trade",            location:"Global",               region:"Global"},
+  {id:601, name:"Stader Labs",        category:"Crypto & Web3",    size:"SME",      contact:"admin@forms.staderlabs.com",   location:"Global",               region:"Global"},
+  {id:602, name:"BVNK",               category:"Crypto & Web3",    size:"SME",      contact:"merchants@bvnk.com",           location:"London, UK",            region:"Europe"},
+  {id:603, name:"Particle Network",   category:"Crypto & Web3",    size:"SME",      contact:"ethan@particle.network",       location:"Global",               region:"Global"},
+
+  // ── LIFESTYLE & WELLNESS ──────────────────────────────────────
+  {id:604, name:"YayDay",             category:"Lifestyle & Wellness", size:"Small", contact:"team@myyayday.com",           location:"USA",                   region:"North America"},
+  {id:605, name:"Mela Vitamins",      category:"Lifestyle & Wellness", size:"Small", contact:"info@melavitamins.com",       location:"USA",                   region:"North America"},
+  {id:606, name:"Revivele",           category:"Lifestyle & Wellness", size:"Small", contact:"support@revivele.com",        location:"USA",                   region:"North America"},
+  {id:607, name:"Elo Health",         category:"Lifestyle & Wellness", size:"Small", contact:"elo@elo.health",              location:"USA",                   region:"North America"},
+  {id:608, name:"Haven Athletic",     category:"Lifestyle & Wellness", size:"Small", contact:"hello@havenathletic.com",     location:"USA",                   region:"North America"},
+  {id:609, name:"Within You Brand",   category:"Lifestyle & Wellness", size:"Small", contact:"info@withinyoubrand.com",     location:"Dixon, CA, USA",        region:"North America"},
+  {id:610, name:"Alpine Gremlins",    category:"Lifestyle & Wellness", size:"Small", contact:"privacy@alpinegremlins.com",  location:"Norwich, VT, USA",      region:"North America"},
+  {id:611, name:"Preamble Health",    category:"Lifestyle & Wellness", size:"Small", contact:"support@preamblehealth.com",  location:"USA",                   region:"North America"},
+  {id:612, name:"Organifi",           category:"Lifestyle & Wellness", size:"SME",   contact:"support@organifi.com",        location:"San Diego, CA, USA",    region:"North America"},
+  {id:613, name:"Melissa Wood Health",category:"Lifestyle & Wellness", size:"Small", contact:"mwh@melissawoodhealth.com",   location:"USA",                   region:"North America"},
+  {id:614, name:"Nerd Fitness",       category:"Lifestyle & Wellness", size:"SME",   contact:"contact@nerdfitness.com",     location:"Nashville, USA",        region:"North America"},
+  {id:615, name:"Fit Men Cook",       category:"Lifestyle & Wellness", size:"Small", contact:"fitmencook@gmail.com",        location:"USA",                   region:"North America"},
+  {id:616, name:"The Skinny Confidential", category:"Lifestyle & Wellness", size:"Small", contact:"danielle@dearmedia.com", location:"USA",                   region:"North America"},
+  {id:617, name:"BossBabe",           category:"Lifestyle & Wellness", size:"Small", contact:"contact@bossbabe.com",        location:"USA",                   region:"North America"},
+  {id:618, name:"Create & Cultivate", category:"Lifestyle & Wellness", size:"Small", contact:"jaclyn@createcultivate.com",  location:"USA",                   region:"North America"},
+  {id:619, name:"Ambitious Kitchen",  category:"Lifestyle & Wellness", size:"Small", contact:"monique@ambitiouskitchen.com",location:"USA",                   region:"North America"},
+  {id:620, name:"SWAGGER Magazine",   category:"Lifestyle & Wellness", size:"Small", contact:"info@swaggermagazine.com",    location:"USA",                   region:"North America"},
+  {id:621, name:"Tone It Up",         category:"Lifestyle & Wellness", size:"SME",   contact:"partnerships@toneitup.com",   location:"USA",                   region:"North America"},
+
+  // ── EUROPEAN DEFENCE TRADING ──────────────────────────────────────────────
+  {id:622, name:"Viking Arms PMD",            category:"European Defence Trading",         size:"SME",      contact:"pmd@vikingarms.com",                   location:"Harrogate, UK",          region:"Europe"},
+  {id:623, name:"Chemring Group PLC",         category:"European Defence Trading",         size:"Large",    contact:"Via form — chemring.com/contacts",      location:"Romsey, UK",             region:"Europe"},
+  {id:624, name:"Babcock International Group",category:"European Defence Trading",         size:"Large",    contact:"Via form — babcockinternational.com",   location:"London, UK",             region:"Europe"},
+  {id:625, name:"Cohort PLC",                 category:"European Defence Trading",         size:"SME",      contact:"info@sea.co.uk",                       location:"Somerset, UK",           region:"Europe"},
+  {id:626, name:"Rheinmetall AG",             category:"European Defence Trading",         size:"Large",    contact:"Via form — rheinmetall.com",            location:"Düsseldorf, Germany",    region:"Europe"},
+  {id:627, name:"Diehl Defence",              category:"European Defence Trading",         size:"Large",    contact:"pr@diehl-defence.com",                 location:"Überlingen, Germany",    region:"Europe"},
+  {id:628, name:"HENSOLDT AG",                category:"European Defence Trading",         size:"Large",    contact:"Via form — hensoldt.net",               location:"Ulm, Germany",           region:"Europe"},
+  {id:629, name:"KNDS Group",                 category:"European Defence Trading",         size:"Large",    contact:"Via form — knds.com",                  location:"Paris, France",          region:"Europe"},
+  {id:630, name:"Nammo AS",                   category:"European Defence Trading",         size:"Large",    contact:"info@nammo.com",                       location:"Raufoss, Norway",        region:"Europe"},
+  {id:631, name:"Patria Oyj",                 category:"European Defence Trading",         size:"Large",    contact:"info@patriagroup.com",                 location:"Helsinki, Finland",      region:"Europe"},
+  {id:632, name:"Saab AB",                    category:"European Defence Trading",         size:"Large",    contact:"presscentre@saabgroup.com",             location:"Stockholm, Sweden",      region:"Europe"},
+  {id:633, name:"Milrem Robotics",            category:"European Defence Trading",         size:"SME",      contact:"sales@milrem.com",                     location:"Tallinn, Estonia",       region:"Europe"},
+
+  // ── EASTERN EUROPEAN DEFENCE ──────────────────────────────────────────────
+  {id:634, name:"Polska Grupa Zbrojeniowa (PGZ)", category:"Eastern European Defence",     size:"Large",    contact:"biuro@pgzsa.pl",                       location:"Warsaw, Poland",         region:"Europe"},
+  {id:635, name:"WB Electronics / WB Group",  category:"Eastern European Defence",         size:"SME",      contact:"Via form — wbgroup.pl",                location:"Warsaw, Poland",         region:"Europe"},
+  {id:636, name:"Excalibur International",    category:"Eastern European Defence",         size:"SME",      contact:"info@excaliburinternational.cz",        location:"Prague, Czech Republic", region:"Europe"},
+  {id:637, name:"Excalibur Army",             category:"Eastern European Defence",         size:"SME",      contact:"info@excaliburarmy.cz",                location:"Šternberk, Czech Republic",region:"Europe"},
+  {id:638, name:"TATRA Defence Vehicle",      category:"Eastern European Defence",         size:"SME",      contact:"Via form — defence.czechoslovakgroup.com",location:"Kopřivnice, Czech Republic",region:"Europe"},
+  {id:639, name:"Bumar-Łabędy",              category:"Eastern European Defence",         size:"SME",      contact:"biuro@pgzsa.pl",                       location:"Gliwice, Poland",        region:"Europe"},
+
+  // ── MIDDLE EAST PROCUREMENT & TRADING ─────────────────────────────────────
+  {id:640, name:"Saudi Arabian Military Industries (SAMI)", category:"Middle East Procurement", size:"Large", contact:"Via form — sami.com.sa",             location:"Riyadh, Saudi Arabia",   region:"Middle East"},
+  {id:641, name:"Barzan Holdings",            category:"Middle East Procurement",          size:"Mid-size", contact:"recruitment@barzanholdings.com",       location:"Doha, Qatar",            region:"Middle East"},
+  {id:642, name:"NIMR Automotive (EDGE Group)",category:"Middle East Defence",             size:"Large",    contact:"Via form — nimr.ae",                   location:"Abu Dhabi, UAE",         region:"Middle East"},
+  {id:643, name:"Halcon (EDGE Group)",        category:"Middle East Defence",              size:"Mid-size", contact:"Via form — edgegroup.ae",               location:"Abu Dhabi, UAE",         region:"Middle East"},
+  {id:644, name:"KGL Holding",                category:"Middle East Defence Logistics",    size:"Large",    contact:"Via form — kgl.com",                   location:"Kuwait City, Kuwait",    region:"Middle East"},
+  {id:645, name:"KADDB (King Abdullah II DDB)",category:"Middle East Procurement",         size:"Mid-size", contact:"Via form — kaddb.gov.jo",               location:"Amman, Jordan",          region:"Middle East"},
+  {id:646, name:"Milaha (Qatar Navigation)",  category:"Middle East Defence Logistics",    size:"Large",    contact:"Via form — milaha.com",                 location:"Doha, Qatar",            region:"Middle East"},
+
+  // ── ASIAN DEFENCE ─────────────────────────────────────────────────────────
+  {id:647, name:"Hanwha Aerospace",           category:"Asian Defence",                    size:"Large",    contact:"Via form — hanwhadefense-intl.com",    location:"Seoul, South Korea",     region:"Asia-Pacific"},
+  {id:648, name:"Hyundai Rotem",              category:"Asian Defence",                    size:"Large",    contact:"Via form — hyundai-rotem.co.kr",       location:"Changwon, South Korea",  region:"Asia-Pacific"},
+  {id:649, name:"LIG Nex1",                   category:"Asian Defence",                    size:"Large",    contact:"Via form — lignex1.com",               location:"Yongin, South Korea",    region:"Asia-Pacific"},
+  {id:650, name:"Poongsan Corporation",       category:"Asian Defence",                    size:"Mid-size", contact:"Via form — poongsan.co.kr",             location:"Seoul, South Korea",     region:"Asia-Pacific"},
+  {id:651, name:"ST Engineering Defence",     category:"Asian Defence",                    size:"Large",    contact:"defence.enquiry@stengg.com",            location:"Singapore",              region:"Asia-Pacific"},
+  {id:652, name:"Elbit Systems Ltd",          category:"Asian Defence",                    size:"Large",    contact:"Via form — elbitsystems.com",           location:"Haifa, Israel",          region:"Asia-Pacific"},
+  {id:653, name:"Controp Precision Technologies",category:"Asian Defence",                 size:"SME",      contact:"Via form — controp.com",               location:"Hod HaSharon, Israel",   region:"Asia-Pacific"},
+  {id:654, name:"Bharat Electronics Limited (BEL)",category:"Asian Defence",              size:"Large",    contact:"imd@bel.co.in",                        location:"Bengaluru, India",       region:"Asia-Pacific"},
+  {id:655, name:"Tata Advanced Systems",      category:"Asian Defence",                    size:"Large",    contact:"taslds@tataadvancedsystems.com",        location:"Hyderabad, India",       region:"Asia-Pacific"},
+  {id:656, name:"MCT Defense",               category:"Global Military Surplus",          size:"SME",      contact:"info@mctdefense.com",                  location:"Ness-Ziona, Israel",     region:"Asia-Pacific"},
+  {id:657, name:"Contact International (Kalia)",category:"Global Military Surplus",       size:"SME",      contact:"Via form — contact-kalia.com",          location:"Jerusalem, Israel",      region:"Asia-Pacific"},
+
+  // ── AUSTRALIAN & CANADIAN DEFENCE ─────────────────────────────────────────
+  {id:658, name:"Hanwha Defence Australia",   category:"Australian Defence",               size:"Large",    contact:"business@hanwha-defence.com.au",       location:"Melbourne, Australia",   region:"Asia-Pacific"},
+  {id:659, name:"Electro Optic Systems (EOS)",category:"Australian Defence",               size:"SME",      contact:"Via form — eos-aus.com",               location:"Hume ACT, Australia",    region:"Asia-Pacific"},
+  {id:660, name:"Magellan Aerospace",         category:"Canadian Defence",                 size:"Large",    contact:"magellan.corporate@magellan.aero",     location:"Mississauga, Canada",    region:"North America"},
+  {id:661, name:"CAE Inc.",                   category:"Canadian Defence",                 size:"Large",    contact:"Via form — cae.com",                   location:"Montreal, Canada",       region:"North America"},
+
+  // ── UK / EUROPEAN MILITARY SURPLUS TRADING ────────────────────────────────
+  {id:662, name:"L. Jackson & Co. Ltd",       category:"UK Military Surplus Trading",      size:"SME",      contact:"sales@ljacksonandco.com",              location:"Doncaster, UK",          region:"Europe"},
+  {id:663, name:"Witham Specialist Vehicles", category:"UK Military Surplus Trading",      size:"SME",      contact:"info@mod-sales.com",                   location:"Lincolnshire, UK",       region:"Europe"},
+  {id:664, name:"GovPlanet EU (Ritchie Bros.)",category:"European Military Surplus Platform",size:"Large",  contact:"CustomerService@GovPlanet.com",        location:"Europe-wide",            region:"Europe"},
+  {id:665, name:"Sturm European Military Surplus",category:"Global Military Surplus",      size:"SME",      contact:"Via form — sturm-miltec.com",           location:"USA",                    region:"North America"},
+  {id:666, name:"ASMC (Bundeswehr Shop)",     category:"Global Military Surplus",          size:"SME",      contact:"Via form — asmc.com",                  location:"Düsseldorf, Germany",    region:"Europe"},
+
+  // ── DEFENCE INTERMEDIARIES & BROKERS ──────────────────────────────────────
+  {id:667, name:"FNSS Savunma Sistemleri",    category:"Defence Intermediary / Manufacturer",size:"Mid-size",contact:"info@fnss.com.tr",                   location:"Ankara, Turkey",         region:"Europe"},
+  {id:668, name:"ASELSAN",                    category:"Defence Intermediary / Manufacturer",size:"Large",  contact:"Via form — aselsan.com",               location:"Ankara, Turkey",         region:"Europe"},
+  {id:669, name:"Elbit Systems UK",           category:"European Defence Trading",         size:"Mid-size", contact:"Via form — elbitsystems.co.uk",        location:"Bristol, UK",            region:"Europe"},
+  {id:670, name:"Defense Trade Solutions",    category:"Defence Broker",                   size:"Small",    contact:"Via LinkedIn",                         location:"USA / Global",           region:"Global"},
+  {id:671, name:"Paragon Brokerage Inc.",     category:"Defence Broker",                   size:"Small",    contact:"Via LinkedIn",                         location:"USA / Global",           region:"Global"},
+];
+
+let sentCount = 0;
+
+const DEFAULT_SUBJECT = "Partnership Opportunity — Defence Supply & Manufacturing Solutions";
+const DEFAULT_BODY = `Dear {{company}} Team,
+
+I hope this message finds you well. My name is {{your_name}}, and I am writing on behalf of {{from_name}}, a UAE-licensed defence trading company specialising in the supply and manufacturing of a comprehensive range of defence products.
+
+We have been following the exceptional work your organisation carries out in the {{category}} sector, and we believe there is significant potential for a mutually beneficial partnership.
+
+{{from_name}} offers the following:
+
+  • End-to-end defence product supply — protective equipment, military uniforms, communications gear, medical supplies, logistics solutions, and military vehicles
+  • In-house manufacturing capabilities, enabling us to fulfil custom specifications and large-volume orders with full quality control
+  • Established trade routes and regulatory compliance across the Middle East, Europe, and beyond
+  • Full licensing under UAE defence trade regulations, with a strong track record in international procurement
+
+We would welcome the opportunity to explore how we might support {{company}}'s supply chain requirements or international expansion objectives. Given your presence in {{location}}, we see clear synergies that could benefit both organisations.
+
+I would be happy to arrange a brief introductory call at your convenience to discuss this further.
+
+Warm regards,
+
+{{your_name}}
+{{your_title}}
+{{from_name}}
+{{phone}} | {{from_email}}
+{{website}}`;
+
+function getSettings() {
+  return {
+    apiKey:   localStorage.getItem('dt_apikey')   || 're_hmAy6zqd_EY9FFWNQsBgPdBy8vGvQXbTS',
+    email:    localStorage.getItem('dt_email')    || 'sales@defencetrading.com',
+    name:     localStorage.getItem('dt_name')     || 'Defence Trading',
+    yourname: localStorage.getItem('dt_yourname') || 'Paul',
+    title:    localStorage.getItem('dt_title')    || 'Director of Global Inquiries',
+    phone:    localStorage.getItem('dt_phone')    || '',
+    website:  localStorage.getItem('dt_website')  || '',
+    subject:  localStorage.getItem('dt_subject')  || DEFAULT_SUBJECT,
+    body:     localStorage.getItem('dt_body')     || DEFAULT_BODY,
+  };
+}
+
+function saveSettings() {
+  localStorage.setItem('dt_apikey',   document.getElementById('s-apikey').value);
+  localStorage.setItem('dt_email',    document.getElementById('s-email').value);
+  localStorage.setItem('dt_name',     document.getElementById('s-name').value);
+  localStorage.setItem('dt_yourname', document.getElementById('s-yourname').value);
+  localStorage.setItem('dt_title',    document.getElementById('s-title').value);
+  localStorage.setItem('dt_phone',    document.getElementById('s-phone').value);
+  localStorage.setItem('dt_website',  document.getElementById('s-website').value);
+  document.getElementById('settings-saved').style.display = 'block';
+  setTimeout(() => document.getElementById('settings-saved').style.display = 'none', 2000);
+  updatePreview();
+}
+
+function saveTemplate() {
+  localStorage.setItem('dt_subject', document.getElementById('t-subject').value);
+  localStorage.setItem('dt_body',    document.getElementById('t-body').value);
+  updatePreview();
+  alert('Template saved!');
+}
+
+function resetTemplate() {
+  if (!confirm('Reset template to default?')) return;
+  localStorage.removeItem('dt_subject');
+  localStorage.removeItem('dt_body');
+  loadTemplate();
+  updatePreview();
+}
+
+function loadSettings() {
+  const s = getSettings();
+  document.getElementById('s-apikey').value   = s.apiKey;
+  document.getElementById('s-email').value    = s.email;
+  document.getElementById('s-name').value     = s.name;
+  document.getElementById('s-yourname').value = s.yourname;
+  document.getElementById('s-title').value    = s.title;
+  document.getElementById('s-phone').value    = s.phone;
+  document.getElementById('s-website').value  = s.website;
+}
+
+function loadTemplate() {
+  const s = getSettings();
+  document.getElementById('t-subject').value = s.subject;
+  document.getElementById('t-body').value    = s.body;
+}
+
+function showTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  document.querySelector(`nav a[data-tab="${name}"]`).classList.add('active');
+  const titles = {dashboard:'Dashboard', leads:'Leads', template:'Email Template', campaign:'Send Campaign', settings:'Settings'};
+  document.getElementById('tab-title').textContent = titles[name];
+  if (name === 'template') { loadTemplate(); updatePreview(); }
+  if (name === 'campaign') updateCampaignPreview();
+}
+
+function sizeBadge(size) {
+  const map = {Small:'badge-small', SME:'badge-sme', 'Mid-size':'badge-mid', Large:'badge-large'};
+  return `<span class="badge ${map[size]||''}">${size}</span>`;
+}
+
+function regionBadge(r) {
+  const map = {
+    'Europe':        `<span class="badge badge-eu">🌍 EU</span>`,
+    'North America': `<span class="badge badge-na">🌎 NA</span>`,
+    'Asia Pacific':  `<span class="badge" style="background:#1a2a3a;color:#38bdf8;">🌏 APAC</span>`,
+    'Middle East':   `<span class="badge" style="background:#2a1a1a;color:#fb923c;">🕌 ME</span>`,
+    'Global':        `<span class="badge" style="background:#1a1a2a;color:#a78bfa;">🌐 Global</span>`,
+    'Americas':      `<span class="badge badge-na">🌎 Americas</span>`,
+  };
+  return map[r] || `<span class="badge badge-cat">${r}</span>`;
+}
+
+function renderLeads(leads) {
+  const regionOrder = ['North America','Europe','Asia Pacific','Middle East','Global','Americas','Other'];
+  const regionEmoji = {'North America':'🌎','Europe':'🌍','Asia Pacific':'🌏','Middle East':'🕌','Global':'🌐','Americas':'🌎','Other':'📍'};
+  const grouped = {};
+  regionOrder.forEach(r => grouped[r] = []);
+  leads.forEach(l => {
+    const key = grouped[l.region] !== undefined ? l.region : 'Other';
+    if (!grouped[key]) grouped[key] = [];
+    grouped[key].push(l);
+  });
+  let rows = '';
+  let i = 1;
+  for (const region of regionOrder) {
+    const rleads = grouped[region];
+    if (!rleads || !rleads.length) continue;
+    rows += `<tr class="region-header"><td colspan="7">${regionEmoji[region]||'📍'} ${region} — ${rleads.length} leads</td></tr>`;
+    rleads.forEach(l => {
+      const isPR = l.category === 'PR Agency';
+      rows += `<tr>
+        <td style="color:var(--muted);font-size:12px;">${i++}</td>
+        <td><strong>${l.name}</strong></td>
+        <td>${regionBadge(l.region)}</td>
+        <td><span class="badge badge-cat" style="${isPR ? 'background:#1a3a1a;color:#4ade80;' : ''}">${l.category}</span></td>
+        <td>${sizeBadge(l.size)}</td>
+        <td style="font-size:12px;color:var(--muted);">${l.location}</td>
+        <td><a href="mailto:${l.contact}" style="color:var(--blue);font-size:12px;">${l.contact}</a></td>
+      </tr>`;
+    });
+  }
+  document.getElementById('leads-table').innerHTML = rows;
+  document.getElementById('lead-count').textContent = `${leads.length} leads`;
+}
+
+function filterLeads() {
+  const q       = document.getElementById('lead-search').value.toLowerCase();
+  const region  = document.getElementById('region-filter').value;
+  const cat     = document.getElementById('cat-filter').value;
+  const country = document.getElementById('country-filter').value;
+  const size    = document.getElementById('size-filter').value;
+  const filtered = LEADS.filter(l => {
+    if (q       && !l.name.toLowerCase().includes(q) && !l.location.toLowerCase().includes(q) && !l.contact.toLowerCase().includes(q)) return false;
+    if (region  && l.region !== region)   return false;
+    if (cat     && l.category !== cat)    return false;
+    if (size    && l.size !== size)       return false;
+    if (country && !l.location.toLowerCase().includes(country.toLowerCase())) return false;
+    return true;
+  });
+  renderLeads(filtered);
+}
+
+function applyVars(text, lead, s) {
+  return text
+    .replace(/{{company}}/g,   lead.name)
+    .replace(/{{category}}/g,  lead.category)
+    .replace(/{{location}}/g,  lead.location)
+    .replace(/{{from_name}}/g, s.name)
+    .replace(/{{from_email}}/g,s.email)
+    .replace(/{{your_name}}/g, s.yourname)
+    .replace(/{{your_title}}/g,s.title)
+    .replace(/{{phone}}/g,     s.phone || '[Phone]')
+    .replace(/{{website}}/g,   s.website || '[Website]');
+}
+
+function buildHtml(lead, s) {
+  const body = applyVars(document.getElementById('t-body').value, lead, s);
+  const paragraphs = body.split('\n').map(line =>
+    line.trim() ? `<p style="margin:0 0 10px;line-height:1.8;">${line.replace(/•/g,'&bull;')}</p>` : '<br>'
+  ).join('');
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8">  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+</head>
+<body style="font-family:Georgia,serif;background:#f4f4f4;margin:0;padding:20px;">
+<div style="max-width:620px;margin:0 auto;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,0.12);">
+  <div style="background:linear-gradient(135deg,#0a1628,#1d3557);padding:28px 36px;border-bottom:3px solid #c9a84c;">
+    <div style="font-family:Georgia,serif;font-size:22px;color:#e6f1ff;font-weight:700;">${s.name} <span style="color:#c9a84c;">Defence</span></div>
+    <div style="color:#8892b0;font-size:13px;margin-top:6px;">UAE Licensed Defence Trader</div>
+  </div>
+  <div style="padding:36px;color:#2d3748;font-size:15px;line-height:1.8;">${paragraphs}</div>
+  <div style="background:#f7f7f7;padding:20px 36px;font-size:12px;color:#718096;border-top:1px solid #e2e8f0;">
+    This email was sent by <strong>${s.name}</strong> &middot; UAE Licensed Defence Trader<br>
+    To unsubscribe from further correspondence, please reply with "Unsubscribe".
+  </div>
+</div></body></html>`;
+}
+
+function updatePreview() {
+  const sel  = document.getElementById('preview-lead');
+  const lead = LEADS[parseInt(sel.value) || 0];
+  const s    = getSettings();
+  document.getElementById('preview-frame').srcdoc = buildHtml(lead, s);
+}
+
+function populatePreviewSelect() {
+  const emojiMap = {'Europe':'🌍','North America':'🌎','Asia Pacific':'🌏','Middle East':'🕌','Global':'🌐'};
+  const sel = document.getElementById('preview-lead');
+  sel.innerHTML = LEADS.map((l,i) => `<option value="${i}">${l.id}. ${l.name} (${emojiMap[l.region]||'📍'})</option>`).join('');
+}
+
+function getCampaignLeads() {
+  const region = document.getElementById('c-region').value;
+  const cat    = document.getElementById('c-cat').value;
+  const size   = document.getElementById('c-size').value;
+  return LEADS.filter(l => {
+    if (region && l.region !== region) return false;
+    if (cat    && l.category !== cat)  return false;
+    if (size   && l.size !== size)     return false;
+    return true;
+  });
+}
+
+function updateCampaignPreview() {
+  const leads = getCampaignLeads();
+  const test  = document.getElementById('c-testmode').checked;
+  const regionOrder = ['North America','Europe','Asia Pacific','Middle East','Global','Americas','Other'];
+  const regionEmoji = {'North America':'🌎','Europe':'🌍','Asia Pacific':'🌏','Middle East':'🕌','Global':'🌐','Americas':'🌎','Other':'📍'};
+
+  document.getElementById('c-count').textContent    = leads.length;
+  document.getElementById('c-count-na').textContent = leads.filter(l => l.region === 'North America').length;
+  document.getElementById('c-count-eu').textContent = leads.filter(l => l.region === 'Europe').length;
+  document.getElementById('mode-label').textContent = test ? 'Test Mode (no emails sent)' : 'Live Mode — emails WILL be sent';
+  document.getElementById('alert-testmode').style.display = test ? 'block' : 'none';
+
+  const grouped = {};
+  regionOrder.forEach(r => grouped[r] = []);
+  leads.forEach(l => { const k = grouped[l.region] !== undefined ? l.region : 'Other'; grouped[k].push(l); });
+
+  const tbody = document.getElementById('campaign-table');
+  let rows = '';
+  let idx = 1;
+  for (const region of regionOrder) {
+    const rleads = grouped[region];
+    if (!rleads || !rleads.length) continue;
+    rows += `<tr class="region-header"><td colspan="7">${regionEmoji[region]} ${region} — ${rleads.length} leads</td></tr>`;
+    rleads.forEach(l => { rows += campaignRow(l, idx++); });
+  }
+  tbody.innerHTML = rows;
+}
+
+function campaignRow(l, i) {
+  return `<tr id="crow-${l.id}">
+    <td style="color:var(--muted);font-size:12px;">${i}</td>
+    <td><strong>${l.name}</strong></td>
+    <td>${regionBadge(l.region)}</td>
+    <td><span class="badge badge-cat">${l.category}</span></td>
+    <td>${sizeBadge(l.size)}</td>
+    <td style="font-size:12px;">${l.contact}</td>
+    <td id="cstatus-${l.id}"><span style="color:var(--muted);font-size:12px;">Queued</span></td>
+  </tr>`;
+}
+
+function logLine(msg, cls='') {
+  const log = document.getElementById('send-log');
+  log.style.display = 'block';
+  const line = document.createElement('div');
+  if (cls) line.className = cls;
+  line.textContent = msg;
+  log.appendChild(line);
+  log.scrollTop = log.scrollHeight;
+}
+
+async function runCampaign() {
+  const leads  = getCampaignLeads();
+  const test   = document.getElementById('c-testmode').checked;
+  const delay  = parseInt(document.getElementById('c-delay').value) * 1000;
+  const s      = getSettings();
+  const subject = applyVars(document.getElementById('t-subject').value, {name:'',category:'',location:''}, s);
+
+  if (!test && (!s.apiKey || s.apiKey === 're_YOUR_API_KEY_HERE')) { alert('Set your API key in Settings first.'); return; }
+  if (!leads.length) { alert('No leads match your filters.'); return; }
+  if (!test && !confirm(`Send ${leads.length} real emails? This cannot be undone.`)) return;
+
+  const btn = document.getElementById('send-btn');
+  btn.disabled = true; btn.textContent = '⏳ Running...';
+  document.getElementById('progress-bar').style.display = 'block';
+  document.getElementById('send-log').innerHTML = '';
+  logLine(`[${new Date().toLocaleTimeString()}] Campaign started — ${leads.length} leads`, 'info');
+  if (test) logLine('[TEST MODE] No emails will be sent', 'info');
+
+  let sent = 0, errors = 0;
+  const fill = document.getElementById('progress-fill');
+
+  for (let i = 0; i < leads.length; i++) {
+    const lead = leads[i];
+    fill.style.width = Math.round(((i+1)/leads.length)*100) + '%';
+    const statusEl = document.getElementById(`cstatus-${lead.id}`);
+    if (statusEl) statusEl.innerHTML = '<span style="color:#e3b341;font-size:12px;">⏳ Sending...</span>';
+
+    if (test) {
+      await sleep(150);
+      logLine(`[${i+1}/${leads.length}] ${lead.name} (${lead.region}) → ${lead.contact} ✓ [TEST]`, 'ok');
+      if (statusEl) statusEl.innerHTML = '<span style="color:var(--muted);font-size:12px;">✓ Test</span>';
+      sent++;
+    } else {
+      try {
+        const body = applyVars(document.getElementById('t-body').value, lead, s);
+        const html = buildHtml(lead, s);
+        const res  = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${s.apiKey}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ from: `${s.name} <${s.email}>`, to: [lead.contact], subject, text: body, html })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          logLine(`[${i+1}/${leads.length}] ${lead.name} → ${lead.contact} ✓ ID: ${data.id}`, 'ok');
+          if (statusEl) statusEl.innerHTML = '<span style="color:var(--green);font-size:12px;">✓ Sent</span>';
+          sent++; sentCount++;
+        } else { throw new Error(data.message || 'Unknown error'); }
+      } catch(e) {
+        logLine(`[${i+1}/${leads.length}] ${lead.name} ✗ ${e.message}`, 'err');
+        if (statusEl) statusEl.innerHTML = '<span style="color:var(--red);font-size:12px;">✗ Error</span>';
+        errors++;
+      }
+      if (i < leads.length - 1) await sleep(delay);
+    }
+    document.getElementById('d-sent').textContent  = sentCount;
+    document.getElementById('sb-sent').textContent = sentCount;
+  }
+
+  logLine(`─────────────────────────────`, '');
+  logLine(`Complete. Sent: ${sent} | Errors: ${errors}`, sent > 0 ? 'ok' : 'err');
+  btn.disabled = false; btn.textContent = '🚀 Run Campaign';
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function renderDashboard() {
+  const na   = LEADS.filter(l => l.region === 'North America').length;
+  const eu   = LEADS.filter(l => l.region === 'Europe').length;
+  const apac = LEADS.filter(l => l.region === 'Asia Pacific').length;
+  const pr   = LEADS.filter(l => l.category === 'PR Agency').length;
+  document.getElementById('d-total').textContent = LEADS.length;
+  document.getElementById('d-na').textContent    = na;
+  document.getElementById('d-eu').textContent    = eu;
+  document.getElementById('sb-total').textContent = LEADS.length;
+  document.getElementById('sb-na').textContent    = na;
+  document.getElementById('sb-eu').textContent    = eu;
+  document.getElementById('sb-apac').textContent  = apac;
+  document.getElementById('sb-pr').textContent    = pr;
+
+  const cats = {}, sizes = {};
+  LEADS.forEach(l => { cats[l.category] = (cats[l.category]||0)+1; sizes[l.size] = (sizes[l.size]||0)+1; });
+
+  document.getElementById('cat-breakdown').innerHTML = Object.entries(cats).map(([k,v]) =>
+    `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+      <span style="font-size:13px;">${k}</span>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:80px;height:6px;background:var(--border);border-radius:3px;overflow:hidden;">
+          <div style="width:${(v/LEADS.length*100).toFixed(0)}%;height:100%;background:var(--gold);border-radius:3px;"></div>
+        </div>
+        <span style="font-size:12px;color:var(--muted);width:20px;text-align:right;">${v}</span>
+      </div>
+    </div>`
+  ).join('');
+
+  document.getElementById('size-breakdown').innerHTML = ['Small','SME','Mid-size','Large'].map(k => {
+    const v = sizes[k]||0;
+    return `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+      <span style="font-size:13px;">${sizeBadge(k)}</span>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:80px;height:6px;background:var(--border);border-radius:3px;overflow:hidden;">
+          <div style="width:${(v/LEADS.length*100).toFixed(0)}%;height:100%;background:var(--gold);border-radius:3px;"></div>
+        </div>
+        <span style="font-size:12px;color:var(--muted);width:20px;text-align:right;">${v}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function exportScript() {
+  const s = getSettings();
+  const blob = new Blob([`# Defence Trading — Campaign Script\nAPI_KEY = "${s.apiKey}"\nFROM_EMAIL = "${s.email}"\nFROM_NAME = "${s.name}"\nYOUR_NAME = "${s.yourname}"\nYOUR_TITLE = "${s.title}"\n# Run send_campaign.py\n`], {type:'text/plain'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'send_campaign.py'; a.click();
+}
+
+window.onload = () => {
+  renderLeads(LEADS);
+  renderDashboard();
+  loadSettings();
+  loadTemplate();
+  populatePreviewSelect();
+  updateCampaignPreview();
+};
+</script>
+</body>
+</html>
