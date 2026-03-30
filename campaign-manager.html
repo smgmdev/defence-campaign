@@ -171,6 +171,7 @@
             <option value="Global">🌐 Global</option>
             <option value="Africa">🌍 Africa</option>
             <option value="Latin America">🌎 Latin America</option>
+            <option value="Russia">🇷🇺 Russia</option>
           </select>
           <select class="filter" id="cat-filter" onchange="filterLeads()">
             <option value="">All Categories</option>
@@ -1241,6 +1242,73 @@ const LEADS = [
   {id:720, name:"Memphis Equipment Company",          category:"Military Surplus Vehicles / Parts", size:"SME",      contact:"info@memphisequipment.com",            location:"Memphis, TN, USA",       region:"North America"},
   {id:725, name:"Defense Trading Corporation",        category:"Defence Contractor / Equip Supply", size:"SME",      contact:"info@defensetradingcorp.com",          location:"Washington DC, USA",     region:"North America"},
   {id:726, name:"SEKO Logistics Government & Defence",category:"Defence Logistics / Warehousing",   size:"Large",    contact:"government@sekologistics.com",         location:"Chicago, IL, USA",       region:"North America"},
+
+  // ── RUSSIAN DEFENCE COMPANIES (LIST A) ── Note: Subject to US/EU/UK sanctions ──────────────
+  {id:800, name:"Rostec State Corporation",            category:"Russian State Defence Conglomerate",size:"Large",    contact:"info@rostec.ru",                       location:"Moscow, Russia",         region:"Russia"},
+  {id:801, name:"Rosoboronexport JSC (ROE)",           category:"Russian Arms Export Agency",        size:"Large",    contact:"roe@roe.ru",                           location:"Moscow, Russia",         region:"Russia"},
+  {id:802, name:"Almaz-Antey JSC",                     category:"Russian Air Defence Manufacturer",  size:"Large",    contact:"antey@almaz-antey.ru",                 location:"Moscow, Russia",         region:"Russia"},
+  {id:803, name:"Uralvagonzavod (UVZ)",                category:"Russian Tank / APC Manufacturer",   size:"Large",    contact:"web@uvz.ru",                           location:"Nizhny Tagil, Russia",   region:"Russia"},
+  {id:804, name:"KBP Instrument Design Bureau",        category:"Russian Precision Weapons / ATGM",  size:"Large",    contact:"kbkedr@tula.net",                      location:"Tula, Russia",           region:"Russia"},
+  {id:805, name:"Kalashnikov Group",                   category:"Russian Small Arms Manufacturer",   size:"Large",    contact:"personal@kalashnikovconcern.ru",       location:"Izhevsk, Russia",        region:"Russia"},
+  {id:806, name:"KRET (Radio-Electronic Technologies)",category:"Russian Avionics / EW / Radar",     size:"Large",    contact:"info@rostec.ru",                       location:"Moscow, Russia",         region:"Russia"},
+  {id:807, name:"United Aircraft Corporation (UAC)",   category:"Russian Military Aircraft Mfg",     size:"Large",    contact:"office@uacrussia.ru",                  location:"Moscow, Russia",         region:"Russia"},
+  {id:808, name:"United Shipbuilding Corporation",     category:"Russian Naval Shipbuilding",        size:"Large",    contact:"info@aoosk.ru",                        location:"Saint Petersburg, Russia",region:"Russia"},
+  {id:809, name:"Tactical Missiles Corporation (KTRV)",category:"Russian Tactical Missiles",         size:"Large",    contact:"kmo@ktrv.ru",                          location:"Korolyov, Russia",       region:"Russia"},
+  {id:810, name:"Russian Helicopters JSC",             category:"Russian Military Helicopters",      size:"Large",    contact:"info@rhc.aero",                        location:"Moscow, Russia",         region:"Russia"},
+  {id:811, name:"Kurganmashzavod (KMZ)",               category:"Russian IFV Manufacturer",          size:"Large",    contact:"kmz@kmz.ru",                           location:"Kurgan, Russia",         region:"Russia"},
+  {id:812, name:"JSC Shvabe",                          category:"Russian Electro-Optics / NV",       size:"Large",    contact:"info@shvabe.com",                      location:"Yekaterinburg, Russia",  region:"Russia"},
+  {id:813, name:"NPO Bazalt",                          category:"Russian Grenades / RPG / Ammo",     size:"Large",    contact:"moscow@bazalt.ru",                     location:"Moscow, Russia",         region:"Russia"},
+  {id:814, name:"Tecmash (NPK Tekhmash)",              category:"Russian Ammunition / Artillery",    size:"Large",    contact:"info@tecmash.ru",                      location:"Moscow, Russia",         region:"Russia"},
+  {id:815, name:"NPO Splav",                           category:"Russian MLRS / Rocket Systems",     size:"Large",    contact:"splav@tulanet.ru",                     location:"Tula, Russia",           region:"Russia"},
+  {id:816, name:"Motovilikha Plants JSC",              category:"Russian Artillery / Mortars",       size:"Large",    contact:"info@mz.perm.ru",                      location:"Perm, Russia",           region:"Russia"},
+  {id:817, name:"Tula Arms Plant",                     category:"Russian Small Arms / Heavy Weapons",size:"Large",    contact:"tpz@tulammo.ru",                       location:"Tula, Russia",           region:"Russia"},
+  {id:818, name:"Tula Cartridge Works (Tulammo)",      category:"Russian Ammunition Manufacturer",   size:"Large",    contact:"tpz@tulammo.ru",                       location:"Tula, Russia",           region:"Russia"},
+  {id:819, name:"United Engine Corporation (UEC)",     category:"Russian Aircraft / Heli Engines",   size:"Large",    contact:"klimov@klimov.ru",                     location:"Moscow, Russia",         region:"Russia"},
+  {id:820, name:"NPO Mashinostroyeniya",               category:"Russian Missiles / Space Systems",  size:"Large",    contact:"export@npomash.ru",                    location:"Reutov, Russia",         region:"Russia"},
+  {id:821, name:"KB Tochmash (Nudelman Bureau)",       category:"Russian Precision Weapons",         size:"Mid-size", contact:"mail@kbtochmash.ru",                   location:"Moscow, Russia",         region:"Russia"},
+  {id:822, name:"Izhevsk Mechanical Plant (Baikal)",   category:"Russian Pistols / Small Arms",      size:"Large",    contact:"worldlinks@baikalinc.ru",              location:"Izhevsk, Russia",        region:"Russia"},
+
+  // ── RUSSIAN-ADJACENT — INDIA ───────────────────────────────────────────────
+  {id:850, name:"Hindustan Aeronautics Limited (HAL)", category:"Indian State Defence Manufacturer", size:"Large",    contact:"imm.nsk@hal-india.com",                location:"Bengaluru, India",       region:"Asia-Pacific"},
+  {id:851, name:"Armoured Vehicles Nigam Ltd (AVNL)",  category:"Indian Armoured Vehicle Mfg",       size:"Large",    contact:"export@avnl.co.in",                    location:"Avadi, Chennai, India",  region:"Asia-Pacific"},
+  {id:852, name:"Munitions India Limited (MIL)",       category:"Indian Ammunition Manufacturer",    size:"Large",    contact:"mil-pune@munitionsindia.in",            location:"Pune, India",            region:"Asia-Pacific"},
+  {id:853, name:"Advanced Weapons & Equipment India",  category:"Indian Small Arms / Artillery",     size:"Large",    contact:"csaweilhq@aweil.in",                   location:"Kanpur, India",          region:"Asia-Pacific"},
+  {id:854, name:"Yantra India Limited (YIL)",          category:"Indian Ammunition & Explosives",    size:"Large",    contact:"yil.hq@yantraindia.co.in",             location:"Nagpur, India",          region:"Asia-Pacific"},
+  {id:855, name:"India Optel Limited (IOL)",           category:"Indian Electro-Optics / NV",        size:"Mid-size", contact:"sangeetameena@ord.gov.in",             location:"Dehradun, India",        region:"Asia-Pacific"},
+  {id:856, name:"Gliders India Limited (GIL)",         category:"Indian Parachutes / Aerial Delivery",size:"Mid-size",contact:"corporate@glidersindia.in",            location:"Kanpur, India",          region:"Asia-Pacific"},
+
+  // ── RUSSIAN-ADJACENT — ALGERIA ────────────────────────────────────────────
+  {id:857, name:"Algeria MDN Procurement",             category:"African Military Procurement",      size:"Large",    contact:"tenders@mdn.dz",                       location:"Algiers, Algeria",       region:"Africa"},
+  {id:858, name:"SNVI Algeria",                        category:"African Military Vehicle Mfg",      size:"Large",    contact:"info@snvi-dz.com",                     location:"Rouiba, Algeria",        region:"Africa"},
+  {id:859, name:"ONEX Algeria",                        category:"African Ammunition Manufacturer",   size:"Large",    contact:"onex@mdn.dz",                          location:"Algiers, Algeria",       region:"Africa"},
+
+  // ── RUSSIAN-ADJACENT — VIETNAM ────────────────────────────────────────────
+  {id:861, name:"GAET Vietnam",                        category:"Vietnamese Military Trading",       size:"Large",    contact:"contact@gaet.com.vn",                  location:"Hanoi, Vietnam",         region:"Asia-Pacific"},
+  {id:864, name:"Z111 Factory (Vietnam Ordnance)",     category:"Vietnamese Ammunition Mfg",         size:"Large",    contact:"z111@mnd.gov.vn",                      location:"Hanoi, Vietnam",         region:"Asia-Pacific"},
+
+  // ── RUSSIAN-ADJACENT — KAZAKHSTAN ─────────────────────────────────────────
+  {id:865, name:"Kazakhstan Engineering JSC",          category:"Central Asian Defence Industry",    size:"Large",    contact:"ke@ke.kz",                             location:"Astana, Kazakhstan",     region:"Asia-Pacific"},
+  {id:867, name:"Kazakhstan Aselsan Engineering (KAE)",category:"Central Asian Military Electronics",size:"Mid-size", contact:"info@kae.kz",                          location:"Astana, Kazakhstan",     region:"Asia-Pacific"},
+
+  // ── RUSSIAN-ADJACENT — AZERBAIJAN ────────────────────────────────────────
+  {id:869, name:"Ministry of Defence Industry (Azerbaijan)",category:"Caucasus Military Procurement",size:"Large",   contact:"info@mdi.gov.az",                      location:"Baku, Azerbaijan",       region:"Asia-Pacific"},
+  {id:871, name:"Azerbaijan Army Procurement",         category:"Caucasus Military Procurement",     size:"Large",    contact:"pressmd@mod.gov.az",                   location:"Baku, Azerbaijan",       region:"Asia-Pacific"},
+
+  // ── RUSSIAN-ADJACENT — AFRICA ─────────────────────────────────────────────
+  {id:874, name:"Ethiopian Metals & Engineering Corp.",category:"African Defence Manufacturing",     size:"Large",    contact:"info@metec.gov.et",                    location:"Addis Ababa, Ethiopia",  region:"Africa"},
+  {id:889, name:"CMAC Cambodia",                       category:"SEA Military / Ordnance",           size:"Mid-size", contact:"cmac@camnet.com.kh",                   location:"Phnom Penh, Cambodia",   region:"Asia-Pacific"},
+
+  // ── RUSSIAN-ADJACENT — CUBA ───────────────────────────────────────────────
+  {id:881, name:"Almacenes Universales S.A. (AUSA)",   category:"Cuban Military Logistics",          size:"Large",    contact:"ausa@intermail.ausa.cu",               location:"Havana, Cuba",           region:"Latin America"},
+
+  // ── RUSSIAN-ADJACENT — EUROPE (Russian-origin fleet) ─────────────────────
+  {id:892, name:"MIL-EXIM Co. Ltd.",                   category:"Hungarian Defence Trading / MRO",   size:"SME",      contact:"info@milexim.hu",                      location:"Budapest, Hungary",      region:"Europe"},
+  {id:893, name:"HM Arzenál Zrt.",                     category:"Hungarian State Defence Mfg",       size:"Large",    contact:"info@hmarzenal.hu",                    location:"Budapest, Hungary",      region:"Europe"},
+  {id:894, name:"HM Currus Zrt.",                      category:"Hungarian Armoured Vehicle MRO",    size:"Mid-size", contact:"currus@currus.hu",                     location:"Gödöllő, Hungary",      region:"Europe"},
+  {id:895, name:"Konštrukta – Defence a.s.",           category:"Slovak Weapons Systems",            size:"Mid-size", contact:"kotadef@kotadef.sk",                   location:"Dubnica n.V., Slovakia", region:"Europe"},
+  {id:897, name:"ZVS Holding (Slovakia)",              category:"Slovak Ammunition Manufacturer",    size:"Large",    contact:"duris@zvsas.sk",                       location:"Dubnica n.V., Slovakia", region:"Europe"},
+  {id:898, name:"JSC 140 Repair Plant (Belarus)",      category:"Belarusian Armoured Vehicle MRO",   size:"Large",    contact:"info@140zavod.by",                     location:"Minsk, Belarus",         region:"Europe"},
+  {id:899, name:"MZKT Volat (Belarus)",                category:"Belarusian Military Heavy Vehicles",size:"Large",    contact:"link@mzkt.by",                         location:"Minsk, Belarus",         region:"Europe"},
 ];
 
 let sentCount = 0;
