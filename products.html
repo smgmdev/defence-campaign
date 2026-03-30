@@ -400,6 +400,7 @@
           <option>Ammo Boxes &amp; Tubes</option>
           <option>AI Systems</option>
           <option>Weapons &amp; Firearms</option>
+          <option>Armored Vehicles</option>
         </select>
       </button>
     </div>
@@ -760,6 +761,15 @@ const PRODUCTS = [
     tags: ["120mm", "Tube", "Packaging"]
   },
 
+  // ── ARMORED VEHICLES ─────────────────────────────────────────
+  {
+    id: 35, name: "DESPOT", calibre: "N/A", category: "Armored Vehicles", type: "Multi-Purpose 4×4 APC",
+    desc: "DESPOT is a multi-purpose 4×4 armored personnel carrier developed by TRB (Bosnia & Herzegovina). Crew of 9, max weight 14t, top speed 120+ km/h. STANAG 4569 Level 2 ballistic protection and Level 2a/2b blast/mine protection (Level 3 optional). 240 kW automatic transmission. Missions: patrol, reconnaissance, command & control, special operations, COIN, anti-terrorism, border control, and MEDEVAC. Supports manned ring-mount or RCWS weapon stations.",
+    img: "https://trb.ba/wp-content/uploads/2021/10/DESPOT-1.jpg",
+    url: "https://trb.ba/en/portfolio/despot/",
+    tags: ["APC", "4x4", "STANAG", "Armored", "RCWS", "Special Ops"]
+  },
+
 ];
 
 const CAT_COLORS = {
@@ -774,6 +784,7 @@ const CAT_COLORS = {
   "Ammo Boxes & Tubes":      "#6b7280",
   "AI Systems":              "#6b7280",
   "Weapons & Firearms":      "#6b7280",
+  "Armored Vehicles":        "#6b7280",
 };
 
 let filtered = [...PRODUCTS], currentView = 'grid', activeCat = '', sortCol = 'id', sortDir = 1;
