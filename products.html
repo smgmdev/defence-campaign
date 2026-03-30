@@ -885,7 +885,7 @@ function renderList() {
   const tbody = document.getElementById('list-tbody');
   tbody.innerHTML = filtered.map(p => `
     <tr>
-      <td>${p.img ? `<img class="list-thumb" src="${p.img}" alt="${p.name}" loading="lazy">` : `<div class="list-no-img">🎯</div>`}</td>
+      <td><div style="width:56px;height:56px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${p.img ? `<img src="${p.img}" alt="${p.name}" loading="lazy" style="width:56px;height:56px;object-fit:contain;padding:4px;display:block;">` : `<span style="font-size:20px;">🎯</span>`}</div></td>
       <td><strong>${p.name}</strong><br><span style="font-size:11px;color:#999;">${p.tags.join(' · ')}</span></td>
       <td style="font-size:13px;font-weight:700;">${p.calibre}</td>
       <td><span style="font-size:11px;font-weight:700;color:${CAT_COLORS[p.category]||'#555'};">${p.category}</span></td>
