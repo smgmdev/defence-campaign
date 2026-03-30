@@ -1,5 +1,11 @@
 const ARTICLES = [
   {
+    title: "Where do the GCC states actually stand with the US on Iran — and what would make them walk away?",
+    url:   "gcc-us-alliance-iran-conflict-scenarios.html",
+    cat:   "Geopolitical Analysis",
+    date:  "30 Mar 2026"
+  },
+  {
     title: "How long can Iran actually keep the Strait of Hormuz closed — and what are the long-term consequences?",
     url:   "iran-strait-of-hormuz-closure-how-long-consequences.html",
     cat:   "Geopolitical Analysis",
