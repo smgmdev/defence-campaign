@@ -342,7 +342,7 @@ function ProductsContent() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filtered.map(p => (
+                  {CATEGORIES.flatMap(cat => grouped[cat] ?? []).map(p => (
                     <tr key={p.id}>
                       <td>
                         <div className="list-thumb-wrap" style={{position:'relative'}}>
