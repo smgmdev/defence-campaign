@@ -27,7 +27,7 @@ export default function Footer() {
           </div>
           <div className="ft-col">
             <div className="ft-col-label">Corporate</div>
-            <Link href="/about">About Us</Link>
+            <Link href="/about">About Defence Trading</Link>
             <Link href="/products">Products</Link>
             <Link href="/companies">Companies</Link>
             <Link href="/insights">Global Insights</Link>
