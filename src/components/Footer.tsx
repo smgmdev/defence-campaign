@@ -46,6 +46,8 @@ export default function Footer() {
           </div>
           <div className="ft-col">
             <div className="ft-col-label">Compliance</div>
+            <Link href="/about">About Defence Trading</Link>
+            <Link href="/companies">Who We Work With</Link>
             <Link href="/export-control">Export Control</Link>
             <Link href="/end-user-certification">End-User Cert.</Link>
             <Link href="/privacy">Privacy Statement</Link>
