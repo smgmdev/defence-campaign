@@ -105,12 +105,12 @@ export default function StrategicDefenceSolutionsPage() {
             </div>
             <p className="sds-section-intro">From individual infantry kit to full armoured platform packages — we source, configure, and deliver ground force equipment to the operational specifications of each client programme.</p>
           </div>
-          <div className="sds-cap-grid">
+          <div className="sds-rows">
             {GROUND_CAPABILITIES.map((c, i) => (
-              <div key={i} className="sds-cap-card">
-                <div className="sds-cap-num">{String(i + 1).padStart(2, '0')}</div>
-                <h3 className="sds-cap-title">{c.label}</h3>
-                <p className="sds-cap-desc">{c.desc}</p>
+              <div key={i} className="sds-row">
+                <span className="sds-row-num">{String(i + 1).padStart(2, '0')}</span>
+                <h3 className="sds-row-title">{c.label}</h3>
+                <p className="sds-row-desc">{c.desc}</p>
               </div>
             ))}
           </div>
@@ -127,12 +127,12 @@ export default function StrategicDefenceSolutionsPage() {
             </div>
             <p className="sds-section-intro">Unmanned systems, counter-drone interceptors, ISR platforms, and electronic warfare packages — procured and integrated for air domain superiority across contested and permissive environments.</p>
           </div>
-          <div className="sds-cap-grid">
+          <div className="sds-rows sds-rows--light">
             {AIR_CAPABILITIES.map((c, i) => (
-              <div key={i} className="sds-cap-card sds-cap-card--alt">
-                <div className="sds-cap-num">{String(i + 1).padStart(2, '0')}</div>
-                <h3 className="sds-cap-title">{c.label}</h3>
-                <p className="sds-cap-desc">{c.desc}</p>
+              <div key={i} className="sds-row">
+                <span className="sds-row-num">{String(i + 1).padStart(2, '0')}</span>
+                <h3 className="sds-row-title">{c.label}</h3>
+                <p className="sds-row-desc">{c.desc}</p>
               </div>
             ))}
           </div>
@@ -195,12 +195,14 @@ export default function StrategicDefenceSolutionsPage() {
         .sds-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #999; text-transform: uppercase; margin-bottom: 10px; }
         .sds-h2 { font-size: clamp(24px,3.5vw,42px); font-weight: 400; color: #000; line-height: 1.1; }
         .sds-section-intro { font-size: 15px; color: #666; line-height: 1.7; padding-top: 32px; }
-        .sds-cap-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: #e0e0e0; }
-        .sds-cap-card { background: #fff; padding: 32px 28px; }
-        .sds-cap-card--alt { background: #f5f5f5; }
-        .sds-cap-num { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #ccc; margin-bottom: 14px; }
-        .sds-cap-title { font-size: 15px; font-weight: 600; color: #000; margin-bottom: 10px; }
-        .sds-cap-desc { font-size: 13px; color: #666; line-height: 1.65; }
+        .sds-rows { border-top: 1px solid #e0e0e0; }
+        .sds-rows--light { border-top: 1px solid #d8d8d8; }
+        .sds-row { display: grid; grid-template-columns: 64px 280px 1fr; align-items: start; gap: 0; padding: 28px 0; border-bottom: 1px solid #e0e0e0; transition: background 0.15s; }
+        .sds-row:hover { background: #fafafa; }
+        .sds-rows--light .sds-row:hover { background: #efefef; }
+        .sds-row-num { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #ccc; padding-top: 3px; }
+        .sds-row-title { font-size: 16px; font-weight: 600; color: #000; line-height: 1.2; padding-right: 40px; }
+        .sds-row-desc { font-size: 13px; color: #666; line-height: 1.7; }
         .sds-tier-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
         .sds-tier { padding: 40px 32px; }
         .sds-tier-badge { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
@@ -216,14 +218,16 @@ export default function StrategicDefenceSolutionsPage() {
         .sds-ghost-btn:hover { border-color: #fff; color: #fff; }
         @media (max-width: 1024px) {
           .sds-domains { grid-template-columns: repeat(2,1fr); }
-          .sds-cap-grid { grid-template-columns: repeat(2,1fr); }
           .sds-tier-grid { grid-template-columns: 1fr; gap: 2px; }
           .sds-section-head { grid-template-columns: 1fr; gap: 16px; }
           .sds-section-intro { padding-top: 0; }
+          .sds-row { grid-template-columns: 48px 1fr; }
+          .sds-row-desc { grid-column: 2; }
         }
         @media (max-width: 768px) {
           .sds-domains { grid-template-columns: 1fr 1fr; }
-          .sds-cap-grid { grid-template-columns: 1fr; }
+          .sds-row { grid-template-columns: 40px 1fr; gap: 0; }
+          .sds-row-desc { grid-column: 1 / -1; padding-top: 8px; }
           .sds-cta-grid { grid-template-columns: 1fr; }
           .sds-cta-divider { height: 1px; width: 100%; margin: 40px 0; }
           .sds-cta-block, .sds-cta-block:last-child { padding: 0; }
