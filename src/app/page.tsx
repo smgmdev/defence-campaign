@@ -235,7 +235,7 @@ export default function HomePage() {
           <h1>The global marketplace for defence procurement</h1>
           <p>Certified products, verified companies, and documented procurement channels — serving government and military clients worldwide.</p>
           <div className="hero-cta">
-            <Link href="/products" className="btn-browse-products">Browse Products</Link>
+            <Link href="/products" className="btn-browse-products"><span>Browse Products</span></Link>
           </div>
         </div>
       </section>
