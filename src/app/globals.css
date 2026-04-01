@@ -14,7 +14,7 @@ img, video, iframe { max-width: 100%; }
   --text-light: #555;
 }
 html { scroll-behavior: smooth; }
-body { font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; padding-top: 95px; }
+body { font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; padding-top: 92px; }
 
 h1, h2, h3, h4, h5, h6 { font-family: 'Helvetica Neue', Arial, sans-serif; }
 a { color: inherit; }
@@ -25,7 +25,7 @@ a { color: inherit; }
 /* ── ANNOUNCEMENT BAR (red top) ── */
 .announce-bar-top {
   background: #c8102e; color: #fff; text-align: center;
-  padding: 10px 16px; font-size: 13px; font-weight: 600; letter-spacing: 0.2px;
+  height: 36px; line-height: 36px; padding: 0 16px; font-size: 13px; font-weight: 600; letter-spacing: 0.2px;
 }
 
 /* ── ANNOUNCE STRIP (navy) ── */
