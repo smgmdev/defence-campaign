@@ -428,7 +428,7 @@ function ProductsContent() {
           )}
           {enquiryProduct && enquirySubmitted && (
             <div className="enq-success">
-              <div className="enq-success-icon">✓</div>
+              <div className="enq-success-icon"></div>
               <h3>Enquiry Submitted</h3>
               <p>Our procurement team will review your request and respond within 2 business days.</p>
             </div>
