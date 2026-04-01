@@ -269,6 +269,14 @@ export const PRODUCTS: Product[] = [
   },
 
   // ── ARMORED VEHICLES ─────────────────────────────────────────
+  // ── DRONE INTERCEPTOR ────────────────────────────────────────
+  {
+    id: 41, name: "Counter-UAV AI Destroyer", calibre: "AI Autonomous", category: "Drone Interceptor", type: "Counter-UAV System",
+    desc: "The AI Destroyer is a high-speed autonomous Counter-UAV intercept platform engineered to neutralise hostile drones with precision AI guidance. Reaching speeds exceeding 360 km/h with a service ceiling above 6,000m, it engages targets across a 10km operational radius. The integrated AI guidance module delivers pixel-level tracking with ≤5 pixel position error, achieving recognition rates of ≥90% (visible) and ≥85% (IR) at ranges up to 1,000m. The onboard X-band radar detects threats at ≥12km (RCS ≥0.1m²) with 360° mechanical azimuth scanning. Dual-mode electro-optical tracking combines infrared thermal imaging (640×512, 3.7–4.8μm) and visible light (2688×1520) sensors, both capable of recognising 2m×2m targets at ≥10km. Laser ranging (1.57μm, 0.2–10km, 5m RMS accuracy) enables terminal precision engagement. Operates fully autonomously in AI control mode across -20°C to +60°C environments.",
+    img: "/droneinterceptor.png",
+    tags: ["Counter-UAV", "AI", "Autonomous", "C-UAS", "Anti-Drone"]
+  },
+
   {
     id: 40, name: "VIHOR", calibre: "Light Tactical", category: "Armored Vehicles", type: "Vehicle 4×4 LTV",
     desc: "VIHOR is a highly mobile 4×4 light armored tactical vehicle with a modular chassis designed for all-terrain manoeuvrability and survivability. Crew: 2+3. Max weight: 8t. Top speed: 120+ km/h. STANAG 4569 Level 2 ballistic protection, blast/mine protection levels 2a/2b, and EN 1522 FB6. 6-speed automatic transmission with two-speed transfer case. Missions: patrol, reconnaissance, special operations, COIN, border control, and rapid response.",
@@ -299,4 +307,5 @@ export const CATEGORIES = [
   "Rifles",
   "Pistols",
   "Armored Vehicles",
+  "Drone Interceptor",
 ]
