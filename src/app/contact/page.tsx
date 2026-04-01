@@ -43,6 +43,7 @@ export default function ContactPage() {
       const d = await res.json()
       if (d.ok) {
         setSubmitted(true)
+        window.scrollTo({ top: 0, behavior: 'smooth' })
       } else {
         alert('Something went wrong. Please try again or email sales@defencetrading.com directly.')
       }
