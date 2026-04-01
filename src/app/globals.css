@@ -121,8 +121,9 @@ a { color: inherit; }
 /* ── NAV SEARCH BUTTON ── */
 .nav-search-btn { background: none; border: none; cursor: pointer; color: var(--text); padding: 6px 8px; display: flex; align-items: center; gap: 7px; opacity: 0.7; transition: opacity 0.15s; margin-left: auto; }
 .nav-search-btn:hover { opacity: 1; }
-.nav-search-kbd { display: flex; align-items: center; }
+.nav-search-kbd { display: flex; align-items: center; gap: 4px; }
 .nav-search-kbd kbd { font-family: inherit; font-size: 11px; font-weight: 600; color: var(--text-light); border: 1px solid var(--gray); padding: 2px 6px; letter-spacing: 0.2px; }
+.nav-search-kbd-sep { font-size: 11px; color: var(--text-light); }
 
 /* ── FULL-SCREEN SEARCH OVERLAY ── */
 .search-overlay { position: fixed; inset: 0; background: #1c1c1c; z-index: 500; display: flex; flex-direction: column; }

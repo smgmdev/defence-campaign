@@ -82,7 +82,7 @@ export default function Nav() {
 
           <button className="nav-search-btn" onClick={() => setSearchOpen(true)} aria-label="Search" style={{ marginLeft: 'auto' }}>
             <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="9" cy="9" r="7"/><line x1="15" y1="15" x2="19" y2="19"/></svg>
-            <span className="nav-search-kbd"><kbd>⌘K</kbd></span>
+            <span className="nav-search-kbd"><kbd>CMD+K</kbd><span className="nav-search-kbd-sep">/</span><kbd>CTRL+K</kbd></span>
           </button>
 
           <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
