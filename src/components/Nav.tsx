@@ -2,11 +2,16 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function Nav() {
   const pathname = usePathname()
   const [menuOpen, setMenuOpen] = useState(false)
+  const [bannerOpen, setBannerOpen] = useState(true)
+
+  useEffect(() => {
+    document.body.style.paddingTop = bannerOpen ? '92px' : '56px'
+  }, [bannerOpen])
 
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/'
@@ -15,9 +20,12 @@ export default function Nav() {
 
   return (
     <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200 }}>
-      <div className="announce-bar-top">
-        Due to a high volume of enquiries, response times may take up to 2 business days. We appreciate your patience.
-      </div>
+      {bannerOpen && (
+        <div className="announce-bar-top">
+          <span>Due to a high volume of enquiries, response times may take up to 2 business days. We appreciate your patience.</span>
+          <button className="announce-close" onClick={() => setBannerOpen(false)} aria-label="Close">&#x2715;</button>
+        </div>
+      )}
       <nav className="main-nav">
         <Link href="/" className="brand">DefenceTrading<span>®</span></Link>
         <div className="nav-links">
