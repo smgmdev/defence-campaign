@@ -17,6 +17,7 @@ function ProductsContent() {
   const [enquiryProduct, setEnquiryProduct] = useState<Product | null>(null)
   const [enquirySubmitted, setEnquirySubmitted] = useState(false)
   const [imgErrors, setImgErrors] = useState<Record<number, boolean>>({})
+  const [imgLoaded, setImgLoaded] = useState<Record<number, boolean>>({})
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
@@ -119,6 +120,8 @@ function ProductsContent() {
         .prod-img { width: 100%; aspect-ratio: 4/3; background: #f0f0f0; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
         .prod-img img { width: 100%; height: 100%; object-fit: contain; padding: 16px; }
         .prod-img .no-img { font-size: 40px; color: #ccc; }
+        .img-spinner { width: 28px; height: 28px; border: 3px solid #e0e0e0; border-top-color: #000; border-radius: 50%; animation: spin 0.7s linear infinite; position: absolute; }
+        @keyframes spin { to { transform: rotate(360deg); } }
         .prod-img .cat-ribbon { position: absolute; top: 12px; left: 10px; background: #fff; border: 1px solid #000; color: #000; font-size: 10px; font-weight: 700; letter-spacing: 1px; padding: 4px 10px; text-transform: uppercase; }
         .prod-info { padding: 16px; flex: 1; display: flex; flex-direction: column; }
         .prod-name { font-size: 15px; font-weight: 900; color: #000; margin-bottom: 6px; line-height: 1.2; }
@@ -265,12 +268,17 @@ function ProductsContent() {
                       <div key={p.id} className="prod-card">
                         <div className="prod-img">
                           {!imgErrors[p.id] ? (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img
-                              src={p.img}
-                              alt={p.name}
-                              onError={() => setImgErrors(prev => ({ ...prev, [p.id]: true }))}
-                            />
+                            <>
+                              {!imgLoaded[p.id] && <div className="img-spinner" />}
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                src={p.img}
+                                alt={p.name}
+                                style={imgLoaded[p.id] ? {} : { opacity: 0, position: 'absolute' }}
+                                onLoad={() => setImgLoaded(prev => ({ ...prev, [p.id]: true }))}
+                                onError={() => { setImgErrors(prev => ({ ...prev, [p.id]: true })); setImgLoaded(prev => ({ ...prev, [p.id]: true })) }}
+                              />
+                            </>
                           ) : (
                             <span className="no-img">📦</span>
                           )}
@@ -310,15 +318,20 @@ function ProductsContent() {
                   {filtered.map(p => (
                     <tr key={p.id}>
                       <td>
-                        <div className="list-thumb-wrap">
+                        <div className="list-thumb-wrap" style={{position:'relative'}}>
                           {!imgErrors[p.id] ? (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img
-                              className="list-thumb"
-                              src={p.img}
-                              alt={p.name}
-                              onError={() => setImgErrors(prev => ({ ...prev, [p.id]: true }))}
-                            />
+                            <>
+                              {!imgLoaded[p.id] && <div className="img-spinner" style={{width:20,height:20,borderWidth:2}} />}
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                className="list-thumb"
+                                src={p.img}
+                                alt={p.name}
+                                style={imgLoaded[p.id] ? {} : { opacity: 0, position: 'absolute' }}
+                                onLoad={() => setImgLoaded(prev => ({ ...prev, [p.id]: true }))}
+                                onError={() => { setImgErrors(prev => ({ ...prev, [p.id]: true })); setImgLoaded(prev => ({ ...prev, [p.id]: true })) }}
+                              />
+                            </>
                           ) : (
                             <div className="list-no-img">📦</div>
                           )}
