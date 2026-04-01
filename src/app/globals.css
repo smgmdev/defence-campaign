@@ -1,3 +1,32 @@
+@font-face {
+  font-family: 'Alliance No.1';
+  src: url('/fonts/Alliance/AllianceNo1-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Alliance No.1';
+  src: url('/fonts/Alliance/AllianceNo1-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Alliance No.1';
+  src: url('/fonts/Alliance/AllianceNo1-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Alliance No.1';
+  src: url('/fonts/Alliance/AllianceNo1-ExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 html { scrollbar-gutter: stable; }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 img, video, iframe { max-width: 100%; }
@@ -14,7 +43,7 @@ img, video, iframe { max-width: 100%; }
   --text-light: #555;
 }
 html { scroll-behavior: smooth; }
-body { font-family: 'Alliance No.1', system-ui, -apple-system, BlinkMacSystemFont, sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; padding-top: 92px; }
+body { font-family: 'Alliance No.1', system-ui, -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400; background: var(--white); color: var(--text); overflow-x: hidden; padding-top: 92px; }
 
 h1, h2, h3, h4, h5, h6 { font-family: inherit; }
 a { color: inherit; }
