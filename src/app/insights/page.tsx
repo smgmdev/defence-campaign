@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ARTICLES } from '@/lib/articles'
 
 const SHOW_INITIAL = 7
@@ -13,6 +13,14 @@ export default function InsightsPage() {
   const [showing, setShowing] = useState(SHOW_INITIAL)
   const [toastVisible, setToastVisible] = useState(false)
   const [toastMsg, setToastMsg] = useState('')
+  const [heroImgLoaded, setHeroImgLoaded] = useState(false)
+
+  useEffect(() => {
+    const img = new Image()
+    img.onload = () => setHeroImgLoaded(true)
+    img.onerror = () => setHeroImgLoaded(true)
+    img.src = '/adnoc-hero.jpg'
+  }, [])
 
   function filterTab(cat: string) {
     setActiveCat(cat)
@@ -91,7 +99,14 @@ export default function InsightsPage() {
           background: url('/adnoc-hero.jpg') center/cover no-repeat;
           min-height: 480px; position: relative;
         }
-        .hero-right-spinner { display: none; }
+        .hero-right-spinner {
+          display: flex; align-items: center; justify-content: center;
+          position: absolute; inset: 0; background: #111;
+          transition: opacity 0.4s;
+        }
+        .hero-right-spinner.loaded { opacity: 0; pointer-events: none; }
+        .hero-right-spinner svg { animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
         .tab-nav {
           background: #fff; border-bottom: 1px solid #e0e0e0;
           padding: 0 40px; display: flex; align-items: flex-end; gap: 0;
@@ -176,10 +191,10 @@ export default function InsightsPage() {
           </div>
         </div>
         <div className="hero-right" id="hero-right">
-          <div className="hero-right-spinner" id="hero-spinner">
-            <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(180,180,180,0.2)" strokeWidth="3"/>
-              <path d="M18 4 A14 14 0 0 1 32 18" fill="none" stroke="#aaa" strokeWidth="3" strokeLinecap="round" style={{animation:'spin 1s linear infinite'}}/>
+          <div className={`hero-right-spinner${heroImgLoaded ? ' loaded' : ''}`}>
+            <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16" cy="16" r="12" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="3"/>
+              <path d="M16 4 A12 12 0 0 1 28 16" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round"/>
             </svg>
           </div>
         </div>
