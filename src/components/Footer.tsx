@@ -11,11 +11,6 @@ export default function Footer() {
         {/* Left col */}
         <div className="ft-left">
           <div className="ft-copy">© 2026 Defence Trading.<br />All rights reserved.</div>
-          <div className="ft-divider" />
-          <div className="ft-social">
-            <a href="https://linkedin.com" target="_blank" rel="noopener" className="ft-social-btn">LINKEDIN</a>
-            <a href="https://x.com" target="_blank" rel="noopener" className="ft-social-btn">X</a>
-          </div>
         </div>
 
         {/* Link columns */}
