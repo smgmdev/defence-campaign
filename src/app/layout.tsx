@@ -38,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
+        <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=alliance-no-1@400,500,600,700,800,900&display=swap" />
         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-5F8DS9XVG4" strategy="afterInteractive" />
         <Script id="gtag-init" strategy="afterInteractive">{`
           window.dataLayer = window.dataLayer || [];
@@ -46,7 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           gtag('config', 'G-5F8DS9XVG4');
         `}</Script>
       </head>
-      <body style={{fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif"}}>
+      <body style={{fontFamily: "'Alliance No.1', system-ui, -apple-system, BlinkMacSystemFont, sans-serif"}}>
         <Nav />
         {children}
         <Footer />
