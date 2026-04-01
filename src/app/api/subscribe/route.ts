@@ -17,11 +17,11 @@ export async function POST(req: Request) {
     lastName: location || '',
   })
 
-  if (error) {
-    console.error('Resend subscribe error:', error)
+  if (error || !data?.id) {
+    console.error('Resend subscribe error:', error ?? 'no data returned — API key may not be set')
     return NextResponse.json({ ok: false }, { status: 500 })
   }
 
-  console.log('Subscriber added:', data?.id)
+  console.log('Subscriber added:', data.id)
   return NextResponse.json({ ok: true })
 }

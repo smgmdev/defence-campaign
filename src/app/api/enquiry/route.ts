@@ -25,11 +25,11 @@ export async function POST(req: Request) {
     `,
   })
 
-  if (error) {
-    console.error('Resend error:', error)
+  if (error || !data?.id) {
+    console.error('Resend error:', error ?? 'no data returned — API key may not be set')
     return NextResponse.json({ ok: false }, { status: 500 })
   }
 
-  console.log('Enquiry sent:', data?.id)
+  console.log('Enquiry sent:', data.id)
   return NextResponse.json({ ok: true })
 }
