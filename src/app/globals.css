@@ -95,7 +95,8 @@ a { color: inherit; }
 
 /* ── NAV ── */
 .main-nav {
-  background: var(--white); border-bottom: 1px solid var(--gray);
+  background: rgba(255,255,255,0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
   padding: 0 32px; display: flex; align-items: center; height: 56px;
 }
 .brand { font-size: 22px; font-weight: 900; color: var(--black); text-decoration: none; margin-right: 40px; letter-spacing: -1px; flex-shrink: 0; }
