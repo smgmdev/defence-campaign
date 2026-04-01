@@ -160,7 +160,7 @@ export default function HomePage() {
         .disc-disclaimer { font-size: 13px; color: #555; line-height: 1.65; max-width: 640px; margin-top: 36px; }
         .disc-disclaimer strong { color: #000; }
         .disc-dropdown {
-          display: none; position: absolute; top: 100%; left: 0; right: 0;
+          display: none; position: absolute; top: 100%; left: 0; right: 0; margin-top: -1px;
           background: #fff; box-shadow: 0 8px 32px rgba(0,0,0,0.14);
           overflow: hidden; z-index: 100; max-height: 400px; overflow-y: auto;
         }
