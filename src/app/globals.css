@@ -220,6 +220,8 @@ a { color: inherit; }
 
 /* ── FOOTER ── */
 .ft { background: #fff; border-top: 1px solid #e0e0e0; padding: 64px 0; }
+.ft-desc-row { padding-top: 0; padding-bottom: 40px; border-bottom: 1px solid #e0e0e0; margin-bottom: 48px; }
+.ft-desc { font-size: 12px; color: #888; line-height: 1.7; max-width: 820px; }
 .ft-inner { display: grid; grid-template-columns: 220px 1fr; gap: 80px; align-items: start; }
 .ft-left { display: flex; flex-direction: column; }
 .ft-copy { font-size: 13px; color: #333; line-height: 1.6; margin-bottom: 20px; }
