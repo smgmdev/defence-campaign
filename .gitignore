@@ -21,3 +21,23 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Campaign & send scripts (local only)
+*.xlsx
+send_*.py
+arcana_mace_*.py
+
+# Private email drafts & tools (local only)
+arcanamace-email-draft.html
+email-draft-preview.html
+email_preview.html
+campaign-manager.html

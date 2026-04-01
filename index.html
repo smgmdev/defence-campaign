@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Defence Trading</title>
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Defence Trading">
+    <meta property="og:description" content="Defence Trading is a B2B procurement platform connecting governments and defence contractors with verified military and armament suppliers worldwide.">
+    <meta property="og:image" content="https://defence-campaign.vercel.app/og-image.png">
+    <meta property="og:image:width" content="1280">
+    <meta property="og:image:height" content="640">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Defence Trading">
+    <meta name="twitter:description" content="Defence Trading is a B2B procurement platform connecting governments and defence contractors with verified military and armament suppliers worldwide.">
+    <meta name="twitter:image" content="https://defence-campaign.vercel.app/og-image.png">
+    <meta name="description" content="Defence Trading is a B2B procurement platform connecting governments and defence contractors with verified military and armament suppliers worldwide.">
+    <meta name="keywords" content="defence trading, military procurement, armament supplier, B2B defence platform, defence contractor, defence supplier">
+<style>
+  html { scrollbar-gutter: stable; overflow-x: hidden; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  img, video, iframe { max-width: 100%; }
+  :root {
+    --yellow: #F5C400;
+    --black:  #000000;
+    --red:    #E31837;
+    --white:  #ffffff;
+    --cream:  #f0ebe1;
+    --gray-light: #f5f5f5;
+    --gray:   #e0e0e0;
+    --navy:   #0a1628;
+    --text:   #1a1a1a;
+    --text-light: #555;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; }
+
+  /* ── UTILITY BAR ── */
+  .util-bar {
+    background: var(--gray-light); border-bottom: 1px solid var(--gray);
+    padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 36px;
+  }
+  .util-links { display: flex; }
+  .util-links a {
+    color: var(--text-light); text-decoration: none; padding: 0 14px; height: 36px;
+    display: flex; align-items: center; border-right: 1px solid var(--gray); font-size: 12px;
+  }
+  .util-links a:first-child { padding-left: 0; }
+  .util-links a:hover, .util-links a.active { color: var(--black); font-weight: 600; }
+  .util-right { font-size: 12px; font-weight: 500; display: flex; align-items: center; gap: 4px; }
+  .util-right .chev { color: var(--red); font-size: 10px; }
+
+  /* ── NAV ── */
+  .main-nav {
+    background: var(--white); border-bottom: 1px solid var(--gray);
+    padding: 0 32px; display: flex; align-items: center; height: 56px;
+    position: sticky; top: 0; z-index: 200;
+  }
+  .brand { font-size: 22px; font-weight: 900; color: var(--black); text-decoration: none; margin-right: 40px; letter-spacing: -1px; flex-shrink: 0; }
+  .brand span { color: var(--red); font-size: 8px; vertical-align: super; }
+  .nav-links { display: flex; flex: 1; }
+  .nav-links a {
+    color: var(--text); text-decoration: none; padding: 0 14px; height: 56px;
+    display: flex; align-items: center; font-size: 13px; font-weight: 500;
+    border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.15s;
+  }
+  .nav-links a:hover { border-bottom-color: var(--black); }
+  .nav-links a.active { border-bottom-color: var(--red); font-weight: 700; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; margin-left: auto; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--black); }
+  .mobile-nav {
+    display: none; position: absolute; top: 56px; left: 0; right: 0;
+    background: var(--white); border-bottom: 2px solid var(--black); z-index: 200; flex-direction: column;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a { padding: 14px 20px; font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--gray); }
+  .mobile-nav a.active { color: var(--red); }
+
+  /* ── ANNOUNCEMENT STRIP ── */
+  .announce-bar {
+    background: var(--navy); padding: 0 32px; height: 44px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .announce-pill {
+    background: var(--yellow); color: var(--black); font-size: 10px; font-weight: 800;
+    letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; flex-shrink: 0;
+  }
+  .announce-text { font-size: 13px; color: rgba(255,255,255,0.9); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .announce-link { font-size: 12px; font-weight: 700; color: var(--yellow); text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+  .announce-link:hover { text-decoration: underline; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative; height: 620px;
+    display: flex; align-items: center; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: #0a0a0a;
+  }
+  .hero-video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center;
+    opacity: 0.6;
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(100deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.1) 100%);
+  }
+  .hero-content {
+    position: relative; z-index: 1;
+    padding: 0 64px; max-width: 820px;
+  }
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--yellow); margin-bottom: 20px;
+  }
+  .hero-content h1 {
+    font-size: clamp(34px, 5.5vw, 64px); font-weight: 900; color: var(--white);
+    line-height: 1.01; letter-spacing: -2px; margin-bottom: 22px;
+  }
+  .hero-content p {
+    font-size: clamp(14px, 1.7vw, 17px); color: rgba(255,255,255,0.78);
+    line-height: 1.7; max-width: 500px; margin-bottom: 36px;
+  }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-yellow {
+    background: var(--yellow); color: var(--black); padding: 14px 30px;
+    font-weight: 700; font-size: 13px; text-decoration: none; display: inline-block;
+    letter-spacing: 0.3px; transition: background 0.15s;
+  }
+  .btn-yellow:hover { background: #ffd633; }
+  .btn-outline-white {
+    background: transparent; color: var(--white); padding: 14px 30px;
+    font-weight: 600; font-size: 13px; text-decoration: none; display: inline-block;
+    border: 1px solid rgba(255,255,255,0.45); transition: all 0.15s;
+  }
+  .btn-outline-white:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
+
+  /* ── HERO SPINNER ── */
+  .hero-spinner {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; align-items: center; justify-content: center;
+    background: #0a0a0a;
+    transition: opacity 0.4s ease;
+  }
+  .hero-spinner.hidden { opacity: 0; pointer-events: none; }
+  .hero-spinner-ring {
+    width: 48px; height: 48px;
+    border: 3px solid rgba(255,255,255,0.15);
+    border-top-color: rgba(255,255,255,0.75);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── ABOUT SPLIT (yellow) ── */
+  .about-split { display: grid; grid-template-columns: 1fr 1fr; min-height: 440px; background: var(--yellow); }
+  .about-text { padding: 80px 64px; display: flex; flex-direction: column; justify-content: center; }
+  .about-text h2 { font-size: clamp(24px, 3.5vw, 40px); font-weight: 900; color: var(--black); line-height: 1.1; letter-spacing: -1px; margin-bottom: 20px; }
+  .about-text p { font-size: 15px; color: var(--black); line-height: 1.75; margin-bottom: 28px; max-width: 460px; }
+  .split-link { font-size: 14px; font-weight: 800; color: var(--black); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+  .split-link:hover { text-decoration: underline; }
+  .about-img { background: url('https://images.unsplash.com/photo-1521295121783-8a321d551ad2?w=900&q=80') center/cover no-repeat; min-height: 360px; }
+
+  /* ── INSIGHTS SPLIT (white, reversed) ── */
+  .insights-split { display: grid; grid-template-columns: 1fr 1fr; min-height: 480px; border-bottom: 1px solid var(--gray); }
+  .insights-img { background: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=900&q=80') center/cover no-repeat; min-height: 360px; }
+  .insights-text { padding: 80px 64px; display: flex; flex-direction: column; justify-content: center; }
+  .insights-text h2 { font-size: clamp(24px, 3.5vw, 40px); font-weight: 900; color: var(--black); line-height: 1.1; letter-spacing: -1px; margin-bottom: 20px; }
+  .insights-text p { font-size: 15px; color: var(--text-light); line-height: 1.75; margin-bottom: 28px; }
+
+  /* ── TWO CARDS ── */
+  .two-cards { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 3px solid var(--black); background: var(--white); }
+  .t-card { padding: 64px 56px; border-right: 1px solid var(--gray); display: flex; flex-direction: column; }
+  .t-card:last-child { border-right: none; }
+  .t-card h2 { font-size: clamp(30px, 4vw, 52px); font-weight: 900; color: var(--black); line-height: 1.0; letter-spacing: -2px; margin-bottom: 28px; }
+  .t-card h3 { font-size: 15px; font-weight: 800; color: var(--black); margin-bottom: 14px; }
+  .t-card p { font-size: 14px; color: var(--text-light); line-height: 1.75; flex: 1; }
+  .t-card-footer { margin-top: 48px; }
+  .t-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--black); color: var(--white); padding: 14px 24px;
+    font-size: 13px; font-weight: 700; text-decoration: none; transition: background 0.15s;
+  }
+  .t-btn .arr { color: var(--red); }
+  .t-btn:hover { background: #222; }
+
+  /* ── STATS STRIP ── */
+  .stats-strip { background: var(--black); }
+  .stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
+  .stat-item { padding: 48px 40px; border-right: 1px solid #1a1a1a; }
+  .stat-item:last-child { border-right: none; }
+  .stat-num { font-size: 48px; font-weight: 900; color: var(--white); letter-spacing: -2px; line-height: 1; margin-bottom: 8px; }
+  .stat-num span { color: var(--yellow); }
+  .stat-label { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 1.5px; }
+
+  /* ── PAGE CONTAINER ── */
+  .pg-wrap { max-width: 1440px; margin: 0 auto; padding: 0 48px; }
+
+  /* ── DISCOVERY SECTION (cream) ── */
+  .discovery { background: var(--cream); padding: 96px 0; }
+  .disc-inner { max-width: 860px; }
+  .disc-label {
+    font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--black);
+    padding-bottom: 6px; border-bottom: 2px solid var(--red); display: inline-block; margin-bottom: 24px;
+  }
+  .disc-inner h2 { font-size: clamp(28px, 4.5vw, 56px); font-weight: 900; color: var(--black); line-height: 1.0; letter-spacing: -2px; margin-bottom: 20px; }
+  .disc-inner > p { font-size: 15px; color: var(--text-light); line-height: 1.75; max-width: 680px; margin-bottom: 52px; }
+  .disc-search { display: flex; align-items: center; overflow: hidden; background: var(--white); max-width: 820px; height: 72px; }
+  .disc-search input {
+    flex: 1; border: none; background: transparent; padding: 0 32px;
+    font-size: 16px; font-family: inherit; outline: none; color: var(--black); height: 100%;
+  }
+  .disc-search input::placeholder { color: #aaa; }
+  .disc-search-btn {
+    width: 72px; height: 100%; background: var(--black); border: none; cursor: pointer;
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    transition: background 0.25s ease;
+  }
+  .disc-search-btn:hover { background: #333; }
+  .disc-search-btn svg { width: 20px; height: 20px; fill: var(--white); }
+  .disc-disclaimer { font-size: 13px; color: var(--text-light); line-height: 1.65; max-width: 640px; margin-top: 36px; }
+  .disc-disclaimer strong { color: var(--black); }
+  .disc-search-wrap { position: relative; max-width: 820px; }
+  .disc-search-wrap .disc-search { max-width: 100%; }
+  .disc-dropdown {
+    display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0;
+    background: var(--white); box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+    overflow: hidden; z-index: 100; max-height: 400px; overflow-y: auto;
+  }
+  .disc-dropdown.open { display: block; }
+  .disc-dd-label {
+    font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+    color: #aaa; padding: 12px 20px 6px;
+  }
+  .disc-dd-item {
+    display: flex; align-items: center; gap: 12px; padding: 10px 20px;
+    cursor: pointer; transition: background 0.1s; text-decoration: none; color: var(--black);
+  }
+  .disc-dd-item:hover { background: #f5f5f5; }
+  .disc-dd-badge {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+    padding: 2px 7px; border: 1px solid var(--black); flex-shrink: 0;
+  }
+  .disc-dd-badge.product { background: var(--black); color: var(--white); }
+  .disc-dd-badge.company { background: var(--white); color: var(--black); }
+  .disc-dd-name { font-size: 14px; font-weight: 600; }
+  .disc-dd-sub { font-size: 12px; color: #999; margin-left: auto; white-space: nowrap; }
+  .disc-dd-empty { padding: 20px; font-size: 14px; color: #aaa; text-align: center; }
+  .disc-dd-divider { border: none; border-top: 1px solid #f0f0f0; margin: 4px 0; }
+
+  /* ── FEATURED SPLIT — hero style ── */
+  .featured-split {
+    position: relative; height: 560px;
+    display: flex; align-items: center; overflow: hidden;
+    background: #000;
+  }
+  .featured-split > .pg-wrap { width: 100%; }
+  .fs-content { position: relative; z-index: 1; padding: 0; max-width: 820px; }
+  .fs-eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--yellow); margin-bottom: 20px;
+  }
+  .fs-content h2 {
+    font-size: clamp(32px, 5vw, 64px); font-weight: 900; color: var(--white);
+    line-height: 1.0; letter-spacing: -2px; margin-bottom: 24px;
+  }
+  .fs-content p {
+    font-size: clamp(14px, 1.7vw, 17px); color: rgba(255,255,255,0.78);
+    line-height: 1.7; max-width: 500px; margin-bottom: 36px;
+  }
+
+  /* ── CTA STRIP ── */
+  .cta-strip { background: var(--yellow); padding: 64px 32px; border-bottom: 1px solid #e0b800; }
+  .cta-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 40px; }
+  .cta-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: rgba(0,0,0,0.5); margin-bottom: 12px; }
+  .cta-inner h2 { font-size: clamp(22px, 3vw, 36px); font-weight: 900; color: var(--black); line-height: 1.1; letter-spacing: -1px; }
+  .cta-buttons { display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
+  .btn-black {
+    background: var(--black); color: var(--white); padding: 14px 30px;
+    font-weight: 700; font-size: 13px; text-decoration: none; display: inline-block;
+    white-space: nowrap; transition: background 0.15s;
+  }
+  .btn-black:hover { background: #222; }
+  .btn-outline-black {
+    background: transparent; color: var(--black); padding: 14px 30px;
+    font-weight: 700; font-size: 13px; text-decoration: none; display: inline-block;
+    border: 1.5px solid var(--black); white-space: nowrap; transition: all 0.15s;
+  }
+  .btn-outline-black:hover { background: rgba(0,0,0,0.06); }
+
+  /* ── CONTACT FORM SECTION ── */
+  .contact-section { background: var(--gray-light); padding: 80px 32px; border-bottom: 1px solid var(--gray); }
+  .contact-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; align-items: start; }
+  .contact-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .contact-inner h2 { font-size: clamp(24px, 3vw, 36px); font-weight: 900; color: var(--black); line-height: 1.1; letter-spacing: -1px; margin-bottom: 20px; }
+  .contact-inner > div > p { font-size: 15px; color: var(--text-light); line-height: 1.75; margin-bottom: 36px; }
+  .contact-items { display: flex; flex-direction: column; gap: 20px; }
+  .c-item { display: flex; align-items: flex-start; gap: 14px; }
+  .c-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+  .c-text strong { display: block; font-size: 13px; font-weight: 700; color: var(--black); margin-bottom: 2px; }
+  .c-text span, .c-text a { font-size: 13px; color: var(--text-light); text-decoration: none; }
+  .c-text a:hover { color: var(--red); }
+  .form-box { background: var(--white); border: 1px solid var(--gray); padding: 40px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .fg { margin-bottom: 18px; }
+  .fg label { display: block; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-light); margin-bottom: 7px; }
+  .fg input, .fg textarea, .fg select {
+    width: 100%; background: var(--white); border: 1px solid var(--gray);
+    color: var(--text); padding: 11px 14px; font-size: 14px;
+    font-family: inherit; outline: none; transition: border-color 0.15s; -webkit-appearance: none; border-radius: 0;
+  }
+  .fg input:focus, .fg textarea:focus, .fg select:focus { border-color: var(--black); }
+  .fg textarea { resize: vertical; min-height: 100px; }
+  .fg select option { background: var(--white); color: var(--text); }
+  .form-submit {
+    width: 100%; background: var(--black); color: var(--white); border: none;
+    padding: 14px; font-size: 13px; font-weight: 700; cursor: pointer;
+    font-family: inherit; transition: background 0.15s; letter-spacing: 0.5px;
+  }
+  .form-submit:hover { background: #222; }
+  #form-ok { display: none; text-align: center; padding: 32px 20px; color: var(--text); }
+  #form-ok .ok-icon { font-size: 36px; margin-bottom: 12px; display: block; }
+  #form-ok strong { display: block; font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+  #form-ok p { font-size: 14px; color: var(--text-light); }
+
+  /* ── FOOTER ── */
+  footer { background: #000; }
+  .footer-main { display: block; padding: 80px 0; }
+  .footer-main > .pg-wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: start; }
+  .footer-brand-col { padding-right: 48px; }
+  .footer-logo { font-size: 28px; font-weight: 900; color: #fff; letter-spacing: -1px; margin-bottom: 24px; }
+  .footer-logo span { color: var(--red); font-size: 9px; vertical-align: super; }
+  .footer-desc { font-size: 14px; color: rgba(255,255,255,0.9); line-height: 1.4; max-width: 420px; }
+  .footer-divider { width: 1px; background: #2a2a2a; margin: 0 48px; align-self: stretch; }
+  .footer-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .footer-col-label { font-size: 11px; font-weight: 800; letter-spacing: 2px; color: var(--red); text-transform: uppercase; margin-bottom: 24px; }
+  .footer-col a { display: block; font-size: 14px; font-weight: 700; color: #fff; text-decoration: none; margin-bottom: 18px; transition: color 0.15s; }
+  .footer-col a:hover { color: rgba(255,255,255,0.5); }
+  .footer-bottom { border-top: 1px solid #e0e0e0; background: #fff; padding: 20px 0; }
+  .footer-bottom > .pg-wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .footer-copy { font-size: 13px; color: #000; font-weight: 500; }
+
+  /* ── SUBSCRIBE STRIP ── */
+  .subscribe-strip { background: #ffffff; border-top: 1px solid #e0e0e0; }
+  .subscribe-strip > .pg-wrap { padding-top: 64px; padding-bottom: 64px; }
+  .subscribe-strip h2 { font-size: clamp(22px, 3.5vw, 34px); font-weight: 900; color: #000; letter-spacing: -0.5px; margin-bottom: 10px; }
+  .subscribe-strip .sub-intro { font-size: 15px; color: #555; margin-bottom: 44px; }
+  .sub-fields { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 40px; margin-bottom: 32px; }
+  .sub-field { display: flex; flex-direction: column; border-bottom: 1.5px solid #000; padding-bottom: 8px; margin-bottom: 8px; }
+  .sub-field label { font-size: 13px; font-weight: 700; color: #000; margin-bottom: 6px; }
+  .sub-field label span { color: #E31837; }
+  .sub-field input, .sub-field select {
+    border: none; background: transparent; outline: none;
+    font-size: 15px; font-family: inherit; color: #000; padding: 4px 0;
+    -webkit-appearance: none; appearance: none;
+  }
+  .sub-field input::placeholder { color: #aaa; }
+  .sub-field select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23000' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 4px center; padding-right: 20px; }
+  .sub-check { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 40px; }
+  .sub-check input[type=checkbox] { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; cursor: pointer; -webkit-appearance: none; appearance: none; border: 1.5px solid #000; border-radius: 0; background: transparent; position: relative; }
+  .sub-check input[type=checkbox]:checked::after { content: ""; position: absolute; left: 4px; top: 1px; width: 6px; height: 11px; border: 2px solid #000; border-top: none; border-left: none; transform: rotate(45deg); }
+  .sub-check label { font-size: 13px; color: #555; line-height: 1.55; cursor: pointer; }
+  .sub-footer-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .sub-required { font-size: 12px; color: #555; }
+  .sub-required a { color: #000; font-weight: 700; }
+  .sub-btn { background: #999; color: #fff; border: none; padding: 16px 36px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; white-space: nowrap; transition: background 0.15s; letter-spacing: 0.3px; }
+  .sub-btn:hover { background: #000; }
+  .sub-ok { display: none; }
+  /* ── TOAST ── */
+  #sub-toast { position: fixed; bottom: 32px; right: 32px; background: #fff; color: #111; border: 1.5px solid #111; font-size: 14px; font-weight: 600; padding: 16px 24px; z-index: 9999; opacity: 0; transform: translateY(12px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; max-width: 340px; line-height: 1.4; }
+  #sub-toast.show { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .about-split, .insights-split { grid-template-columns: 1fr; }
+    .about-img, .insights-img { min-height: 300px; }
+    .about-text, .insights-text { padding: 48px 32px; }
+    .featured-split { height: 440px; }
+    .fs-content { padding: 0; }
+    .two-cards { grid-template-columns: 1fr; }
+    .t-card { border-right: none; border-bottom: 1px solid var(--gray); padding: 48px 36px; }
+    .t-card:last-child { border-bottom: none; }
+    .discovery { padding: 64px 0; }
+    .stats-inner { grid-template-columns: 1fr 1fr; }
+    .stat-item:nth-child(2) { border-right: none; }
+    .stat-item:nth-child(3) { border-right: 1px solid #1a1a1a; }
+    .stat-item:nth-child(3), .stat-item:nth-child(4) { border-top: 1px solid #1a1a1a; }
+    .cta-inner { grid-template-columns: 1fr; }
+    .cta-buttons { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+    .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+    .insights-split .insights-img { order: -1; }
+  }
+  @media (max-width: 767px) {
+    .util-bar { padding: 0 16px; }
+    .util-links a:not(.active) { display: none; }
+    .main-nav { padding: 0 16px; position: relative; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .brand { font-size: 18px; margin-right: 0; }
+    .announce-bar { padding: 0 16px; }
+    .announce-text { display: none; }
+    .hero { height: 520px; }
+    .hero-content { padding: 0 24px; }
+    .about-text, .insights-text { padding: 40px 20px; }
+    .about-img, .insights-img { min-height: 260px; }
+    .featured-split { height: 380px; }
+    .fs-content { padding: 0; }
+    .t-card { padding: 40px 20px; }
+    .t-card-footer { margin-top: 32px; }
+    .pg-wrap { padding: 0 20px; }
+    .discovery { padding: 48px 0; }
+    .disc-search { height: 60px; }
+    .disc-search input { font-size: 12px; padding: 0 14px; }
+    .disc-search input::placeholder { font-size: 12px; }
+    .disc-search-btn { width: 60px; height: 100%; }
+    .stats-inner { grid-template-columns: 1fr 1fr; }
+    .stat-item { padding: 32px 24px; }
+    .stat-num { font-size: 36px; }
+    .cta-strip { padding: 48px 20px; }
+    .cta-buttons { flex-direction: column; align-items: flex-start; }
+    .contact-section { padding: 56px 20px; }
+    .form-box { padding: 24px 20px; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-main { padding: 48px 0; }
+    .footer-main > .pg-wrap { grid-template-columns: 1fr; }
+    .footer-brand-col { padding-right: 0; margin-bottom: 36px; }
+    .footer-divider { display: none; }
+    .footer-cols { grid-template-columns: 1fr 1fr; }
+    .footer-bottom { padding: 16px 0; }
+    .footer-bottom > .pg-wrap { flex-direction: column; }
+    .sub-fields { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 767px) {
+    .subscribe-strip > .pg-wrap { padding-top: 40px; padding-bottom: 40px; }
+    .sub-fields { grid-template-columns: 1fr !important; gap: 0 !important; }
+    .sub-footer-row { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .sub-check { margin-bottom: 24px; }
+    .sub-btn { width: 100%; text-align: center; }
+  }
+</style>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5F8DS9XVG4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-5F8DS9XVG4");
+</script>
+</head>
+<body>
+<!-- MAIN NAV -->
+<div style="background:#c8102e;color:#fff;text-align:center;padding:10px 16px;font-size:13px;font-weight:600;letter-spacing:0.2px;">Due to a high volume of enquiries, response times may take up to 2 business days. We appreciate your patience.</div>
+<nav class="main-nav">
+  <a href="index.html" class="brand">DefenceTrading<span>®</span></a>
+  <div class="nav-links">
+    <a href="about-us.html">About Us</a>
+    <a href="products.html">Products</a>
+    <a href="companies.html">Companies</a>
+    <a href="insights.html">Insights</a>
+  </div>
+  <div class="hamburger" onclick="this.nextElementSibling.classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="mobile-nav">
+    <a href="about-us.html">About Us</a>
+    <a href="products.html">Products</a>
+    <a href="companies.html">Companies</a>
+    <a href="insights.html">Insights</a>
+  </div>
+</nav>
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="auto">
+      <source src="hero-bg.mp4" type="video/mp4">
+    </video>
+    <div class="hero-spinner" id="heroSpinner"><div class="hero-spinner-ring"></div></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content pg-wrap">
+    <h1>The global marketplace for defence procurement</h1>
+    <p>Certified products, verified companies, and documented procurement channels — serving government and military clients worldwide.</p>
+    <div class="hero-cta">
+      <a href="products.html" style="display:inline-block;background:#E31837;color:#fff;padding:14px 32px;font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;">Browse Products</a>
+    </div>
+  </div>
+</section>
+
+<!-- DISCOVERY SECTION (cream) -->
+<section class="discovery">
+<div class="pg-wrap">
+  <div class="disc-inner">
+    <div class="disc-label">Defence Trading Catalogue</div>
+    <h2>Find the right defence product or partner</h2>
+    <p>Each procurement requirement is different — and we are steadfast partners to our clients because we listen. Browse our full range of certified products and verified companies across every defence category.</p>
+    <div class="disc-search-wrap">
+      <div class="disc-search">
+        <input type="text" id="disc-input" placeholder="Search products, companies, or categories..." oninput="handleDiscSearch(this.value)" autocomplete="off">
+        <button class="disc-search-btn" onclick="goSearch()">
+          <svg viewBox="0 0 24 24"><path d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1 0 6.15 6.15a7.5 7.5 0 0 0 10.5 10.5z" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="disc-dropdown" id="disc-dropdown"></div>
+    </div>
+    <p class="disc-disclaimer"><strong>Authorised enquiries only.</strong> All products are available through compliant, documented procurement channels. Defence Trading trades with licensed companies only. All outreach must comply with applicable export control regulations and end-user certification requirements.</p>
+  </div>
+</div>
+</section>
+
+<!-- FEATURED SPLIT — hero style -->
+<section class="featured-split">
+<div class="pg-wrap">
+  <div class="fs-content">
+    <div class="fs-eyebrow">Defence Trading</div>
+    <h2>Global Insights</h2>
+    <p>Stay ahead with the latest defence procurement intelligence, geopolitical analysis, and market trends — curated by our team for governments, armed forces, and prime contractors worldwide.</p>
+    <a href="insights.html" class="btn-yellow">Explore Global Insights</a>
+  </div>
+</div>
+</section>
+
+
+<!-- SUBSCRIBE STRIP -->
+<div class="subscribe-strip">
+<div class="pg-wrap">
+  <h2>Subscribe to Defence Trading's Insights</h2>
+  <p class="sub-intro">To receive the latest procurement intelligence, product updates, and market analysis — sign up below.</p>
+  <form onsubmit="subscribeForm(event, this); return false;">
+    <div class="sub-fields">
+      <div class="sub-field">
+        <label>Email <span>*</span></label>
+        <input type="email" placeholder="Work email address" required>
+      </div>
+      <div class="sub-field">
+        <label>Location <span>*</span></label>
+        <select required>
+          <option value="" disabled selected></option>
+          <option>United Arab Emirates</option>
+          <option>United States</option>
+          <option>United Kingdom</option>
+          <option>Germany</option>
+          <option>France</option>
+          <option>Poland</option>
+          <option>Saudi Arabia</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="sub-field">
+        <label>Company <span>*</span></label>
+        <input type="text" placeholder="Your organisation" required>
+      </div>
+    </div>
+    <div class="sub-check">
+      <input type="checkbox" id="sub-consent" required>
+      <label for="sub-consent">Please click here to opt-in to receiving procurement insights and marketing communications from Defence Trading. Data collected will be processed in accordance with our privacy notice. You may unsubscribe at any time.</label>
+    </div>
+    <div class="sub-footer-row">
+      <div class="sub-required">*Required information &nbsp;|&nbsp; Read our <a href="privacy.html">Privacy notice</a></div>
+      <button type="submit" class="sub-btn">Subscribe to Defence Trading</button>
+    </div>
+    <div class="sub-ok">&#10003; Thank you — you're now subscribed. We'll be in touch.</div>
+  </form>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-main">
+  <div class="pg-wrap">
+    <div class="footer-brand-col">
+      <div class="footer-logo">DefenceTrading<span>®</span></div>
+      <p class="footer-desc">As a defence trader, our role is to connect governments, armed forces, and defence contractors with certified military products through compliant and established procurement channels. We work exclusively with licensed enterprises and authorised suppliers, ensuring that all equipment is sourced from certified manufacturers and delivered in accordance with applicable regulatory and export control requirements.</p>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <div class="footer-col-label">Corporate</div>
+        <a href="about-us.html">About Us</a>
+        <a href="insights.html">Global Insights</a>
+        <a href="products.html">Products</a>
+        <a href="companies.html">Companies</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Legal</div>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Notice</a>
+        <a href="export-control.html">Export Control Policy</a>
+        <a href="end-user-certification.html">End-User Certification</a>
+        <a href="cookies.html">Cookie Notice</a>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="footer-bottom">
+  <div class="pg-wrap">
+    <span class="footer-copy">© 2026 Defence Trading. All rights reserved.</span>
+  </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+  function submitForm(e) {
+    e.preventDefault();
+    document.getElementById('enquiry-form').style.display = 'none';
+    document.getElementById('form-ok').style.display = 'block';
+  }
+  async function subscribeForm(ev, f) { ev.preventDefault();
+  const email   = f.querySelector('input[type=email]').value.trim();
+  const company = (f.querySelector('.sub-field input[type=text]') || {value:''}).value.trim();
+  const btn     = f.querySelector('.sub-btn');
+  const orig    = btn.textContent;
+  btn.disabled  = true;
+  btn.textContent = 'Submitting…';
+  try {
+    const res = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email, company})
+    });
+    const d = await res.json();
+    if (d.ok) {
+      f.reset();
+      btn.disabled = false;
+      btn.textContent = orig;
+      showSubToast("You have subscribed to Defence Trading's Insights.");
+    } else {
+      btn.disabled = false;
+      btn.textContent = orig;
+      showSubToast('Could not subscribe — please try again.');
+    }
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = orig;
+  }
+  return false;
+}
+function showSubToast(msg) {
+  const t = document.getElementById('sub-toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 4000);
+}
+  // ── SEARCH DROPDOWN ──────────────────────────────────────────
+  const SEARCH_PRODUCTS = [{"name":"Arcana Precision","category":"AI Systems","type":"AI Software"},{"name":"CAL 9×19MM","category":"Standard Ammunition","type":"Handgun"},{"name":"CAL 5.56×45MM","category":"Standard Ammunition","type":"Rifle"},{"name":"CAL 7.62×51MM","category":"Standard Ammunition","type":"Rifle / MG"},{"name":"CAL 7.62×63MM","category":"Standard Ammunition","type":"Rifle"},{"name":"CAL 7.9×57MM","category":"Standard Ammunition","type":"Rifle"},{"name":"CAL 12.7×99MM","category":"Standard Ammunition","type":"Heavy MG"},{"name":"CAL 7.62×54R","category":"Non-Standard Ammunition","type":"Rifle / MG"},{"name":"CAL 82MM HE M71","category":"Non-Standard Ammunition","type":"HE Mortar"},{"name":"CAL 12.7×108MM","category":"Non-Standard Ammunition","type":"Heavy MG"},{"name":"CAL 60MM HE M73","category":"Mortar Shells","type":"HE Mortar"},{"name":"CAL 82MM HE M71","category":"Mortar Shells","type":"HE Mortar"},{"name":"CAL 120MM HE M62 P3","category":"Mortar Shells","type":"HE Mortar"},{"name":"CAL 122MM HE TF-462","category":"Artillery Ammunition","type":"HE Artillery"},{"name":"CAL 152MM HE M71","category":"Artillery Ammunition","type":"HE Artillery"},{"name":"CAL 155MM HE M107","category":"Artillery Ammunition","type":"HE Artillery"},{"name":"CAL 40×46MM HE M6P","category":"Ammo Grenades","type":"Grenade"},{"name":"CAL 40×53MM HE M9","category":"Ammo Grenades","type":"Grenade"},{"name":"60MM MORTAR M57","category":"Mortars","type":"Mortar System"},{"name":"81MM M69B / 82MM M69A","category":"Mortars","type":"Mortar System"},{"name":"60MM M70 COMMANDO","category":"Mortars","type":"Mortar System"},{"name":"120MM M74 / M75","category":"Mortars","type":"Mortar System"},{"name":"122MM ROCKET","category":"Rockets & Components","type":"Rocket"},{"name":"122MM ROCKET COMPONENTS","category":"Rockets & Components","type":"Components"},{"name":"UTU M78 (AU 29)","category":"Fuzes & Components","type":"Fuze"},{"name":"UTU M68 P1","category":"Fuzes & Components","type":"Fuze"},{"name":"AU 32","category":"Fuzes & Components","type":"Fuze"},{"name":"AU-62","category":"Fuzes & Components","type":"Fuze"},{"name":"COMPONENTS","category":"Fuzes & Components","type":"Components"},{"name":"120MM MORTAR SHELL BOX","category":"Ammo Boxes & Tubes","type":"Storage"},{"name":"122MM GRAD ROCKET BOX","category":"Ammo Boxes & Tubes","type":"Storage"},{"name":"120MM MORTAR SHELL TUBE","category":"Ammo Boxes & Tubes","type":"Storage"},{"name":"AK-47 ASSAULT RIFLE","category":"Rifles","type":"Assault Rifle"},{"name":"PSL MACHINE GUN","category":"Rifles","type":"Designated Marksman Rifle"},{"name":"RS9 VAMPIR – BLACK","category":"Pistols","type":"Semi-Auto Pistol"},{"name":"RS9 VAMPIR – DESERT","category":"Pistols","type":"Semi-Auto Pistol"},{"name":"RS9 VAMPIR – GREEN","category":"Pistols","type":"Semi-Auto Pistol"},{"name":"RS9 VAMPIR LUX","category":"Pistols","type":"Semi-Auto Pistol"},{"name":"DESPOT","category":"Armored Vehicles","type":"Vehicle 4×4 APC"}];
+  const SEARCH_COMPANIES = [{"name":"Chase Tactical","category":"Protective Equipment","location":"USA"},{"name":"Hard Head Veterans","category":"Protective Equipment","location":"Sweetwater, TX"},{"name":"Hardwire LLC","category":"Protective Equipment","location":"Pocomoke City, MD"},{"name":"Sarkar Tactical","category":"Protective Equipment","location":"El Paso, TX"},{"name":"RMA Armament","category":"Protective Equipment","location":"Centerville, IA"},{"name":"Armor Express","category":"Protective Equipment","location":"Eden, NC"},{"name":"Team Wendy","category":"Protective Equipment","location":"Cleveland, OH"},{"name":"Gentex Corporation","category":"Protective Equipment","location":"Carbondale, PA"},{"name":"Point Blank Enterprises","category":"Protective Equipment","location":"Pompano Beach, FL"},{"name":"Revision Military","category":"Protective Equipment","location":"Essex Junction, VT"},{"name":"United Shield Intl.","category":"Protective Equipment","location":"Whitman, MA"},{"name":"Eagle Industries","category":"Protective Equipment","location":"Fenton, MO"},{"name":"Atomic Defense","category":"Protective Equipment","location":"USA"},{"name":"Premier Body Armor","category":"Protective Equipment","location":"USA"},{"name":"Avon Protection","category":"Protective Equipment","location":"Cadillac, MI"},{"name":"Crye Precision","category":"Military Uniforms","location":"Brooklyn, NY"},{"name":"Bluewater Defense","category":"Military Uniforms","location":"USA"},{"name":"Condor Outdoor Products","category":"Military Uniforms","location":"Irwindale, CA"},{"name":"Massif","category":"Military Uniforms","location":"Ashland, OR"},{"name":"Propper International","category":"Military Uniforms","location":"St. Charles, MO"},{"name":"Brookwood Companies","category":"Military Uniforms","location":"New York, NY"},{"name":"Rothco","category":"Military Uniforms","location":"Ronkonkoma, NY"},{"name":"SNC Technical Services","category":"Military Uniforms","location":"Puerto Rico, USA"},{"name":"Milliken & Company","category":"Military Uniforms","location":"Spartanburg, SC"},{"name":"5.11 Tactical","category":"Military Uniforms","location":"Modesto, CA"},{"name":"Tru-Spec","category":"Military Uniforms","location":"Atlanta, GA"},{"name":"Beyond Clothing","category":"Military Uniforms","location":"Seattle, WA"},{"name":"Viasat Inc.","category":"Communications Gear","location":"Carlsbad, CA"},{"name":"Silvus Technologies","category":"Communications Gear","location":"Los Angeles, CA"},{"name":"Kratos Defense","category":"Communications Gear","location":"San Diego, CA"},{"name":"Curtiss-Wright Defense","category":"Communications Gear","location":"Davidson, NC"},{"name":"Thales Defense & Security","category":"Communications Gear","location":"Clarksburg, MD"},{"name":"Pacific Defense Solutions","category":"Communications Gear","location":"Honolulu, HI"},{"name":"Persistent Systems LLC","category":"Communications Gear","location":"New York, NY"},{"name":"Leonardo DRS","category":"Communications Gear","location":"Arlington, VA"},{"name":"Triad RF Systems","category":"Communications Gear","location":"Woodbury, NJ"},{"name":"Barrett Communications","category":"Communications Gear","location":"San Diego, CA"},{"name":"ADS Inc.","category":"Logistics & Supply","location":"Virginia Beach, VA"},{"name":"Darley Defense","category":"Logistics & Supply","location":"Itasca, IL"},{"name":"SupplyCore Inc.","category":"Logistics & Supply","location":"Rockford, IL"},{"name":"Incredible Supply (ISL)","category":"Logistics & Supply","location":"USA"},{"name":"Greenwood Aerospace","category":"Logistics & Supply","location":"Ponca City, OK"},{"name":"Crane Worldwide Logistics","category":"Logistics & Supply","location":"Houston, TX"},{"name":"KLX Defense Services","category":"Logistics & Supply","location":"Miami, FL"},{"name":"Federal Defense Inds","category":"Logistics & Supply","location":"USA"},{"name":"M1 Support Services","category":"Logistics & Supply","location":"Denton, TX"},{"name":"Analytic Services Inc.","category":"Logistics & Supply","location":"Falls Church, VA"},{"name":"Atlantic Diving Supply","category":"Logistics & Supply","location":"Virginia Beach, VA"},{"name":"Parsons Corporation","category":"Logistics & Supply","location":"Centreville, VA"},{"name":"McKesson Corporation","category":"Medical Supplies","location":"Irving, TX"},{"name":"Leidos Health","category":"Medical Supplies","location":"Reston, VA"},{"name":"Medline Industries","category":"Medical Supplies","location":"Northfield, IL"},{"name":"Cardinal Health","category":"Medical Supplies","location":"Dublin, OH"},{"name":"North American Rescue","category":"Medical Supplies","location":"Greer, SC"},{"name":"Chinook Medical Gear","category":"Medical Supplies","location":"Durango, CO"},{"name":"Bound Tree Medical","category":"Medical Supplies","location":"Dublin, OH"},{"name":"Oshkosh Defense","category":"Military Vehicles","location":"Oshkosh, WI"},{"name":"AM General","category":"Military Vehicles","location":"South Bend, IN"},{"name":"Flyer Defense LLC","category":"Military Vehicles","location":"USA"},{"name":"American Rheinmetall","category":"Military Vehicles","location":"Biddeford, ME"},{"name":"Navistar Defense","category":"Military Vehicles","location":"Lisle, IL"},{"name":"HDT Global","category":"Military Vehicles","location":"Solon, OH"},{"name":"Force Protection Inc.","category":"Military Vehicles","location":"Ladson, SC"},{"name":"Polaris Defense","category":"Military Vehicles","location":"Medina, MN"},{"name":"Caterpillar Defense","category":"Military Vehicles","location":"Deerfield, IL"},{"name":"ND Defense LLC","category":"Military Vehicles","location":"USA"},{"name":"Indigen Armor","category":"Military Vehicles","location":"USA"},{"name":"MARS Armor","category":"Protective Equipment","location":"Czech Republic"},{"name":"Protective Products Intl.","category":"Protective Equipment","location":"UK"},{"name":"Safariland Europe","category":"Protective Equipment","location":"Germany"},{"name":"Survitec Group","category":"Protective Equipment","location":"UK"},{"name":"TenCate Protective Fabrics","category":"Protective Equipment","location":"Netherlands"},{"name":"Mehler Vario System","category":"Protective Equipment","location":"Germany"},{"name":"Ballistic Body Armor","category":"Protective Equipment","location":"Poland"},{"name":"SY Technology","category":"Protective Equipment","location":"UK"},{"name":"Progarm","category":"Protective Equipment","location":"UK"},{"name":"Protective Helmets BV","category":"Protective Equipment","location":"Netherlands"},{"name":"Lindberg & Sons","category":"Military Uniforms","location":"Sweden"},{"name":"Carrington Textiles","category":"Military Uniforms","location":"UK"},{"name":"Helly Hansen Workwear","category":"Military Uniforms","location":"Norway"},{"name":"Leo Köhler","category":"Military Uniforms","location":"Germany"},{"name":"Mil-Tec GmbH","category":"Military Uniforms","location":"Germany"},{"name":"Helikon-Tex","category":"Military Uniforms","location":"Poland"},{"name":"Uf Pro","category":"Military Uniforms","location":"Slovenia"},{"name":"Defcon 5","category":"Military Uniforms","location":"Italy"},{"name":"Niton GL","category":"Military Uniforms","location":"UK"},{"name":"Texport","category":"Military Uniforms","location":"Austria"},{"name":"Arktis","category":"Military Uniforms","location":"UK"},{"name":"Combat Systems","category":"Military Uniforms","location":"Poland"},{"name":"Rohde & Schwarz","category":"Communications Gear","location":"Germany"},{"name":"Frequentis","category":"Communications Gear","location":"Austria"},{"name":"Cobham Advanced Electronics","category":"Communications Gear","location":"UK"},{"name":"Elbit Systems Europe","category":"Communications Gear","location":"UK"},{"name":"ECA Group","category":"Communications Gear","location":"France"},{"name":"Sepura","category":"Communications Gear","location":"UK"},{"name":"Hytera Europe","category":"Communications Gear","location":"Germany"},{"name":"Zodiac Data Systems","category":"Communications Gear","location":"France"},{"name":"Saab AB (Comms Division)","category":"Communications Gear","location":"Sweden"},{"name":"Aeroflex","category":"Communications Gear","location":"UK"},{"name":"Babcock International","category":"Logistics & Supply","location":"UK"},{"name":"Chemring Group","category":"Logistics & Supply","location":"UK"},{"name":"Diehl Defence","category":"Logistics & Supply","location":"Germany"},{"name":"Hensoldt","category":"Logistics & Supply","location":"Germany"},{"name":"ST Engineering Europe","category":"Logistics & Supply","location":"France"},{"name":"Nordic Defence Industries","category":"Logistics & Supply","location":"Norway"},{"name":"FN Herstal","category":"Logistics & Supply","location":"Belgium"},{"name":"Milrem Robotics","category":"Logistics & Supply","location":"Estonia"},{"name":"Airbus Defence & Space","category":"Logistics & Supply","location":"France"},{"name":"Defence Supply Group","category":"Logistics & Supply","location":"UK"},{"name":"Hartmann Group","category":"Medical Supplies","location":"Germany"},{"name":"B. Braun Melsungen","category":"Medical Supplies","location":"Germany"},{"name":"Lohmann & Rauscher","category":"Medical Supplies","location":"Germany"},{"name":"Combat Medical Systems EU","category":"Medical Supplies","location":"Belgium"},{"name":"H&H Medical","category":"Medical Supplies","location":"France"},{"name":"Trauma Care Consortium","category":"Medical Supplies","location":"UK"},{"name":"Medi-Tech International","category":"Medical Supplies","location":"UK"},{"name":"Defibrillator Ltd","category":"Medical Supplies","location":"UK"},{"name":"Patria","category":"Military Vehicles","location":"Finland"},{"name":"KNDS","category":"Military Vehicles","location":"France/Germany"},{"name":"Arquus","category":"Military Vehicles","location":"France"},{"name":"TATRA Defence Vehicle","category":"Military Vehicles","location":"Czech Republic"},{"name":"Jankel Group","category":"Military Vehicles","location":"UK"},{"name":"Supacat","category":"Military Vehicles","location":"UK"},{"name":"Achleitner","category":"Military Vehicles","location":"Austria"},{"name":"Renault Trucks Defense","category":"Military Vehicles","location":"France"},{"name":"Steyr Motors","category":"Military Vehicles","location":"Austria"},{"name":"Mercedes-Benz Special Veh.","category":"Military Vehicles","location":"Germany"},{"name":"MBDA","category":"Defence Systems","location":"France/UK/Germany"},{"name":"Nammo","category":"Defence Systems","location":"Norway"},{"name":"Meggitt Defence","category":"Defence Systems","location":"UK"},{"name":"QinetiQ","category":"Defence Systems","location":"UK"},{"name":"Ultra Electronics","category":"Defence Systems","location":"UK"},{"name":"PGZ Polish Arms Group","category":"Defence Systems","location":"Poland"},{"name":"DEA Defence Equipment","category":"Defence Systems","location":"UK"},{"name":"Elbit Systems UK","category":"Defence Systems","location":"UK"}];
+
+  let discSearchVal = '';
+
+  function handleDiscSearch(v) {
+    discSearchVal = v;
+    const dd = document.getElementById('disc-dropdown');
+    const q = v.trim().toLowerCase();
+    if (!q) { dd.classList.remove('open'); dd.innerHTML = ''; return; }
+
+    const matchP = SEARCH_PRODUCTS.filter(p =>
+      p.name.toLowerCase().includes(q) || (p.category||'').toLowerCase().includes(q) || (p.type||'').toLowerCase().includes(q)
+    ).slice(0, 6);
+    const matchC = SEARCH_COMPANIES.filter(c =>
+      c.name.toLowerCase().includes(q) || (c.category||'').toLowerCase().includes(q) || (c.location||'').toLowerCase().includes(q)
+    ).slice(0, 6);
+
+    if (!matchP.length && !matchC.length) {
+      dd.innerHTML = '<div class="disc-dd-empty">No results found</div>';
+      dd.classList.add('open'); return;
+    }
+
+    let html = '';
+    if (matchP.length) {
+      html += '<div class="disc-dd-label">Products</div>';
+      matchP.forEach(p => {
+        html += `<a class="disc-dd-item" href="products.html?search=${encodeURIComponent(p.name)}">
+          <span class="disc-dd-badge product">Product</span>
+          <span class="disc-dd-name">${p.name}</span>
+          <span class="disc-dd-sub">${p.category}</span>
+        </a>`;
+      });
+    }
+    if (matchP.length && matchC.length) html += '<hr class="disc-dd-divider">';
+    if (matchC.length) {
+      html += '<div class="disc-dd-label">Companies</div>';
+      matchC.forEach(c => {
+        html += `<a class="disc-dd-item" href="companies.html?search=${encodeURIComponent(c.name)}">
+          <span class="disc-dd-badge company">Company</span>
+          <span class="disc-dd-name">${c.name}</span>
+          <span class="disc-dd-sub">${c.location||c.region||''}</span>
+        </a>`;
+      });
+    }
+    dd.innerHTML = html;
+    dd.classList.add('open');
+  }
+
+  function goSearch() {
+    const q = discSearchVal.trim();
+    if (q) window.location.href = 'products.html?search=' + encodeURIComponent(q);
+  }
+
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.disc-search-wrap')) {
+      const dd = document.getElementById('disc-dropdown');
+      if (dd) { dd.classList.remove('open'); }
+    }
+  });
+
+  document.getElementById('disc-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') goSearch();
+    if (e.key === 'Escape') { document.getElementById('disc-dropdown').classList.remove('open'); }
+  });
+
+
+</script>
+<div id="sub-toast"></div>
+<script>
+  (function() {
+    var video = document.getElementById('heroVideo');
+    var spinner = document.getElementById('heroSpinner');
+    function hideSpinner() { spinner.classList.add('hidden'); }
+    if (video) {
+      video.addEventListener('canplay', hideSpinner, { once: true });
+      // Fallback: hide after 3s if canplay never fires (e.g. video cached)
+      if (video.readyState >= 3) { hideSpinner(); }
+      else { setTimeout(hideSpinner, 3000); }
+    }
+  })();
+</script>
+</body>
+</html>
