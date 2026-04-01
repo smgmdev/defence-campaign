@@ -117,13 +117,13 @@ export default function InsightsPage() {
         .tab-btn-insights {
           background: transparent; border: none; border-left: 1px solid transparent; border-right: 1px solid transparent;
           border-top: 1px solid transparent; border-radius: 0;
-          padding: 16px 22px; font-size: 14px; font-weight: 500; color: #666;
+          padding: 16px 22px; font-size: 14px; font-weight: 600; color: #666;
           cursor: pointer; font-family: inherit; white-space: nowrap;
-          margin-bottom: -1px; transition: all 0.15s;
+          margin-bottom: -1px; transition: color 0.15s, background 0.15s, border-color 0.15s;
         }
         .tab-btn-insights:hover { color: #1a1a1a; }
         .tab-btn-insights.active {
-          background: #fff; color: #000; font-weight: 600;
+          background: #fff; color: #000;
           border-color: #e0e0e0; border-bottom-color: #fff;
         }
         .content-wrap { max-width: 900px; margin: 0; padding: 56px 0 80px; }
