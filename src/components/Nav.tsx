@@ -113,7 +113,7 @@ export default function Nav() {
                 onChange={e => handleSearchInput(e.target.value)}
                 onKeyDown={e => {
                   if (e.key === 'Enter' && results.length > 0) {
-                    router.push(`/products?search=${encodeURIComponent(searchVal)}`)
+                    router.push(`/products?q=${encodeURIComponent(searchVal)}`)
                     setSearchOpen(false)
                   }
                 }}
@@ -126,7 +126,7 @@ export default function Nav() {
                 <span className="search-popular-label">POPULAR SEARCHES</span>
                 {popularCategories.map(cat => (
                   <button key={cat} className="search-popular-tag"
-                    onClick={() => { router.push(`/products?category=${encodeURIComponent(cat)}`); setSearchOpen(false) }}>
+                    onClick={() => { router.push(`/products?cat=${encodeURIComponent(cat)}`); setSearchOpen(false) }}>
                     {cat}
                   </button>
                 ))}
@@ -136,7 +136,7 @@ export default function Nav() {
             {results.length > 0 && (
               <div className="search-results-grid">
                 {results.map((p, i) => (
-                  <Link key={i} href={`/products?search=${encodeURIComponent(p.name)}`} className="search-result-card"
+                  <Link key={i} href={`/products?q=${encodeURIComponent(p.name)}`} className="search-result-card"
                     onClick={() => setSearchOpen(false)}>
                     <div className="search-result-img">
                       <Image src={p.img} alt={p.name} width={80} height={80} style={{ objectFit: 'contain' }} unoptimized />

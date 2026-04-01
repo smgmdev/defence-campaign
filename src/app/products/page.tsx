@@ -8,9 +8,10 @@ import SubscribeStrip from '@/components/SubscribeStrip'
 function ProductsContent() {
   const searchParams = useSearchParams()
   const initialQ = searchParams.get('q') || ''
+  const initialCat = searchParams.get('cat') || ''
 
   const [search, setSearch] = useState(initialQ)
-  const [category, setCategory] = useState('')
+  const [category, setCategory] = useState(initialCat)
   const [view, setView] = useState<'grid' | 'list'>('grid')
   const [sortCol, setSortCol] = useState('id')
   const [sortDir, setSortDir] = useState(1)
