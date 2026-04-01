@@ -240,7 +240,7 @@ export default function ContactPage() {
                       {['Ammunition & Ordnance','Protective Equipment','Communications & Electronics','Medical Supplies','Military Uniforms','Logistics & Supply','Military Vehicles','AI & Technology'].map(interest => (
                         <label key={interest} className="interest-item">
                           <input type="checkbox" name="interests" value={interest} onChange={() => setInterestError(false)} />
-                          <label>{interest}</label>
+                          <span>{interest}</span>
                         </label>
                       ))}
                     </div>
