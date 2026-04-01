@@ -14,6 +14,7 @@ export default function HomePage() {
   const [subToast, setSubToast] = useState('')
   const [toastVisible, setToastVisible] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const searchWrapRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const v = videoRef.current
@@ -22,6 +23,16 @@ export default function HomePage() {
     v.addEventListener('playing', hide)
     v.addEventListener('canplay', hide)
     return () => { v.removeEventListener('playing', hide); v.removeEventListener('canplay', hide) }
+  }, [])
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (searchWrapRef.current && !searchWrapRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
   function openDefaultDropdown() {
@@ -229,7 +240,7 @@ export default function HomePage() {
             <div className="disc-label">Defence Trading Catalogue</div>
             <h2>Find the right defence product or partner</h2>
             <p>Each procurement requirement is different — and we are steadfast partners to our clients because we listen. Browse our full range of certified products and verified companies across every defence category.</p>
-            <div className="disc-search-wrap">
+            <div className="disc-search-wrap" ref={searchWrapRef}>
               <div className="disc-search">
                 <input
                   type="text"
