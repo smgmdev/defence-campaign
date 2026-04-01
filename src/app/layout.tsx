@@ -46,7 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           gtag('config', 'G-5F8DS9XVG4');
         `}</Script>
       </head>
-      <body>
+      <body style={{fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif"}}>
         <Nav />
         {children}
         <Footer />
