@@ -11,6 +11,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/companies`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${base}/about`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
     { url: `${base}/contact`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${base}/privacy`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${base}/terms`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${base}/cookies`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${base}/export-control`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.4 },
+    { url: `${base}/end-user-certification`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.4 },
   ]
 
   const articlePages: MetadataRoute.Sitemap = ARTICLES.map(a => ({
