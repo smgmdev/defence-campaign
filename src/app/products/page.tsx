@@ -51,7 +51,12 @@ function ProductsContent() {
 
   function exportCSV() {
     const headers = ['ID', 'Name', 'Calibre', 'Category', 'Type', 'Description']
-    const ordered = CATEGORIES.flatMap(cat => grouped[cat] ?? [])
+    const allGrouped: Record<string, Product[]> = {}
+    PRODUCTS.forEach(p => {
+      if (!allGrouped[p.category]) allGrouped[p.category] = []
+      allGrouped[p.category].push(p)
+    })
+    const ordered = CATEGORIES.flatMap(cat => allGrouped[cat] ?? [])
     const rows = ordered.map((p, i) => [
       i + 1, `"${p.name}"`, `"${p.calibre}"`, `"${p.category}"`, `"${p.type}"`,
       `"${p.desc.replace(/"/g, '""')}"`
