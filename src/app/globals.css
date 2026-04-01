@@ -60,7 +60,6 @@ a { color: inherit; }
 .main-nav {
   background: var(--white); border-bottom: 1px solid var(--gray);
   padding: 0 32px; display: flex; align-items: center; height: 56px;
-  position: sticky; top: 0; z-index: 200;
 }
 .brand { font-size: 22px; font-weight: 900; color: var(--black); text-decoration: none; margin-right: 40px; letter-spacing: -1px; flex-shrink: 0; }
 .brand span { color: var(--red); font-size: 8px; vertical-align: super; }
