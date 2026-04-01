@@ -1,15 +1,8 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
-import { Inter } from 'next/font/google'
 import './globals.css'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
-
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800', '900'],
-  display: 'swap',
-})
 
 export const metadata: Metadata = {
   title: {
@@ -53,7 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           gtag('config', 'G-5F8DS9XVG4');
         `}</Script>
       </head>
-      <body className={inter.className}>
+      <body>
         <Nav />
         {children}
         <Footer />
