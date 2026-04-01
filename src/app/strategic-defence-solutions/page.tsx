@@ -75,11 +75,7 @@ export default function StrategicDefenceSolutionsPage() {
           </p>
           <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
             <Link href="/products" className="btn-browse-products"><span>View Product Catalogue</span></Link>
-            <Link href="/contact" style={{ display: 'inline-block', padding: '14px 32px', fontSize: '13px', color: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.25)', textDecoration: 'none', transition: 'border-color 0.2s, color 0.2s', letterSpacing: '1px', textTransform: 'uppercase' }}
-              onMouseEnter={e => { (e.target as HTMLElement).style.borderColor = '#fff'; (e.target as HTMLElement).style.color = '#fff' }}
-              onMouseLeave={e => { (e.target as HTMLElement).style.borderColor = 'rgba(255,255,255,0.25)'; (e.target as HTMLElement).style.color = 'rgba(255,255,255,0.7)' }}>
-              Custom Enquiry
-            </Link>
+            <Link href="/contact" className="sds-ghost-btn">Custom Enquiry</Link>
           </div>
         </div>
       </section>
@@ -216,6 +212,8 @@ export default function StrategicDefenceSolutionsPage() {
         .sds-cta-block { padding: 0 48px 0 0; }
         .sds-cta-block:last-child { padding: 0 0 0 48px; }
         .sds-cta-divider { background: #e0e0e0; align-self: stretch; }
+        .sds-ghost-btn { display: inline-block; padding: 14px 32px; font-size: 13px; color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.25); text-decoration: none; transition: border-color 0.2s, color 0.2s; letter-spacing: 1px; text-transform: uppercase; }
+        .sds-ghost-btn:hover { border-color: #fff; color: #fff; }
         @media (max-width: 1024px) {
           .sds-domains { grid-template-columns: repeat(2,1fr); }
           .sds-cap-grid { grid-template-columns: repeat(2,1fr); }
