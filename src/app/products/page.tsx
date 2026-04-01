@@ -71,12 +71,12 @@ function ProductsContent() {
   async function handleEnquirySubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     if (!enquiryProduct) return
-    const f = e.currentTarget
-    const full_name = (f.querySelector('input[placeholder="Full name"]') as HTMLInputElement)?.value.trim()
-    const company = (f.querySelector('input[placeholder="Company / Government body"]') as HTMLInputElement)?.value.trim()
-    const country = (f.querySelector('select') as HTMLSelectElement)?.value
-    const email = (f.querySelector('input[type="email"]') as HTMLInputElement)?.value.trim()
-    const whatsapp = (f.querySelector('input[type="tel"]') as HTMLInputElement)?.value.trim()
+    const data = new FormData(e.currentTarget)
+    const full_name = data.get('full_name') as string
+    const company = data.get('company') as string
+    const country = data.get('country') as string
+    const email = data.get('email') as string
+    const whatsapp = data.get('whatsapp') as string
     setEnquirySubmitting(true)
     setEnquiryError(false)
     try {
@@ -393,17 +393,17 @@ function ProductsContent() {
                 <div className="enq-grid">
                   <div className="enq-field">
                     <label>Full Name *</label>
-                    <input type="text" placeholder="Full name" required />
+                    <input type="text" name="full_name" placeholder="Full name" required />
                   </div>
                   <div className="enq-field">
                     <label>Company Name *</label>
-                    <input type="text" placeholder="Company / Government body" required />
+                    <input type="text" name="company" placeholder="Company / Government body" required />
                   </div>
                 </div>
                 <div className="enq-field">
                   <label>Country *</label>
                   <div className="enq-select-wrap">
-                    <select required defaultValue="">
+                    <select name="country" required defaultValue="">
                       <option value="" disabled>Select country</option>
                       {['United Arab Emirates','Saudi Arabia','Qatar','Kuwait','Bahrain','Oman','United States','United Kingdom','Germany','France','Poland','Turkey','Israel','India','Pakistan','Egypt','Jordan','Morocco','Nigeria','South Africa','Other'].map(c => <option key={c}>{c}</option>)}
                     </select>
@@ -412,11 +412,11 @@ function ProductsContent() {
                 <div className="enq-grid">
                   <div className="enq-field">
                     <label>Business Email *</label>
-                    <input type="email" placeholder="Work email address" required />
+                    <input type="email" name="email" placeholder="Work email address" required />
                   </div>
                   <div className="enq-field">
                     <label>WhatsApp Number *</label>
-                    <input type="tel" placeholder="+1 000 000 0000" required />
+                    <input type="tel" name="whatsapp" placeholder="+1 000 000 0000" required />
                   </div>
                 </div>
                 {enquiryError && <div style={{color:'#E31837',fontSize:'13px',marginBottom:'8px'}}>Something went wrong — please try again.</div>}

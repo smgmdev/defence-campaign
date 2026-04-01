@@ -40,11 +40,14 @@ export default function ContactPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       })
-      if (res.ok) {
+      const d = await res.json()
+      if (d.ok) {
         setSubmitted(true)
       } else {
         alert('Something went wrong. Please try again or email sales@defencetrading.com directly.')
       }
+    } catch {
+      alert('Something went wrong. Please try again or email sales@defencetrading.com directly.')
     } finally {
       setSubmitting(false)
     }
