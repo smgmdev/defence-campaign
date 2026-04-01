@@ -6,7 +6,7 @@ import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Defence Trading',
+    default: 'Defence Trading - B2B Defence Procurement',
     template: '%s — Defence Trading',
   },
   description: 'Defence Trading is a B2B procurement platform connecting governments and defence contractors with verified military and armament suppliers worldwide.',
