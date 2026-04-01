@@ -83,7 +83,7 @@ export default function ContactPage() {
         .interest-item input[type=checkbox] { width: 16px; height: 16px; flex-shrink: 0; cursor: pointer; -webkit-appearance: none; appearance: none; border: 1.5px solid #999; border-radius: 0; background: transparent; position: relative; }
         .interest-item input[type=checkbox]:checked { border-color: #000; background: #000; }
         .interest-item input[type=checkbox]:checked::after { content: ""; position: absolute; left: 3px; top: 0px; width: 6px; height: 10px; border: 2px solid #fff; border-top: none; border-left: none; transform: rotate(45deg); }
-        .interest-item label, .interest-item span { font-size: 11px; color: #1a1a1a; cursor: pointer; line-height: 1.4; }
+        .interest-item label, .interest-item span { font-size: 13px; color: #1a1a1a; cursor: pointer; line-height: 1.4; }
         .form-divider { grid-column: 1 / -1; border: none; border-top: 1.5px solid #000; margin-bottom: 36px; }
         .form-footer-row { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-top: 8px; }
         .opt-in-row { grid-column: 1 / -1; display: flex; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
