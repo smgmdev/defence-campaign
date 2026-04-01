@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { useState, useEffect, useRef } from 'react'
 import { PRODUCTS, CATEGORIES } from '@/lib/products'
+import { ARTICLES } from '@/lib/articles'
 
 export default function Nav() {
   const pathname = usePathname()
@@ -19,6 +20,11 @@ export default function Nav() {
   useEffect(() => {
     document.body.style.paddingTop = bannerOpen ? '92px' : '56px'
   }, [bannerOpen])
+
+  useEffect(() => {
+    if (menuOpen) document.body.style.overflow = 'hidden'
+    else if (!searchOpen) document.body.style.overflow = ''
+  }, [menuOpen, searchOpen])
 
   useEffect(() => {
     if (searchOpen) {
@@ -85,17 +91,39 @@ export default function Nav() {
             <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="9" cy="9" r="7"/><line x1="15" y1="15" x2="19" y2="19"/></svg>
           </button>
 
-          <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
-            <span></span><span></span><span></span>
-          </div>
-          <div className={`mobile-nav${menuOpen ? ' open' : ''}`}>
-            <Link href="/about" className={isActive('/about') ? 'active' : ''} onClick={() => setMenuOpen(false)}>About Us</Link>
-            <Link href="/products" className={isActive('/products') ? 'active' : ''} onClick={() => setMenuOpen(false)}>Products</Link>
-            <Link href="/companies" className={isActive('/companies') ? 'active' : ''} onClick={() => setMenuOpen(false)}>Companies</Link>
-            <Link href="/insights" className={isActive('/insights') ? 'active' : ''} onClick={() => setMenuOpen(false)}>Insights</Link>
-            <Link href="/contact" onClick={() => setMenuOpen(false)}>Contact Us</Link>
-          </div>
+          <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
+            {menuOpen ? <span className="hamburger-x">&#x2715;</span> : <><span></span><span></span><span></span></>}
+          </button>
         </nav>
+      </div>
+
+      {/* ── MOBILE MENU OVERLAY ── */}
+      <div className={`mobile-menu-overlay${menuOpen ? ' open' : ''}`}>
+        <div className="mobile-menu-inner">
+          <div className="mobile-menu-nav">
+            <p className="mobile-menu-label">NAVIGATION</p>
+            <Link href="/about" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>About Us</Link>
+            <Link href="/products" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Products</Link>
+            <Link href="/companies" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Companies</Link>
+            <Link href="/insights" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Insights</Link>
+            <Link href="/contact" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Contact Us</Link>
+          </div>
+
+          <div className="mobile-menu-insights">
+            <div className="mobile-menu-insights-header">
+              <p className="mobile-menu-label">LATEST INSIGHTS</p>
+              <Link href="/insights" className="mobile-menu-insights-all" onClick={() => setMenuOpen(false)}>View All ↗</Link>
+            </div>
+            {ARTICLES.slice(0, 2).map(a => (
+              <Link key={a.slug} href={`/insights/${a.slug}`} className="mobile-menu-article" onClick={() => setMenuOpen(false)}>
+                <div className="mobile-menu-article-meta">{a.source} · {a.date}</div>
+                <div className="mobile-menu-article-title">{a.title}</div>
+                <div className="mobile-menu-article-desc">{a.description.slice(0, 100)}…</div>
+                <span className="mobile-menu-article-read">↳ Read More</span>
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* ── FULL-SCREEN SEARCH OVERLAY ── */}
