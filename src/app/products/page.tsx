@@ -16,6 +16,8 @@ function ProductsContent() {
   const [sortDir, setSortDir] = useState(1)
   const [enquiryProduct, setEnquiryProduct] = useState<Product | null>(null)
   const [enquirySubmitted, setEnquirySubmitted] = useState(false)
+  const [enquirySubmitting, setEnquirySubmitting] = useState(false)
+  const [enquiryError, setEnquiryError] = useState(false)
   const [imgErrors, setImgErrors] = useState<Record<number, boolean>>({})
   const [imgLoaded, setImgLoaded] = useState<Record<number, boolean>>({})
 
@@ -66,9 +68,34 @@ function ProductsContent() {
     else { setSortCol(col); setSortDir(1) }
   }
 
-  function handleEnquirySubmit(e: React.FormEvent) {
+  async function handleEnquirySubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setEnquirySubmitted(true)
+    if (!enquiryProduct) return
+    const f = e.currentTarget
+    const full_name = (f.querySelector('input[placeholder="Full name"]') as HTMLInputElement)?.value.trim()
+    const company = (f.querySelector('input[placeholder="Company / Government body"]') as HTMLInputElement)?.value.trim()
+    const country = (f.querySelector('select') as HTMLSelectElement)?.value
+    const email = (f.querySelector('input[type="email"]') as HTMLInputElement)?.value.trim()
+    const whatsapp = (f.querySelector('input[type="tel"]') as HTMLInputElement)?.value.trim()
+    setEnquirySubmitting(true)
+    setEnquiryError(false)
+    try {
+      const res = await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ product: enquiryProduct.name, calibre: enquiryProduct.calibre, full_name, company, country, email, whatsapp }),
+      })
+      const d = await res.json()
+      if (d.ok) {
+        setEnquirySubmitted(true)
+      } else {
+        setEnquiryError(true)
+      }
+    } catch {
+      setEnquiryError(true)
+    } finally {
+      setEnquirySubmitting(false)
+    }
   }
 
   return (
@@ -290,7 +317,7 @@ function ProductsContent() {
                           <div className="prod-desc">{p.desc}</div>
                         </div>
                         <div className="prod-footer">
-                          <button className="enquire-btn" onClick={() => { setEnquiryProduct(p); setEnquirySubmitted(false) }}>Enquire →</button>
+                          <button className="enquire-btn" onClick={() => { setEnquiryProduct(p); setEnquirySubmitted(false); setEnquiryError(false) }}>Enquire →</button>
                         </div>
                       </div>
                     ))}
@@ -342,7 +369,7 @@ function ProductsContent() {
                       <td className="list-cat">{p.category}</td>
                       <td className="list-type">{p.type}</td>
                       <td>
-                        <button className="enquire-btn" onClick={() => { setEnquiryProduct(p); setEnquirySubmitted(false) }}>Enquire →</button>
+                        <button className="enquire-btn" onClick={() => { setEnquiryProduct(p); setEnquirySubmitted(false); setEnquiryError(false) }}>Enquire →</button>
                       </td>
                     </tr>
                   ))}
@@ -392,7 +419,10 @@ function ProductsContent() {
                     <input type="tel" placeholder="+1 000 000 0000" required />
                   </div>
                 </div>
-                <button type="submit" className="enq-submit">Send Enquiry →</button>
+                {enquiryError && <div style={{color:'#E31837',fontSize:'13px',marginBottom:'8px'}}>Something went wrong — please try again.</div>}
+                <button type="submit" className="enq-submit" disabled={enquirySubmitting}>
+                  {enquirySubmitting ? 'Sending…' : 'Send Enquiry →'}
+                </button>
               </form>
             </>
           )}
