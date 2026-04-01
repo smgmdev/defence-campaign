@@ -14,9 +14,9 @@ img, video, iframe { max-width: 100%; }
   --text-light: #555;
 }
 html { scroll-behavior: smooth; }
-body { font-family: inherit; background: var(--white); color: var(--text); overflow-x: hidden; padding-top: 92px; }
+body { background: var(--white); color: var(--text); overflow-x: hidden; padding-top: 92px; }
 
-h1, h2, h3, h4, h5, h6 { font-family: inherit; }
+h1, h2, h3, h4, h5, h6 { font-family: unset; }
 a { color: inherit; }
 
 /* ── PAGE CONTAINER ── */
