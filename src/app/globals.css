@@ -36,9 +36,9 @@ img, video, iframe { max-width: 100%; }
   --text-light: #555;
 }
 html { scroll-behavior: smooth; }
-body { font-family: 'Inter', system-ui, sans-serif !important; background: var(--white); color: var(--text); overflow-x: hidden; padding-top: 92px; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif !important; background: var(--white); color: var(--text); overflow-x: hidden; padding-top: 92px; }
 
-h1, h2, h3, h4, h5, h6 { font-family: 'Inter', system-ui, sans-serif !important; }
+h1, h2, h3, h4, h5, h6 { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif !important; }
 a { color: inherit; }
 
 /* ── PAGE CONTAINER ── */
