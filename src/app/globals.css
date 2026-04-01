@@ -127,8 +127,9 @@ a { color: inherit; }
 
 /* ── FULL-SCREEN SEARCH OVERLAY ── */
 .search-overlay { position: fixed; inset: 0; background: #1c1c1c; z-index: 500; display: flex; flex-direction: column; }
-.search-overlay-close { position: absolute; top: 20px; right: 24px; background: none; border: 1px solid rgba(255,255,255,0.3); color: #fff; width: 40px; height: 40px; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.15s; }
+.search-overlay-close { position: absolute; top: 20px; right: 24px; background: none; border: 1px solid rgba(255,255,255,0.3); color: #fff; padding: 0 14px; height: 40px; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: border-color 0.15s; }
 .search-overlay-close:hover { border-color: #fff; }
+.search-overlay-close kbd { font-family: inherit; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.5); letter-spacing: 0.5px; }
 .search-overlay-inner { padding: 120px 48px 60px; max-width: 1200px; width: 100%; }
 .search-overlay-field { margin-bottom: 40px; }
 .search-overlay-input { width: 100%; background: transparent; border: none; outline: none; font-size: clamp(28px, 5vw, 52px); font-family: inherit; color: rgba(255,255,255,0.35); font-weight: 400; line-height: 1.1; }

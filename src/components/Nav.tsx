@@ -101,7 +101,10 @@ export default function Nav() {
       {/* ── FULL-SCREEN SEARCH OVERLAY ── */}
       {searchOpen && (
         <div className="search-overlay">
-          <button className="search-overlay-close" onClick={() => setSearchOpen(false)} aria-label="Close search">&#x2715;</button>
+          <button className="search-overlay-close" onClick={() => setSearchOpen(false)} aria-label="Close search">
+            <span>&#x2715;</span>
+            <kbd>ESC</kbd>
+          </button>
 
           <div className="search-overlay-inner">
             <div className="search-overlay-field">
