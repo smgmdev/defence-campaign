@@ -14,7 +14,7 @@ export default function Nav() {
   }
 
   return (
-    <div style={{ position: 'sticky', top: 0, zIndex: 200 }}>
+    <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200 }}>
       <div className="announce-bar-top">
         Due to a high volume of enquiries, response times may take up to 2 business days. We appreciate your patience.
       </div>

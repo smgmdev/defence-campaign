@@ -14,7 +14,7 @@ img, video, iframe { max-width: 100%; }
   --text-light: #555;
 }
 html { scroll-behavior: smooth; }
-body { font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; }
+body { font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; padding-top: 95px; }
 
 h1, h2, h3, h4, h5, h6 { font-family: 'Helvetica Neue', Arial, sans-serif; }
 a { color: inherit; }
