@@ -43,7 +43,7 @@ img, video, iframe { max-width: 100%; }
   --text-light: #555;
 }
 html { scroll-behavior: smooth; }
-body { font-family: 'Alliance No.1', system-ui, -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400; background: var(--white); color: var(--text); overflow-x: hidden; padding-top: 92px; }
+body { font-family: 'Alliance No.1', system-ui, -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; background: var(--white); color: var(--text); overflow-x: hidden; padding-top: 92px; }
 
 h1, h2, h3, h4, h5, h6 { font-family: inherit; }
 a { color: inherit; }
