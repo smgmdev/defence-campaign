@@ -110,8 +110,8 @@ a { color: inherit; }
 .nav-links a:hover { border-bottom-color: var(--black); }
 .nav-links a.active { border-bottom-color: var(--red); font-weight: 700; }
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; align-items: center; justify-content: center; }
-.hamburger-x { font-size: 18px; color: var(--black); line-height: 1; }
-.hamburger span { display: block; width: 22px; height: 2px; background: var(--black); }
+.hamburger span:not(.hamburger-x) { display: block; width: 22px; height: 2px; background: var(--black); }
+.hamburger-x { font-size: 18px; color: var(--black); line-height: 1; display: block; width: auto; height: auto; background: none; }
 /* ── MOBILE MENU OVERLAY ── */
 .mobile-menu-overlay {
   display: none; position: fixed; inset: 0; background: #1c1c1c; z-index: 190;
