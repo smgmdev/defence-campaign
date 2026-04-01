@@ -30,6 +30,7 @@ export default function Footer() {
           </div>
           <div className="ft-col">
             <div className="ft-col-label">Legal</div>
+            <Link href="/companies">Who We Work With</Link>
             <Link href="/terms">Terms &amp; Conditions</Link>
             <Link href="/privacy">Privacy Notice</Link>
             <Link href="/export-control">Export Control Policy</Link>
@@ -45,13 +46,12 @@ export default function Footer() {
             <Link href="/products?cat=Mortars">Mortars</Link>
           </div>
           <div className="ft-col">
-            <div className="ft-col-label">Compliance</div>
-            <Link href="/about">About Defence Trading</Link>
-            <Link href="/companies">Who We Work With</Link>
+            <div className="ft-col-label">Our Offerings</div>
+            <Link href="/about">Strategic Defence Solutions</Link>
+            <Link href="/about">Arcana Satellite Program</Link>
             <Link href="/export-control">Export Control</Link>
             <Link href="/end-user-certification">End-User Cert.</Link>
             <Link href="/privacy">Privacy Statement</Link>
-            <Link href="/cookies">Cookie Notice</Link>
             <Link href="/terms">Terms of Use</Link>
           </div>
         </div>
