@@ -21,21 +21,17 @@ export default function Footer() {
         {/* Link columns */}
         <div className="ft-cols">
           <div className="ft-col">
+            <div className="ft-col-label">Our Offerings</div>
+            <Link href="/about">Strategic Defence Solutions</Link>
+            <Link href="/about">Arcana Satellite Program</Link>
+          </div>
+          <div className="ft-col">
             <div className="ft-col-label">Corporate</div>
             <Link href="/about">About Us</Link>
             <Link href="/products">Products</Link>
             <Link href="/companies">Companies</Link>
             <Link href="/insights">Global Insights</Link>
             <Link href="/contact">Contact Us</Link>
-          </div>
-          <div className="ft-col">
-            <div className="ft-col-label">Legal</div>
-            <Link href="/companies">Who We Work With</Link>
-            <Link href="/terms">Terms &amp; Conditions</Link>
-            <Link href="/privacy">Privacy Notice</Link>
-            <Link href="/export-control">Export Control Policy</Link>
-            <Link href="/end-user-certification">End-User Certification</Link>
-            <Link href="/cookies">Cookie Notice</Link>
           </div>
           <div className="ft-col">
             <div className="ft-col-label">Products</div>
@@ -46,13 +42,13 @@ export default function Footer() {
             <Link href="/products?cat=Mortars">Mortars</Link>
           </div>
           <div className="ft-col">
-            <div className="ft-col-label">Our Offerings</div>
-            <Link href="/about">Strategic Defence Solutions</Link>
-            <Link href="/about">Arcana Satellite Program</Link>
-            <Link href="/export-control">Export Control</Link>
-            <Link href="/end-user-certification">End-User Cert.</Link>
-            <Link href="/privacy">Privacy Statement</Link>
-            <Link href="/terms">Terms of Use</Link>
+            <div className="ft-col-label">Legal</div>
+            <Link href="/companies">Who We Work With</Link>
+            <Link href="/terms">Terms &amp; Conditions</Link>
+            <Link href="/privacy">Privacy Notice</Link>
+            <Link href="/export-control">Export Control Policy</Link>
+            <Link href="/end-user-certification">End-User Certification</Link>
+            <Link href="/cookies">Cookie Notice</Link>
           </div>
         </div>
 
