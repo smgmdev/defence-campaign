@@ -12,6 +12,90 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    slug: "us-iran-war-april-2026-what-to-expect",
+    title: "US–Iran War in April 2026: What to Expect and How It Reshapes Global Defence",
+    date: "03 Apr 2026",
+    cat: "geo",
+    source: "GEOPOLITICAL ANALYSIS",
+    region: "Middle East",
+    description: "As tensions between the United States and Iran reach a critical inflection point in April 2026, we analyse the most likely escalation scenarios, military postures, regional consequences, and what it means for defence procurement, energy security, and allied force readiness.",
+    keywords: "US Iran war, Iran conflict 2026, Middle East escalation, Strait of Hormuz, US military Iran, defence procurement, Gulf security, Iran nuclear programme",
+    body: `<p>April 2026 marks what many analysts consider the most dangerous period in US–Iran relations since the January 2020 killing of Qasem Soleimani. A convergence of military posturing, collapsed diplomatic channels, and accelerated nuclear enrichment has pushed both nations to the brink of direct conflict — with consequences that would reshape the Middle East, global energy markets, and defence procurement priorities for a generation.</p>
+
+        <p>This analysis examines the current threat environment, the most probable escalation pathways, and the operational and commercial implications for governments and defence enterprises operating in and around the Gulf region.</p>
+
+        <h2>The Current Threat Environment</h2>
+
+        <p>Iran's nuclear programme has crossed several red lines that previous US administrations considered triggers for military action. The International Atomic Energy Agency (IAEA) confirmed in early 2026 that Iran is enriching uranium to 83.7% purity — a fraction below weapons-grade — at its fortified Fordow facility. Stockpiles of enriched material now exceed 30 times the quantity required for a single nuclear device.</p>
+
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="stat-num"><span>83.7</span>%</div>
+            <div class="stat-label">Iran's uranium enrichment purity — near weapons-grade threshold</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num"><span>30</span>×</div>
+            <div class="stat-label">Enriched material stockpile exceeds single-device requirement</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num"><span>2</span></div>
+            <div class="stat-label">US carrier strike groups currently deployed to CENTCOM AOR</div>
+          </div>
+        </div>
+
+        <p>Simultaneously, Iran has expanded its ballistic missile arsenal, with the Kheibar Shekan and Fattah-2 hypersonic variants now assessed as operational. Tehran's network of proxy forces — including Hezbollah, the Houthis, and Iranian-aligned militias in Iraq and Syria — remain on elevated readiness. The IRGC's Quds Force has reportedly pre-positioned assets across multiple theatres for retaliatory operations.</p>
+
+        <p>On the US side, the Pentagon has deployed two carrier strike groups to the CENTCOM area of responsibility, reinforced air assets at Al Udeid (Qatar), Al Dhafra (UAE), and Prince Sultan Air Base (Saudi Arabia), and repositioned B-2 and B-1B strategic bombers within strike range. US special operations forces have expanded their presence in the region, and cyber operations against Iranian command and control infrastructure are believed to be ongoing.</p>
+
+        <h2>Most Likely Escalation Scenarios</h2>
+
+        <h3>Scenario 1: Limited Strikes on Nuclear Facilities</h3>
+
+        <p>The most discussed scenario involves targeted US and/or Israeli strikes on Iran's nuclear infrastructure — primarily Fordow, Natanz, and Isfahan. This would aim to set back Iran's breakout capability by 2–5 years without triggering a full-scale ground war. However, the depth and hardening of Fordow presents significant challenges. The US would likely employ GBU-57 Massive Ordnance Penetrators (MOPs) delivered by B-2 Spirit bombers, supplemented by cruise missile salvos from naval assets in the Gulf and Eastern Mediterranean.</p>
+
+        <p>Iran's response would almost certainly include ballistic missile barrages against US bases in the Gulf, activation of proxy forces against Israel, and attempts to close or mine the Strait of Hormuz — through which approximately 20% of the world's oil supply transits daily.</p>
+
+        <h3>Scenario 2: Proxy Escalation Leading to Direct Confrontation</h3>
+
+        <p>A more likely near-term trigger involves an escalatory spiral initiated by proxy forces. Houthi attacks on commercial shipping in the Red Sea have already forced the rerouting of global trade. An attack on a US naval vessel or a mass-casualty strike on a Gulf state ally could provide the political justification for direct US military action against IRGC targets inside Iran — crossing a threshold that both sides have avoided for decades.</p>
+
+        <h3>Scenario 3: Cyber-Enabled First Strike</h3>
+
+        <p>A less visible but increasingly plausible scenario involves a combined cyber and kinetic operation — where US and Israeli cyber units disable Iranian air defence networks, communications infrastructure, and command nodes before conventional strikes begin. Iran has invested heavily in its own cyber capabilities, and retaliatory attacks on Gulf state infrastructure (power grids, desalination plants, financial systems) are considered highly probable.</p>
+
+        <h2>Regional Consequences</h2>
+
+        <p>A US–Iran conflict would have cascading effects across the entire Middle East and beyond:</p>
+
+        <p><strong>Strait of Hormuz:</strong> Even a partial closure would trigger an immediate oil price spike — analysts estimate $120–180/barrel in the first weeks. Gulf states including the UAE, Saudi Arabia, Qatar, and Kuwait would face direct security threats and potential infrastructure attacks. The US Fifth Fleet, headquartered in Bahrain, would become a primary target for Iranian anti-ship missiles.</p>
+
+        <p><strong>Israel and Lebanon:</strong> Hezbollah's estimated 150,000+ rocket and missile arsenal — including precision-guided munitions capable of striking critical Israeli infrastructure — represents Iran's most potent retaliatory lever. A full-scale Hezbollah activation would constitute the most intense missile threat Israel has ever faced.</p>
+
+        <p><strong>Iraq and Syria:</strong> Iranian-aligned militias in Iraq would target US forces at remaining bases, while the Syrian theatre could see a resurgence of direct IRGC operations. Turkey, already managing complex relationships with all parties, would face pressure to secure its southern border and protect its interests in northern Syria and Iraq.</p>
+
+        <h2>Defence Procurement Implications</h2>
+
+        <p>For defence ministries and procurement agencies, a US–Iran conflict — or even sustained high-tension short of war — accelerates several procurement priorities:</p>
+
+        <p><strong>Air and Missile Defence:</strong> Demand for integrated air and missile defence systems (THAAD, Patriot PAC-3, NASAMS, Iron Dome) will surge across Gulf states and NATO allies. Interceptor stockpiles are already assessed as insufficient for a sustained campaign.</p>
+
+        <p><strong>Counter-UAV Systems:</strong> Iran's drone warfare capabilities — demonstrated extensively through Shahed-136 transfers to Russia and Houthi operations — have made C-UAS procurement an urgent priority for every nation within range of Iranian proxy operations.</p>
+
+        <p><strong>Naval Mine Countermeasures:</strong> The threat to the Strait of Hormuz elevates demand for mine countermeasure vessels, unmanned underwater vehicles, and rapid route clearance capabilities. Nations dependent on Gulf oil transit will accelerate procurement in this space.</p>
+
+        <p><strong>Ammunition and Sustainment:</strong> Any conflict would consume ammunition stocks at rates far exceeding peacetime production capacity. The lesson from Ukraine — that industrial-base surge capacity is a strategic imperative — applies directly to a Gulf conflict scenario. NATO allies and Gulf states will increase stockpile orders across all calibres and munition types.</p>
+
+        <p><strong>Electronic Warfare and Cyber:</strong> Both offensive and defensive EW capabilities will see accelerated procurement. GPS jamming, communications disruption, and radar spoofing are central to Iranian operational doctrine. Forces operating in the Gulf will require hardened, redundant communications and navigation systems.</p>
+
+        <h2>What Comes Next</h2>
+
+        <p>The path to conflict is not inevitable — but the window for diplomatic de-escalation is narrowing rapidly. The collapse of the JCPOA, the absence of backchannel communication between Washington and Tehran, and the domestic political dynamics in both countries all reduce the space for compromise.</p>
+
+        <p>For defence traders, procurement agencies, and allied governments, the operational imperative is clear: prepare for a high-intensity, multi-domain conflict environment in the Gulf region. Whether April 2026 becomes the month of direct confrontation or sustained coercive pressure, the defence procurement implications are already materialising — and the supply chains that respond fastest will define the strategic balance for years to come.</p>
+
+        <p>Defence Trading continues to monitor developments across the Gulf region and maintains full readiness to support government and allied procurement requirements through compliant, licensed channels. All counterparty and end-user verification procedures remain in effect without exception.</p>`,
+  },
+  {
     slug: "procurement-best-drone-interception-systems",
     title: "Procuring the Best Drone Interception Systems: What Defence Buyers Need to Know in 2026",
     date: "01 Apr 2026",
