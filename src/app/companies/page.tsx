@@ -292,7 +292,7 @@ export default function CompaniesPage() {
         .reset-btn:hover { opacity: 0.7; }
         .showing-count { margin-left: auto; font-size: 13px; color: #555; white-space: nowrap; }
         .showing-count strong { color: #000; }
-        .table-wrap { padding: 0 0 60px; overflow-x: auto; }
+        .table-wrap { padding: 0; overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; min-width: 600px; }
         thead tr { border-top: 2px solid #000; border-bottom: 2px solid #000; }
         th { padding: 12px 10px; text-align: left; font-size: 12px; font-weight: 700; color: #000; white-space: nowrap; cursor: pointer; user-select: none; background: #fff; }
@@ -307,7 +307,7 @@ export default function CompaniesPage() {
         .email-link:hover { text-decoration: underline; color: #E31837; }
         .cat-tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border: 1px solid #000; white-space: nowrap; background: #000; color: #fff; }
         .size-pill { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; background: #f0f0f0; color: #1a1a1a; }
-        .pagination { display: flex; align-items: center; justify-content: center; gap: 2px; padding: 24px 32px; border-top: 1px solid #e0e0e0; }
+        .pagination { display: flex; align-items: center; justify-content: center; gap: 2px; padding: 24px 32px; }
         .pg-btn { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border: 1.5px solid #e0e0e0; background: #fff; font-size: 13px; cursor: pointer; font-family: inherit; font-weight: 500; transition: all 0.15s; color: #1a1a1a; }
         .pg-btn:hover { border-color: #000; }
         .pg-btn.active { background: #000; border-color: #000; color: #fff; font-weight: 700; }
