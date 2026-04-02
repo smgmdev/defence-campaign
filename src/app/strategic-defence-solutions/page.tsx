@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import SubscribeStrip from '@/components/SubscribeStrip'
+import { ImageLoader } from '@/components/MediaLoader'
 
 export const metadata: Metadata = {
   title: 'Strategic Defence Solutions',
@@ -30,8 +31,7 @@ export default function StrategicDefenceSolutionsPage() {
           <h2 className="sds-discover-h2">Discover by Service</h2>
           <div className="sds-discover-grid">
             <div className="sds-discover-visual">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/grid-platforms.png" alt="Defence platforms" className="sds-discover-img" />
+              <ImageLoader src="/grid-platforms.png" alt="Defence platforms" className="sds-discover-img" />
             </div>
             <div className="sds-discover-content">
               <h3 className="sds-discover-title">Defence Trading provides configurable procurement solutions for the most demanding operational requirements.</h3>

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import SubscribeStrip from '@/components/SubscribeStrip'
+import { VideoLoader } from '@/components/MediaLoader'
 
 export const metadata: Metadata = {
   title: 'Arcana Satellite Program',
@@ -27,9 +28,7 @@ export default function ArcanaSatelliteProgramPage() {
     <>
       {/* ── HERO WITH VIDEO ── */}
       <section className="arc-hero">
-        <video className="arc-hero-video" autoPlay muted loop playsInline>
-          <source src="/arcana-hero.mp4" type="video/mp4" />
-        </video>
+        <VideoLoader src="/arcana-hero.mp4" className="arc-hero-video" />
         <div className="arc-hero-overlay" />
         <h1 className="arc-hero-h1">ARCANA PRECISION</h1>
       </section>
@@ -68,9 +67,7 @@ export default function ArcanaSatelliteProgramPage() {
 
       {/* ── VIDEO SECTION ── */}
       <section className="arc-video-section">
-        <video className="arc-video-player" autoPlay muted loop playsInline>
-          <source src="/arcana-analysis.mp4" type="video/mp4" />
-        </video>
+        <VideoLoader src="/arcana-analysis.mp4" className="arc-video-player" />
       </section>
 
       {/* ── CAPABILITIES ROWS ── */}

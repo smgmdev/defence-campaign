@@ -293,6 +293,8 @@ a { color: inherit; }
 
 /* ── SPINNER ── */
 @keyframes spin { to { transform: rotate(360deg); } }
+.media-spinner-wrap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 1; }
+.media-spinner { width: 32px; height: 32px; border: 3px solid rgba(255,255,255,0.15); border-top-color: rgba(255,255,255,0.6); border-radius: 50%; animation: spin 0.7s linear infinite; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {

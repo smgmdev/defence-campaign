@@ -29,91 +29,153 @@ export default function WhoWeWorkWithPage() {
   return (
     <>
       {/* ── HERO ── */}
-      <section style={{ background: '#0a0a0a', padding: '100px 0 80px' }}>
+      <section className="www-hero">
         <div className="pg-wrap">
-          <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '2px', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', marginBottom: '24px' }}>Counterparty Policy</p>
-          <h1 style={{ fontSize: 'clamp(32px, 5vw, 60px)', fontWeight: 400, color: '#fff', lineHeight: 1.1, maxWidth: '780px', marginBottom: '28px' }}>
+          <p className="www-tag">Counterparty Policy</p>
+          <h1 className="www-hero-h1">
             We work exclusively with governments and fully licensed defence enterprises.
           </h1>
-          <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, maxWidth: '620px', marginBottom: '40px' }}>
+          <p className="www-hero-body">
             Defence Trading does not engage with private individuals, unlicensed intermediaries, or entities operating outside applicable defence trade regulations. Every counterparty — without exception — must meet our mandatory qualification criteria before any engagement proceeds.
           </p>
-          <div style={{ height: '1px', background: 'rgba(255,255,255,0.12)', maxWidth: '620px' }} />
-          <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.35)', marginTop: '20px', fontStyle: 'italic' }}>
-            No exceptions. No discretionary waivers.
-          </p>
+          <div className="www-hero-line" />
+          <p className="www-hero-note">No exceptions. No discretionary waivers.</p>
         </div>
       </section>
 
       {/* ── GOVERNMENTS ── */}
-      <section style={{ background: '#fff', padding: '80px 0' }}>
+      <section className="www-section www-section--white">
         <div className="pg-wrap">
-          <div style={{ marginBottom: '48px' }}>
-            <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '2px', color: '#999', textTransform: 'uppercase', marginBottom: '12px' }}>Category 01</p>
-            <h2 style={{ fontSize: 'clamp(24px, 3.5vw, 40px)', fontWeight: 400, color: '#000', lineHeight: 1.15, marginBottom: '16px' }}>Governments &amp; State Authorities</h2>
-            <p style={{ fontSize: '15px', color: '#555', lineHeight: 1.7, maxWidth: '640px' }}>
+          <div className="www-section-head">
+            <p className="www-tag www-tag--dark">Category 01</p>
+            <h2 className="www-section-h2">Governments &amp; State Authorities</h2>
+            <p className="www-section-body">
               We supply governments, national armed forces, and state security agencies operating with full legal mandate and verified procurement authority. All government counterparties must provide official procurement documentation and verified end-user details.
             </p>
           </div>
-          <div className="www-grid">
-            {GOVERNMENT_TYPES.map((item, i) => (
-              <div key={i} className="www-card">
-                <div className="www-card-num">{String(i + 1).padStart(2, '0')}</div>
-                <h3 className="www-card-title">{item.title}</h3>
-                <p className="www-card-desc">{item.desc}</p>
+          <div className="www-split">
+            <div className="www-split-left">
+              <div className="www-split-label-box">
+                <span className="www-split-label">Governments</span>
               </div>
-            ))}
+              <p className="www-split-desc">We work with sovereign states, allied commands, and state security agencies across every continent. Each government counterparty is verified against national defence procurement mandates and international sanctions frameworks before any engagement proceeds.</p>
+            </div>
+            <div className="www-split-right">
+              {GOVERNMENT_TYPES.map((item, i) => (
+                <div key={i} className="www-feature">
+                  <h3 className="www-feature-title">{item.title}</h3>
+                  <p className="www-feature-desc">{item.desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* ── COMPANIES ── */}
-      <section style={{ background: '#f5f5f5', padding: '80px 0' }}>
+      <section className="www-section www-section--dark">
         <div className="pg-wrap">
-          <div style={{ marginBottom: '48px' }}>
-            <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '2px', color: '#999', textTransform: 'uppercase', marginBottom: '12px' }}>Category 02</p>
-            <h2 style={{ fontSize: 'clamp(24px, 3.5vw, 40px)', fontWeight: 400, color: '#000', lineHeight: 1.15, marginBottom: '16px' }}>Licensed Defence Companies</h2>
-            <p style={{ fontSize: '15px', color: '#555', lineHeight: 1.7, maxWidth: '640px' }}>
+          <div className="www-section-head">
+            <p className="www-tag">Category 02</p>
+            <h2 className="www-section-h2 www-section-h2--light">Licensed Defence Companies</h2>
+            <p className="www-section-body www-section-body--light">
               Corporate counterparties must hold all applicable licences and authorisations without exception. The following requirements are mandatory — not advisory — for all defence enterprise engagements.
             </p>
           </div>
-          <div className="www-grid">
-            {COMPANY_REQUIREMENTS.map((item, i) => (
-              <div key={i} className="www-card www-card--dark">
-                <div className="www-card-num">{String(i + 1).padStart(2, '0')}</div>
-                <h3 className="www-card-title">{item.title}</h3>
-                <p className="www-card-desc">{item.desc}</p>
+          <div className="www-split">
+            <div className="www-split-left">
+              <div className="www-split-label-box www-split-label-box--dark">
+                <span className="www-split-label">Compliance</span>
               </div>
-            ))}
+              <p className="www-split-desc www-split-desc--light">Every corporate counterparty undergoes mandatory due diligence — licence verification, sanctions screening, ownership disclosure, and anti-corruption compliance — before Defence Trading will proceed with any transaction.</p>
+            </div>
+            <div className="www-split-right">
+              {COMPANY_REQUIREMENTS.map((item, i) => (
+                <div key={i} className="www-feature www-feature--light">
+                  <h3 className="www-feature-title www-feature-title--light">{item.title}</h3>
+                  <p className="www-feature-desc www-feature-desc--light">{item.desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* ── NOTICE ── */}
-      <section style={{ background: '#0a0a0a', padding: '64px 0' }}>
-        <div className="pg-wrap" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '48px', flexWrap: 'wrap' }}>
-          <div style={{ maxWidth: '560px' }}>
-            <h2 style={{ fontSize: 'clamp(20px, 2.5vw, 30px)', fontWeight: 400, color: '#fff', marginBottom: '16px' }}>Non-compliance results in immediate disqualification.</h2>
-            <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.55)', lineHeight: 1.7 }}>
+      <section className="www-notice">
+        <div className="pg-wrap www-notice-inner">
+          <div className="www-notice-text">
+            <h2 className="www-notice-h2">Non-compliance results in immediate disqualification.</h2>
+            <p className="www-notice-body">
               Any misrepresentation of licensing status, end-use, or corporate identity will result in permanent disqualification and may be referred to the relevant national authorities. Defence Trading reserves the right to terminate any engagement at any stage upon discovery of non-compliance.
             </p>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', flexShrink: 0 }}>
+          <div className="www-notice-actions">
             <Link href="/contact" className="btn-browse-products"><span>Submit an Enquiry</span></Link>
-            <Link href="/export-control" style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', textDecoration: 'underline', textUnderlineOffset: '3px' }}>View Export Control Policy</Link>
+            <Link href="/export-control" className="www-notice-link">View Export Control Policy</Link>
           </div>
         </div>
       </section>
 
       <style>{`
-        .www-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #e0e0e0; }
-        .www-card { background: #fff; padding: 32px 28px; }
-        .www-card--dark { background: #f5f5f5; }
-        .www-card-num { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #bbb; margin-bottom: 16px; }
-        .www-card-title { font-size: 15px; font-weight: 600; color: #000; margin-bottom: 10px; line-height: 1.3; }
-        .www-card-desc { font-size: 13px; color: #666; line-height: 1.65; }
-        @media (max-width: 900px) { .www-grid { grid-template-columns: 1fr 1fr; } }
-        @media (max-width: 600px) { .www-grid { grid-template-columns: 1fr; } }
+        /* ── HERO ── */
+        .www-hero { background: #0a0a0a; padding: 140px 0 80px; }
+        .www-tag { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; color: rgba(255,255,255,0.4); text-transform: uppercase; margin-bottom: 24px; }
+        .www-tag--dark { color: #999; }
+        .www-hero-h1 { font-size: clamp(32px, 5vw, 60px); font-weight: 400; color: #fff; line-height: 1.1; max-width: 780px; margin-bottom: 28px; }
+        .www-hero-body { font-size: 16px; color: rgba(255,255,255,0.6); line-height: 1.7; max-width: 620px; margin-bottom: 40px; }
+        .www-hero-line { height: 1px; background: rgba(255,255,255,0.12); max-width: 620px; }
+        .www-hero-note { font-size: 13px; color: rgba(255,255,255,0.35); margin-top: 20px; font-style: italic; }
+
+        /* ── SECTIONS ── */
+        .www-section { padding: 100px 0; }
+        .www-section--white { background: #fff; }
+        .www-section--dark { background: #0a0a0a; }
+        .www-section-head { margin-bottom: 64px; }
+        .www-section-h2 { font-size: clamp(28px, 4vw, 48px); font-weight: 400; color: #000; line-height: 1.1; margin-bottom: 16px; }
+        .www-section-h2--light { color: #fff; }
+        .www-section-body { font-size: 15px; color: #555; line-height: 1.7; max-width: 640px; }
+        .www-section-body--light { color: rgba(255,255,255,0.5); }
+
+        /* ── SPLIT LAYOUT ── */
+        .www-split { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+        .www-split-left { position: sticky; top: 120px; }
+        .www-split-label-box { display: inline-flex; align-items: center; gap: 12px; border: 1px solid #ddd; border-radius: 8px; padding: 16px 28px; margin-bottom: 32px; }
+        .www-split-label-box--dark { border-color: rgba(255,255,255,0.15); }
+        .www-split-dot { width: 14px; height: 14px; background: #fff; border-radius: 50%; flex-shrink: 0; }
+        .www-split-label { font-size: clamp(22px, 3vw, 32px); font-weight: 400; color: #000; }
+        .www-split-label-box--dark .www-split-label { color: #fff; }
+        .www-split-desc { font-size: 15px; color: #555; line-height: 1.8; }
+        .www-split-desc--light { color: rgba(255,255,255,0.45); }
+
+        /* ── FEATURE ITEMS ── */
+        .www-feature { margin-bottom: 48px; }
+        .www-feature:last-child { margin-bottom: 0; }
+        .www-feature-title { font-size: clamp(20px, 2.5vw, 28px); font-weight: 500; color: #000; margin-bottom: 12px; line-height: 1.2; }
+        .www-feature-title--light { color: #fff; }
+        .www-feature-desc { font-size: 14px; color: #666; line-height: 1.7; }
+        .www-feature-desc--light { color: rgba(255,255,255,0.45); }
+
+        /* ── NOTICE ── */
+        .www-notice { background: #0a0a0a; padding: 80px 0; border-top: 1px solid rgba(255,255,255,0.08); }
+        .www-notice-inner { display: flex; justify-content: space-between; align-items: flex-start; gap: 48px; flex-wrap: wrap; }
+        .www-notice-text { max-width: 560px; }
+        .www-notice-h2 { font-size: clamp(20px, 2.5vw, 30px); font-weight: 400; color: #fff; margin-bottom: 16px; }
+        .www-notice-body { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.7; }
+        .www-notice-actions { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
+        .www-notice-link { font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: underline; text-underline-offset: 3px; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+          .www-split { grid-template-columns: 1fr; gap: 48px; }
+          .www-split-left { position: static; }
+        }
+        @media (max-width: 768px) {
+          .www-hero { padding: 100px 0 64px; }
+          .www-section { padding: 64px 0; }
+          .www-notice { padding: 48px 0; }
+          .www-notice-inner { flex-direction: column; }
+        }
       `}</style>
 
       <SubscribeStrip />
