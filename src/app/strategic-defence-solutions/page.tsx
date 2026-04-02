@@ -96,47 +96,37 @@ export default function StrategicDefenceSolutionsPage() {
       </section>
 
       {/* ── GROUND CAPABILITIES ── */}
-      <section style={{ background: '#fff', padding: '88px 0' }}>
-        <div className="pg-wrap">
-          <div className="sds-section-head">
-            <div>
-              <p className="sds-label">Ground Domain</p>
-              <h2 className="sds-h2">Ground Force Solutions</h2>
-            </div>
-            <p className="sds-section-intro">From individual infantry kit to full armoured platform packages — we source, configure, and deliver ground force equipment to the operational specifications of each client programme.</p>
-          </div>
-          <div className="sds-rows">
-            {GROUND_CAPABILITIES.map((c, i) => (
-              <div key={i} className="sds-row">
-                <span className="sds-row-num">{String(i + 1).padStart(2, '0')}</span>
-                <h3 className="sds-row-title">{c.label}</h3>
-                <p className="sds-row-desc">{c.desc}</p>
-              </div>
-            ))}
-          </div>
+      <section style={{ background: '#fff', padding: '80px 0 0' }}>
+        <div className="pg-wrap" style={{ marginBottom: '0' }}>
+          <p className="sds-label">Ground Domain</p>
+          <h2 className="sds-h2" style={{ marginBottom: '8px' }}>Ground Force Solutions</h2>
+          <p style={{ fontSize: '15px', color: '#888', maxWidth: '560px', lineHeight: 1.6, marginBottom: '64px' }}>From individual infantry kit to full armoured platform packages.</p>
         </div>
+        {GROUND_CAPABILITIES.map((c, i) => (
+          <div key={i} className={`sds-band ${i % 2 === 0 ? 'sds-band--white' : 'sds-band--gray'}`}>
+            <div className="pg-wrap sds-band-inner">
+              <h3 className="sds-band-title">{c.label}</h3>
+              <p className="sds-band-desc">{c.desc}</p>
+            </div>
+          </div>
+        ))}
       </section>
 
       {/* ── AIR CAPABILITIES ── */}
-      <section style={{ background: '#f5f5f5', padding: '88px 0' }}>
+      <section style={{ background: '#0a0a0a', padding: '80px 0 0' }}>
         <div className="pg-wrap">
-          <div className="sds-section-head">
-            <div>
-              <p className="sds-label">Air Domain</p>
-              <h2 className="sds-h2">Aerial & Counter-UAV Solutions</h2>
-            </div>
-            <p className="sds-section-intro">Unmanned systems, counter-drone interceptors, ISR platforms, and electronic warfare packages — procured and integrated for air domain superiority across contested and permissive environments.</p>
-          </div>
-          <div className="sds-rows sds-rows--light">
-            {AIR_CAPABILITIES.map((c, i) => (
-              <div key={i} className="sds-row">
-                <span className="sds-row-num">{String(i + 1).padStart(2, '0')}</span>
-                <h3 className="sds-row-title">{c.label}</h3>
-                <p className="sds-row-desc">{c.desc}</p>
-              </div>
-            ))}
-          </div>
+          <p className="sds-label" style={{ color: 'rgba(255,255,255,0.4)' }}>Air Domain</p>
+          <h2 className="sds-h2" style={{ color: '#fff', marginBottom: '8px' }}>Aerial &amp; Counter-UAV Solutions</h2>
+          <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.4)', maxWidth: '560px', lineHeight: 1.6, marginBottom: '64px' }}>Counter-drone interceptors, ISR platforms, and electronic warfare packages.</p>
         </div>
+        {AIR_CAPABILITIES.map((c, i) => (
+          <div key={i} className={`sds-band-dark ${i % 2 === 0 ? 'sds-band-dark--a' : 'sds-band-dark--b'}`}>
+            <div className="pg-wrap sds-band-inner">
+              <h3 className="sds-band-title" style={{ color: '#fff' }}>{c.label}</h3>
+              <p className="sds-band-desc" style={{ color: 'rgba(255,255,255,0.5)' }}>{c.desc}</p>
+            </div>
+          </div>
+        ))}
       </section>
 
       {/* ── TIER SYSTEM ── */}
@@ -195,14 +185,14 @@ export default function StrategicDefenceSolutionsPage() {
         .sds-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #999; text-transform: uppercase; margin-bottom: 10px; }
         .sds-h2 { font-size: clamp(24px,3.5vw,42px); font-weight: 400; color: #000; line-height: 1.1; }
         .sds-section-intro { font-size: 15px; color: #666; line-height: 1.7; padding-top: 32px; }
-        .sds-rows { border-top: 1px solid #e0e0e0; }
-        .sds-rows--light { border-top: 1px solid #d8d8d8; }
-        .sds-row { display: grid; grid-template-columns: 64px 280px 1fr; align-items: start; gap: 0; padding: 28px 0; border-bottom: 1px solid #e0e0e0; transition: background 0.15s; }
-        .sds-row:hover { background: #fafafa; }
-        .sds-rows--light .sds-row:hover { background: #efefef; }
-        .sds-row-num { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #ccc; padding-top: 3px; }
-        .sds-row-title { font-size: 16px; font-weight: 600; color: #000; line-height: 1.2; padding-right: 40px; }
-        .sds-row-desc { font-size: 13px; color: #666; line-height: 1.7; }
+        .sds-band, .sds-band-dark { padding: 48px 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+        .sds-band--white { background: #fff; }
+        .sds-band--gray { background: #f7f7f7; }
+        .sds-band-dark--a { background: #111; border-bottom-color: rgba(255,255,255,0.06); }
+        .sds-band-dark--b { background: #151515; border-bottom-color: rgba(255,255,255,0.06); }
+        .sds-band-inner { display: flex; justify-content: space-between; align-items: baseline; gap: 48px; }
+        .sds-band-title { font-size: 18px; font-weight: 600; color: #000; white-space: nowrap; flex-shrink: 0; }
+        .sds-band-desc { font-size: 14px; color: #666; line-height: 1.7; max-width: 600px; text-align: right; }
         .sds-tier-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
         .sds-tier { padding: 40px 32px; }
         .sds-tier-badge { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
@@ -221,13 +211,12 @@ export default function StrategicDefenceSolutionsPage() {
           .sds-tier-grid { grid-template-columns: 1fr; gap: 2px; }
           .sds-section-head { grid-template-columns: 1fr; gap: 16px; }
           .sds-section-intro { padding-top: 0; }
-          .sds-row { grid-template-columns: 48px 1fr; }
-          .sds-row-desc { grid-column: 2; }
+          .sds-band-inner { flex-direction: column; gap: 12px; }
+          .sds-band-desc { text-align: left; max-width: 100%; }
         }
         @media (max-width: 768px) {
           .sds-domains { grid-template-columns: 1fr 1fr; }
-          .sds-row { grid-template-columns: 40px 1fr; gap: 0; }
-          .sds-row-desc { grid-column: 1 / -1; padding-top: 8px; }
+          .sds-band, .sds-band-dark { padding: 32px 0; }
           .sds-cta-grid { grid-template-columns: 1fr; }
           .sds-cta-divider { height: 1px; width: 100%; margin: 40px 0; }
           .sds-cta-block, .sds-cta-block:last-child { padding: 0; }

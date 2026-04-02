@@ -22,6 +22,14 @@ function ProductsContent() {
   const [imgErrors, setImgErrors] = useState<Record<number, boolean>>({})
   const [imgLoaded, setImgLoaded] = useState<Record<number, boolean>>({})
 
+  // Sync URL params to state when navigating from other pages
+  useEffect(() => {
+    const urlQ = searchParams.get('q') || ''
+    const urlCat = searchParams.get('cat') || ''
+    if (urlQ !== search) setSearch(urlQ)
+    if (urlCat !== category) setCategory(urlCat)
+  }, [searchParams])
+
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
       if (e.key === 'Escape') setEnquiryProduct(null)
