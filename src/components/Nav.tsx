@@ -6,6 +6,16 @@ import { useState, useEffect, useRef } from 'react'
 import { PRODUCTS, CATEGORIES } from '@/lib/products'
 import { ARTICLES } from '@/lib/articles'
 
+// Preload all product images into browser cache
+const imageCache = new Map<string, string>()
+if (typeof window !== 'undefined') {
+  PRODUCTS.forEach(p => {
+    const img = new window.Image()
+    img.src = p.img
+    imageCache.set(String(p.id), p.img)
+  })
+}
+
 export default function Nav() {
   const pathname = usePathname()
   const router = useRouter()
@@ -170,10 +180,10 @@ export default function Nav() {
                 {results.map(p => (
                   <Link key={p.id} href={`/products?q=${encodeURIComponent(p.name)}`} className="search-result-card"
                     onClick={() => setSearchOpen(false)}>
-                    <div className="search-result-img">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={p.img} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-                    </div>
+                    <div
+                      className="search-result-img"
+                      style={{ backgroundImage: `url(${p.img})`, backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}
+                    />
                     <div className="search-result-info">
                       <div className="search-result-name">{p.name}</div>
                       <div className="search-result-cat">{p.category}</div>

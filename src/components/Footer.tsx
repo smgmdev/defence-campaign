@@ -21,7 +21,7 @@ export default function Footer() {
           <div className="ft-col">
             <div className="ft-col-label">Our Offerings</div>
             <Link href="/strategic-defence-solutions">Strategic Defence Solutions</Link>
-            <Link href="/about">Arcana Satellite Program</Link>
+            <Link href="/arcana-satellite-program">Arcana Satellite Program</Link>
           </div>
           <div className="ft-col">
             <div className="ft-col-label">Corporate</div>
