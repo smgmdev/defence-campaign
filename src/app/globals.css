@@ -327,6 +327,17 @@ a { color: inherit; }
   .util-bar { padding: 0 16px; }
   .util-links a:not(.active) { display: none; }
   .search-overlay-inner { padding: 80px 16px 32px; }
+  .cs-modal { width: 100vw; height: 100vh; max-height: 100vh; top: 0; left: 0; transform: none; }
+  .cs-modal-body { grid-template-columns: 1fr; }
+  .cs-sidebar { display: flex; overflow-x: auto; border-right: none; border-bottom: 1px solid #e0e0e0; }
+  .cs-sidebar-tab { white-space: nowrap; border-bottom: none; border-right: 1px solid #e0e0e0; padding: 14px 16px; font-size: 12px; }
+  .cs-sidebar-tab.active { border-left: none; border-bottom: 3px solid #000; }
+  .cs-content { padding: 20px 16px; }
+  .cs-modal-head { padding: 16px; }
+  .cs-modal-logo { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .cs-modal-title-text { font-size: 14px; }
+  .cs-modal-footer { flex-direction: column; padding: 16px; }
+  .cs-btn-confirm, .cs-btn-reject { width: 100%; text-align: center; }
   .search-overlay-input { font-size: 20px; }
   .search-overlay-close { top: 16px; right: 16px; height: 36px; padding: 0 10px; font-size: 13px; }
   .search-popular { gap: 12px; }

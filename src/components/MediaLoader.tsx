@@ -2,15 +2,39 @@
 
 import { useState } from 'react'
 
-export function VideoLoader({ src, className, autoPlay = true, muted = true, loop = true, playsInline = true }: {
+export function VideoLoader({ src, className, fill, autoPlay = true, muted = true, loop = true, playsInline = true }: {
   src: string
   className?: string
+  fill?: boolean
   autoPlay?: boolean
   muted?: boolean
   loop?: boolean
   playsInline?: boolean
 }) {
   const [loaded, setLoaded] = useState(false)
+
+  if (fill) {
+    return (
+      <>
+        {!loaded && (
+          <div className="media-spinner-wrap" style={{ position: 'absolute', inset: 0, zIndex: 1 }}>
+            <div className="media-spinner" />
+          </div>
+        )}
+        <video
+          className={className}
+          autoPlay={autoPlay}
+          muted={muted}
+          loop={loop}
+          playsInline={playsInline}
+          onCanPlay={() => setLoaded(true)}
+          style={loaded ? {} : { opacity: 0 }}
+        >
+          <source src={src} type="video/mp4" />
+        </video>
+      </>
+    )
+  }
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>

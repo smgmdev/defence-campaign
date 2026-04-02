@@ -28,7 +28,7 @@ export default function ArcanaSatelliteProgramPage() {
     <>
       {/* ── HERO WITH VIDEO ── */}
       <section className="arc-hero">
-        <VideoLoader src="/arcana-hero.mp4" className="arc-hero-video" />
+        <VideoLoader src="/arcana-hero.mp4" className="arc-hero-video" fill />
         <div className="arc-hero-overlay" />
         <h1 className="arc-hero-h1">ARCANA PRECISION</h1>
       </section>
