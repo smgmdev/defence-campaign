@@ -106,6 +106,8 @@ export default function Nav() {
             <Link href="/products" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Products</Link>
             <Link href="/companies" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Companies</Link>
             <Link href="/insights" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Insights</Link>
+            <Link href="/strategic-defence-solutions" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Strategic Defence Solutions</Link>
+            <Link href="/who-we-work-with" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Who We Work With</Link>
             <Link href="/contact" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Contact Us</Link>
           </div>
 
