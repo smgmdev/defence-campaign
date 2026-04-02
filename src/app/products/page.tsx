@@ -141,7 +141,7 @@ function ProductsContent() {
         .search-input::placeholder { color: #999; }
         .search-btn { background: #000; border: none; width: 48px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .search-btn svg { width: 18px; height: 18px; fill: white; }
-        .toolbar { background: #fff; border-bottom: 2px solid #000; padding: 0; display: flex; align-items: center; gap: 0; min-height: 52px; flex-wrap: wrap; }
+        .toolbar { background: #fff; border-bottom: none; padding: 0; display: flex; align-items: center; gap: 0; min-height: 52px; flex-wrap: wrap; }
         .toolbar > .pg-wrap { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; min-height: 52px; width: 100%; }
         .view-toggle { display: flex; gap: 0; }
         .vtbtn { border: 1.5px solid #000; background: #fff; padding: 0 14px; font-size: 18px; cursor: pointer; font-family: inherit; transition: background 0.15s; height: 36px; display: flex; align-items: center; }
@@ -153,8 +153,8 @@ function ProductsContent() {
         .count-label strong { color: #000; }
         .dl-btn { border: 1.5px solid #000; background: #fff; padding: 0 16px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 6px; height: 36px; }
         .dl-btn:hover { background: #f5f5f5; }
-        .products-section { padding: 28px 0 100px; }
-        .cat-header { font-size: 11px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: #555; background: #f0f0f0; border-top: 2px solid #000; border-bottom: 1px solid #e0e0e0; padding: 8px 12px; margin: 32px 0 0; display: flex; align-items: center; justify-content: space-between; }
+        .products-section { padding: 0 0 100px; }
+        .cat-header { font-size: 11px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: #555; background: #f0f0f0; border-top: 2px solid #000; border-bottom: 1px solid #e0e0e0; padding: 8px 12px; margin: 0; display: flex; align-items: center; justify-content: space-between; }
         .cat-header .cat-count { font-size: 11px; color: #aaa; font-weight: 400; letter-spacing: 0; }
         .grid-view { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1px; background: #e0e0e0; }
         .prod-card { background: #fff; display: flex; flex-direction: column; transition: box-shadow 0.2s; cursor: default; }

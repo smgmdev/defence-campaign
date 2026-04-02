@@ -235,7 +235,7 @@ export default function CompaniesPage() {
           background: rgba(255,255,255,0.45); border: 1px solid rgba(0,0,0,0.1);
           padding: 14px 18px; font-size: 12px; color: #333; line-height: 1.6; margin-bottom: 0; max-width: 960px;
         }
-        .filter-area { background: #F5C400; padding: 20px 0 28px; border-bottom: 1px solid rgba(0,0,0,0.12); }
+        .filter-area { background: #F5C400; padding: 20px 0 28px; border-bottom: none; }
         .filter-area > .pg-wrap { display: flex; align-items: flex-end; gap: 24px; flex-wrap: wrap; width: 100%; }
         .filter-group { display: flex; flex-direction: column; gap: 8px; }
         .filter-group-label { font-size: 11px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; color: #000; }
@@ -266,13 +266,13 @@ export default function CompaniesPage() {
           display: flex; align-items: center; justify-content: center; flex-shrink: 0;
         }
         .search-btn svg { width: 18px; height: 18px; fill: #fff; }
-        .toolbar { background: #fff; border-bottom: 2px solid #000; padding: 0; display: flex; align-items: center; gap: 0; min-height: 52px; flex-wrap: wrap; }
+        .toolbar { background: #fff; border-bottom: none; padding: 0; display: flex; align-items: center; gap: 0; min-height: 52px; flex-wrap: wrap; }
         .toolbar > .pg-wrap { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; min-height: 52px; width: 100%; }
         .data-view-btn {
           background: #000; color: #fff; border: none; padding: 0 16px;
-          display: flex; flex-direction: column; justify-content: center;
+          display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
           cursor: pointer; font-family: inherit; min-width: 140px;
-          height: 36px; position: relative;
+          height: 36px; position: relative; text-align: left;
         }
         .data-view-btn .dv-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #aaa; line-height: 1; }
         .data-view-btn .dv-val { font-size: 13px; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 6px; line-height: 1; margin-top: 3px; }
@@ -326,7 +326,8 @@ export default function CompaniesPage() {
           .filter-btn { min-width: unset; width: 100%; }
           .search-group { max-width: 100%; }
           .toolbar > .pg-wrap { padding: 10px 20px; gap: 8px; min-height: unset; }
-          .data-view-btn { min-width: unset; flex: 1; height: auto; padding: 8px 16px; }
+          .data-view-btn { min-width: 180px; flex: 1; height: auto; padding: 8px 16px; }
+          .dl-btn { height: auto; padding: 8px 16px; align-self: stretch; }
           .showing-count { width: 100%; margin-left: 0; font-size: 12px; padding: 4px 0; }
           .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
         }
