@@ -219,8 +219,8 @@ a { color: inherit; }
 .btn-outline-black:hover { background: rgba(0,0,0,0.06); }
 
 /* ── FOOTER ── */
-.ft { background: #fff; border-top: 1px solid #e0e0e0; padding: 64px 0; }
-.ft-desc-row { padding-top: 0; padding-bottom: 40px; border-bottom: 1px solid #e0e0e0; margin-bottom: 48px; }
+.ft { background: #fff; border-top: 1px solid #e0e0e0; padding: 0 0 64px; }
+.ft-desc-row { padding-top: 16px; padding-bottom: 16px; border-bottom: 1px solid #e0e0e0; margin-bottom: 48px; }
 .ft-desc { font-size: 14px; color: #888; line-height: 1.7; max-width: 100%; }
 .ft-inner { display: grid; grid-template-columns: 220px 1fr; gap: 80px; align-items: start; }
 .ft-left { display: flex; flex-direction: column; }
@@ -231,8 +231,8 @@ a { color: inherit; }
 .ft-social-btn:hover { border-color: #333; color: #000; }
 
 /* ── COOKIE SETTINGS ── */
-.cs-trigger { background: none; border: none; font-family: inherit; font-size: 13px; color: #333; cursor: pointer; padding: 0; text-align: left; transition: color 0.15s; }
-.cs-trigger:hover { color: #000; }
+.cs-trigger { background: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; font-size: 12px; color: #333; cursor: pointer; padding: 8px 16px; text-align: center; transition: background 0.15s, border-color 0.15s; }
+.cs-trigger:hover { background: #e4e4e4; border-color: #ccc; }
 .cs-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 900; }
 .cs-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); background: #fff; z-index: 901; width: min(780px, 95vw); max-height: 90vh; display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
 .cs-modal-head { display: flex; align-items: center; justify-content: space-between; padding: 20px 28px; border-bottom: 1px solid #e0e0e0; }
@@ -315,6 +315,11 @@ a { color: inherit; }
   .sub-check { margin-bottom: 24px; }
   .sub-btn { width: 100%; text-align: center; }
   .ft-cols { grid-template-columns: repeat(2, 1fr); }
+  .ft { padding: 32px 0; }
+  .ft-desc-row { padding-bottom: 24px; margin-bottom: 24px; }
+  .ft-inner { gap: 24px; }
+  .ft-copy { margin-bottom: 12px; }
+  .ft-divider { margin-bottom: 12px; }
   .announce-bar { padding: 0 16px; }
   .announce-text { display: none; }
   .util-bar { padding: 0 16px; }

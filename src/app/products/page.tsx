@@ -311,14 +311,11 @@ function ProductsContent() {
                         <div className="prod-img">
                           {!imgErrors[p.id] ? (
                             <>
-                              {!imgLoaded[p.id] && <div className="img-spinner" />}
                               {/* eslint-disable-next-line @next/next/no-img-element */}
                               <img
                                 src={p.img}
                                 alt={p.name}
-                                style={imgLoaded[p.id] ? {} : { opacity: 0, position: 'absolute' }}
-                                onLoad={() => setImgLoaded(prev => ({ ...prev, [p.id]: true }))}
-                                onError={() => { setImgErrors(prev => ({ ...prev, [p.id]: true })); setImgLoaded(prev => ({ ...prev, [p.id]: true })) }}
+                                onError={() => setImgErrors(prev => ({ ...prev, [p.id]: true }))}
                               />
                             </>
                           ) : (
@@ -363,15 +360,12 @@ function ProductsContent() {
                         <div className="list-thumb-wrap" style={{position:'relative'}}>
                           {!imgErrors[p.id] ? (
                             <>
-                              {!imgLoaded[p.id] && <div className="img-spinner" style={{width:20,height:20,borderWidth:2}} />}
                               {/* eslint-disable-next-line @next/next/no-img-element */}
                               <img
                                 className="list-thumb"
                                 src={p.img}
                                 alt={p.name}
-                                style={imgLoaded[p.id] ? {} : { opacity: 0, position: 'absolute' }}
-                                onLoad={() => setImgLoaded(prev => ({ ...prev, [p.id]: true }))}
-                                onError={() => { setImgErrors(prev => ({ ...prev, [p.id]: true })); setImgLoaded(prev => ({ ...prev, [p.id]: true })) }}
+                                onError={() => setImgErrors(prev => ({ ...prev, [p.id]: true }))}
                               />
                             </>
                           ) : (
