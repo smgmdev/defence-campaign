@@ -326,7 +326,7 @@ export default function CompaniesPage() {
           .filter-btn { min-width: unset; width: 100%; }
           .search-group { max-width: 100%; }
           .toolbar > .pg-wrap { padding: 10px 20px; gap: 8px; min-height: unset; }
-          .data-view-btn { min-width: unset; flex: 1; }
+          .data-view-btn { min-width: unset; flex: 1; height: auto; padding: 8px 16px; }
           .showing-count { width: 100%; margin-left: 0; font-size: 12px; padding: 4px 0; }
           .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
         }

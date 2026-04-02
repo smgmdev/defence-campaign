@@ -328,8 +328,9 @@ a { color: inherit; }
   .search-overlay-inner { padding: 80px 16px 32px; }
   .cs-modal { width: 100vw; height: 100vh; max-height: 100vh; top: 0; left: 0; transform: none; }
   .cs-modal-body { grid-template-columns: 1fr; }
-  .cs-sidebar { display: flex; flex-wrap: wrap; overflow-x: visible; border-right: none; border-bottom: 1px solid #e0e0e0; flex-shrink: 0; }
-  .cs-sidebar-tab { white-space: nowrap; border-bottom: none; border-right: none; padding: 10px 14px; font-size: 11px; width: auto; }
+  .cs-sidebar { display: flex; overflow-x: auto; border-right: none; border-bottom: 1px solid #e0e0e0; flex-shrink: 0; scrollbar-width: none; -ms-overflow-style: none; }
+  .cs-sidebar::-webkit-scrollbar { display: none; }
+  .cs-sidebar-tab { white-space: nowrap; border-bottom: none; border-right: 1px solid #e0e0e0; padding: 10px 14px; font-size: 11px; width: auto; }
   .cs-sidebar-tab.active { border-left: none; border-bottom: 3px solid #000; }
   .cs-content { padding: 16px; }
   .cs-modal-head { padding: 16px; }
