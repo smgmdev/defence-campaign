@@ -124,7 +124,7 @@ a { color: inherit; }
 .mobile-menu-nav { border-top: 1px solid rgba(255,255,255,0.12); padding-top: 28px; margin-bottom: 48px; }
 .mobile-menu-link { display: block; font-size: 28px; font-weight: 400; color: #fff; text-decoration: none; padding: 10px 0; transition: opacity 0.15s; }
 .mobile-menu-link:hover { opacity: 0.6; }
-.mobile-menu-dropdown-btn { background: none; border: none; font-family: inherit; cursor: pointer; display: flex; align-items: center; justify-content: space-between; width: 100%; text-align: left; }
+.mobile-menu-dropdown-btn { background: none; border: none; font-family: inherit; cursor: pointer; display: flex; align-items: center; justify-content: space-between; width: 100%; text-align: left; -webkit-tap-highlight-color: transparent; outline: none; }
 .mobile-menu-arrow { font-size: 24px; color: rgba(255,255,255,0.4); transition: transform 0.2s; display: inline-block; }
 .mobile-menu-arrow.open { transform: rotate(90deg); }
 .mobile-menu-sub { padding-left: 20px; }
