@@ -14,6 +14,7 @@ export default function InsightsPage() {
   const [toastVisible, setToastVisible] = useState(false)
   const [toastMsg, setToastMsg] = useState('')
   const [heroImgLoaded, setHeroImgLoaded] = useState(false)
+  const [searchQ, setSearchQ] = useState('')
 
   useEffect(() => {
     const img = new Image()
@@ -34,10 +35,12 @@ export default function InsightsPage() {
   }
 
   function getFiltered() {
+    const q = searchQ.toLowerCase().trim()
     return ARTICLES.filter(a => {
       const catMatch = activeCat === 'all' || a.cat === activeCat
       const regMatch = activeRegion === 'all' || a.region === activeRegion
-      return catMatch && regMatch
+      const searchMatch = !q || a.title.toLowerCase().includes(q) || a.description.toLowerCase().includes(q) || a.keywords.toLowerCase().includes(q)
+      return catMatch && regMatch && searchMatch
     }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
   }
 
@@ -126,8 +129,9 @@ export default function InsightsPage() {
           background: #fff; color: #000;
           border-color: #e0e0e0; border-bottom-color: #fff;
         }
-        .content-wrap { max-width: 900px; margin: 0; padding: 56px 0 80px; }
-        .filter-by { margin-bottom: 48px; }
+        .content-wrap { max-width: 900px; margin: 0; padding: 56px 0 24px; }
+        .filter-search-row { display: flex; align-items: flex-end; gap: 24px; margin-bottom: 20px; }
+        .filter-by { margin-bottom: 0; flex-shrink: 0; }
         .filter-by-label { font-size: 13px; color: #666; margin-bottom: 8px; }
         .filter-dropdown-wrap { position: relative; display: inline-block; }
         .filter-dropdown-display {
@@ -141,7 +145,13 @@ export default function InsightsPage() {
         }
         .article-list {}
         .article-item { padding: 36px 0; border-bottom: 1px solid #e0e0e0; display: block; cursor: pointer; }
-        .article-item:first-child { border-top: 1px solid #e0e0e0; }
+        .insights-search { position: relative; flex: 1; }
+        .insights-search-input { width: 100%; padding: 14px 44px 14px 16px; font-size: 15px; font-family: inherit; border: 1px solid #e0e0e0; background: #fff; outline: none; transition: border-color 0.15s; }
+        .insights-search-input:focus { border-color: #000; }
+        .insights-search-input::placeholder { color: #aaa; }
+        .insights-search-icon { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: #999; pointer-events: none; }
+        .article-item:first-child { border-top: none; }
+        .article-item:last-child { border-bottom: none; }
         .art-source {
           display: flex; align-items: center; gap: 8px;
           font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
@@ -159,7 +169,7 @@ export default function InsightsPage() {
         }
         .art-title:hover { color: #E31837; }
         .art-date { font-size: 13px; color: #666; }
-        .load-more-wrap { margin-top: 48px; display: flex; align-items: center; gap: 20px; }
+        .load-more-wrap { margin-top: 20px; display: flex; align-items: center; gap: 20px; }
         .load-more-btn {
           background: #000; color: #fff; border: none;
           padding: 13px 28px; font-size: 13px; font-weight: 700;
@@ -177,6 +187,7 @@ export default function InsightsPage() {
           .tab-btn-insights { padding: 14px 14px; font-size: 13px; }
           .content-wrap { padding: 36px 0 56px; }
           .filter-dropdown-display { font-size: 24px; }
+          .filter-search-row { flex-direction: column; align-items: stretch; gap: 16px; }
           .art-title { font-size: 22px; }
         }
       `}</style>
@@ -210,20 +221,32 @@ export default function InsightsPage() {
       {/* CONTENT */}
       <div className="pg-wrap">
         <div className="content-wrap">
-          <div className="filter-by">
-            <div className="filter-by-label">Filter by:</div>
-            <div className="filter-dropdown-wrap">
-              <div className="filter-dropdown-display">
-                <span>{regionLabel}</span>
-                <span className="fd-chev">&#8964;</span>
+          <div className="filter-search-row">
+            <div className="filter-by">
+              <div className="filter-by-label">Filter by:</div>
+              <div className="filter-dropdown-wrap">
+                <div className="filter-dropdown-display">
+                  <span>{regionLabel}</span>
+                  <span className="fd-chev">&#8964;</span>
+                </div>
+                <select onChange={e => filterRegion(e.target.value)} value={activeRegion}>
+                  <option value="all">All</option>
+                  <option value="Middle East">Middle East</option>
+                  <option value="Europe">Europe</option>
+                  <option value="North America">North America</option>
+                  <option value="Global">Global</option>
+                </select>
               </div>
-              <select onChange={e => filterRegion(e.target.value)} value={activeRegion}>
-                <option value="all">All</option>
-                <option value="Middle East">Middle East</option>
-                <option value="Europe">Europe</option>
-                <option value="North America">North America</option>
-                <option value="Global">Global</option>
-              </select>
+            </div>
+            <div className="insights-search">
+            <input
+              className="insights-search-input"
+              type="text"
+              placeholder="Search articles..."
+              value={searchQ}
+              onChange={e => { setSearchQ(e.target.value); setShowing(SHOW_INITIAL) }}
+            />
+            <svg className="insights-search-icon" width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="9" cy="9" r="7"/><line x1="15" y1="15" x2="19" y2="19"/></svg>
             </div>
           </div>
 
