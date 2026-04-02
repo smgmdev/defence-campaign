@@ -7,145 +7,150 @@ export const metadata: Metadata = {
   description: 'Defence Trading delivers custom strategic defence solutions across ground and air domains — bespoke equipment packages, tiered procurement programmes, and multi-purpose operational configurations for governments and licensed defence enterprises.',
 }
 
-const GROUND_CAPABILITIES = [
-  { label: 'Infantry Systems', desc: 'Small arms, crew-served weapons, ammunition packages, and personal protective equipment configured to unit specification and operational theatre.' },
-  { label: 'Armoured & Vehicle Platforms', desc: 'Light patrol vehicles to fully armoured troop carriers, IFVs, and specialised logistical platforms — sourced, configured, and delivered to programme requirements.' },
-  { label: 'Fire Support & Artillery', desc: 'Mortar systems, artillery ammunition, and indirect fire support packages — calibrated to force structure and target engagement profiles.' },
-  { label: 'Force Protection', desc: 'Perimeter defence systems, counter-IED solutions, ballistic barriers, and static protection packages for forward operating bases and critical installations.' },
-  { label: 'Counter-UAV Ground Systems', desc: 'Ground-based counter-drone solutions including AI-guided interceptors, electronic warfare jamming platforms, and integrated C-UAS system packages.' },
-  { label: 'Logistics & Sustainment', desc: 'Ammunition storage, maintenance kits, field resupply packages, and sustainment chains designed for extended operational deployment cycles.' },
+const SERVICES = [
+  {
+    label: 'Ground Forces',
+    sub: 'Infantry · Armour · Artillery · Force Protection',
+    desc: 'From individual infantry kits to full armoured platform packages — we source, configure, and deliver ground force equipment to operational specifications. Small arms, crew-served weapons, ammunition, protective equipment, mortar systems, armoured vehicles, and counter-IED solutions.',
+    link: '/products',
+    linkLabel: 'Browse Ground Products',
+  },
+  {
+    label: 'Air & Counter-UAV',
+    sub: 'UAS · Counter-Drone · ISR · Electronic Warfare',
+    desc: 'Unmanned aerial systems, autonomous AI-guided drone interceptors, aerial surveillance platforms, and electronic warfare packages. Our counter-UAV interceptors deliver 360° radar coverage with ≥90% recognition rates, operational from −20°C to +60°C.',
+    link: '/products?cat=Drone%20Interceptor',
+    linkLabel: 'View Counter-UAV Systems',
+  },
+  {
+    label: 'Logistics & Sustainment',
+    sub: 'Ammunition · Storage · Resupply · Maintenance',
+    desc: 'Ammunition storage systems, maintenance kits, field resupply packages, and sustainment chains designed for extended operational deployment. Transport containers, packaging solutions, and forward-base logistics infrastructure.',
+    link: '/products?cat=Ammo%20Boxes%20%26%20Tubes',
+    linkLabel: 'View Logistics Products',
+  },
+  {
+    label: 'AI & Command Systems',
+    sub: 'Precision Targeting · Situational Awareness · C2',
+    desc: 'AI-powered precision targeting, fire control systems, communications equipment, and situational awareness platforms. Integrated command and control solutions for joint force operations across multiple domains.',
+    link: '/products?cat=AI%20Systems',
+    linkLabel: 'View AI Systems',
+  },
 ]
 
-const AIR_CAPABILITIES = [
-  { label: 'Unmanned Aerial Systems', desc: 'Reconnaissance, strike, and multi-role UAS platforms across tactical and operational ranges — supplied with operator training and maintenance support packages.' },
-  { label: 'Counter-UAV Interceptors', desc: 'Autonomous AI-guided drone interceptors with 360° radar coverage, pixel-level targeting, and ≥90% recognition rates — operational in temperatures from −20°C to +60°C.' },
-  { label: 'Aerial Surveillance Packages', desc: 'EO/IR sensor-equipped aerial platforms for persistent ISR (intelligence, surveillance, reconnaissance) missions in contested and permissive environments.' },
-  { label: 'Air Defence Components', desc: 'Radar systems, detection arrays, and short-range air defence components for protecting ground assets, installations, and forward bases.' },
-  { label: 'Airborne Logistics Support', desc: 'Supply and resupply delivery systems, including cargo UAS and precision airdrop systems for remote or contested operational areas.' },
-  { label: 'Electronic Warfare', desc: 'Spectrum denial, GPS jamming countermeasures, and signals intelligence packages for electronic dominance in contested operational environments.' },
+const STATS = [
+  { value: '34+', label: 'Certified Products' },
+  { value: '14', label: 'Product Categories' },
+  { value: '4', label: 'Operational Domains' },
+  { value: '3', label: 'Procurement Tiers' },
 ]
 
 const TIERS = [
   {
     tier: 'Tier I',
     name: 'Standard Configuration',
-    color: '#e8e8e8',
-    textColor: '#000',
     desc: 'Off-catalogue supply of certified, in-production equipment from verified manufacturers. Standard specifications, established lead times, and full export documentation.',
     items: ['Catalogue product selection', 'Standard packaging & markings', 'Export documentation included', 'Delivery to agreed incoterms', 'Quality certificates provided'],
   },
   {
     tier: 'Tier II',
     name: 'Modified Configuration',
-    color: '#1a1a1a',
-    textColor: '#fff',
     desc: 'Factory-modified or field-adapted variants configured to client specifications. Calibre changes, optical fit, suppressor compatibility, and integration with existing platforms.',
     items: ['Custom calibre or ammunition type', 'Optics & accessories integration', 'Platform modification packages', 'Extended lead time provisioning', 'Dedicated programme manager'],
   },
   {
     tier: 'Tier III',
     name: 'Bespoke Programme',
-    color: '#0a0a0a',
-    textColor: '#fff',
-    accent: '#F5C400',
     desc: 'End-to-end custom defence programmes for complex, multi-domain requirements. Full needs assessment, manufacturer coordination, phased delivery, and operational integration support.',
     items: ['Needs assessment & scoping', 'Multi-manufacturer coordination', 'Phased delivery scheduling', 'In-country delivery support', 'Training & integration packages', 'Long-term sustainment options'],
   },
-]
-
-const DOMAINS = [
-  { icon: '⬛', label: 'Ground Domain', detail: 'Infantry · Armour · Artillery · Force Protection · Logistics' },
-  { icon: '◈', label: 'Air Domain', detail: 'UAS · Counter-UAV · ISR · Air Defence · Electronic Warfare' },
-  { icon: '◉', label: 'Multi-Domain', detail: 'Integrated packages spanning ground and air for joint force operations' },
-  { icon: '▣', label: 'Command & Control', detail: 'Comms systems, situational awareness tools, and C2 integration equipment' },
 ]
 
 export default function StrategicDefenceSolutionsPage() {
   return (
     <>
       {/* ── HERO ── */}
-      <section style={{ background: '#0a0a0a', padding: '100px 0 80px', position: 'relative', overflow: 'hidden' }}>
-        <div className="pg-wrap" style={{ position: 'relative', zIndex: 1 }}>
-          <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '2px', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', marginBottom: '24px' }}>Our Offerings</p>
-          <h1 style={{ fontSize: 'clamp(34px, 6vw, 72px)', fontWeight: 400, color: '#fff', lineHeight: 1.05, maxWidth: '860px', marginBottom: '32px', letterSpacing: '-0.5px' }}>
-            Strategic Defence Solutions. Ground, Air, and Multi-Domain.
-          </h1>
-          <p style={{ fontSize: '17px', color: 'rgba(255,255,255,0.6)', lineHeight: 1.75, maxWidth: '620px', marginBottom: '48px' }}>
-            We deliver bespoke defence procurement programmes — from individual product supply to full multi-tier equipment packages — for governments and licensed defence enterprises operating across any theatre.
+      <section className="sds-hero">
+        <div className="pg-wrap sds-hero-inner">
+          <p className="sds-hero-tag">Defence Trading — Offerings</p>
+          <h1 className="sds-hero-h1">The Equipment Advantage</h1>
+          <p className="sds-hero-body">
+            Defence-grade procurement capability built over years of sourcing certified military products through compliant channels — for governments and licensed defence enterprises operating across any theatre.
           </p>
-          <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-            <Link href="/products" className="btn-browse-products"><span>View Product Catalogue</span></Link>
-            <Link href="/contact" className="sds-ghost-btn">Custom Enquiry</Link>
+          <div className="sds-hero-cta-row">
+            <Link href="/products" className="sds-hero-btn-primary"><span>Explore Products</span></Link>
+            <Link href="/contact" className="sds-hero-btn-ghost">Contact Us →</Link>
           </div>
         </div>
       </section>
 
-      {/* ── DOMAIN COVERAGE ── */}
-      <section style={{ background: '#111', borderTop: '1px solid #222' }}>
+      {/* ── STATS BAR ── */}
+      <section className="sds-stats-bar">
         <div className="pg-wrap">
-          <div className="sds-domains">
-            {DOMAINS.map((d, i) => (
-              <div key={i} className="sds-domain">
-                <div className="sds-domain-icon">{d.icon}</div>
-                <div className="sds-domain-label">{d.label}</div>
-                <div className="sds-domain-detail">{d.detail}</div>
+          <div className="sds-stats-grid">
+            {STATS.map((s, i) => (
+              <div key={i} className="sds-stat">
+                <div className="sds-stat-value">{s.value}</div>
+                <div className="sds-stat-label">{s.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── GROUND CAPABILITIES ── */}
-      <section style={{ background: '#fff', padding: '80px 0 0' }}>
-        <div className="pg-wrap" style={{ marginBottom: '0' }}>
-          <p className="sds-label">Ground Domain</p>
-          <h2 className="sds-h2" style={{ marginBottom: '8px' }}>Ground Force Solutions</h2>
-          <p style={{ fontSize: '15px', color: '#888', maxWidth: '560px', lineHeight: 1.6, marginBottom: '64px' }}>From individual infantry kit to full armoured platform packages.</p>
+      {/* ── DISCOVER BY SERVICE ── */}
+      <section className="sds-services">
+        <div className="pg-wrap">
+          <p className="sds-section-tag">Discover by Domain</p>
+          <h2 className="sds-section-h2">Multi-domain defence procurement across ground, air, and joint operations.</h2>
         </div>
-        {GROUND_CAPABILITIES.map((c, i) => (
-          <div key={i} className={`sds-band ${i % 2 === 0 ? 'sds-band--white' : 'sds-band--gray'}`}>
-            <div className="pg-wrap sds-band-inner">
-              <h3 className="sds-band-title">{c.label}</h3>
-              <p className="sds-band-desc">{c.desc}</p>
+        <div className="sds-service-blocks">
+          {SERVICES.map((s, i) => (
+            <div key={i} className="sds-service">
+              <div className="pg-wrap sds-service-inner">
+                <div className="sds-service-left">
+                  <div className="sds-service-num">{String(i + 1).padStart(2, '0')}</div>
+                  <h3 className="sds-service-title">{s.label}</h3>
+                  <p className="sds-service-sub">{s.sub}</p>
+                </div>
+                <div className="sds-service-right">
+                  <p className="sds-service-desc">{s.desc}</p>
+                  <Link href={s.link} className="sds-service-link">{s.linkLabel} →</Link>
+                </div>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </section>
 
-      {/* ── AIR CAPABILITIES ── */}
-      <section style={{ background: '#0a0a0a', padding: '80px 0 0' }}>
+      {/* ── QUOTE / AUTHORITY SECTION ── */}
+      <section className="sds-quote-section">
         <div className="pg-wrap">
-          <p className="sds-label" style={{ color: 'rgba(255,255,255,0.4)' }}>Air Domain</p>
-          <h2 className="sds-h2" style={{ color: '#fff', marginBottom: '8px' }}>Aerial &amp; Counter-UAV Solutions</h2>
-          <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.4)', maxWidth: '560px', lineHeight: 1.6, marginBottom: '64px' }}>Counter-drone interceptors, ISR platforms, and electronic warfare packages.</p>
+          <blockquote className="sds-quote">
+            &ldquo;We work exclusively with sovereign governments, national armed forces, and fully licensed defence enterprises. No exceptions. No discretionary waivers.&rdquo;
+          </blockquote>
+          <p className="sds-quote-attr">Defence Trading — Counterparty Policy</p>
+          <Link href="/who-we-work-with" className="sds-quote-link">Who We Work With →</Link>
         </div>
-        {AIR_CAPABILITIES.map((c, i) => (
-          <div key={i} className={`sds-band-dark ${i % 2 === 0 ? 'sds-band-dark--a' : 'sds-band-dark--b'}`}>
-            <div className="pg-wrap sds-band-inner">
-              <h3 className="sds-band-title" style={{ color: '#fff' }}>{c.label}</h3>
-              <p className="sds-band-desc" style={{ color: 'rgba(255,255,255,0.5)' }}>{c.desc}</p>
-            </div>
-          </div>
-        ))}
       </section>
 
-      {/* ── TIER SYSTEM ── */}
-      <section style={{ background: '#fff', padding: '88px 0' }}>
+      {/* ── PROCUREMENT TIERS ── */}
+      <section className="sds-tiers-section">
         <div className="pg-wrap">
-          <div style={{ marginBottom: '56px' }}>
-            <p className="sds-label">Procurement Structure</p>
-            <h2 className="sds-h2" style={{ maxWidth: '560px' }}>Three tiers of custom solution capability</h2>
-            <p style={{ fontSize: '15px', color: '#666', lineHeight: 1.7, maxWidth: '580px', marginTop: '16px' }}>Every client requirement is unique. Our tiered framework allows us to deliver at any level — from fast standard supply to fully bespoke multi-phase programmes.</p>
-          </div>
-          <div className="sds-tier-grid">
+          <p className="sds-section-tag sds-section-tag--light">Procurement Structure</p>
+          <h2 className="sds-section-h2 sds-section-h2--light">Three tiers of solution capability</h2>
+          <p className="sds-tiers-intro">Every client requirement is unique. Our tiered framework allows us to deliver at any level — from fast standard supply to fully bespoke multi-phase programmes.</p>
+        </div>
+        <div className="pg-wrap">
+          <div className="sds-tiers-grid">
             {TIERS.map((t, i) => (
-              <div key={i} className="sds-tier" style={{ background: t.color, color: t.textColor }}>
-                <div className="sds-tier-badge" style={{ color: t.accent || (t.textColor === '#fff' ? 'rgba(255,255,255,0.4)' : '#999') }}>{t.tier}</div>
-                <h3 className="sds-tier-name" style={{ color: t.textColor }}>{t.name}</h3>
-                <p className="sds-tier-desc" style={{ color: t.textColor === '#fff' ? 'rgba(255,255,255,0.6)' : '#555' }}>{t.desc}</p>
+              <div key={i} className={`sds-tier-card${i === 2 ? ' sds-tier-card--accent' : ''}`}>
+                <div className="sds-tier-badge">{t.tier}</div>
+                <h3 className="sds-tier-name">{t.name}</h3>
+                <p className="sds-tier-desc">{t.desc}</p>
                 <ul className="sds-tier-list">
                   {t.items.map((item, j) => (
-                    <li key={j} style={{ color: t.textColor === '#fff' ? 'rgba(255,255,255,0.8)' : '#333' }}>↳ {item}</li>
+                    <li key={j}>{item}</li>
                   ))}
                 </ul>
               </div>
@@ -154,72 +159,113 @@ export default function StrategicDefenceSolutionsPage() {
         </div>
       </section>
 
-      {/* ── CATALOGUE + CUSTOM CTA ── */}
-      <section style={{ background: '#f5f5f5', padding: '80px 0', borderTop: '1px solid #e0e0e0' }}>
+      {/* ── DUAL CTA ── */}
+      <section className="sds-dual-cta">
         <div className="pg-wrap">
-          <div className="sds-cta-grid">
-            <div className="sds-cta-block">
-              <p className="sds-label">Product Catalogue</p>
-              <h3 style={{ fontSize: 'clamp(20px, 2.5vw, 30px)', fontWeight: 500, color: '#000', marginBottom: '14px', lineHeight: 1.2 }}>Review our full range of certified products</h3>
-              <p style={{ fontSize: '14px', color: '#666', lineHeight: 1.65, marginBottom: '28px' }}>Browse our catalogue of verified, in-production defence products spanning ammunition, small arms, armoured vehicles, AI systems, drone interceptors, and more — all available through established procurement channels.</p>
-              <Link href="/products" className="btn-browse-products"><span>Browse Product Catalogue</span></Link>
+          <div className="sds-dual-grid">
+            <div className="sds-dual-block">
+              <h3 className="sds-dual-title">Explore our full product catalogue</h3>
+              <p className="sds-dual-desc">Certified, in-production defence products spanning ammunition, firearms, armoured vehicles, AI systems, and drone interceptors — all available through established procurement channels.</p>
+              <Link href="/products" className="sds-hero-btn-primary"><span>Browse Products</span></Link>
             </div>
-            <div className="sds-cta-divider" />
-            <div className="sds-cta-block">
-              <p className="sds-label">Custom Enquiries</p>
-              <h3 style={{ fontSize: 'clamp(20px, 2.5vw, 30px)', fontWeight: 500, color: '#000', marginBottom: '14px', lineHeight: 1.2 }}>Requirements not listed? Contact our team.</h3>
-              <p style={{ fontSize: '14px', color: '#666', lineHeight: 1.65, marginBottom: '28px' }}>If your operational requirement falls outside our standard catalogue, our procurement team will assess feasibility, identify qualified manufacturers, and structure a bespoke supply programme to your specifications.</p>
-              <Link href="/contact" className="btn-browse-products"><span>Submit Custom Enquiry</span></Link>
+            <div className="sds-dual-block">
+              <h3 className="sds-dual-title">Custom requirements? Talk to our team.</h3>
+              <p className="sds-dual-desc">If your operational requirement falls outside our catalogue, our procurement team will assess feasibility, identify qualified manufacturers, and structure a bespoke supply programme.</p>
+              <Link href="/contact" className="sds-hero-btn-primary"><span>Submit Enquiry</span></Link>
             </div>
           </div>
         </div>
       </section>
 
       <style>{`
-        .sds-domains { display: grid; grid-template-columns: repeat(4,1fr); border-left: 1px solid #222; }
-        .sds-domain { padding: 32px 28px; border-right: 1px solid #222; border-top: 1px solid #222; border-bottom: 1px solid #222; }
-        .sds-domain-icon { font-size: 20px; color: rgba(255,255,255,0.3); margin-bottom: 14px; }
-        .sds-domain-label { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 8px; }
-        .sds-domain-detail { font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.6; }
-        .sds-section-head { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-bottom: 48px; align-items: start; }
-        .sds-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #999; text-transform: uppercase; margin-bottom: 10px; }
-        .sds-h2 { font-size: clamp(24px,3.5vw,42px); font-weight: 400; color: #000; line-height: 1.1; }
-        .sds-section-intro { font-size: 15px; color: #666; line-height: 1.7; padding-top: 32px; }
-        .sds-band, .sds-band-dark { padding: 48px 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
-        .sds-band--white { background: #fff; }
-        .sds-band--gray { background: #f7f7f7; }
-        .sds-band-dark--a { background: #111; border-bottom-color: rgba(255,255,255,0.06); }
-        .sds-band-dark--b { background: #151515; border-bottom-color: rgba(255,255,255,0.06); }
-        .sds-band-inner { display: flex; justify-content: space-between; align-items: baseline; gap: 48px; }
-        .sds-band-title { font-size: 18px; font-weight: 600; color: #000; white-space: nowrap; flex-shrink: 0; }
-        .sds-band-desc { font-size: 14px; color: #666; line-height: 1.7; max-width: 600px; text-align: right; }
-        .sds-tier-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
-        .sds-tier { padding: 40px 32px; }
-        .sds-tier-badge { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
-        .sds-tier-name { font-size: 20px; font-weight: 600; margin-bottom: 16px; }
-        .sds-tier-desc { font-size: 13px; line-height: 1.65; margin-bottom: 24px; }
-        .sds-tier-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-        .sds-tier-list li { font-size: 13px; }
-        .sds-cta-grid { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0; align-items: start; }
-        .sds-cta-block { padding: 0 48px 0 0; }
-        .sds-cta-block:last-child { padding: 0 0 0 48px; }
-        .sds-cta-divider { background: #e0e0e0; align-self: stretch; }
-        .sds-ghost-btn { display: inline-block; padding: 14px 32px; font-size: 13px; color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.25); text-decoration: none; transition: border-color 0.2s, color 0.2s; letter-spacing: 1px; text-transform: uppercase; }
-        .sds-ghost-btn:hover { border-color: #fff; color: #fff; }
+        /* ── HERO ── */
+        .sds-hero { background: #0a0a0a; padding: 140px 0 100px; position: relative; overflow: hidden; }
+        .sds-hero::before { content: ''; position: absolute; top: -200px; right: -200px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%); pointer-events: none; }
+        .sds-hero-inner { position: relative; z-index: 1; }
+        .sds-hero-tag { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; color: rgba(255,255,255,0.35); text-transform: uppercase; margin-bottom: 32px; }
+        .sds-hero-h1 { font-size: clamp(40px, 7vw, 80px); font-weight: 400; color: #fff; line-height: 1.0; max-width: 700px; margin-bottom: 32px; letter-spacing: -1px; }
+        .sds-hero-body { font-size: 17px; color: rgba(255,255,255,0.55); line-height: 1.75; max-width: 560px; margin-bottom: 48px; }
+        .sds-hero-cta-row { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+        .sds-hero-btn-primary { display: inline-block; padding: 14px 36px; background: #fff; color: #000; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; text-decoration: none; text-transform: uppercase; position: relative; overflow: hidden; z-index: 1; transition: color 0.3s; }
+        .sds-hero-btn-primary::before { content: ''; position: absolute; inset: 0; background: #d0d0d0; transform: scaleX(0); transform-origin: left; transition: transform 0.3s; z-index: -1; }
+        .sds-hero-btn-primary:hover::before { transform: scaleX(1); }
+        .sds-hero-btn-ghost { font-size: 14px; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
+        .sds-hero-btn-ghost:hover { color: #fff; }
+
+        /* ── STATS BAR ── */
+        .sds-stats-bar { background: #111; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .sds-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+        .sds-stat { padding: 40px 0; text-align: center; border-right: 1px solid rgba(255,255,255,0.08); }
+        .sds-stat:last-child { border-right: none; }
+        .sds-stat-value { font-size: clamp(28px, 4vw, 48px); font-weight: 400; color: #fff; letter-spacing: -1px; margin-bottom: 6px; }
+        .sds-stat-label { font-size: 11px; font-weight: 600; letter-spacing: 2px; color: rgba(255,255,255,0.35); text-transform: uppercase; }
+
+        /* ── SERVICES ── */
+        .sds-services { background: #0a0a0a; padding: 100px 0 0; }
+        .sds-section-tag { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; color: rgba(255,255,255,0.35); text-transform: uppercase; margin-bottom: 20px; }
+        .sds-section-tag--light { color: #999; }
+        .sds-section-h2 { font-size: clamp(26px, 3.5vw, 44px); font-weight: 400; color: #fff; line-height: 1.15; max-width: 700px; margin-bottom: 0; }
+        .sds-section-h2--light { color: #fff; }
+        .sds-service-blocks { margin-top: 64px; }
+        .sds-service { border-top: 1px solid rgba(255,255,255,0.08); transition: background 0.3s; }
+        .sds-service:hover { background: rgba(255,255,255,0.02); }
+        .sds-service-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; padding: 56px 0; align-items: start; }
+        .sds-service-left {}
+        .sds-service-num { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: rgba(255,255,255,0.2); margin-bottom: 16px; }
+        .sds-service-title { font-size: clamp(22px, 3vw, 32px); font-weight: 400; color: #fff; line-height: 1.15; margin-bottom: 12px; }
+        .sds-service-sub { font-size: 13px; color: rgba(255,255,255,0.35); letter-spacing: 0.5px; }
+        .sds-service-right { padding-top: 4px; }
+        .sds-service-desc { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.75; margin-bottom: 24px; }
+        .sds-service-link { font-size: 14px; color: #fff; text-decoration: none; font-weight: 500; transition: opacity 0.2s; }
+        .sds-service-link:hover { opacity: 0.7; }
+
+        /* ── QUOTE ── */
+        .sds-quote-section { background: #fff; padding: 100px 0; }
+        .sds-quote { font-size: clamp(22px, 3vw, 36px); font-weight: 400; color: #000; line-height: 1.35; max-width: 800px; margin: 0 0 32px; border: none; padding: 0; }
+        .sds-quote-attr { font-size: 13px; font-weight: 600; color: #999; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
+        .sds-quote-link { font-size: 14px; color: #000; text-decoration: none; font-weight: 500; transition: opacity 0.2s; }
+        .sds-quote-link:hover { opacity: 0.5; }
+
+        /* ── TIERS ── */
+        .sds-tiers-section { background: #0a0a0a; padding: 100px 0; }
+        .sds-tiers-intro { font-size: 15px; color: rgba(255,255,255,0.45); line-height: 1.75; max-width: 560px; margin-top: 20px; }
+        .sds-tiers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 64px; background: rgba(255,255,255,0.08); }
+        .sds-tier-card { background: #111; padding: 48px 36px; }
+        .sds-tier-card--accent { background: #151515; }
+        .sds-tier-badge { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 24px; }
+        .sds-tier-card--accent .sds-tier-badge { color: #F5C400; }
+        .sds-tier-name { font-size: 22px; font-weight: 500; color: #fff; margin-bottom: 16px; }
+        .sds-tier-desc { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 28px; }
+        .sds-tier-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+        .sds-tier-list li { font-size: 13px; color: rgba(255,255,255,0.6); padding-left: 16px; position: relative; }
+        .sds-tier-list li::before { content: '→'; position: absolute; left: 0; color: rgba(255,255,255,0.25); }
+
+        /* ── DUAL CTA ── */
+        .sds-dual-cta { background: #fff; padding: 100px 0; border-top: 1px solid #e0e0e0; }
+        .sds-dual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+        .sds-dual-block {}
+        .sds-dual-title { font-size: clamp(20px, 2.5vw, 28px); font-weight: 500; color: #000; margin-bottom: 16px; line-height: 1.25; }
+        .sds-dual-desc { font-size: 14px; color: #666; line-height: 1.7; margin-bottom: 32px; }
+        .sds-dual-cta .sds-hero-btn-primary { background: #000; color: #fff; }
+        .sds-dual-cta .sds-hero-btn-primary::before { background: #333; }
+
+        /* ── RESPONSIVE ── */
         @media (max-width: 1024px) {
-          .sds-domains { grid-template-columns: repeat(2,1fr); }
-          .sds-tier-grid { grid-template-columns: 1fr; gap: 2px; }
-          .sds-section-head { grid-template-columns: 1fr; gap: 16px; }
-          .sds-section-intro { padding-top: 0; }
-          .sds-band-inner { flex-direction: column; gap: 12px; }
-          .sds-band-desc { text-align: left; max-width: 100%; }
+          .sds-service-inner { grid-template-columns: 1fr; gap: 24px; }
+          .sds-tiers-grid { grid-template-columns: 1fr; }
+          .sds-stats-grid { grid-template-columns: repeat(2, 1fr); }
+          .sds-stat { border-bottom: 1px solid rgba(255,255,255,0.08); }
+          .sds-dual-grid { grid-template-columns: 1fr; gap: 56px; }
         }
         @media (max-width: 768px) {
-          .sds-domains { grid-template-columns: 1fr 1fr; }
-          .sds-band, .sds-band-dark { padding: 32px 0; }
-          .sds-cta-grid { grid-template-columns: 1fr; }
-          .sds-cta-divider { height: 1px; width: 100%; margin: 40px 0; }
-          .sds-cta-block, .sds-cta-block:last-child { padding: 0; }
+          .sds-hero { padding: 100px 0 64px; }
+          .sds-services { padding: 64px 0 0; }
+          .sds-service-inner { padding: 36px 0; }
+          .sds-quote-section { padding: 64px 0; }
+          .sds-tiers-section { padding: 64px 0; }
+          .sds-dual-cta { padding: 64px 0; }
+          .sds-stats-grid { grid-template-columns: 1fr 1fr; }
+          .sds-stat { padding: 28px 0; }
         }
       `}</style>
 

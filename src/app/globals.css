@@ -324,4 +324,11 @@ a { color: inherit; }
   .announce-text { display: none; }
   .util-bar { padding: 0 16px; }
   .util-links a:not(.active) { display: none; }
+  .search-overlay-inner { padding: 80px 16px 32px; }
+  .search-overlay-input { font-size: 20px; }
+  .search-overlay-close { top: 16px; right: 16px; height: 36px; padding: 0 10px; font-size: 13px; }
+  .search-popular { gap: 12px; }
+  .search-popular-tag { font-size: 13px; }
+  .search-results-grid { grid-template-columns: 1fr; }
+  .search-result-card { padding: 12px; }
 }
