@@ -24,6 +24,8 @@ export default function Nav() {
   const [searchOpen, setSearchOpen] = useState(false)
   const [searchVal, setSearchVal] = useState('')
   const [results, setResults] = useState<typeof PRODUCTS>([])
+  const [offeringsOpen, setOfferingsOpen] = useState(false)
+  const [moreOpen, setMoreOpen] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -115,9 +117,26 @@ export default function Nav() {
             <Link href="/products" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Products</Link>
             <Link href="/companies" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Companies</Link>
             <Link href="/insights" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Insights</Link>
-            <Link href="/strategic-defence-solutions" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Strategic Defence Solutions</Link>
-            <Link href="/who-we-work-with" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Who We Work With</Link>
-            <Link href="/contact" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Contact Us</Link>
+
+            <button className="mobile-menu-link mobile-menu-dropdown-btn" onClick={() => setOfferingsOpen(v => !v)}>
+              Our Offerings <span className={`mobile-menu-arrow${offeringsOpen ? ' open' : ''}`}>›</span>
+            </button>
+            {offeringsOpen && (
+              <div className="mobile-menu-sub">
+                <Link href="/strategic-defence-solutions" className="mobile-menu-sub-link" onClick={() => setMenuOpen(false)}>Strategic Defence Solutions</Link>
+                <Link href="/arcana-satellite-program" className="mobile-menu-sub-link" onClick={() => setMenuOpen(false)}>Arcana Satellite Program</Link>
+              </div>
+            )}
+
+            <button className="mobile-menu-link mobile-menu-dropdown-btn" onClick={() => setMoreOpen(v => !v)}>
+              More <span className={`mobile-menu-arrow${moreOpen ? ' open' : ''}`}>›</span>
+            </button>
+            {moreOpen && (
+              <div className="mobile-menu-sub">
+                <Link href="/who-we-work-with" className="mobile-menu-sub-link" onClick={() => setMenuOpen(false)}>Who We Work With</Link>
+                <Link href="/contact" className="mobile-menu-sub-link" onClick={() => setMenuOpen(false)}>Contact Us</Link>
+              </div>
+            )}
           </div>
 
           <div className="mobile-menu-insights">

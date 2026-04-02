@@ -251,7 +251,7 @@ export default function HomePage() {
               <div className="disc-search">
                 <input
                   type="text"
-                  placeholder="Search products, companies, or categories..."
+                  placeholder="Search for products, companies..."
                   value={searchVal}
                   onChange={e => handleSearch(e.target.value)}
                   onFocus={openDefaultDropdown}
