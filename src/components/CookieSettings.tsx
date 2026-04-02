@@ -54,7 +54,7 @@ export default function CookieSettings() {
       <div className="cs-backdrop" onClick={() => setOpen(false)} />
       <div className="cs-modal">
         <div className="cs-modal-head">
-          <div className="cs-modal-logo">DefenceTrading<sup>®</sup> <span className="cs-modal-title-text">Privacy Preference Centre</span></div>
+          <div className="cs-modal-logo"><span>DefenceTrading<span className="brand-dot"></span></span> <span className="cs-modal-title-text">Privacy Preference Centre</span></div>
           <button className="cs-modal-close" onClick={() => setOpen(false)}>&#x2715;</button>
         </div>
 

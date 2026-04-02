@@ -170,9 +170,8 @@ export default function InsightsPage() {
         @media (max-width: 767px) {
           .hero { grid-template-columns: 1fr; width: 100%; }
           .hero { min-height: 240px; }
-          .hero-left { padding: 24px 0; align-items: flex-start; text-align: left; }
+          .hero-left { padding: 24px 20px; align-items: flex-start; text-align: left; }
           .hero-left h1, .hero-left p { text-align: left; }
-          .hero-left .pg-wrap { padding-left: 0 !important; padding-right: 0 !important; }
           .hero-right { display: none; }
           .tab-nav { padding: 0 16px; }
           .tab-btn-insights { padding: 14px 14px; font-size: 13px; }

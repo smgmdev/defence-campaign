@@ -87,7 +87,7 @@ export default function Nav() {
           </div>
         )}
         <nav className="main-nav">
-          <Link href="/" className="brand" onClick={() => setMenuOpen(false)}>DefenceTrading<span>®</span></Link>
+          <Link href="/" className="brand" onClick={() => setMenuOpen(false)}>DefenceTrading<span className="brand-dot"></span></Link>
           <div className="nav-links">
             <Link href="/about" className={isActive('/about') ? 'active' : ''}>About Us</Link>
             <Link href="/products" className={isActive('/products') ? 'active' : ''}>Products</Link>
