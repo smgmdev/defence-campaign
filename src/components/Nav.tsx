@@ -69,7 +69,7 @@ export default function Nav() {
       p.category.toLowerCase().includes(q) ||
       (p.type || '').toLowerCase().includes(q) ||
       (p.tags || []).some(t => t.toLowerCase().includes(q))
-    ).slice(0, 12))
+    ))
   }
 
   const isActive = (href: string) => {
