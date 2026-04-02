@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { useState, useEffect, useRef } from 'react'
 import { PRODUCTS, CATEGORIES } from '@/lib/products'
@@ -168,11 +167,12 @@ export default function Nav() {
 
             {results.length > 0 && (
               <div className="search-results-grid">
-                {results.map((p, i) => (
-                  <Link key={i} href={`/products?q=${encodeURIComponent(p.name)}`} className="search-result-card"
+                {results.map(p => (
+                  <Link key={p.id} href={`/products?q=${encodeURIComponent(p.name)}`} className="search-result-card"
                     onClick={() => setSearchOpen(false)}>
                     <div className="search-result-img">
-                      <Image src={p.img} alt={p.name} width={80} height={80} style={{ objectFit: 'contain' }} unoptimized />
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={p.img} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                     </div>
                     <div className="search-result-info">
                       <div className="search-result-name">{p.name}</div>
