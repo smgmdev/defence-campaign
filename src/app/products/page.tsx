@@ -153,7 +153,7 @@ function ProductsContent() {
         .count-label strong { color: #000; }
         .dl-btn { border: 1.5px solid #000; background: #fff; padding: 0 16px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 6px; height: 36px; }
         .dl-btn:hover { background: #f5f5f5; }
-        .products-section { padding: 0 0 100px; }
+        .products-section { padding: 0; }
         .cat-header { font-size: 11px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: #555; background: #f0f0f0; border-top: 2px solid #000; border-bottom: 1px solid #e0e0e0; padding: 8px 12px; margin: 0; display: flex; align-items: center; justify-content: space-between; }
         .cat-header .cat-count { font-size: 11px; color: #aaa; font-weight: 400; letter-spacing: 0; }
         .grid-view { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1px; background: #e0e0e0; }
@@ -214,6 +214,7 @@ function ProductsContent() {
         @media (max-width: 767px) {
           .products-hero { padding: 24px 0 0; }
           .filter-bar { padding: 16px 0 20px; flex-direction: column; align-items: stretch; gap: 16px; }
+          .toolbar > .pg-wrap { padding: 10px 20px; }
           .filter-bar > .pg-wrap { flex-direction: column; align-items: stretch; gap: 16px; }
           .filter-bar .fg[style] { flex: 0 0 auto !important; width: 100% !important; }
           .fbtn { width: 100%; }
