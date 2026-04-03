@@ -20,28 +20,13 @@ export const ARTICLES: Article[] = [
     region: "Global",
     description: "Defence Trading and Arcana Mace announce a strategic partnership to launch the Arcana Satellite Program — connecting Arcana Precision AI to global satellite constellations and radar networks for real-time threat detection of drones, missiles, and nuclear weapons.",
     keywords: "Arcana Mace, Arcana Precision AI, Defence Trading, Arcana Satellite Program, AI threat detection, satellite defence, drone detection, missile detection, nuclear threat detection, defence partnership",
-    body: `<p>DefenceTrading.com, a fully licensed B2B and B2G defence trading platform based in the UAE, and Arcana Mace, the developer of the advanced Arcana Precision AI threat detection system, have announced a strategic partnership to launch the <strong>Arcana Satellite Program</strong> — a joint initiative designed to connect Arcana Precision AI to global satellite constellations and ground-based radar networks for real-time detection of drones, missiles, nuclear weapons, and hydrogen bombs.</p>
+    body: `<p>DefenceTrading.com, a fully licensed B2B and B2G defence trading platform based in the Gulf, and <a href="https://arcanamace.com" target="_blank">Arcana Mace</a>, the developer of the advanced <a href="https://arcanamace.com/arcana-precision" target="_blank">Arcana Precision AI</a> threat detection system, have announced a strategic partnership to launch the <strong>Arcana Satellite Program</strong> — a joint initiative designed to connect Arcana Precision AI to global satellite constellations and ground-based radar networks for real-time detection of drones, missiles, nuclear weapons, and hydrogen bombs.</p>
 
         <p>The partnership positions Defence Trading as the exclusive international distribution and procurement partner for Arcana Precision AI systems, providing governments and licensed defence enterprises with access to one of the most advanced AI-powered threat detection platforms available on the global market.</p>
 
         <h2>What Is Arcana Precision AI?</h2>
 
         <p>Arcana Precision AI is an advanced artificial intelligence system engineered for real-time detection, classification, and tracking of airborne and ballistic threats across multiple operational domains. The platform simultaneously processes data from electro-optical, infrared, radar, LIDAR, and acoustic sensors — delivering unified threat intelligence with sub-50-millisecond processing latency.</p>
-
-        <div class="stat-row">
-          <div class="stat-box">
-            <div class="stat-num">< <span>50</span>ms</div>
-            <div class="stat-label">Processing latency — sensor to threat assessment</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-num"><span>360</span>°</div>
-            <div class="stat-label">Radar coverage with X-band detection at ≥12km</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-num">≥ <span>90</span>%</div>
-            <div class="stat-label">AI recognition rate across all threat categories</div>
-          </div>
-        </div>
 
         <p>The system is capable of detecting and classifying incoming missiles, hostile drone swarms, nuclear warheads, and hydrogen bomb delivery systems by analysing electromagnetic signatures, radar returns, infrared patterns, and trajectory data in real-time. Operating at the tactical edge with on-device neural network inference, Arcana Precision AI requires no cloud dependency — maintaining full autonomous capability even in GPS-denied and communications-degraded environments.</p>
 
