@@ -4,8 +4,14 @@ import SubscribeStrip from '@/components/SubscribeStrip'
 import { ImageLoader } from '@/components/MediaLoader'
 
 export const metadata: Metadata = {
-  title: 'Strategic Defence Solutions',
-  description: 'Defence Trading delivers custom strategic defence solutions across ground and air domains — bespoke equipment packages, tiered procurement programmes, and multi-purpose operational configurations for governments and licensed defence enterprises.',
+  title: 'Strategic Defence Solutions — Ground, Air & Multi-Domain',
+  description: 'Defence Trading delivers bespoke defence procurement programmes across ground, air, and multi-domain operations. Counter-UAV systems, armoured vehicles, ammunition, artillery, AI systems, and infantry equipment for governments and licensed defence enterprises.',
+  keywords: 'strategic defence solutions, defence procurement, military equipment supply, counter-UAV systems, armoured vehicles, ammunition supply, artillery procurement, AI defence systems, ground force equipment, air defence, multi-domain operations, defence trading, military supply chain, government defence procurement',
+  openGraph: {
+    title: 'Strategic Defence Solutions — Defence Trading',
+    description: 'Bespoke defence procurement programmes across ground, air, and multi-domain operations for governments and licensed defence enterprises.',
+    type: 'website',
+  },
 }
 
 export default function StrategicDefenceSolutionsPage() {

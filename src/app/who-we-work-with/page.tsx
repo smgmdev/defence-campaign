@@ -3,8 +3,14 @@ import Link from 'next/link'
 import SubscribeStrip from '@/components/SubscribeStrip'
 
 export const metadata: Metadata = {
-  title: 'Who We Work With',
-  description: 'Defence Trading works exclusively with sovereign governments, national armed forces, and fully licensed defence enterprises. No exceptions.',
+  title: 'Who We Work With — Governments & Licensed Defence Enterprises',
+  description: 'Defence Trading works exclusively with sovereign governments, national armed forces, law enforcement agencies, intelligence services, and fully licensed defence companies. Mandatory counterparty qualification including defence trading licences, export control compliance, end-user certification, and sanctions screening.',
+  keywords: 'defence counterparty policy, government defence procurement, military equipment buyers, licensed defence companies, defence trading compliance, export control, end-user certification, sanctions screening, NATO defence procurement, defence trading licence, military supply requirements, government arms procurement',
+  openGraph: {
+    title: 'Who We Work With — Defence Trading',
+    description: 'We work exclusively with sovereign governments, national armed forces, and fully licensed defence enterprises. No exceptions. No discretionary waivers.',
+    type: 'website',
+  },
 }
 
 const GOVERNMENT_TYPES = [

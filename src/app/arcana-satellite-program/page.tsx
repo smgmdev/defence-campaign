@@ -4,8 +4,14 @@ import SubscribeStrip from '@/components/SubscribeStrip'
 import { VideoLoader } from '@/components/MediaLoader'
 
 export const metadata: Metadata = {
-  title: 'Arcana Satellite Program',
-  description: 'Arcana Precision — AI-powered targeting and fire control platform delivering autonomous precision engagement, real-time threat detection, and multi-domain situational awareness for modern defence operations.',
+  title: 'Arcana Satellite Program — AI Threat Detection',
+  description: 'Arcana Precision AI connects to global satellites and radars for real-time detection of drones, missiles, and nuclear threats. Autonomous AI-powered threat detection, fire control, and multi-sensor fusion for governments and allied forces. Available through Defence Trading.',
+  keywords: 'Arcana Precision AI, Arcana Mace, satellite threat detection, AI defence system, counter-UAV AI, missile detection, nuclear threat detection, drone detection AI, real-time threat intelligence, defence AI platform, autonomous targeting, military AI system, radar integration, satellite defence program',
+  openGraph: {
+    title: 'Arcana Satellite Program — AI-Powered Threat Detection',
+    description: 'Arcana Precision AI connects to global satellites and radars for real-time detection of drones, missiles, and nuclear threats. Available through Defence Trading.',
+    type: 'website',
+  },
 }
 
 const CAPABILITIES = [
