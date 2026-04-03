@@ -12,6 +12,82 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    slug: "defencetrading-partners-arcana-mace-satellite-program",
+    title: "DefenceTrading.com Partners with Arcana Mace to Launch the Arcana Satellite Program",
+    date: "03 Apr 2026",
+    cat: "industry",
+    source: "DEFENCE TECHNOLOGY",
+    region: "Global",
+    description: "Defence Trading and Arcana Mace announce a strategic partnership to launch the Arcana Satellite Program — connecting Arcana Precision AI to global satellite constellations and radar networks for real-time threat detection of drones, missiles, and nuclear weapons.",
+    keywords: "Arcana Mace, Arcana Precision AI, Defence Trading, Arcana Satellite Program, AI threat detection, satellite defence, drone detection, missile detection, nuclear threat detection, defence partnership",
+    body: `<p>DefenceTrading.com, a fully licensed B2B and B2G defence trading platform based in the UAE, and Arcana Mace, the developer of the advanced Arcana Precision AI threat detection system, have announced a strategic partnership to launch the <strong>Arcana Satellite Program</strong> — a joint initiative designed to connect Arcana Precision AI to global satellite constellations and ground-based radar networks for real-time detection of drones, missiles, nuclear weapons, and hydrogen bombs.</p>
+
+        <p>The partnership positions Defence Trading as the exclusive international distribution and procurement partner for Arcana Precision AI systems, providing governments and licensed defence enterprises with access to one of the most advanced AI-powered threat detection platforms available on the global market.</p>
+
+        <h2>What Is Arcana Precision AI?</h2>
+
+        <p>Arcana Precision AI is an advanced artificial intelligence system engineered for real-time detection, classification, and tracking of airborne and ballistic threats across multiple operational domains. The platform simultaneously processes data from electro-optical, infrared, radar, LIDAR, and acoustic sensors — delivering unified threat intelligence with sub-50-millisecond processing latency.</p>
+
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="stat-num">< <span>50</span>ms</div>
+            <div class="stat-label">Processing latency — sensor to threat assessment</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num"><span>360</span>°</div>
+            <div class="stat-label">Radar coverage with X-band detection at ≥12km</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">≥ <span>90</span>%</div>
+            <div class="stat-label">AI recognition rate across all threat categories</div>
+          </div>
+        </div>
+
+        <p>The system is capable of detecting and classifying incoming missiles, hostile drone swarms, nuclear warheads, and hydrogen bomb delivery systems by analysing electromagnetic signatures, radar returns, infrared patterns, and trajectory data in real-time. Operating at the tactical edge with on-device neural network inference, Arcana Precision AI requires no cloud dependency — maintaining full autonomous capability even in GPS-denied and communications-degraded environments.</p>
+
+        <h2>Why This Partnership Matters</h2>
+
+        <p>The global defence landscape is undergoing a fundamental transformation. The proliferation of unmanned aerial systems, the acceleration of hypersonic missile programmes, and the evolving nuclear threat landscape have created unprecedented demand for AI-powered detection and response capabilities that operate faster than human decision-making cycles.</p>
+
+        <p>DefenceTrading.com has established itself as a credible B2B and B2G platform connecting governments and licensed defence enterprises with certified military products — from ammunition and armoured vehicles to counter-UAV systems and AI technologies. The platform operates under full UAE licensing with strict compliance to export control regulations, end-user certification requirements, and international sanctions frameworks.</p>
+
+        <p>By combining Arcana Mace's advanced AI detection technology with Defence Trading's established international procurement channels and government relationships, the Arcana Satellite Program creates a direct pipeline for allied nations to access next-generation threat detection capabilities through compliant, licensed channels.</p>
+
+        <h2>The Arcana Satellite Program — What It Delivers</h2>
+
+        <p>The programme is structured around six core objectives:</p>
+
+        <p><strong>1. Global Market Access:</strong> Introducing Arcana Precision AI to international defence markets through Defence Trading's licensed procurement channels and government relationships across the Middle East, Europe, North America, and allied nations.</p>
+
+        <p><strong>2. Satellite & Radar Integration:</strong> Connecting Arcana Precision AI to LEO satellite constellations and ground-based radar networks for persistent, global-scale threat detection capability — enabling real-time monitoring across entire operational theatres.</p>
+
+        <p><strong>3. Real-Time Threat Detection:</strong> Enabling governments to detect drones, ballistic missiles, cruise missiles, nuclear warheads, and hydrogen bomb delivery systems in real-time with AI-driven accuracy and autonomous response recommendations.</p>
+
+        <p><strong>4. Government Procurement Support:</strong> Providing end-to-end procurement support including export documentation, end-user certification, compliance verification, and in-country delivery for all Arcana Precision AI deployments.</p>
+
+        <p><strong>5. Enhanced Visibility:</strong> Boosting global awareness of Arcana Mace's capabilities among defence ministries, armed forces commands, and intelligence agencies through Defence Trading's platform and international defence network.</p>
+
+        <p><strong>6. Quality Assurance:</strong> Ensuring all Arcana Precision AI systems delivered through the programme meet the highest standards of quality, certification, and operational readiness for government deployment.</p>
+
+        <h2>Defence Trading's Growing Product Portfolio</h2>
+
+        <p>The Arcana Satellite Program adds to Defence Trading's expanding catalogue of certified defence products, which already spans 14 categories including counter-UAV systems, AI platforms, standard and non-standard ammunition, mortar shells, artillery ammunition, rockets, fuzes, rifles, pistols, and armoured vehicles — including the VIHOR 4×4 light tactical vehicle and DESPOT 4×4 armoured personnel carrier.</p>
+
+        <p>Defence Trading has positioned itself as more than a traditional defence broker. The platform is reshaping how nations acquire military assets by providing a centralised, compliant procurement channel that connects verified manufacturers in Europe and the United States with government buyers worldwide. Every transaction is subject to mandatory counterparty qualification — including valid defence trading licences, export control compliance, end-user certification, and sanctions screening.</p>
+
+        <h2>A Platform Built for the Modern Defence Market</h2>
+
+        <p>The defence procurement landscape has historically been fragmented, opaque, and slow-moving. Defence Trading's digital-first approach — combining a full online product catalogue, real-time enquiry systems, and AI-powered search — is designed to accelerate the procurement cycle while maintaining the compliance standards that government buyers require.</p>
+
+        <p>The addition of Arcana Precision AI to the platform represents a strategic expansion into the AI defence systems category — one of the fastest-growing segments in the global defence market. With governments worldwide racing to integrate artificial intelligence into their threat detection and response capabilities, the timing of the Arcana Satellite Program aligns precisely with market demand.</p>
+
+        <h2>Availability</h2>
+
+        <p>The Arcana Satellite Program is effective immediately. Government procurement agencies, defence ministries, and licensed defence enterprises seeking access to Arcana Precision AI systems may submit enquiries through <a href="https://www.defencetrading.com/contact">DefenceTrading.com</a> or contact the sales team directly at sales@defencetrading.com.</p>
+
+        <p>For more information on the Arcana Satellite Program, visit <a href="https://www.defencetrading.com/arcana-satellite-program">defencetrading.com/arcana-satellite-program</a>.</p>`,
+  },
+  {
     slug: "us-iran-war-april-2026-what-to-expect",
     title: "US–Iran War in April 2026: What to Expect and How It Reshapes Global Defence",
     date: "03 Apr 2026",
