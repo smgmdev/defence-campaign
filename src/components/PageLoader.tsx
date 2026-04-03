@@ -11,6 +11,7 @@ export default function PageLoader() {
   useEffect(() => {
     setLoading(true)
     setVisible(true)
+    window.scrollTo(0, 0)
 
     const timer = setTimeout(() => {
       setLoading(false)
