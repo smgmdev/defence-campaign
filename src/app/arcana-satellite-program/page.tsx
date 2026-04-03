@@ -11,6 +11,12 @@ export const metadata: Metadata = {
     title: 'Arcana Satellite Program — AI-Powered Threat Detection',
     description: 'Arcana Precision AI connects to global satellites and radars for real-time detection of drones, missiles, and nuclear threats. Available through Defence Trading.',
     type: 'website',
+    images: [{ url: 'https://www.defencetrading.com/og-image.png', width: 1280, height: 640 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Arcana Satellite Program — AI-Powered Threat Detection',
+    images: ['https://www.defencetrading.com/og-image.png'],
   },
 }
 

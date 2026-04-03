@@ -10,6 +10,12 @@ export const metadata: Metadata = {
     title: 'Who We Work With — Defence Trading',
     description: 'We work exclusively with sovereign governments, national armed forces, and fully licensed defence enterprises. No exceptions. No discretionary waivers.',
     type: 'website',
+    images: [{ url: 'https://www.defencetrading.com/og-image.png', width: 1280, height: 640 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Who We Work With — Defence Trading',
+    images: ['https://www.defencetrading.com/og-image.png'],
   },
 }
 

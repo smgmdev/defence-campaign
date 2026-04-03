@@ -11,6 +11,12 @@ export const metadata: Metadata = {
     title: 'Strategic Defence Solutions — Defence Trading',
     description: 'Bespoke defence procurement programmes across ground, air, and multi-domain operations for governments and licensed defence enterprises.',
     type: 'website',
+    images: [{ url: 'https://www.defencetrading.com/og-image.png', width: 1280, height: 640 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Strategic Defence Solutions — Defence Trading',
+    images: ['https://www.defencetrading.com/og-image.png'],
   },
 }
 
