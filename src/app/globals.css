@@ -180,15 +180,13 @@ a { color: inherit; }
 /* ── BROWSE PRODUCTS BTN ── */
 .btn-browse-products {
   display: inline-block; background: #fff; color: #000; padding: 14px 32px;
-  font-size: 13px; font-weight: 400; letter-spacing: 1.5px; text-transform: uppercase;
-  text-decoration: none; position: relative; overflow: hidden; transition: color 0.35s ease;
+  font-size: 13px; font-weight: 400; letter-spacing: 1.5px;
+  text-decoration: none; position: relative; overflow: hidden; transition: background 0.3s ease, color 0.3s ease;
 }
 .btn-browse-products::before {
-  content: ''; position: absolute; inset: 0; background: #2c2c2c;
-  transform: translateX(-100%); transition: transform 0.35s ease; z-index: 0;
+  display: none;
 }
-.btn-browse-products:hover::before { transform: translateX(0); }
-.btn-browse-products:hover { color: #fff; }
+.btn-browse-products:hover { background: #2c2c2c; color: #fff; }
 .btn-browse-products span, .btn-browse-products { z-index: 1; }
 .btn-browse-products > * { position: relative; z-index: 1; }
 
