@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="ft">
       <div className="ft-desc-row pg-wrap">
-        <p className="ft-desc">* As a defence trader, our role is to connect governments, armed forces, and defence contractors with certified military products through compliant and established procurement channels. We work exclusively with licensed enterprises and authorised suppliers, ensuring that all equipment is sourced from certified manufacturers and delivered in accordance with applicable regulatory and export control requirements.</p>
+        <p className="ft-desc">As a defence trader, our role is to connect governments, armed forces, and defence contractors with certified military products through compliant and established procurement channels. We work exclusively with licensed enterprises and authorised suppliers, ensuring that all equipment is sourced from certified manufacturers and delivered in accordance with applicable regulatory and export control requirements.</p>
       </div>
       <div className="ft-inner pg-wrap">
 
