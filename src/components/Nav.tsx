@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useState, useEffect, useRef } from 'react'
 import { PRODUCTS, CATEGORIES } from '@/lib/products'
 import { ARTICLES } from '@/lib/articles'
+import { supabase } from '@/lib/supabase'
 
 // Preload all product images into browser cache
 const imageCache = new Map<string, string>()
@@ -26,7 +27,18 @@ export default function Nav() {
   const [results, setResults] = useState<typeof PRODUCTS>([])
   const [offeringsOpen, setOfferingsOpen] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      setIsLoggedIn(!!data.session)
+    })
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsLoggedIn(!!session)
+    })
+    return () => listener.subscription.unsubscribe()
+  }, [])
 
   useEffect(() => {
     document.body.style.paddingTop = bannerOpen ? '92px' : '56px'
@@ -101,6 +113,8 @@ export default function Nav() {
             <span className="nav-search-kbd"><kbd>CMD+K</kbd><span className="nav-search-kbd-sep">/</span><kbd>CTRL+K</kbd></span>
             <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="9" cy="9" r="7"/><line x1="15" y1="15" x2="19" y2="19"/></svg>
           </button>
+
+          <Link href={isLoggedIn ? '/account' : '/login'} className="nav-login-btn">{isLoggedIn ? 'Account' : 'Login'}</Link>
 
           <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
             {menuOpen ? <span className="hamburger-x">&#x2715;</span> : <><span></span><span></span><span></span></>}

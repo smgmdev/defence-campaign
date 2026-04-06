@@ -1,24 +1,42 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect, Suspense } from 'react'
+import { useSearchParams, useRouter } from 'next/navigation'
+import { supabase } from '@/lib/supabase'
 
-export default function LoginPage() {
+function LoginContent() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const verified = searchParams.get('verified')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [info, setInfo] = useState('')
+
+  useEffect(() => {
+    if (verified) setInfo('Email verified successfully. You can now sign in.')
+  }, [verified])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
+    setInfo('')
     setLoading(true)
 
-    // TODO: Connect to auth provider (Supabase, NextAuth, etc.)
-    setTimeout(() => {
-      setError('Authentication service is being configured. Please contact sales@defencetrading.com for access.')
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+
+    if (signInError) {
+      setError(signInError.message)
       setLoading(false)
-    }, 1000)
+      return
+    }
+
+    router.push('/account')
   }
 
   return (
@@ -54,10 +72,11 @@ export default function LoginPage() {
 
       <div className="auth-right">
         <div className="auth-form-wrap">
-          <div className="auth-logo">DefenceTrading<span className="brand-dot"></span></div>
+          <Link href="/" className="auth-logo">DefenceTrading<span className="brand-dot"></span></Link>
           <h2 className="auth-form-title">Sign in to your account</h2>
           <p className="auth-form-sub">Enter your credentials to access the platform.</p>
 
+          {info && <div className="auth-info">{info}</div>}
           {error && <div className="auth-error">{error}</div>}
 
           <form onSubmit={handleSubmit} className="auth-form">
@@ -107,8 +126,6 @@ export default function LoginPage() {
 
       <style>{`
         .auth-page { display: flex; min-height: 100vh; margin-top: -92px; padding-top: 0; }
-
-        /* Left Panel */
         .auth-left { flex: 1; background: #0a0a0a; display: flex; flex-direction: column; justify-content: space-between; padding: 80px 60px 40px; }
         .auth-left-content { max-width: 520px; padding-top: 60px; }
         .auth-left-tag { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; color: rgba(255,255,255,0.35); text-transform: uppercase; margin-bottom: 24px; }
@@ -118,15 +135,11 @@ export default function LoginPage() {
         .auth-feature { display: flex; align-items: center; gap: 12px; font-size: 14px; color: rgba(255,255,255,0.55); }
         .auth-feature-icon { color: rgba(255,255,255,0.25); font-size: 12px; }
         .auth-left-footer { font-size: 12px; color: rgba(255,255,255,0.2); }
-
-        /* Right Panel */
         .auth-right { flex: 0 0 520px; background: #fff; display: flex; align-items: center; justify-content: center; padding: 60px; }
         .auth-form-wrap { width: 100%; max-width: 380px; }
-        .auth-logo { font-size: 22px; font-weight: 900; color: #000; letter-spacing: -1px; margin-bottom: 40px; }
+        .auth-logo { font-size: 22px; font-weight: 900; color: #000; letter-spacing: -1px; margin-bottom: 40px; text-decoration: none; display: block; }
         .auth-form-title { font-size: 24px; font-weight: 700; color: #000; margin-bottom: 8px; }
         .auth-form-sub { font-size: 14px; color: #888; margin-bottom: 32px; }
-
-        /* Form */
         .auth-form { display: flex; flex-direction: column; gap: 20px; }
         .auth-field { display: flex; flex-direction: column; gap: 6px; }
         .auth-label { font-size: 13px; font-weight: 600; color: #333; }
@@ -139,24 +152,15 @@ export default function LoginPage() {
         .auth-submit { width: 100%; padding: 14px; font-size: 14px; font-weight: 700; font-family: inherit; background: #000; color: #fff; border: none; cursor: pointer; transition: background 0.15s; margin-top: 4px; }
         .auth-submit:hover { background: #222; }
         .auth-submit:disabled { background: #666; cursor: not-allowed; }
-
-        /* Error */
         .auth-error { background: #fff3f3; border: 1px solid #fdd; color: #c00; font-size: 13px; padding: 12px 14px; margin-bottom: 8px; line-height: 1.5; }
-
-        /* Divider */
+        .auth-info { background: #f0f9f0; border: 1px solid #cec; color: #2a7a2a; font-size: 13px; padding: 12px 14px; margin-bottom: 8px; line-height: 1.5; }
         .auth-divider { text-align: center; margin: 24px 0; position: relative; }
         .auth-divider::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: #eee; }
         .auth-divider span { background: #fff; padding: 0 16px; font-size: 12px; color: #bbb; position: relative; }
-
-        /* Alt Button */
         .auth-alt-btn { display: block; width: 100%; padding: 14px; font-size: 14px; font-weight: 700; text-align: center; color: #000; background: #fff; border: 2px solid #000; text-decoration: none; transition: background 0.15s; }
         .auth-alt-btn:hover { background: #f5f5f5; }
-
-        /* Terms */
         .auth-terms { font-size: 11px; color: #aaa; margin-top: 24px; line-height: 1.6; text-align: center; }
         .auth-terms a { color: #888; text-decoration: underline; }
-
-        /* Responsive */
         @media (max-width: 960px) {
           .auth-left { display: none; }
           .auth-right { flex: 1; }
@@ -167,5 +171,13 @@ export default function LoginPage() {
         }
       `}</style>
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div style={{minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center'}}>Loading...</div>}>
+      <LoginContent />
+    </Suspense>
   )
 }

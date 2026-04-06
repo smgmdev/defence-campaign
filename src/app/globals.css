@@ -29,6 +29,8 @@
 
 html { scrollbar-gutter: stable; }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+*:focus { outline: none; }
+*:focus-visible { outline: 2px solid #000; outline-offset: 2px; }
 img, video, iframe { max-width: 100%; }
 :root {
   --yellow: #F5C400;
@@ -109,6 +111,8 @@ a { color: inherit; }
 }
 .nav-links a:hover { border-bottom-color: var(--black); }
 .nav-links a.active { border-bottom-color: var(--red); font-weight: 700; }
+.nav-login-btn { background: #000; color: #fff; padding: 8px 20px; font-size: 12px; font-weight: 700; text-decoration: none; letter-spacing: 0.5px; margin-left: 12px; transition: background 0.15s; }
+.nav-login-btn:hover { background: #333; }
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; outline: none; }
 .hamburger span:not(.hamburger-x) { display: block; width: 22px; height: 2px; background: var(--black); }
 .hamburger-x { font-size: 18px; color: var(--black); line-height: 1; display: block; width: auto; height: auto; background: none; }

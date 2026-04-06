@@ -5,7 +5,7 @@ import Nav from './Nav'
 import Footer from './Footer'
 import PageLoader from './PageLoader'
 
-const AUTH_ROUTES = ['/login', '/signup']
+const AUTH_ROUTES = ['/login', '/signup', '/verify']
 
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
