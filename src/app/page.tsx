@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useState, useRef, useEffect } from 'react'
 import { PRODUCTS } from '@/lib/products'
+import { ARTICLES } from '@/lib/articles'
 
 const SEARCH_COMPANIES = [{"name":"Chase Tactical","category":"Protective Equipment","location":"USA"},{"name":"Hard Head Veterans","category":"Protective Equipment","location":"Sweetwater, TX"},{"name":"Hardwire LLC","category":"Protective Equipment","location":"Pocomoke City, MD"},{"name":"Sarkar Tactical","category":"Protective Equipment","location":"El Paso, TX"},{"name":"RMA Armament","category":"Protective Equipment","location":"Centerville, IA"},{"name":"Armor Express","category":"Protective Equipment","location":"Eden, NC"},{"name":"Team Wendy","category":"Protective Equipment","location":"Cleveland, OH"},{"name":"Gentex Corporation","category":"Protective Equipment","location":"Carbondale, PA"},{"name":"Point Blank Enterprises","category":"Protective Equipment","location":"Pompano Beach, FL"},{"name":"Revision Military","category":"Protective Equipment","location":"Essex Junction, VT"},{"name":"Crye Precision","category":"Military Uniforms","location":"Brooklyn, NY"},{"name":"5.11 Tactical","category":"Military Uniforms","location":"Modesto, CA"},{"name":"Viasat Inc.","category":"Communications Gear","location":"Carlsbad, CA"},{"name":"Silvus Technologies","category":"Communications Gear","location":"Los Angeles, CA"},{"name":"Leonardo DRS","category":"Communications Gear","location":"Arlington, VA"},{"name":"ADS Inc.","category":"Logistics & Supply","location":"Virginia Beach, VA"},{"name":"Oshkosh Defense","category":"Military Vehicles","location":"Oshkosh, WI"},{"name":"MBDA","category":"Defence Systems","location":"France/UK/Germany"},{"name":"Rohde & Schwarz","category":"Communications Gear","location":"Germany"}]
 
@@ -142,6 +143,20 @@ export default function HomePage() {
           border-top-color: rgba(255,255,255,0.75);
           border-radius: 50%; animation: spin 0.8s linear infinite;
         }
+        /* NEWS SLIDER */
+        .news-slider { background: #0a0a0a; padding: 48px 0; overflow: hidden; }
+        .news-slider-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .news-slider-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: rgba(255,255,255,0.4); text-transform: uppercase; }
+        .news-slider-all { font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.15s; }
+        .news-slider-all:hover { color: #fff; }
+        .news-slider-track { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; padding: 0 48px; }
+        .news-slider-track::-webkit-scrollbar { display: none; }
+        .news-slide { flex: 0 0 320px; background: #151515; padding: 28px 24px; text-decoration: none; transition: background 0.2s; display: flex; flex-direction: column; }
+        .news-slide:hover { background: #1a1a1a; }
+        .news-slide-source { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; color: rgba(255,255,255,0.35); text-transform: uppercase; margin-bottom: 12px; }
+        .news-slide-title { font-size: 15px; font-weight: 600; color: #fff; line-height: 1.4; margin-bottom: 16px; flex: 1; }
+        .news-slide-meta { font-size: 11px; color: rgba(255,255,255,0.3); }
+
         .discovery { background: #f0ebe1; padding: 96px 0; }
         .disc-inner { max-width: 860px; }
         .disc-label {
@@ -205,6 +220,9 @@ export default function HomePage() {
           .hero { height: 520px; }
           .hero-content { padding: 0 24px; }
           .featured-split { height: 380px; }
+          .news-slider-track { padding: 0 20px; }
+          .news-slide { flex: 0 0 260px; padding: 20px 18px; }
+          .news-slide-title { font-size: 14px; }
           .discovery { padding: 48px 0; }
           .disc-search { height: 60px; }
           .disc-search input { font-size: 12px; padding: 0 14px; }
@@ -237,6 +255,25 @@ export default function HomePage() {
           <div className="hero-cta">
             <Link href="/products" className="btn-browse-products"><span>Browse Products</span></Link>
           </div>
+        </div>
+      </section>
+
+      {/* NEWS SLIDER */}
+      <section className="news-slider">
+        <div className="pg-wrap">
+          <div className="news-slider-head">
+            <div className="news-slider-label">Latest Insights</div>
+            <Link href="/insights" className="news-slider-all">View All →</Link>
+          </div>
+        </div>
+        <div className="news-slider-track">
+          {ARTICLES.slice(0, 8).map((a, i) => (
+            <Link key={i} href={`/insights/${a.slug}`} className="news-slide">
+              <div className="news-slide-source">{a.source}</div>
+              <div className="news-slide-title">{a.title}</div>
+              <div className="news-slide-meta">{a.date} · {a.region}</div>
+            </Link>
+          ))}
         </div>
       </section>
 
