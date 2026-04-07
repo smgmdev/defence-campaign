@@ -12,6 +12,93 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    slug: "how-to-prepare-for-nuclear-radiation-middle-east",
+    title: "How to Prepare Yourself for Nuclear Radiation If You Are Living in the Middle East",
+    date: "08 Apr 2026",
+    cat: "geo",
+    source: "GEOPOLITICAL ANALYSIS",
+    region: "Middle East",
+    description: "With nuclear tensions at their highest point in decades, residents across the Gulf, Levant, and wider Middle East need practical guidance on radiation preparedness — not panic, but real steps that could save lives.",
+    keywords: "nuclear radiation Middle East, nuclear preparedness Gulf, radiation protection, nuclear fallout shelter, Iran nuclear threat, radiation emergency, CBRN protection, nuclear survival guide, Gulf nuclear risk, radiation exposure",
+    body: `<p>This is not an article anyone wants to write, and it is not one anyone wants to need. But the reality of the current threat environment demands it. With Iran's nuclear programme at the threshold, active US and Israeli strike planning against Iranian facilities, and the broader deterioration of nuclear stability globally, the possibility of a radiological or nuclear event affecting the Middle East is no longer something that belongs in a movie script. It belongs in a preparedness plan.</p>
+
+        <p>This is not about fear. It is about information. The people who survive nuclear and radiological events are overwhelmingly the ones who knew what to do before it happened. Everything in this article is based on guidance from the International Atomic Energy Agency, the World Health Organisation, and national civil defence frameworks. None of it is classified. All of it could matter.</p>
+
+        <h2>Understand What You Are Actually Preparing For</h2>
+
+        <p>Most people hear "nuclear" and immediately picture Hiroshima. That is not the most likely scenario for the Middle East. The scenarios that matter here are more specific.</p>
+
+        <p>The first is a strike on Iranian nuclear facilities — Fordow, Natanz, Isfahan — that releases radioactive material into the atmosphere. This is not a nuclear detonation. It is a conventional or bunker-buster strike on a facility that contains enriched uranium, spent fuel, or active centrifuges. The result is a radiological dispersal event — essentially a dirty bomb on an industrial scale. Depending on wind patterns, this could carry radioactive particulate across the Gulf within hours.</p>
+
+        <p>The second is an actual nuclear detonation — either a weapon test that goes wrong, a deliberate use in a conflict scenario, or a retaliatory strike. This is less likely but not impossible, and the consequences are obviously more severe.</p>
+
+        <p>The third is a reactor incident. Iran operates the Bushehr nuclear power plant on the Gulf coast. Any military strike that damages this facility — or any operational failure during a period of instability — could produce a Fukushima-type event with fallout drifting across the Gulf toward the UAE, Bahrain, Qatar, Kuwait, and Saudi Arabia.</p>
+
+        <p>Each of these scenarios has different timelines, different danger zones, and different protective actions. But the basics of personal preparation are the same.</p>
+
+        <h2>The 72-Hour Kit</h2>
+
+        <p>Every household in the Gulf should have a 72-hour emergency kit ready. This is not paranoia — it is the same advice given to residents of earthquake zones, hurricane corridors, and every country within range of a nuclear-armed neighbour. The kit should include:</p>
+
+        <p>Water. Three litres per person per day for three days minimum. Sealed, stored in a cool place, replaced every six months. In a radiological event, municipal water supplies may be contaminated or shut down. Bottled water purchased before the event is safe. Water collected after fallout has begun is not.</p>
+
+        <p>Non-perishable food. Canned goods, dried food, energy bars — enough for three days. Anything in a sealed container is safe to eat even during fallout. Anything that was exposed to the open air after the event is not.</p>
+
+        <p>Medications. A two-week supply of any prescription medications your household depends on. Pharmacies will be overwhelmed or closed. If you need insulin, blood pressure medication, or anything else to function, have a reserve.</p>
+
+        <p>Potassium iodide tablets. These are the single most important specific item for nuclear preparedness. Potassium iodide (KI) saturates the thyroid gland with stable iodine, preventing it from absorbing radioactive iodine-131, which is one of the most dangerous isotopes released in a nuclear event. KI does not protect against all radiation — it specifically protects the thyroid. But thyroid cancer is one of the most common long-term consequences of radiation exposure, and KI is cheap, legal, and available without prescription in most countries. Every household should have enough for every family member. Dosage depends on age — follow the packaging instructions. Take it only when authorities advise, not in advance.</p>
+
+        <p>N95 or FFP2 masks. Radioactive fallout is particulate — tiny particles of dust and debris that carry radioactive material. A properly fitted N95 mask prevents you from inhaling these particles. This is one of the simplest and most effective protective measures available. Buy a box and keep it accessible.</p>
+
+        <p>Plastic sheeting and duct tape. If you need to shelter in place, you may need to seal windows and doors to prevent contaminated air from entering. This sounds extreme. It works.</p>
+
+        <p>A battery-powered or hand-crank radio. In a nuclear event, mobile networks will likely be overwhelmed or damaged. A radio is your connection to official emergency broadcasts. Make sure you know which frequency your national emergency broadcast system uses.</p>
+
+        <p>Flashlights, batteries, and a basic first aid kit. Self-explanatory but consistently overlooked.</p>
+
+        <h2>Shelter in Place — The Most Important Thing You Can Do</h2>
+
+        <p>If a nuclear or radiological event occurs, the single most important action is to get inside a solid building and stay there. This is not optional. It is the difference between dangerous exposure and manageable exposure.</p>
+
+        <p>The best shelter is a large concrete or brick building — the more mass between you and the outside air, the better. An interior room with no windows on a middle or upper floor is ideal. Basements are even better if they are below grade. A villa with concrete walls is good. A glass-fronted apartment tower is less good but still far better than being outside.</p>
+
+        <p>Do not get in your car and try to drive somewhere. In every nuclear preparedness simulation ever conducted, the people who tried to evacuate by car fared worse than the people who sheltered in place. Roads will be gridlocked. You will be exposed in a vehicle with minimal shielding. Stay inside.</p>
+
+        <p>Close all windows and doors. Turn off air conditioning units that draw air from outside — most split-unit systems in the Gulf recirculate indoor air and are fine, but if your system has a fresh air intake, shut it down. Seal gaps with wet towels or tape if you have time.</p>
+
+        <p>Stay sheltered for at least 24 hours, preferably 48 to 72 hours unless authorities advise otherwise. Radioactive fallout decays rapidly — the radiation level drops by roughly 90% in the first seven hours after detonation and by 99% in 48 hours. Time is your ally if you are inside.</p>
+
+        <h2>If You Are Caught Outside</h2>
+
+        <p>If you are outdoors when an event occurs, get inside the nearest solid building immediately. If you see a flash, do not look at it — turn away, drop to the ground, and cover your head. After the initial blast wave passes (if there is one), move to shelter.</p>
+
+        <p>Once inside, remove all outer clothing and bag it. Shower immediately with soap and water — this removes up to 90% of radioactive particles from your skin. Do not use conditioner — it binds particles to hair. If you cannot shower, wipe exposed skin with wet cloths. Put on clean clothes from inside the building.</p>
+
+        <p>This decontamination process sounds simple because it is simple. And it works.</p>
+
+        <h2>Long-Term Considerations for Gulf Residents</h2>
+
+        <p>The Gulf states have specific vulnerabilities that other regions do not. Desalination plants supply the majority of drinking water in the UAE, Qatar, Bahrain, and Kuwait. If fallout contaminates the intake water, desalination plants may need to shut down temporarily. This is why having stored water is not optional — it is essential.</p>
+
+        <p>The Gulf's reliance on imported food creates another vulnerability. If a radiological event contaminates regional agriculture or disrupts shipping through the Strait of Hormuz, food supply chains will be affected. Having a basic food reserve is not survivalism — it is common sense in a region that imports 85% or more of its food.</p>
+
+        <p>Air quality in an enclosed, air-conditioned environment is actually a significant advantage in the Gulf context. Most residential and commercial buildings in the UAE, Saudi Arabia, and Qatar are effectively sealed environments with filtered air. This is an accidental advantage for nuclear preparedness — the same systems that keep out desert dust will keep out most radioactive particulate.</p>
+
+        <h2>What Governments Are Doing</h2>
+
+        <p>Most Gulf governments have invested in civil defence infrastructure over the past decade, though the level of public communication about nuclear preparedness varies. The UAE's National Emergency Crisis and Disaster Management Authority (NCEMA) has published guidance on radiological emergencies. Saudi Arabia's Civil Defence authority maintains emergency protocols. Qatar and Bahrain have emergency management frameworks in place.</p>
+
+        <p>But government response takes time to mobilise. The first 24 hours are on you. The actions you take in the minutes and hours after an event — sheltering, decontaminating, protecting your airways — are entirely your responsibility. Government assistance is for the days and weeks that follow.</p>
+
+        <h2>What This Is Really About</h2>
+
+        <p>Preparedness is not prediction. Having a 72-hour kit and knowing how to shelter does not mean you believe a nuclear war is coming tomorrow. It means you understand that the world has changed, that the Middle East sits at the centre of the most dangerous nuclear flashpoint since the Cold War, and that basic preparation costs almost nothing but could be worth everything.</p>
+
+        <p>Buy the potassium iodide. Store the water. Keep the masks accessible. Know which room in your home has the fewest windows and the most concrete between you and the outside. Have a family plan. And then go back to living your life — because that is what preparation allows you to do.</p>
+
+        <p>Defence Trading monitors the nuclear threat environment continuously and provides procurement support for CBRN protective equipment through licensed channels. For government and enterprise requirements, contact <a href="mailto:sales@defencetrading.com">sales@defencetrading.com</a>.</p>`,
+  },
+  {
     slug: "how-governments-acquire-defence-products-efficiently",
     title: "How Governments Can Acquire Defence Products Efficiently — and Why the Old Way Is Failing",
     date: "06 Apr 2026",
