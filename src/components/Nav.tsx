@@ -104,6 +104,7 @@ export default function Nav() {
           <Link href="/" className="brand" onClick={() => setMenuOpen(false)}>DefenceTrading<span className="brand-dot"></span></Link>
           <div className="nav-links">
             <Link href="/about" className={isActive('/about') ? 'active' : ''}>About Us</Link>
+            <Link href="/orders" className={isActive('/orders') ? 'active' : ''}>Orders</Link>
             <Link href="/products" className={isActive('/products') ? 'active' : ''}>Products</Link>
             <Link href="/companies" className={isActive('/companies') ? 'active' : ''}>Companies</Link>
             <Link href="/insights" className={isActive('/insights') ? 'active' : ''}>Insights</Link>
@@ -128,6 +129,7 @@ export default function Nav() {
           <div className="mobile-menu-nav">
             <p className="mobile-menu-label">NAVIGATION</p>
             <Link href="/about" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>About Us</Link>
+            <Link href="/orders" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Orders</Link>
             <Link href="/products" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Products</Link>
             <Link href="/companies" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Companies</Link>
             <Link href="/insights" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Insights</Link>

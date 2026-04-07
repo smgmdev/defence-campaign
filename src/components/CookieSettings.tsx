@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
 const TABS = [
@@ -41,6 +41,14 @@ const TABS = [
 export default function CookieSettings() {
   const [open, setOpen] = useState(false)
   const [activeTab, setActiveTab] = useState('privacy')
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    if (open) window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open])
 
   if (!open) {
     return (

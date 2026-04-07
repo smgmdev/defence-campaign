@@ -388,7 +388,7 @@ export default function CompaniesPage() {
               </div>
             </div>
             <div className="search-group">
-              <div className="search-label">Find companies by <span style={{fontSize:'12px',fontWeight:400,letterSpacing:0}}>ⓘ</span></div>
+              <div className="search-label">Find companies by</div>
               <div className="search-wrap">
                 <input className="search-input" type="text" placeholder="Enter company name or location..." value={searchQ} onChange={e => { setSearchQ(e.target.value); handleFilterChange() }} />
                 <button className="search-btn">
