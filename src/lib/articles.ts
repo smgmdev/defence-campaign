@@ -12,6 +12,103 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    slug: "things-to-know-procuring-defence-products-internationally",
+    title: "Things You Need to Know When Procuring Defence Products Internationally",
+    date: "09 Apr 2026",
+    cat: "industry",
+    source: "INDUSTRY NEWS",
+    region: "Global",
+    description: "International defence procurement is one of the most regulated, politically sensitive, and logistically demanding areas of global trade. This guide covers what buyers and suppliers must understand before engaging in cross-border defence transactions.",
+    keywords: "international defence procurement, defence trade regulations, ITAR, EAR, end-user certificate, defence export licence, cross-border military trade, defence logistics, offset agreements, defence compliance",
+    body: `<p>International defence procurement is not like buying steel or electronics. It is one of the most heavily regulated categories of global trade, embedded in layers of export controls, diplomatic agreements, sanctions regimes, and compliance requirements that vary by country, by product, and sometimes by end user. Getting it wrong does not just mean a delayed shipment — it can mean criminal prosecution, blacklisting, or the collapse of an entire business relationship.</p>
+
+        <p>Whether you are a government buyer sourcing equipment from abroad, a private defence company entering a new export market, or a trading intermediary facilitating cross-border transactions, there are things you need to understand before a single contract is signed. This article covers the most important ones.</p>
+
+        <h2>1. Export Controls Are Not Optional — They Are the Starting Point</h2>
+
+        <p>Every country that manufactures or trades defence products maintains some form of export control regime. In the United States, this is governed primarily by the International Traffic in Arms Regulations (ITAR) and the Export Administration Regulations (EAR). In the European Union, member states follow the EU Common Position on Arms Exports. In the UK, it is the Export Control Act 2002 and the Strategic Export Licensing system. Russia, China, Israel, Turkey, South Korea — every major defence-producing nation has its own framework.</p>
+
+        <p>What this means in practice is that before you can export or import a defence product, you need to know exactly which control list it falls under, whether a licence is required, and whether the destination country and end user are eligible to receive it. This applies to finished weapons systems, components, spare parts, ammunition, software, technical data, and in many cases even training and maintenance services.</p>
+
+        <p>The most common mistake companies make is assuming that because a product is commercially available or dual-use, it is not controlled. That assumption has ended careers. Items as seemingly benign as night-vision optics, encrypted radios, body armour, and drone components can fall under strict export controls depending on their specifications and intended use.</p>
+
+        <h2>2. End-User Certificates Are the Currency of Defence Trade</h2>
+
+        <p>An End-User Certificate (EUC) is a document issued by the government of the importing country confirming that the stated end user is the final recipient of the goods and that the items will not be re-exported or diverted without authorisation. It is the single most important document in any international defence transaction.</p>
+
+        <p>Without a valid EUC, no reputable supplier will ship controlled defence goods. No export licence will be granted. No insurance provider will cover the transaction. The EUC is not a formality — it is the legal foundation of the entire deal.</p>
+
+        <p>Buyers need to understand that obtaining a EUC from their government can take weeks or months, depending on the country and the sensitivity of the items. Suppliers need to understand that accepting a EUC without verifying its authenticity is a compliance failure that can result in criminal liability. Both parties need to understand that the obligations in a EUC — particularly the non-re-export clause — are legally binding and monitored.</p>
+
+        <h2>3. Sanctions and Embargoes Can Change Overnight</h2>
+
+        <p>The global sanctions landscape is one of the most dynamic and unpredictable elements of international defence trade. The United Nations, the European Union, the United States (through OFAC), and individual countries all maintain their own sanctions lists, arms embargoes, and restricted entity databases. These lists are updated frequently — sometimes in response to a single geopolitical event.</p>
+
+        <p>A country that was an approved destination last month may be embargoed this month. A company that passed due diligence screening last quarter may have been added to a restricted list this week. A transaction that was fully compliant when the contract was signed may become illegal before delivery is completed.</p>
+
+        <p>This means that sanctions screening is not a one-time exercise. It must be conducted at every stage of a transaction — at initial inquiry, at contract signing, at licence application, at shipment, and at delivery. Any company engaged in international defence trade must have a compliance programme that includes real-time sanctions monitoring and the ability to halt a transaction at any point if the risk profile changes.</p>
+
+        <h2>4. Understand the Difference Between Government-to-Government and Commercial Sales</h2>
+
+        <p>There are two primary channels for international defence procurement: government-to-government (G2G) sales and direct commercial sales (DCS). The distinction matters enormously.</p>
+
+        <p>In a G2G transaction, the selling government acts as the intermediary between the manufacturer and the buying government. In the United States, this is the Foreign Military Sales (FMS) programme administered by the Defense Security Cooperation Agency (DSCA). The US government negotiates the terms, manages the contract, and handles export licensing. The buyer deals with the US government, not with the manufacturer directly. This channel is typically used for major platforms — fighter jets, missile systems, naval vessels — and comes with slower timelines but stronger government backing and support packages.</p>
+
+        <p>In a direct commercial sale, the buyer negotiates directly with the manufacturer or an authorised trading company. This is faster, more flexible, and often more cost-effective for smaller items — personal protective equipment, communications gear, ammunition, vehicles, spare parts. But it also places the full burden of export compliance, logistics, and due diligence on the commercial parties involved.</p>
+
+        <p>Many buyers — particularly in the Middle East, Africa, and Southeast Asia — use a combination of both channels. Understanding which channel is appropriate for which procurement is a critical competency.</p>
+
+        <h2>5. Logistics in Defence Trade Is a Discipline, Not an Afterthought</h2>
+
+        <p>Shipping defence products internationally is not the same as shipping commercial goods. Controlled items require specific documentation, specialised freight forwarders with defence trade experience, customs pre-clearance in both the exporting and importing countries, and in many cases government escort or oversight during transit.</p>
+
+        <p>Ammunition and explosives have additional hazardous materials requirements. Classified equipment may require secure transport and cleared personnel. Large platforms like armoured vehicles or aircraft require specialised heavy-lift logistics. Even seemingly simple items like body armour or helmets may require temporary import licences if they transit through a third country.</p>
+
+        <p>The logistics plan should be developed at the same time as the commercial terms — not after. Delivery timelines in defence trade are measured in months, not weeks, and any failure to secure the correct permits or documentation at any point in the chain can result in seizure of goods, legal penalties, or permanent reputational damage.</p>
+
+        <h2>6. Offset Obligations Are Part of the Deal</h2>
+
+        <p>Many countries — particularly in the Gulf, Europe, and Asia-Pacific — require offset agreements as a condition of major defence purchases. An offset is a commitment by the seller to reinvest a percentage of the contract value back into the buyer's economy, either through direct offsets (related to the defence sector, such as local manufacturing, technology transfer, or co-production) or indirect offsets (investment in non-defence sectors like infrastructure, education, or healthcare).</p>
+
+        <p>Offset requirements can range from 30% to over 100% of the contract value. They are legally binding, tracked by dedicated government offset authorities, and failure to meet offset obligations can result in financial penalties or exclusion from future contracts.</p>
+
+        <p>For sellers entering new markets, offset obligations are not just a compliance issue — they are a strategic consideration that affects pricing, margin, and long-term market positioning. For buyers, offsets are a tool for building domestic defence industrial capacity and ensuring that procurement spending generates broader economic benefits.</p>
+
+        <h2>7. Due Diligence on Your Counterparty Is Non-Negotiable</h2>
+
+        <p>In international defence trade, you are judged by the company you keep. If your buyer turns out to be a front for a sanctioned entity, you are liable. If your supplier diverts goods to an unauthorised end user, your name is on the paperwork. If your agent or intermediary is engaged in corrupt practices, you are exposed.</p>
+
+        <p>Due diligence in defence trade goes far beyond a standard credit check. It includes verification of the counterparty's legal status, ownership structure, and beneficial ownership. It includes screening against sanctions lists, debarment lists, and corruption databases. It includes verification of government authorisations, end-user credentials, and track record in previous defence transactions. And it includes ongoing monitoring — because a clean counterparty today can become a compromised counterparty tomorrow.</p>
+
+        <p>The cost of thorough due diligence is trivial compared to the cost of a compliance failure. Every company in this space should have a documented Know Your Customer (KYC) process that is applied consistently and updated regularly.</p>
+
+        <h2>8. Contracts Must Be Defence-Specific</h2>
+
+        <p>Standard commercial contracts are not sufficient for international defence transactions. Defence contracts must address export control compliance obligations, end-use and end-user restrictions, government approval contingencies, inspection and acceptance procedures specific to military specifications, warranty terms that account for the operating environment, and dispute resolution mechanisms that account for sovereign immunity and jurisdictional complexity.</p>
+
+        <p>They must also address what happens if a licence is denied, if sanctions are imposed mid-contract, if the political relationship between the two countries deteriorates, or if the buyer's government changes and the new administration does not honour the previous one's commitments. These are not hypothetical scenarios — they happen regularly in defence trade.</p>
+
+        <p>Engaging legal counsel with specific experience in international defence trade law is not optional. It is a cost of doing business in this sector.</p>
+
+        <h2>9. Reputation Is Your Most Valuable Asset</h2>
+
+        <p>The international defence market is smaller than it looks. The number of companies, government officials, and intermediaries involved in cross-border defence trade is finite, and information travels fast. A single compliance failure, a single case of misrepresentation, a single diverted shipment can permanently destroy a company's ability to operate in this space.</p>
+
+        <p>Conversely, a track record of clean transactions, transparent dealings, and reliable delivery builds credibility that opens doors no amount of marketing can. Governments prefer to work with suppliers they trust. Manufacturers prefer to work with trading partners who protect their brand. End users prefer to work with companies that deliver what they promise.</p>
+
+        <p>In defence trade, your reputation is not a soft asset — it is a hard commercial advantage that takes years to build and seconds to lose.</p>
+
+        <h2>10. The Market Is Growing — But So Is the Complexity</h2>
+
+        <p>Global defence spending is at its highest level since the Cold War. Procurement budgets are expanding across Europe, the Middle East, and the Indo-Pacific. New suppliers are entering the market from Turkey, South Korea, the UAE, India, and Brazil. The demand for everything from ammunition to autonomous systems is outstripping supply in multiple categories.</p>
+
+        <p>But the regulatory environment is also becoming more complex. Export controls are tightening. Sanctions regimes are expanding. Due diligence requirements are increasing. And the consequences of non-compliance are becoming more severe.</p>
+
+        <p>For companies that understand the rules, invest in compliance, and build genuine expertise in international defence logistics and regulation, the opportunities are enormous. For companies that try to cut corners, the risks have never been higher.</p>
+
+        <p>International defence procurement is not a market you can enter casually. It rewards preparation, professionalism, and patience. The companies that succeed are the ones that treat compliance not as a burden but as a competitive advantage — because in this market, trust is the most valuable product of all.</p>`
+  },
+  {
     slug: "how-to-prepare-for-nuclear-radiation-middle-east",
     title: "How to Prepare Yourself for Nuclear Radiation If You Are Living in the Middle East",
     date: "08 Apr 2026",
