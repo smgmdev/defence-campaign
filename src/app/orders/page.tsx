@@ -354,9 +354,9 @@ export default function OrdersPage() {
                         <td colSpan={7}>
                           <div className="ord-expanded">
                             <div className="ord-expanded-item"><span className="ord-expanded-label">Qty</span>{o.quantity} {o.unit}</div>
-                            <div className="ord-expanded-item"><span className="ord-expanded-label">Notes</span>{o.notes || '—'}</div>
                             <div className="ord-expanded-item"><span className="ord-expanded-label">Expiry</span>{getCountdown(o.expiresAt)}</div>
                             <div className="ord-expanded-item"><span className="ord-expanded-label">Order Date</span>{o.date}</div>
+                            <div className="ord-expanded-item"><span className="ord-expanded-label">Notes</span>{o.notes || '—'}</div>
                           </div>
                         </td>
                       </tr>

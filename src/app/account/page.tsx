@@ -192,9 +192,9 @@ export default function AccountPage() {
                           <tr><td colSpan={7} style={{padding:'12px 8px',background:'#fafafa',borderBottom:'1px solid #eee'}}>
                             <div style={{display:'flex',flexDirection:'column',gap:'6px',fontSize:'13px'}}>
                               <div><span style={{fontWeight:700,marginRight:8}}>Qty</span>{o.quantity} {o.unit}</div>
-                              <div><span style={{fontWeight:700,marginRight:8}}>Notes</span>{o.notes || '—'}</div>
                               <div><span style={{fontWeight:700,marginRight:8}}>Expiry</span>{(o as Record<string,string>).expires_at ? new Date((o as Record<string,string>).expires_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : 'Perpetual'}</div>
-                              <div><span style={{fontWeight:700,marginRight:8}}>Date</span>{new Date(o.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</div>
+                              <div><span style={{fontWeight:700,marginRight:8}}>Order Date</span>{new Date(o.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</div>
+                              <div><span style={{fontWeight:700,marginRight:8}}>Notes</span>{o.notes || '—'}</div>
                             </div>
                           </td></tr>
                         )}
