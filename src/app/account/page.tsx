@@ -175,14 +175,14 @@ export default function AccountPage() {
               <h3 className="acc-section-title">My Orders</h3>
               {myOrders.length > 0 ? (
                 <table className="acc-order-table">
-                  <thead><tr><th>Type</th><th>Product</th><th>Qty</th><th>Notes</th><th>Expiry</th><th>Date</th><th></th></tr></thead>
+                  <thead><tr><th>Type</th><th>Product</th><th className="acc-hide-mobile">Qty</th><th className="acc-hide-mobile">Notes</th><th className="acc-hide-mobile">Expiry</th><th className="acc-hide-mobile">Date</th><th></th></tr></thead>
                   <tbody>
                     {myOrders.map(o => (
                       <React.Fragment key={o.id}>
                         <tr style={{cursor:'pointer'}} onClick={() => setExpandedMyOrder(expandedMyOrder === o.id ? null : o.id)}>
                           <td><span className={`acc-ord-type acc-ord-type--${o.type}`}>{o.type.toUpperCase()}</span></td>
                           <td style={{fontWeight:700}}>{o.product}</td>
-                          <td>{o.quantity} {o.unit}</td>
+                          <td className="acc-hide-mobile">{o.quantity} {o.unit}</td>
                           <td className="acc-hide-mobile" style={{color:'#666',fontSize:'12px'}}>{o.notes || '—'}</td>
                           <td className="acc-hide-mobile" style={{fontSize:'12px'}}>{(o as Record<string,string>).expires_at ? new Date((o as Record<string,string>).expires_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : 'Perpetual'}</td>
                           <td className="acc-hide-mobile">{new Date(o.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</td>
@@ -191,6 +191,7 @@ export default function AccountPage() {
                         {expandedMyOrder === o.id && (
                           <tr><td colSpan={7} style={{padding:'12px 8px',background:'#fafafa',borderBottom:'1px solid #eee'}}>
                             <div style={{display:'flex',flexDirection:'column',gap:'6px',fontSize:'13px'}}>
+                              <div><span style={{fontWeight:700,marginRight:8}}>Qty</span>{o.quantity} {o.unit}</div>
                               <div><span style={{fontWeight:700,marginRight:8}}>Notes</span>{o.notes || '—'}</div>
                               <div><span style={{fontWeight:700,marginRight:8}}>Expiry</span>{(o as Record<string,string>).expires_at ? new Date((o as Record<string,string>).expires_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : 'Perpetual'}</div>
                               <div><span style={{fontWeight:700,marginRight:8}}>Date</span>{new Date(o.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</div>
@@ -208,14 +209,14 @@ export default function AccountPage() {
               <h3 className="acc-section-title" style={{marginTop:'40px'}}>Engaged Orders</h3>
               {engagedOrders.length > 0 ? (
                 <table className="acc-order-table">
-                  <thead><tr><th>Type</th><th>Product</th><th>Qty</th><th>Status</th></tr></thead>
+                  <thead><tr><th>Type</th><th>Product</th><th className="acc-hide-mobile">Qty</th><th>Status</th></tr></thead>
                   <tbody>
                     {engagedOrders.map((o, i) => (
                       <React.Fragment key={i}>
                         <tr style={{cursor:'pointer'}} onClick={() => setExpandedEngaged(expandedEngaged === i ? null : i)}>
                           <td><span className={`acc-ord-type acc-ord-type--${o.orderType}`}>{o.orderType?.toUpperCase()}</span></td>
                           <td style={{fontWeight:700}}>{o.product}</td>
-                          <td>{o.quantity}</td>
+                          <td className="acc-hide-mobile">{o.quantity}</td>
                           <td><div><span style={{background:'#ddd',color:'#888',padding:'6px 16px',fontSize:'12px',fontWeight:700,display:'inline-block'}}>Engaged</span></div><div style={{color:'#888',fontSize:'9px',marginTop:'4px'}}>{o.engagedAt}</div></td>
                         </tr>
                         {expandedEngaged === i && (
@@ -411,6 +412,7 @@ export default function AccountPage() {
         .acc-delete-btns { display: flex; gap: 10px; }
         .acc-delete-btns .acc-btn { flex: 1; }
         @media (max-width: 768px) {
+          .acc-hide-mobile { display: none; }
           .acc-grid { grid-template-columns: 1fr; }
           .acc-page { padding: 32px 0 60px; }
         }

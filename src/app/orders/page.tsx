@@ -73,6 +73,7 @@ export default function OrdersPage() {
   const [userBody, setUserBody] = useState('')
   const [interestedSent, setInterestedSent] = useState<Set<string>>(new Set())
   const [engagingId, setEngagingId] = useState<string | null>(null)
+  const [creating, setCreating] = useState(false)
   const [toastMsg, setToastMsg] = useState('')
   const [toastVisible, setToastVisible] = useState(false)
   const [cancelOrderId, setCancelOrderId] = useState<string | null>(null)
@@ -197,6 +198,7 @@ export default function OrdersPage() {
 
   async function handleCreateOrder(e: React.FormEvent) {
     e.preventDefault()
+    setCreating(true)
     const expiryMap: Record<string,number|null> = { 'perpetual': null, '24h': 24, '3d': 72, '7d': 168, '14d': 336, '30d': 720 }
     const hours = expiryMap[newOrder.expiry]
     const expiresAt = hours ? new Date(Date.now() + hours * 3600000).toISOString() : null
@@ -232,6 +234,7 @@ export default function OrdersPage() {
         expiresAt: o.expires_at || null,
       } as Order, ...prev])
     }
+    setCreating(false)
     setShowCreate(false)
     setNewOrder({ type: 'buy', product: '', quantity: '', unit: 'units', notes: '', expiry: 'perpetual' })
   }
@@ -304,9 +307,9 @@ export default function OrdersPage() {
                 <tr>
                   <th onClick={() => handleSort('type')}>Type</th>
                   <th onClick={() => handleSort('product')}>Product</th>
-                  <th onClick={() => handleSort('quantity')}>Qty</th>
+                  <th className="ord-hide-mobile" onClick={() => handleSort('quantity')}>Qty</th>
                   <th className="ord-hide-mobile">Notes</th>
-                  <th>Expiry</th>
+                  <th className="ord-hide-mobile">Expiry</th>
                   <th className="ord-hide-mobile" onClick={() => handleSort('date')}>Order Date</th>
                   <th></th>
                 </tr>
@@ -317,9 +320,9 @@ export default function OrdersPage() {
                     <tr className="ord-row" onClick={() => setExpandedRow(expandedRow === o.id ? null : o.id)}>
                       <td><span className={`ord-type ord-type--${o.type}`}>{o.type.toUpperCase()}</span></td>
                       <td className="ord-cell-product">{o.product}</td>
-                      <td>{o.quantity} {o.unit}</td>
+                      <td className="ord-hide-mobile">{o.quantity} {o.unit}</td>
                       <td className="ord-cell-notes ord-hide-mobile">{o.notes}</td>
-                      <td className="ord-cell-expiry">
+                      <td className="ord-cell-expiry ord-hide-mobile">
                         {(() => {
                           const cd = getCountdown(o.expiresAt)
                           return <span className={`ord-expiry${cd === 'Expired' ? ' ord-expiry--expired' : cd === 'Perpetual' ? ' ord-expiry--perp' : ' ord-expiry--countdown'}`}>{cd}</span>
@@ -350,6 +353,7 @@ export default function OrdersPage() {
                       <tr className="ord-expanded-row">
                         <td colSpan={7}>
                           <div className="ord-expanded">
+                            <div className="ord-expanded-item"><span className="ord-expanded-label">Qty</span>{o.quantity} {o.unit}</div>
                             <div className="ord-expanded-item"><span className="ord-expanded-label">Notes</span>{o.notes || '—'}</div>
                             <div className="ord-expanded-item"><span className="ord-expanded-label">Expiry</span>{getCountdown(o.expiresAt)}</div>
                             <div className="ord-expanded-item"><span className="ord-expanded-label">Order Date</span>{o.date}</div>
@@ -448,7 +452,9 @@ export default function OrdersPage() {
                 }} rows={3} maxLength={50} />
                 <div style={{fontSize:'11px',color:'#aaa',textAlign:'right',marginTop:'4px'}}>{newOrder.notes.length}/50</div>
               </div>
-              <button type="submit" className="ord-submit">Submit Order</button>
+              <button type="submit" className="ord-submit" disabled={creating}>
+                {creating ? <span className="ord-btn-spinner" style={{borderColor:'rgba(255,255,255,0.3)',borderTopColor:'#fff'}} /> : 'Submit Order'}
+              </button>
               <p className="ord-modal-note">All orders are reviewed by our procurement team and subject to compliance verification.</p>
             </form>
           </div>
@@ -550,6 +556,8 @@ export default function OrdersPage() {
         .ord-suggestion-cat { font-size: 11px; color: #999; }
         .ord-submit { width: 100%; padding: 14px; font-size: 14px; font-weight: 700; font-family: inherit; background: #000; color: #fff; border: none; cursor: pointer; margin-top: 8px; }
         .ord-submit:hover { background: #222; }
+        .ord-submit:disabled { background: #666; cursor: not-allowed; }
+        .ord-submit { display: flex; align-items: center; justify-content: center; }
         .ord-modal-note { font-size: 11px; color: #aaa; text-align: center; margin-top: 16px; line-height: 1.5; }
 
         .ord-loading { display: flex; align-items: center; justify-content: center; padding: 80px 0; }
@@ -587,6 +595,11 @@ export default function OrdersPage() {
         .ord-expanded-item { font-size: 13px; color: #555; }
         .ord-expanded-label { font-weight: 700; color: #000; margin-right: 8px; }
 
+        @media (max-width: 1024px) {
+          .ord-hide-mobile { display: none; }
+          .ord-expanded-row { display: table-row; }
+          .ord-expanded-row td { padding: 0 10px 0; border-bottom: 1px solid #eee; background: #fafafa; }
+        }
         @media (max-width: 768px) {
           .ord-filter-row { flex-direction: column; align-items: stretch; }
           .ord-filter-right { max-width: 100%; }
@@ -595,9 +608,6 @@ export default function OrdersPage() {
           .ord-select { width: 100%; }
           .ord-toolbar-inner { padding: 10px 20px; }
           .ord-field-row { grid-template-columns: 1fr; }
-          .ord-hide-mobile { display: none; }
-          .ord-expanded-row { display: table-row; }
-          .ord-expanded-row td { padding: 0 10px 0; border-bottom: 1px solid #eee; background: #fafafa; }
         }
       `}</style>
     </>
