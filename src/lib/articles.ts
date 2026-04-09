@@ -12,6 +12,103 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    slug: "tnt-demand-globally-2026-reasons-why",
+    title: "What Is Going On with TNT Demand Globally? Reasons Why TNT Is Hitting Record Demand in 2026",
+    date: "09 Apr 2026",
+    cat: "market",
+    source: "MARKET ANALYSIS",
+    region: "Global",
+    description: "Global demand for TNT has surged to levels not seen since the Cold War. From ammunition production backlogs to mining sector expansion and strategic stockpile replenishment, the forces driving TNT demand in 2026 are structural, not cyclical.",
+    keywords: "TNT demand 2026, trinitrotoluene shortage, explosives market, ammunition production, artillery shell demand, TNT global supply, military explosives, mining explosives, defence manufacturing, munitions supply chain",
+    body: `<p>If you are involved in defence procurement, mining, demolition, or any industry that relies on explosives, you have already felt it. TNT — trinitrotoluene — is in unprecedented global demand. Prices have risen sharply. Lead times have extended from weeks to months. Governments are competing with private industry for supply. And the production capacity that exists today is not enough to meet what the world is asking for.</p>
+
+        <p>This is not a temporary spike. The forces driving TNT demand in 2026 are structural, interconnected, and unlikely to reverse in the near term. Understanding what is happening — and why — is essential for anyone operating in the defence supply chain.</p>
+
+        <h2>1. The Ammunition Production Surge</h2>
+
+        <p>The single largest driver of TNT demand in 2026 is the global surge in ammunition production. TNT remains the primary or secondary explosive fill in the majority of conventional artillery shells, mortar rounds, aerial bombs, naval munitions, and a significant proportion of infantry ordnance produced worldwide.</p>
+
+        <p>The war in Ukraine fundamentally changed the calculus for ammunition stockpiles across NATO and allied nations. At peak consumption, Ukrainian forces were firing between 6,000 and 10,000 artillery rounds per day. Russian forces were firing even more. This rate of expenditure exposed a simple, brutal truth: no Western nation had the production capacity to sustain a high-intensity conventional war for more than a few weeks.</p>
+
+        <p>The response has been a massive, coordinated ramp-up in ammunition manufacturing. The United States has tripled its production target for 155mm artillery shells. The European Union has committed to producing one million rounds per year. South Korea, Japan, India, and Australia have all announced expanded production lines. Every single one of these programmes requires TNT — in large quantities, at consistent quality, on reliable schedules.</p>
+
+        <p>A single 155mm high-explosive artillery shell contains approximately 6.6 kilograms of TNT or TNT-based explosive composition. At a production rate of one million shells per year, that is 6,600 metric tonnes of TNT just for one calibre of ammunition in one theatre of demand. Scale that across all calibres, all nations, and all branches of military service, and the numbers become staggering.</p>
+
+        <h2>2. Strategic Stockpile Replenishment</h2>
+
+        <p>The ammunition surge is not just about current production — it is about refilling stockpiles that were drawn down over the past three years. The United States, United Kingdom, Germany, France, Poland, and dozens of other countries transferred significant quantities of munitions to Ukraine from their own reserves. Those reserves now need to be rebuilt.</p>
+
+        <p>Strategic stockpile targets have also been revised upward. NATO members are no longer planning for the kind of low-intensity conflicts that characterised the post-Cold War era. They are planning for the possibility of sustained conventional warfare against a peer adversary. That means stockpile requirements measured not in days of supply but in months.</p>
+
+        <p>Replenishing these stockpiles is a multi-year undertaking, and it creates sustained, predictable demand for TNT that the market has not had to accommodate in decades. This is not surge buying that will taper off — it is a structural shift in baseline demand.</p>
+
+        <h2>3. New Conflicts and Instability</h2>
+
+        <p>The war in Ukraine is the most visible driver, but it is not the only one. The escalation of tensions between Iran and Israel, the ongoing instability across the Red Sea and Horn of Africa, and the intensifying military posture around Taiwan have all contributed to a global environment in which governments are procuring munitions at wartime rates even in peacetime.</p>
+
+        <p>Gulf states — Saudi Arabia, the UAE, Qatar — have accelerated their defence procurement programmes significantly. Turkey has expanded both its domestic munitions production and its exports. India is investing heavily in indigenous ammunition manufacturing as part of its broader self-reliance strategy. Each of these programmes draws on the same limited global pool of TNT and TNT precursor chemicals.</p>
+
+        <h2>4. Mining and Civil Explosives Demand</h2>
+
+        <p>Defence is the headline, but it is not the only sector competing for TNT. The global mining industry — particularly copper, lithium, iron ore, and rare earth mining — is in the middle of its own expansion cycle, driven by the energy transition and electrification of transport. Open-pit mining operations consume enormous quantities of commercial explosives, many of which are TNT-based or use TNT as a sensitiser in ANFO and emulsion blends.</p>
+
+        <p>Infrastructure development across Asia, the Middle East, and Africa — tunnelling, quarrying, demolition — adds further demand. The construction boom in Saudi Arabia alone, driven by giga-projects like NEOM and The Line, requires industrial explosives at a scale that would have been considered exceptional a decade ago.</p>
+
+        <p>The result is that military and civilian demand are competing for the same feedstock, the same production lines, and in many cases the same suppliers. This dual demand is one of the reasons prices have risen so sharply — there is no slack in the system.</p>
+
+        <h2>5. Limited Production Capacity</h2>
+
+        <p>Here is the core problem: the world does not have enough TNT production capacity to meet current demand, and building new capacity takes years.</p>
+
+        <p>TNT production is concentrated in a relatively small number of countries. The largest producers include the United States (through facilities like the Radford Army Ammunition Plant), several European nations (notably Poland, the Czech Republic, and Bulgaria), India, China, and Pakistan. Russia was historically a major producer, but its output is now entirely consumed domestically and is inaccessible to Western markets due to sanctions.</p>
+
+        <p>Many existing production facilities are old — some dating back to the Cold War — and operate below their theoretical capacity due to maintenance constraints, environmental regulations, and workforce limitations. Expanding these facilities or building new ones requires not just capital investment but regulatory approvals, environmental impact assessments, and specialised workforce training. Lead times for new TNT production capacity are measured in three to five years minimum.</p>
+
+        <p>In the meantime, demand continues to outstrip supply. Governments with the most urgent requirements are resorting to long-term offtake agreements, locking in supply at premium prices and squeezing out smaller buyers who cannot compete on volume or price.</p>
+
+        <h2>6. Supply Chain Bottlenecks in Precursor Chemicals</h2>
+
+        <p>TNT is manufactured from toluene through a nitration process using nitric acid and sulfuric acid. All three of these inputs have experienced their own supply pressures in 2026.</p>
+
+        <p>Toluene is a petrochemical derived from crude oil refining. While global toluene supply is generally adequate, the specific grades required for military-specification TNT production are more limited. Nitric acid production has been affected by natural gas price volatility in Europe, since ammonia — a key precursor — is energy-intensive to produce. Sulfuric acid supply has tightened due to increased demand from the battery and fertiliser sectors.</p>
+
+        <p>These upstream pressures compound the production bottleneck. Even facilities with available capacity may face constraints in sourcing the raw materials needed to run at full output.</p>
+
+        <h2>7. Regulatory and Environmental Constraints</h2>
+
+        <p>TNT production is one of the most heavily regulated industrial processes in the world. The manufacturing process generates toxic byproducts — including pink water, red water, and various nitroaromatic compounds — that require careful treatment and disposal. Environmental regulations in Europe and North America have become progressively stricter, increasing the cost and complexity of production.</p>
+
+        <p>Several legacy TNT production sites have been shut down or restricted due to contamination concerns. New facilities face extensive environmental review processes. In some countries, community opposition to explosives manufacturing has delayed or blocked expansion plans entirely.</p>
+
+        <p>These constraints are legitimate and necessary, but they also mean that production capacity cannot be expanded as quickly as demand requires. The regulatory environment was designed for a world with stable, predictable explosives demand — not for a world where demand doubles in the space of three years.</p>
+
+        <h2>8. Geopolitical Supply Fragmentation</h2>
+
+        <p>The geopolitical landscape has fragmented the TNT supply chain in ways that make the market even tighter. Western sanctions on Russia have removed one of the world's largest producers from the accessible supply pool. China, which has significant production capacity, is increasingly prioritising domestic military requirements and is a politically complicated supplier for many Western buyers.</p>
+
+        <p>This means that the effective global supply available to NATO and allied nations is smaller than the theoretical global capacity would suggest. Countries that were previously marginal suppliers — like Bulgaria, Romania, and Pakistan — have found themselves in high demand, but their capacity is limited and their ability to scale is constrained.</p>
+
+        <p>The result is a bifurcated market: one supply pool for Western-aligned buyers, another for Russia and its partners, and China operating largely independently. Each pool is tighter than the global aggregate would suggest.</p>
+
+        <h2>9. Price Implications</h2>
+
+        <p>TNT prices have increased by an estimated 40 to 70 percent since 2023, depending on grade, quantity, and delivery terms. Military-specification TNT commands a significant premium over commercial grades. Spot market prices — for buyers without long-term contracts — have risen even more sharply.</p>
+
+        <p>These price increases flow through the entire munitions supply chain. The cost of a 155mm artillery shell has risen substantially, with TNT fill representing a meaningful proportion of total unit cost. For governments procuring munitions at scale, the increase in TNT prices translates to billions of dollars in additional spending.</p>
+
+        <p>For commercial buyers — mining companies, demolition contractors, construction firms — the price increases are squeezing margins and forcing some to explore alternative explosive formulations. But for military applications, where TNT's stability, castability, and performance characteristics are often specified in the design of the munition, substitution is not straightforward.</p>
+
+        <h2>10. What Comes Next</h2>
+
+        <p>The TNT demand surge is not going to resolve itself quickly. The structural drivers — ammunition production ramp-ups, stockpile replenishment, new conflict zones, mining expansion — are multi-year trends. Production capacity expansion is underway but will take years to deliver meaningful additional output.</p>
+
+        <p>In the near term, the market will remain tight. Prices will remain elevated. Lead times will remain extended. Buyers without established supplier relationships or long-term contracts will find it increasingly difficult to secure supply.</p>
+
+        <p>For defence procurement professionals, the message is clear: TNT supply security should be treated as a strategic priority, not a routine procurement exercise. Governments that secure long-term supply agreements now will be better positioned than those that rely on spot market purchasing. Companies that invest in production capacity — or in relationships with producers — will have a significant competitive advantage.</p>
+
+        <p>The world is using more TNT than at any point since the height of the Cold War. The question is not whether demand will remain high — it will. The question is whether supply can catch up before the gap becomes a genuine strategic vulnerability.</p>`
+  },
+  {
     slug: "things-to-know-procuring-defence-products-internationally",
     title: "Things You Need to Know When Procuring Defence Products Internationally",
     date: "09 Apr 2026",
