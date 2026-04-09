@@ -114,7 +114,7 @@ def build_html_body(to_name=""):
 
       <!-- Screenshot 1: Platform Hero -->
       <div style="margin:0 0 28px;border:1px solid #eee;overflow:hidden;">
-        <img src="https://www.defencetrading.com/email-hero.png" alt="Defence Trading — Procure defence products from verified global suppliers" style="width:100%;display:block;" />
+        <img src="https://www.defencetrading.com/email-hero-v2.png" alt="Defence Trading — Procure defence products from verified global suppliers" style="width:100%;display:block;" />
       </div>
 
       <h2 style="font-size:18px;color:#000;font-weight:800;margin:0 0 16px;letter-spacing:-0.3px;">How It Works</h2>
@@ -136,7 +136,7 @@ def build_html_body(to_name=""):
 
       <!-- Screenshot 2: Create Order Modal -->
       <div style="margin:0 0 28px;border:1px solid #eee;overflow:hidden;">
-        <img src="https://www.defencetrading.com/email-create-order.png" alt="Defence Trading — Create Order" style="width:100%;display:block;" />
+        <img src="https://www.defencetrading.com/email-create-order-v2.png" alt="Defence Trading — Create Order" style="width:100%;display:block;" />
       </div>
 
       <h2 style="font-size:18px;color:#000;font-weight:800;margin:0 0 16px;letter-spacing:-0.3px;">What You Can Trade</h2>
