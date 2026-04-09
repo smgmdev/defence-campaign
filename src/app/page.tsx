@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from 'react'
 import { PRODUCTS } from '@/lib/products'
 import { ARTICLES } from '@/lib/articles'
 import { supabase } from '@/lib/supabase'
+import CreateOrderModal from '@/components/CreateOrderModal'
 
 const SEARCH_COMPANIES = [{"name":"Chase Tactical","category":"Protective Equipment","location":"USA"},{"name":"Hard Head Veterans","category":"Protective Equipment","location":"Sweetwater, TX"},{"name":"Hardwire LLC","category":"Protective Equipment","location":"Pocomoke City, MD"},{"name":"Sarkar Tactical","category":"Protective Equipment","location":"El Paso, TX"},{"name":"RMA Armament","category":"Protective Equipment","location":"Centerville, IA"},{"name":"Armor Express","category":"Protective Equipment","location":"Eden, NC"},{"name":"Team Wendy","category":"Protective Equipment","location":"Cleveland, OH"},{"name":"Gentex Corporation","category":"Protective Equipment","location":"Carbondale, PA"},{"name":"Point Blank Enterprises","category":"Protective Equipment","location":"Pompano Beach, FL"},{"name":"Revision Military","category":"Protective Equipment","location":"Essex Junction, VT"},{"name":"Crye Precision","category":"Military Uniforms","location":"Brooklyn, NY"},{"name":"5.11 Tactical","category":"Military Uniforms","location":"Modesto, CA"},{"name":"Viasat Inc.","category":"Communications Gear","location":"Carlsbad, CA"},{"name":"Silvus Technologies","category":"Communications Gear","location":"Los Angeles, CA"},{"name":"Leonardo DRS","category":"Communications Gear","location":"Arlington, VA"},{"name":"ADS Inc.","category":"Logistics & Supply","location":"Virginia Beach, VA"},{"name":"Oshkosh Defense","category":"Military Vehicles","location":"Oshkosh, WI"},{"name":"MBDA","category":"Defence Systems","location":"France/UK/Germany"},{"name":"Rohde & Schwarz","category":"Communications Gear","location":"Germany"}]
 
@@ -27,15 +28,8 @@ export default function HomePage() {
   const [orderToast, setOrderToast] = useState('')
   const [orderToastVisible, setOrderToastVisible] = useState(false)
   const [showCreate, setShowCreate] = useState(false)
-  const [newOrder, setNewOrder] = useState({ type: 'buy', product: '', quantity: '', unit: 'units', notes: '', expiry: 'perpetual' })
-  const [productSuggestions, setProductSuggestions] = useState<typeof PRODUCTS>([])
-  const [showSuggestions, setShowSuggestions] = useState(false)
-  const [creating, setCreating] = useState(false)
   const [showLoginPrompt, setShowLoginPrompt] = useState(false)
   const [cancelOrderId, setCancelOrderId] = useState<string | null>(null)
-  const [typeOpen, setTypeOpen] = useState(false)
-  const [unitOpen, setUnitOpen] = useState(false)
-  const [expiryOpen, setExpiryOpen] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const searchWrapRef = useRef<HTMLDivElement>(null)
 
@@ -112,53 +106,12 @@ export default function HomePage() {
     showOrderToast(`You have engaged your interest in ${order.product} order. Defence Trading will reach out to you for details.`)
   }
 
-  function handleProductInput(val: string) {
-    setNewOrder(p => ({ ...p, product: val }))
-    if (val.trim().length > 0) {
-      const q = val.toLowerCase()
-      setProductSuggestions(PRODUCTS.filter(p => p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q)).slice(0, 8))
-      setShowSuggestions(true)
-    } else {
-      setShowSuggestions(false)
-    }
-  }
-
-  function selectProduct(name: string) {
-    setNewOrder(p => ({ ...p, product: name }))
-    setShowSuggestions(false)
-  }
-
-  async function handleCreateOrder(e: React.FormEvent) {
-    e.preventDefault()
-    setCreating(true)
-    const expiryMap: Record<string,number|null> = { 'perpetual': null, '24h': 24, '3d': 72, '7d': 168, '14d': 336, '30d': 720 }
-    const hours = expiryMap[newOrder.expiry]
-    const expiresAt = hours ? new Date(Date.now() + hours * 3600000).toISOString() : null
-    const res = await fetch('/api/orders', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        type: newOrder.type,
-        product: newOrder.product,
-        quantity: newOrder.quantity,
-        unit: newOrder.unit,
-        notes: newOrder.notes,
-        expiresAt,
-        userId, userEmail, userName,
-      }),
-    })
-    const data = await res.json()
-    if (data.order) {
-      const o = data.order
-      setActiveOrders(prev => [{
-        id: o.id, type: o.type, product: o.product, quantity: o.quantity, unit: o.unit,
-        date: new Date(o.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
-        user: o.user_name || '', orderUserId: o.user_id || '',
-      }, ...prev].slice(0, 5))
-    }
-    setCreating(false)
-    setShowCreate(false)
-    setNewOrder({ type: 'buy', product: '', quantity: '', unit: 'units', notes: '', expiry: 'perpetual' })
+  function handleOrderCreated(o: Record<string, string>) {
+    setActiveOrders(prev => [{
+      id: o.id, type: o.type, product: o.product, quantity: o.quantity, unit: o.unit,
+      date: new Date(o.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+      user: o.user_name || '', orderUserId: o.user_id || '',
+    }, ...prev].slice(0, 5))
   }
 
   useEffect(() => {
@@ -177,7 +130,7 @@ export default function HomePage() {
       }
     }
     function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') { setDropdownOpen(false); setShowCreate(false); setShowLoginPrompt(false); setCancelOrderId(null); setTypeOpen(false); setUnitOpen(false); setExpiryOpen(false) }
+      if (e.key === 'Escape') { setDropdownOpen(false); setShowCreate(false); setShowLoginPrompt(false); setCancelOrderId(null) }
     }
     document.addEventListener('mousedown', handleClickOutside)
     document.addEventListener('keydown', handleKeyDown)
@@ -767,110 +720,13 @@ export default function HomePage() {
 
       {/* CREATE ORDER MODAL */}
       {showCreate && (
-        <>
-          <div className="ord-modal-backdrop" onClick={() => setShowCreate(false)} />
-          <div className="ord-modal">
-            <div className="ord-modal-head">
-              <h2>Create Order</h2>
-              <button className="ord-modal-close" onClick={() => setShowCreate(false)}>&#10005;</button>
-            </div>
-            <form onSubmit={handleCreateOrder} className="ord-modal-body">
-              <div className="ord-field">
-                <label>Order Type</label>
-                <div className="csel-wrap">
-                  <button type="button" className="csel-trigger" onClick={() => { setTypeOpen(!typeOpen); setUnitOpen(false); setExpiryOpen(false) }}>
-                    <span>{newOrder.type === 'buy' ? 'Buy — I want to purchase' : 'Sell — I want to sell'}</span>
-                    <span className={`csel-arrow${typeOpen ? ' open' : ''}`}>&#x276F;</span>
-                  </button>
-                  {typeOpen && (
-                    <div className="csel-options">
-                      {[{v:'buy',l:'Buy — I want to purchase'},{v:'sell',l:'Sell — I want to sell'}].map(o => (
-                        <div key={o.v} className={`csel-option${newOrder.type === o.v ? ' selected' : ''}`} onClick={() => { setNewOrder(p => ({...p, type: o.v})); setTypeOpen(false) }}>{o.l}</div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="ord-field" style={{ position: 'relative' }}>
-                <label>Product</label>
-                <input
-                  type="text"
-                  placeholder="Type product name..."
-                  value={newOrder.product}
-                  onChange={e => handleProductInput(e.target.value)}
-                  onFocus={() => { if (newOrder.product) handleProductInput(newOrder.product) }}
-                  onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-                  required
-                  autoComplete="off"
-                />
-                {showSuggestions && productSuggestions.length > 0 && (
-                  <div className="ord-suggestions">
-                    {productSuggestions.map(p => (
-                      <div key={p.id} className="ord-suggestion" onMouseDown={() => selectProduct(p.name)}>
-                        <span className="ord-suggestion-name">{p.name}</span>
-                        <span className="ord-suggestion-cat">{p.category}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-              <div className="ord-field-row">
-                <div className="ord-field">
-                  <label>Quantity</label>
-                  <input type="text" placeholder="e.g. 10,000" value={newOrder.quantity} onChange={e => setNewOrder(p => ({ ...p, quantity: e.target.value }))} required />
-                </div>
-                <div className="ord-field">
-                  <label>Unit</label>
-                  <div className="csel-wrap">
-                    <button type="button" className="csel-trigger" onClick={() => { setUnitOpen(!unitOpen); setTypeOpen(false); setExpiryOpen(false) }}>
-                      <span>{newOrder.unit.charAt(0).toUpperCase() + newOrder.unit.slice(1)}</span>
-                      <span className={`csel-arrow${unitOpen ? ' open' : ''}`}>&#x276F;</span>
-                    </button>
-                    {unitOpen && (
-                      <div className="csel-options">
-                        {['units','rounds','systems','vehicles','sets'].map(u => (
-                          <div key={u} className={`csel-option${newOrder.unit === u ? ' selected' : ''}`} onClick={() => { setNewOrder(p => ({...p, unit: u})); setUnitOpen(false) }}>{u.charAt(0).toUpperCase() + u.slice(1)}</div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-              <div className="ord-field">
-                <label>Order Expiry</label>
-                <div className="csel-wrap">
-                  <button type="button" className="csel-trigger" onClick={() => { setExpiryOpen(!expiryOpen); setTypeOpen(false); setUnitOpen(false) }}>
-                    <span>{{ perpetual:'Perpetual (No expiry)', '24h':'24 Hours', '3d':'3 Days', '7d':'7 Days', '14d':'14 Days', '30d':'30 Days' }[newOrder.expiry]}</span>
-                    <span className={`csel-arrow${expiryOpen ? ' open' : ''}`}>&#x276F;</span>
-                  </button>
-                  {expiryOpen && (
-                    <div className="csel-options">
-                      {[{v:'perpetual',l:'Perpetual (No expiry)'},{v:'24h',l:'24 Hours'},{v:'3d',l:'3 Days'},{v:'7d',l:'7 Days'},{v:'14d',l:'14 Days'},{v:'30d',l:'30 Days'}].map(o => (
-                        <div key={o.v} className={`csel-option${newOrder.expiry === o.v ? ' selected' : ''}`} onClick={() => { setNewOrder(p => ({...p, expiry: o.v})); setExpiryOpen(false) }}>{o.l}</div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="ord-field">
-                <label>Notes / Requirements</label>
-                <textarea placeholder="Specifications, delivery requirements, timeline..." value={newOrder.notes} onChange={e => {
-                  const v = e.target.value
-                  if (v.length > 50) return
-                  if (/[0-9]{7,}/.test(v.replace(/\s/g, ''))) return
-                  if (/@/.test(v)) return
-                  if (/https?:\/\/|www\.|\.com|\.net|\.org|\.io|\.co/i.test(v)) return
-                  setNewOrder(p => ({ ...p, notes: v }))
-                }} rows={3} maxLength={50} />
-                <div style={{fontSize:'11px',color:'#aaa',textAlign:'right',marginTop:'4px'}}>{newOrder.notes.length}/50</div>
-              </div>
-              <button type="submit" className="ord-submit" disabled={creating}>
-                {creating ? <span className="ord-btn-spinner" style={{borderColor:'rgba(255,255,255,0.3)',borderTopColor:'#fff'}} /> : 'Submit Order'}
-              </button>
-              <p className="ord-modal-note">All orders are reviewed by our procurement team and subject to compliance verification.</p>
-            </form>
-          </div>
-        </>
+        <CreateOrderModal
+          userId={userId}
+          userEmail={userEmail}
+          userName={userName}
+          onClose={() => setShowCreate(false)}
+          onCreated={handleOrderCreated}
+        />
       )}
     </>
   )
