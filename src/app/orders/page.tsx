@@ -349,7 +349,7 @@ export default function OrdersPage() {
             <p className="ord-cancel-modal-text">Are you sure you want to cancel this order? This action cannot be undone.</p>
             <div className="ord-cancel-modal-btns">
               <button className="ord-cancel-modal-yes" onClick={() => {
-                fetch('/api/orders/cancel', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({orderId: cancelOrderId}) })
+                fetch('/api/orders/cancel', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({orderId: cancelOrderId, userId}) })
                   .then(() => { setDbOrders(prev => prev.filter(x => x.id !== cancelOrderId)); setCancelOrderId(null) })
               }}>Yes, Cancel Order</button>
               <button className="ord-cancel-modal-no" onClick={() => setCancelOrderId(null)}>Keep Order</button>

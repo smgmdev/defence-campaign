@@ -703,7 +703,7 @@ export default function HomePage() {
             <p>Are you sure you want to cancel this order? This action cannot be undone.</p>
             <div className="login-prompt-btns">
               <button className="cancel-confirm-yes" onClick={() => {
-                fetch('/api/orders/cancel', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({orderId: cancelOrderId}) })
+                fetch('/api/orders/cancel', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({orderId: cancelOrderId, userId}) })
                   .then(() => { setActiveOrders(prev => prev.filter(x => x.id !== cancelOrderId)); setCancelOrderId(null) })
               }}>Yes, Cancel Order</button>
               <button className="login-prompt-no" onClick={() => setCancelOrderId(null)}>Keep Order</button>

@@ -186,7 +186,7 @@ export default function AccountPage() {
                           <td className="acc-hide-mobile" style={{color:'#666',fontSize:'12px'}}>{o.notes || '—'}</td>
                           <td className="acc-hide-mobile" style={{fontSize:'12px'}}>{(o as Record<string,string>).expires_at ? new Date((o as Record<string,string>).expires_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : 'Perpetual'}</td>
                           <td className="acc-hide-mobile">{new Date(o.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</td>
-                          <td><button className="acc-cancel-btn" onClick={e => { e.stopPropagation(); if (confirm('Are you sure you want to cancel this order?')) { fetch('/api/orders/cancel', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({orderId: o.id}) }).then(() => setMyOrders(prev => prev.filter(x => x.id !== o.id))) } }}>Cancel</button></td>
+                          <td><button className="acc-cancel-btn" onClick={e => { e.stopPropagation(); if (confirm('Are you sure you want to cancel this order?')) { fetch('/api/orders/cancel', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({orderId: o.id, userId: user?.id}) }).then(() => setMyOrders(prev => prev.filter(x => x.id !== o.id))) } }}>Cancel</button></td>
                         </tr>
                         {expandedMyOrder === o.id && (
                           <tr><td colSpan={7} style={{padding:'12px 8px',background:'#fafafa',borderBottom:'1px solid #eee'}}>
