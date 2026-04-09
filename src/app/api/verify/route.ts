@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server'
 import crypto from 'crypto'
 
-const RESEND_API_KEY = 're_5z7p9CmY_krUa3P65GnrHQmADzYApW5cN'
+function escapeHtml(str: string): string {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+}
+
+const RESEND_API_KEY = process.env.RESEND_API_KEY || ''
 const SECRET = 'dt_verify_secret_2026'
 
 export async function POST(req: Request) {
@@ -41,14 +45,14 @@ export async function POST(req: Request) {
       body: JSON.stringify({
         from: 'Defence Trading <noreply@defencetrading.com>',
         to: ['sales@defencetrading.com'],
-        subject: `Email Verified ✓ — ${data.name} (${data.body})`,
+        subject: `Email Verified ✓ — ${escapeHtml(String(data.name))} (${escapeHtml(String(data.body))})`,
         html: `
           <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
             <h2 style="font-size:18px;color:#000;margin-bottom:24px;">Email Verified ✓</h2>
             <table style="width:100%;border-collapse:collapse;">
-              <tr><td style="padding:10px 0;border-bottom:1px solid #eee;font-weight:700;width:140px;">Name</td><td style="padding:10px 0;border-bottom:1px solid #eee;">${data.name}</td></tr>
-              <tr><td style="padding:10px 0;border-bottom:1px solid #eee;font-weight:700;">Body</td><td style="padding:10px 0;border-bottom:1px solid #eee;">${data.body}</td></tr>
-              <tr><td style="padding:10px 0;border-bottom:1px solid #eee;font-weight:700;">Email</td><td style="padding:10px 0;border-bottom:1px solid #eee;"><a href="mailto:${data.email}">${data.email}</a></td></tr>
+              <tr><td style="padding:10px 0;border-bottom:1px solid #eee;font-weight:700;width:140px;">Name</td><td style="padding:10px 0;border-bottom:1px solid #eee;">${escapeHtml(String(data.name))}</td></tr>
+              <tr><td style="padding:10px 0;border-bottom:1px solid #eee;font-weight:700;">Body</td><td style="padding:10px 0;border-bottom:1px solid #eee;">${escapeHtml(String(data.body))}</td></tr>
+              <tr><td style="padding:10px 0;border-bottom:1px solid #eee;font-weight:700;">Email</td><td style="padding:10px 0;border-bottom:1px solid #eee;"><a href="mailto:${escapeHtml(String(data.email))}">${escapeHtml(String(data.email))}</a></td></tr>
               <tr><td style="padding:10px 0;font-weight:700;">Verified At</td><td style="padding:10px 0;">${new Date().toUTCString()}</td></tr>
             </table>
             <p style="font-size:13px;color:#2a7a2a;margin-top:24px;font-weight:700;">This user has verified their email address. Account is now active.</p>

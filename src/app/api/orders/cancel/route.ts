@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://amgxldbzekahckwgtjih.supabase.co'
-const supabaseServiceKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtZ3hsZGJ6ZWthaGNrd2d0amloIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NTQ4MDY1OSwiZXhwIjoyMDkxMDU2NjU5fQ.lOkCgcgnTkxvGSlUEYWGmv7ZKnNtSwKAb8Y4chAuhGk'
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
 
 function getClient() {
   return createClient(supabaseUrl, supabaseServiceKey)
@@ -10,10 +10,25 @@ function getClient() {
 
 export async function POST(req: Request) {
   try {
-    const { orderId } = await req.json()
+    const { orderId, userId } = await req.json()
     if (!orderId) return NextResponse.json({ error: 'Order ID required.' }, { status: 400 })
 
+    // Auth verification: userId is required
+    if (!userId) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
     const sb = getClient()
+
+    // Verify the order belongs to the requesting user
+    const { data: order, error: fetchError } = await sb.from('orders').select('user_id').eq('id', orderId).single()
+    if (fetchError || !order) {
+      return NextResponse.json({ error: 'Order not found.' }, { status: 404 })
+    }
+    if (order.user_id !== userId) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
     const { error } = await sb.from('orders').delete().eq('id', orderId)
     if (error) return NextResponse.json({ error: error.message }, { status: 400 })
 

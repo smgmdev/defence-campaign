@@ -1,9 +1,19 @@
 import { Resend } from 'resend'
 import { NextResponse } from 'next/server'
+import { checkRateLimit } from '@/lib/rate-limit'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
+function escapeHtml(str: string): string {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+}
+
 export async function POST(req: Request) {
+  const ip = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown'
+  if (!checkRateLimit(`enquiry:${ip}`, 5, 60000)) {
+    return NextResponse.json({ error: 'Too many requests. Please try again later.' }, { status: 429 })
+  }
+
   const body = await req.json()
   const { product, calibre, full_name, company, country, email, whatsapp } = body
 
@@ -11,16 +21,16 @@ export async function POST(req: Request) {
     from: 'Defence Trading Enquiries <noreply@defencetrading.com>',
     to: 'sales@defencetrading.com',
     replyTo: email,
-    subject: `Product Enquiry: ${product} — ${company}`,
+    subject: `Product Enquiry: ${escapeHtml(String(product))} — ${escapeHtml(String(company))}`,
     html: `
       <h2>New Product Enquiry</h2>
       <table cellpadding="6" style="border-collapse:collapse;width:100%;max-width:600px;">
-        <tr><td><strong>Product</strong></td><td>${product} — ${calibre}</td></tr>
-        <tr><td><strong>Full Name</strong></td><td>${full_name}</td></tr>
-        <tr><td><strong>Company</strong></td><td>${company}</td></tr>
-        <tr><td><strong>Country</strong></td><td>${country}</td></tr>
-        <tr><td><strong>Email</strong></td><td>${email}</td></tr>
-        <tr><td><strong>WhatsApp</strong></td><td>${whatsapp}</td></tr>
+        <tr><td><strong>Product</strong></td><td>${escapeHtml(String(product))} — ${escapeHtml(String(calibre))}</td></tr>
+        <tr><td><strong>Full Name</strong></td><td>${escapeHtml(String(full_name))}</td></tr>
+        <tr><td><strong>Company</strong></td><td>${escapeHtml(String(company))}</td></tr>
+        <tr><td><strong>Country</strong></td><td>${escapeHtml(String(country))}</td></tr>
+        <tr><td><strong>Email</strong></td><td>${escapeHtml(String(email))}</td></tr>
+        <tr><td><strong>WhatsApp</strong></td><td>${escapeHtml(String(whatsapp))}</td></tr>
       </table>
     `,
   })
