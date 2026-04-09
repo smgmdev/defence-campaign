@@ -183,17 +183,17 @@ a { color: inherit; }
 
 /* ── BROWSE PRODUCTS BTN ── */
 .btn-browse-products {
-  display: inline-block; background: var(--yellow); color: var(--black); padding: 14px 30px;
-  font-size: 13px; font-weight: 700; letter-spacing: 0.3px;
+  display: inline-flex; align-items: center; justify-content: center; background: var(--yellow); color: var(--black); padding: 18px 44px;
+  font-size: 15px; font-weight: 800; letter-spacing: 0.5px; line-height: 1;
   text-decoration: none; transition: background 0.15s;
 }
 .btn-browse-products:hover { background: #ffd633; }
 
 /* ── BUTTONS ── */
 .btn-yellow {
-  background: var(--yellow); color: var(--black); padding: 14px 30px;
-  font-weight: 700; font-size: 13px; text-decoration: none; display: inline-block;
-  letter-spacing: 0.3px; transition: background 0.15s;
+  background: var(--yellow); color: var(--black); padding: 18px 44px;
+  font-weight: 800; font-size: 15px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center;
+  letter-spacing: 0.5px; line-height: 1; transition: background 0.15s;
 }
 .btn-yellow:hover { background: #ffd633; }
 .btn-outline-white {

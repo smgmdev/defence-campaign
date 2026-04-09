@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { PRODUCTS } from '@/lib/products'
 
 const UNIT_OPTIONS = ['KG', 'MT', 'Pcs', 'Rounds', 'Sets', 'Systems', 'Units', 'Vehicles']
@@ -39,6 +39,31 @@ export default function CreateOrderModal({ userId, userEmail, userName, onClose,
   const [typeOpen, setTypeOpen] = useState(false)
   const [unitOpen, setUnitOpen] = useState(false)
   const [expiryOpen, setExpiryOpen] = useState(false)
+  const modalRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      const target = e.target as HTMLElement
+      if (!target.closest('.csel-wrap')) {
+        setTypeOpen(false)
+        setUnitOpen(false)
+        setExpiryOpen(false)
+      }
+    }
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        setTypeOpen(false)
+        setUnitOpen(false)
+        setExpiryOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClick)
+    document.addEventListener('keydown', handleKey)
+    return () => {
+      document.removeEventListener('mousedown', handleClick)
+      document.removeEventListener('keydown', handleKey)
+    }
+  }, [])
 
   function handleProductInput(val: string) {
     setNewOrder(p => ({ ...p, product: val }))
