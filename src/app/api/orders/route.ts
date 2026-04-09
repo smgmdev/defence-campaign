@@ -17,8 +17,8 @@ export async function GET() {
     const { data, error } = await sb.from('orders').select('id, type, product, quantity, unit, notes, expires_at, created_at, user_id, user_name').order('created_at', { ascending: false })
     if (error) return NextResponse.json({ error: error.message }, { status: 400 })
     return NextResponse.json({ orders: data })
-  } catch {
-    return NextResponse.json({ error: 'Failed to fetch orders.' }, { status: 500 })
+  } catch (e) {
+    return NextResponse.json({ error: 'Failed to fetch orders.', detail: String(e) }, { status: 500 })
   }
 }
 
