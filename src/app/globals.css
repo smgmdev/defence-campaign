@@ -49,6 +49,8 @@ body { font-family: 'Alliance No.1', system-ui, -apple-system, BlinkMacSystemFon
 
 h1, h2, h3, h4, h5, h6 { font-family: inherit; }
 a { color: inherit; }
+button:focus, a:focus, input:focus, select:focus, textarea:focus { outline: none; }
+*:focus-visible { outline: none; }
 
 /* ── PAGE CONTAINER ── */
 .pg-wrap { max-width: 1440px; margin: 0 auto; padding: 0 48px; }
