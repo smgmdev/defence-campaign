@@ -33,6 +33,9 @@ export default function OrdersPage() {
   const [newOrder, setNewOrder] = useState({ type: 'buy', product: '', quantity: '', unit: 'units', notes: '', expiry: 'perpetual' })
   const [productSuggestions, setProductSuggestions] = useState<typeof PRODUCTS>([])
   const [showSuggestions, setShowSuggestions] = useState(false)
+  const [typeOpen, setTypeOpen] = useState(false)
+  const [unitOpen, setUnitOpen] = useState(false)
+  const [expiryOpen, setExpiryOpen] = useState(false)
 
   function handleProductInput(val: string) {
     setNewOrder(p => ({ ...p, product: val }))
@@ -385,10 +388,19 @@ export default function OrdersPage() {
             <form onSubmit={handleCreateOrder} className="ord-modal-body">
               <div className="ord-field">
                 <label>Order Type</label>
-                <select value={newOrder.type} onChange={e => setNewOrder(p => ({ ...p, type: e.target.value }))}>
-                  <option value="buy">Buy — I want to purchase</option>
-                  <option value="sell">Sell — I want to sell</option>
-                </select>
+                <div className="csel-wrap">
+                  <button type="button" className="csel-trigger" onClick={() => { setTypeOpen(!typeOpen); setUnitOpen(false); setExpiryOpen(false) }}>
+                    <span>{newOrder.type === 'buy' ? 'Buy — I want to purchase' : 'Sell — I want to sell'}</span>
+                    <span className={`csel-arrow${typeOpen ? ' open' : ''}`}>&#x276F;</span>
+                  </button>
+                  {typeOpen && (
+                    <div className="csel-options">
+                      {[{v:'buy',l:'Buy — I want to purchase'},{v:'sell',l:'Sell — I want to sell'}].map(o => (
+                        <div key={o.v} className={`csel-option${newOrder.type === o.v ? ' selected' : ''}`} onClick={() => { setNewOrder(p => ({...p, type: o.v})); setTypeOpen(false) }}>{o.l}</div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
               <div className="ord-field" style={{ position: 'relative' }}>
                 <label>Product</label>
@@ -420,25 +432,36 @@ export default function OrdersPage() {
                 </div>
                 <div className="ord-field">
                   <label>Unit</label>
-                  <select value={newOrder.unit} onChange={e => setNewOrder(p => ({ ...p, unit: e.target.value }))}>
-                    <option value="units">Units</option>
-                    <option value="rounds">Rounds</option>
-                    <option value="systems">Systems</option>
-                    <option value="vehicles">Vehicles</option>
-                    <option value="sets">Sets</option>
-                  </select>
+                  <div className="csel-wrap">
+                    <button type="button" className="csel-trigger" onClick={() => { setUnitOpen(!unitOpen); setTypeOpen(false); setExpiryOpen(false) }}>
+                      <span>{newOrder.unit.charAt(0).toUpperCase() + newOrder.unit.slice(1)}</span>
+                      <span className={`csel-arrow${unitOpen ? ' open' : ''}`}>&#x276F;</span>
+                    </button>
+                    {unitOpen && (
+                      <div className="csel-options">
+                        {['units','rounds','systems','vehicles','sets'].map(u => (
+                          <div key={u} className={`csel-option${newOrder.unit === u ? ' selected' : ''}`} onClick={() => { setNewOrder(p => ({...p, unit: u})); setUnitOpen(false) }}>{u.charAt(0).toUpperCase() + u.slice(1)}</div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="ord-field">
                 <label>Order Expiry</label>
-                <select value={newOrder.expiry} onChange={e => setNewOrder(p => ({ ...p, expiry: e.target.value }))}>
-                  <option value="perpetual">Perpetual (No expiry)</option>
-                  <option value="24h">24 Hours</option>
-                  <option value="3d">3 Days</option>
-                  <option value="7d">7 Days</option>
-                  <option value="14d">14 Days</option>
-                  <option value="30d">30 Days</option>
-                </select>
+                <div className="csel-wrap">
+                  <button type="button" className="csel-trigger" onClick={() => { setExpiryOpen(!expiryOpen); setTypeOpen(false); setUnitOpen(false) }}>
+                    <span>{{ perpetual:'Perpetual (No expiry)', '24h':'24 Hours', '3d':'3 Days', '7d':'7 Days', '14d':'14 Days', '30d':'30 Days' }[newOrder.expiry]}</span>
+                    <span className={`csel-arrow${expiryOpen ? ' open' : ''}`}>&#x276F;</span>
+                  </button>
+                  {expiryOpen && (
+                    <div className="csel-options">
+                      {[{v:'perpetual',l:'Perpetual (No expiry)'},{v:'24h',l:'24 Hours'},{v:'3d',l:'3 Days'},{v:'7d',l:'7 Days'},{v:'14d',l:'14 Days'},{v:'30d',l:'30 Days'}].map(o => (
+                        <div key={o.v} className={`csel-option${newOrder.expiry === o.v ? ' selected' : ''}`} onClick={() => { setNewOrder(p => ({...p, expiry: o.v})); setExpiryOpen(false) }}>{o.l}</div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
               <div className="ord-field">
                 <label>Notes / Requirements</label>
@@ -537,6 +560,29 @@ export default function OrdersPage() {
         .ord-status--completed { background: #e8f5e9; color: #2e7d32; }
         .ord-status--cancelled { background: #fce4ec; color: #c62828; }
 
+        .csel-wrap { position: relative; }
+        .csel-trigger {
+          width: 100%; padding: 10px 12px; font-size: 14px; font-family: inherit;
+          border: 1px solid #ddd; background: #fafafa; cursor: pointer; text-align: left;
+          display: flex; align-items: center; justify-content: space-between;
+          transition: border-color 0.15s; box-sizing: border-box; color: #000;
+        }
+        .csel-trigger:hover { border-color: #000; }
+        .csel-arrow {
+          font-size: 10px; color: #666; transition: transform 0.25s ease;
+          transform: rotate(90deg); display: inline-flex; align-items: center; line-height: 1;
+        }
+        .csel-arrow.open { transform: rotate(270deg); }
+        .csel-options {
+          position: absolute; top: 100%; left: 0; right: 0; background: #fff;
+          border: 1px solid #000; border-top: none; z-index: 50; max-height: 220px; overflow-y: auto;
+        }
+        .csel-option {
+          padding: 10px 12px; font-size: 13px; color: #333; cursor: pointer; transition: background 0.1s;
+        }
+        .csel-option:hover { background: #eee; }
+        .csel-option.selected { background: #000; color: #fff; font-weight: 600; }
+        .csel-option.selected:hover { background: #333; }
         .ord-modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 900; }
         .ord-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); background: #fff; z-index: 901; width: min(520px, 95vw); max-height: 90vh; overflow-y: auto; }
         .ord-modal-head { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; border-bottom: 1px solid #eee; }

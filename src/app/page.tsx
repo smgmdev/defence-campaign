@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState, useRef, useEffect } from 'react'
 import { PRODUCTS } from '@/lib/products'
 import { ARTICLES } from '@/lib/articles'
+import { supabase } from '@/lib/supabase'
 
 const SEARCH_COMPANIES = [{"name":"Chase Tactical","category":"Protective Equipment","location":"USA"},{"name":"Hard Head Veterans","category":"Protective Equipment","location":"Sweetwater, TX"},{"name":"Hardwire LLC","category":"Protective Equipment","location":"Pocomoke City, MD"},{"name":"Sarkar Tactical","category":"Protective Equipment","location":"El Paso, TX"},{"name":"RMA Armament","category":"Protective Equipment","location":"Centerville, IA"},{"name":"Armor Express","category":"Protective Equipment","location":"Eden, NC"},{"name":"Team Wendy","category":"Protective Equipment","location":"Cleveland, OH"},{"name":"Gentex Corporation","category":"Protective Equipment","location":"Carbondale, PA"},{"name":"Point Blank Enterprises","category":"Protective Equipment","location":"Pompano Beach, FL"},{"name":"Revision Military","category":"Protective Equipment","location":"Essex Junction, VT"},{"name":"Crye Precision","category":"Military Uniforms","location":"Brooklyn, NY"},{"name":"5.11 Tactical","category":"Military Uniforms","location":"Modesto, CA"},{"name":"Viasat Inc.","category":"Communications Gear","location":"Carlsbad, CA"},{"name":"Silvus Technologies","category":"Communications Gear","location":"Los Angeles, CA"},{"name":"Leonardo DRS","category":"Communications Gear","location":"Arlington, VA"},{"name":"ADS Inc.","category":"Logistics & Supply","location":"Virginia Beach, VA"},{"name":"Oshkosh Defense","category":"Military Vehicles","location":"Oshkosh, WI"},{"name":"MBDA","category":"Defence Systems","location":"France/UK/Germany"},{"name":"Rohde & Schwarz","category":"Communications Gear","location":"Germany"}]
 
@@ -14,8 +15,151 @@ export default function HomePage() {
   const [spinnerHidden, setSpinnerHidden] = useState(false)
   const [subToast, setSubToast] = useState('')
   const [toastVisible, setToastVisible] = useState(false)
+  const [activeOrders, setActiveOrders] = useState<{id: string, type: string, product: string, quantity: string, unit: string, date: string, user: string, orderUserId: string}[]>([])
+  const [ordersLoading, setOrdersLoading] = useState(true)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [userId, setUserId] = useState('')
+  const [userEmail, setUserEmail] = useState('')
+  const [userName, setUserName] = useState('')
+  const [userBody, setUserBody] = useState('')
+  const [interestedSent, setInterestedSent] = useState<Set<string>>(new Set())
+  const [engagingId, setEngagingId] = useState<string | null>(null)
+  const [orderToast, setOrderToast] = useState('')
+  const [orderToastVisible, setOrderToastVisible] = useState(false)
+  const [showCreate, setShowCreate] = useState(false)
+  const [newOrder, setNewOrder] = useState({ type: 'buy', product: '', quantity: '', unit: 'units', notes: '', expiry: 'perpetual' })
+  const [productSuggestions, setProductSuggestions] = useState<typeof PRODUCTS>([])
+  const [showSuggestions, setShowSuggestions] = useState(false)
+  const [creating, setCreating] = useState(false)
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false)
+  const [cancelOrderId, setCancelOrderId] = useState<string | null>(null)
+  const [typeOpen, setTypeOpen] = useState(false)
+  const [unitOpen, setUnitOpen] = useState(false)
+  const [expiryOpen, setExpiryOpen] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const searchWrapRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    fetch('/api/orders').then(r => r.json()).then(d => {
+      if (d.orders) {
+        setActiveOrders(d.orders.slice(0, 5).map((o: Record<string, string>) => ({
+          id: o.id,
+          type: o.type,
+          product: o.product,
+          quantity: o.quantity,
+          unit: o.unit,
+          date: new Date(o.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+          user: o.user_name || '',
+          orderUserId: o.user_id || '',
+        })))
+      }
+    }).catch(() => {}).finally(() => setOrdersLoading(false))
+    supabase.auth.getSession().then(({ data }) => {
+      setIsLoggedIn(!!data.session)
+      if (data.session?.user) {
+        setUserEmail(data.session.user.email || '')
+        setUserName(data.session.user.user_metadata?.full_name || '')
+        setUserBody(data.session.user.user_metadata?.body || '')
+        setUserId(data.session.user.id)
+        fetch(`/api/engagements?userId=${data.session.user.id}`).then(r => r.json()).then(d => {
+          if (d.engagements) {
+            setInterestedSent(new Set(d.engagements.map((e: Record<string,string>) => e.order_id)))
+          }
+        }).catch(() => {})
+      }
+    })
+  }, [])
+
+  function showOrderToast(msg: string) {
+    setOrderToast(msg)
+    setOrderToastVisible(true)
+    setTimeout(() => setOrderToastVisible(false), 5000)
+  }
+
+  async function handleEngage(e: React.MouseEvent, order: {id: string, type: string, product: string, quantity: string, unit: string}) {
+    e.preventDefault()
+    e.stopPropagation()
+    if (!isLoggedIn) {
+      setShowLoginPrompt(true)
+      return
+    }
+    if (interestedSent.has(order.id)) return
+    setEngagingId(order.id)
+    await fetch('/api/engagements', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        userId, userEmail, userName,
+        orderId: order.id, product: order.product,
+        orderType: order.type, quantity: `${order.quantity} ${order.unit}`,
+      }),
+    })
+    await fetch('/api/interested', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: userName || userEmail,
+        userBody,
+        email: userEmail,
+        product: order.product,
+        orderId: order.id,
+        orderType: order.type,
+        quantity: `${order.quantity} ${order.unit}`,
+      }),
+    })
+    setEngagingId(null)
+    setInterestedSent(prev => new Set(prev).add(order.id))
+    showOrderToast(`You have engaged your interest in ${order.product} order. Defence Trading will reach out to you for details.`)
+  }
+
+  function handleProductInput(val: string) {
+    setNewOrder(p => ({ ...p, product: val }))
+    if (val.trim().length > 0) {
+      const q = val.toLowerCase()
+      setProductSuggestions(PRODUCTS.filter(p => p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q)).slice(0, 8))
+      setShowSuggestions(true)
+    } else {
+      setShowSuggestions(false)
+    }
+  }
+
+  function selectProduct(name: string) {
+    setNewOrder(p => ({ ...p, product: name }))
+    setShowSuggestions(false)
+  }
+
+  async function handleCreateOrder(e: React.FormEvent) {
+    e.preventDefault()
+    setCreating(true)
+    const expiryMap: Record<string,number|null> = { 'perpetual': null, '24h': 24, '3d': 72, '7d': 168, '14d': 336, '30d': 720 }
+    const hours = expiryMap[newOrder.expiry]
+    const expiresAt = hours ? new Date(Date.now() + hours * 3600000).toISOString() : null
+    const res = await fetch('/api/orders', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: newOrder.type,
+        product: newOrder.product,
+        quantity: newOrder.quantity,
+        unit: newOrder.unit,
+        notes: newOrder.notes,
+        expiresAt,
+        userId, userEmail, userName,
+      }),
+    })
+    const data = await res.json()
+    if (data.order) {
+      const o = data.order
+      setActiveOrders(prev => [{
+        id: o.id, type: o.type, product: o.product, quantity: o.quantity, unit: o.unit,
+        date: new Date(o.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+        user: o.user_name || '', orderUserId: o.user_id || '',
+      }, ...prev].slice(0, 5))
+    }
+    setCreating(false)
+    setShowCreate(false)
+    setNewOrder({ type: 'buy', product: '', quantity: '', unit: 'units', notes: '', expiry: 'perpetual' })
+  }
 
   useEffect(() => {
     const v = videoRef.current
@@ -33,7 +177,7 @@ export default function HomePage() {
       }
     }
     function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') setDropdownOpen(false)
+      if (e.key === 'Escape') { setDropdownOpen(false); setShowCreate(false); setShowLoginPrompt(false); setCancelOrderId(null); setTypeOpen(false); setUnitOpen(false); setExpiryOpen(false) }
     }
     document.addEventListener('mousedown', handleClickOutside)
     document.addEventListener('keydown', handleKeyDown)
@@ -108,6 +252,161 @@ export default function HomePage() {
   return (
     <>
       <style>{`
+        .top-hero {
+          position: relative; background: #5BA8D9;
+          display: flex; align-items: center; min-height: 520px;
+          border-bottom: 4px solid #F5C400;
+        }
+        .top-hero-grid {
+          display: grid; grid-template-columns: 1fr 540px; gap: 48px;
+          align-items: center; padding-top: 80px; padding-bottom: 80px; width: 100%;
+        }
+        .top-hero-left { text-align: left; }
+        .top-hero-left h1 {
+          font-size: clamp(34px, 5.5vw, 60px); font-weight: 900; color: #fff;
+          line-height: 1.05; letter-spacing: -2px; margin-bottom: 22px;
+        }
+        .top-hero-left p {
+          font-size: clamp(14px, 1.7vw, 17px); color: rgba(255,255,255,0.65);
+          line-height: 1.7; max-width: 540px; margin-bottom: 40px; margin-left: 0;
+        }
+        .btn-create-order {
+          display: inline-flex; align-items: center; justify-content: center;
+          background: #F5C400; color: #000; padding: 18px 44px;
+          font-size: 15px; font-weight: 800; letter-spacing: 0.5px;
+          text-decoration: none; transition: background 0.15s; line-height: 1;
+        }
+        .btn-create-order:hover { background: #ffd633; }
+        button.btn-create-order { border: none; cursor: pointer; font-family: inherit; }
+        .top-hero-right { display: flex; flex-direction: column; gap: 8px; justify-self: end; width: 100%; }
+        .orders-panel-label {
+          font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+          color: rgba(255,255,255,0.4); margin-bottom: 4px;
+        }
+        .orders-panel-loading { display: flex; align-items: center; justify-content: center; padding: 48px 0; }
+        .orders-panel-spinner {
+          width: 28px; height: 28px; border: 3px solid rgba(255,255,255,0.15);
+          border-top-color: rgba(255,255,255,0.7); border-radius: 50%; animation: spin 0.7s linear infinite;
+        }
+        .orders-panel-empty {
+          font-size: 14px; color: rgba(255,255,255,0.3); padding: 32px 0; text-align: center;
+        }
+        .order-card {
+          display: block; background: #fff; border: 1px solid #eee;
+          padding: 16px 18px; text-decoration: none; transition: box-shadow 0.15s;
+        }
+        .order-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+        .order-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+        .order-type-badge {
+          font-size: 10px; font-weight: 800; letter-spacing: 1px; padding: 3px 8px;
+        }
+        .order-type-badge.buy { background: #0a7c42; color: #fff; }
+        .order-type-badge.sell { background: #c62828; color: #fff; }
+        .order-card-date { font-size: 11px; color: #999; }
+        .order-card-product { font-size: 14px; font-weight: 600; color: #000; margin-bottom: 8px; }
+        .order-card-bottom { display: flex; align-items: center; justify-content: space-between; }
+        .order-card-qty { font-size: 12px; color: #888; }
+        .order-engage-btn {
+          background: transparent; border: 1px solid #ccc; color: #000;
+          padding: 10px 28px; font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
+          cursor: pointer; transition: all 0.15s; font-family: inherit;
+        }
+        .order-engage-btn:hover { background: #000; color: #fff; border-color: #000; }
+        .order-engage-btn.engaged { background: transparent; border-color: #0a7c42; color: #0a7c42; cursor: default; }
+        .order-engage-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        .order-cancel-btn {
+          background: transparent; border: 1px solid #ccc; color: #c62828;
+          padding: 10px 28px; font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
+          cursor: pointer; transition: all 0.15s; font-family: inherit;
+        }
+        .order-cancel-btn:hover { background: #c62828; color: #fff; border-color: #c62828; }
+        .cancel-confirm-yes {
+          width: 100%; padding: 14px; font-size: 14px; font-weight: 700; font-family: inherit;
+          background: #c62828; color: #fff; border: none; cursor: pointer; transition: background 0.15s;
+        }
+        .cancel-confirm-yes:hover { background: #a00; }
+        .order-engage-spinner {
+          display: inline-block; width: 12px; height: 12px;
+          border: 2px solid rgba(0,0,0,0.15); border-top-color: #000;
+          border-radius: 50%; animation: spin 0.6s linear infinite;
+        }
+        .login-prompt-modal {
+          position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
+          background: #fff; z-index: 901; width: min(420px, 90vw); padding: 40px 32px; text-align: center;
+        }
+        .login-prompt-modal h3 { font-size: 20px; font-weight: 700; color: #000; margin-bottom: 10px; }
+        .login-prompt-modal p { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 28px; }
+        .login-prompt-btns { display: flex; flex-direction: column; gap: 10px; }
+        .login-prompt-yes {
+          width: 100%; padding: 14px; font-size: 14px; font-weight: 700; font-family: inherit;
+          background: #000; color: #fff; border: none; cursor: pointer; text-decoration: none;
+          text-align: center; display: block; transition: background 0.15s; box-sizing: border-box;
+        }
+        .login-prompt-yes:hover { background: #222; }
+        .login-prompt-no {
+          width: 100%; padding: 14px; font-size: 14px; font-weight: 700; font-family: inherit;
+          background: #fff; color: #000; border: 2px solid #000; cursor: pointer; transition: background 0.15s;
+        }
+        .login-prompt-no:hover { background: #f5f5f5; }
+        .csel-wrap { position: relative; }
+        .csel-trigger {
+          width: 100%; padding: 10px 12px; font-size: 14px; font-family: inherit;
+          border: 1px solid #ddd; background: #fafafa; cursor: pointer; text-align: left;
+          display: flex; align-items: center; justify-content: space-between;
+          transition: border-color 0.15s; box-sizing: border-box; color: #000;
+        }
+        .csel-trigger:hover { border-color: #000; }
+        .csel-arrow {
+          font-size: 10px; color: #666; transition: transform 0.25s ease;
+          transform: rotate(90deg); display: inline-flex; align-items: center; line-height: 1;
+        }
+        .csel-arrow.open { transform: rotate(270deg); }
+        .csel-options {
+          position: absolute; top: 100%; left: 0; right: 0; background: #fff;
+          border: 1px solid #000; border-top: none; z-index: 50; max-height: 220px; overflow-y: auto;
+        }
+        .csel-option {
+          padding: 10px 12px; font-size: 13px; color: #333; cursor: pointer; transition: background 0.1s;
+        }
+        .csel-option:hover { background: #eee; }
+        .csel-option.selected { background: #000; color: #fff; font-weight: 600; }
+        .csel-option.selected:hover { background: #333; }
+        .ord-modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 900; }
+        .ord-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); background: #fff; z-index: 901; width: min(520px, 95vw); max-height: 90vh; overflow-y: auto; }
+        .ord-modal-head { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; border-bottom: 1px solid #eee; }
+        .ord-modal-head h2 { font-size: 18px; font-weight: 700; }
+        .ord-modal-close { background: none; border: none; font-size: 18px; cursor: pointer; color: #666; }
+        .ord-modal-body { padding: 24px; }
+        .ord-field { margin-bottom: 16px; }
+        .ord-field label { display: block; font-size: 13px; font-weight: 600; color: #333; margin-bottom: 6px; }
+        .ord-field input, .ord-field select, .ord-field textarea { width: 100%; padding: 10px 12px; font-size: 14px; font-family: inherit; border: 1px solid #ddd; background: #fafafa; outline: none; box-sizing: border-box; }
+        .ord-field input:focus, .ord-field select:focus, .ord-field textarea:focus { border-color: #000; background: #fff; }
+        .ord-field textarea { resize: vertical; }
+        .ord-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .ord-suggestions { position: absolute; top: 100%; left: 0; right: 0; background: #fff; border: 1px solid #ddd; border-top: none; z-index: 10; max-height: 200px; overflow-y: auto; }
+        .ord-suggestion { padding: 10px 12px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.1s; }
+        .ord-suggestion:hover { background: #f5f5f5; }
+        .ord-suggestion-name { font-size: 13px; font-weight: 600; color: #000; }
+        .ord-suggestion-cat { font-size: 11px; color: #999; }
+        .ord-submit { width: 100%; padding: 14px; font-size: 14px; font-weight: 700; font-family: inherit; background: #000; color: #fff; border: none; cursor: pointer; margin-top: 8px; display: flex; align-items: center; justify-content: center; }
+        .ord-submit:hover { background: #222; }
+        .ord-submit:disabled { background: #666; cursor: not-allowed; }
+        .ord-modal-note { font-size: 11px; color: #aaa; text-align: center; margin-top: 16px; line-height: 1.5; }
+        .ord-btn-spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(150,150,150,0.3); border-top-color: #999; border-radius: 50%; animation: spin 0.6s linear infinite; }
+        .orders-panel-viewall {
+          font-size: 12px; font-weight: 600; color: #F5C400; text-decoration: none;
+          margin-top: 4px; transition: color 0.15s;
+        }
+        .orders-panel-viewall:hover { color: #ffd633; }
+        @media (max-width: 900px) {
+          .top-hero-grid { grid-template-columns: 1fr; gap: 32px; }
+          .top-hero-right { width: 100%; }
+        }
+        @media (max-width: 767px) {
+          .top-hero { min-height: auto; }
+          .top-hero-grid { padding: 48px 24px; }
+          .hero-content { padding: 0 24px !important; }
+        }
         .hero {
           position: relative; height: 620px;
           display: flex; align-items: center; overflow: hidden;
@@ -121,7 +420,7 @@ export default function HomePage() {
           position: absolute; inset: 0;
           background: linear-gradient(100deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.1) 100%);
         }
-        .hero-content { position: relative; z-index: 1; padding: 0 64px; max-width: 820px; margin-left: 0; }
+        .hero-content { position: relative; z-index: 1; }
         .hero-content h1 {
           font-size: clamp(34px, 5.5vw, 64px); font-weight: 900; color: #fff;
           line-height: 1.01; letter-spacing: -2px; margin-bottom: 22px;
@@ -230,6 +529,56 @@ export default function HomePage() {
           .disc-search-btn { width: 60px; }
         }
       `}</style>
+
+      {/* TOP HERO — CREATE ORDER */}
+      <section className="top-hero">
+        <div className="top-hero-grid pg-wrap">
+          <div className="top-hero-left">
+            <h1>Procure defence products from verified global suppliers</h1>
+            <p>Create a real-time order for your current buy or sell requirement. Our platform will match you with verified counterparties for a trade deal — instantly and compliantly.</p>
+            {isLoggedIn ? (
+              <button className="btn-create-order" onClick={() => setShowCreate(true)}>Create Order</button>
+            ) : (
+              <Link href="/login" className="btn-create-order">Login to Create Order</Link>
+            )}
+          </div>
+          <div className="top-hero-right">
+            <div className="orders-panel-label">Active Orders</div>
+            {ordersLoading ? (
+              <div className="orders-panel-loading"><div className="orders-panel-spinner" /></div>
+            ) : activeOrders.length === 0 ? (
+              <div className="orders-panel-empty">No active orders</div>
+            ) : (
+              activeOrders.map(o => (
+                <div key={o.id} className="order-card">
+                  <div className="order-card-top">
+                    <span className={`order-type-badge ${o.type}`}>{o.type === 'buy' ? 'BUY' : 'SELL'}</span>
+                    <span className="order-card-date">{o.date}</span>
+                  </div>
+                  <div className="order-card-product">{o.product}</div>
+                  <div className="order-card-bottom">
+                    <span className="order-card-qty">{o.quantity} {o.unit}</span>
+                    {o.orderUserId === userId && userId ? (
+                      <button className="order-cancel-btn" onClick={e => { e.stopPropagation(); setCancelOrderId(o.id) }}>Cancel</button>
+                    ) : (
+                      <button
+                        className={`order-engage-btn${interestedSent.has(o.id) ? ' engaged' : ''}`}
+                        onClick={e => handleEngage(e, o)}
+                        disabled={engagingId === o.id}
+                      >
+                        {engagingId === o.id ? (
+                          <span className="order-engage-spinner" />
+                        ) : interestedSent.has(o.id) ? 'Engaged' : 'Engage'}
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ))
+            )}
+            <Link href="/orders" className="orders-panel-viewall">View All Orders &rarr;</Link>
+          </div>
+        </div>
+      </section>
 
       {/* HERO */}
       <section className="hero">
@@ -381,6 +730,148 @@ export default function HomePage() {
       </div>
 
       <div className={`sub-toast${toastVisible ? ' show' : ''}`}>{subToast}</div>
+      <div className={`sub-toast${orderToastVisible ? ' show' : ''}`}>{orderToast}</div>
+
+      {/* CANCEL ORDER MODAL */}
+      {cancelOrderId && (
+        <>
+          <div className="ord-modal-backdrop" onClick={() => setCancelOrderId(null)} />
+          <div className="login-prompt-modal">
+            <h3>Cancel Order</h3>
+            <p>Are you sure you want to cancel this order? This action cannot be undone.</p>
+            <div className="login-prompt-btns">
+              <button className="cancel-confirm-yes" onClick={() => {
+                fetch('/api/orders/cancel', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({orderId: cancelOrderId}) })
+                  .then(() => { setActiveOrders(prev => prev.filter(x => x.id !== cancelOrderId)); setCancelOrderId(null) })
+              }}>Yes, Cancel Order</button>
+              <button className="login-prompt-no" onClick={() => setCancelOrderId(null)}>Keep Order</button>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* LOGIN PROMPT MODAL */}
+      {showLoginPrompt && (
+        <>
+          <div className="ord-modal-backdrop" onClick={() => setShowLoginPrompt(false)} />
+          <div className="login-prompt-modal">
+            <h3>Sign in required</h3>
+            <p>You need to sign in to engage with orders.</p>
+            <div className="login-prompt-btns">
+              <Link href="/login" className="login-prompt-yes">Go to Login</Link>
+              <button className="login-prompt-no" onClick={() => setShowLoginPrompt(false)}>Cancel</button>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* CREATE ORDER MODAL */}
+      {showCreate && (
+        <>
+          <div className="ord-modal-backdrop" onClick={() => setShowCreate(false)} />
+          <div className="ord-modal">
+            <div className="ord-modal-head">
+              <h2>Create Order</h2>
+              <button className="ord-modal-close" onClick={() => setShowCreate(false)}>&#10005;</button>
+            </div>
+            <form onSubmit={handleCreateOrder} className="ord-modal-body">
+              <div className="ord-field">
+                <label>Order Type</label>
+                <div className="csel-wrap">
+                  <button type="button" className="csel-trigger" onClick={() => { setTypeOpen(!typeOpen); setUnitOpen(false); setExpiryOpen(false) }}>
+                    <span>{newOrder.type === 'buy' ? 'Buy — I want to purchase' : 'Sell — I want to sell'}</span>
+                    <span className={`csel-arrow${typeOpen ? ' open' : ''}`}>&#x276F;</span>
+                  </button>
+                  {typeOpen && (
+                    <div className="csel-options">
+                      {[{v:'buy',l:'Buy — I want to purchase'},{v:'sell',l:'Sell — I want to sell'}].map(o => (
+                        <div key={o.v} className={`csel-option${newOrder.type === o.v ? ' selected' : ''}`} onClick={() => { setNewOrder(p => ({...p, type: o.v})); setTypeOpen(false) }}>{o.l}</div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="ord-field" style={{ position: 'relative' }}>
+                <label>Product</label>
+                <input
+                  type="text"
+                  placeholder="Type product name..."
+                  value={newOrder.product}
+                  onChange={e => handleProductInput(e.target.value)}
+                  onFocus={() => { if (newOrder.product) handleProductInput(newOrder.product) }}
+                  onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+                  required
+                  autoComplete="off"
+                />
+                {showSuggestions && productSuggestions.length > 0 && (
+                  <div className="ord-suggestions">
+                    {productSuggestions.map(p => (
+                      <div key={p.id} className="ord-suggestion" onMouseDown={() => selectProduct(p.name)}>
+                        <span className="ord-suggestion-name">{p.name}</span>
+                        <span className="ord-suggestion-cat">{p.category}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div className="ord-field-row">
+                <div className="ord-field">
+                  <label>Quantity</label>
+                  <input type="text" placeholder="e.g. 10,000" value={newOrder.quantity} onChange={e => setNewOrder(p => ({ ...p, quantity: e.target.value }))} required />
+                </div>
+                <div className="ord-field">
+                  <label>Unit</label>
+                  <div className="csel-wrap">
+                    <button type="button" className="csel-trigger" onClick={() => { setUnitOpen(!unitOpen); setTypeOpen(false); setExpiryOpen(false) }}>
+                      <span>{newOrder.unit.charAt(0).toUpperCase() + newOrder.unit.slice(1)}</span>
+                      <span className={`csel-arrow${unitOpen ? ' open' : ''}`}>&#x276F;</span>
+                    </button>
+                    {unitOpen && (
+                      <div className="csel-options">
+                        {['units','rounds','systems','vehicles','sets'].map(u => (
+                          <div key={u} className={`csel-option${newOrder.unit === u ? ' selected' : ''}`} onClick={() => { setNewOrder(p => ({...p, unit: u})); setUnitOpen(false) }}>{u.charAt(0).toUpperCase() + u.slice(1)}</div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="ord-field">
+                <label>Order Expiry</label>
+                <div className="csel-wrap">
+                  <button type="button" className="csel-trigger" onClick={() => { setExpiryOpen(!expiryOpen); setTypeOpen(false); setUnitOpen(false) }}>
+                    <span>{{ perpetual:'Perpetual (No expiry)', '24h':'24 Hours', '3d':'3 Days', '7d':'7 Days', '14d':'14 Days', '30d':'30 Days' }[newOrder.expiry]}</span>
+                    <span className={`csel-arrow${expiryOpen ? ' open' : ''}`}>&#x276F;</span>
+                  </button>
+                  {expiryOpen && (
+                    <div className="csel-options">
+                      {[{v:'perpetual',l:'Perpetual (No expiry)'},{v:'24h',l:'24 Hours'},{v:'3d',l:'3 Days'},{v:'7d',l:'7 Days'},{v:'14d',l:'14 Days'},{v:'30d',l:'30 Days'}].map(o => (
+                        <div key={o.v} className={`csel-option${newOrder.expiry === o.v ? ' selected' : ''}`} onClick={() => { setNewOrder(p => ({...p, expiry: o.v})); setExpiryOpen(false) }}>{o.l}</div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="ord-field">
+                <label>Notes / Requirements</label>
+                <textarea placeholder="Specifications, delivery requirements, timeline..." value={newOrder.notes} onChange={e => {
+                  const v = e.target.value
+                  if (v.length > 50) return
+                  if (/[0-9]{7,}/.test(v.replace(/\s/g, ''))) return
+                  if (/@/.test(v)) return
+                  if (/https?:\/\/|www\.|\.com|\.net|\.org|\.io|\.co/i.test(v)) return
+                  setNewOrder(p => ({ ...p, notes: v }))
+                }} rows={3} maxLength={50} />
+                <div style={{fontSize:'11px',color:'#aaa',textAlign:'right',marginTop:'4px'}}>{newOrder.notes.length}/50</div>
+              </div>
+              <button type="submit" className="ord-submit" disabled={creating}>
+                {creating ? <span className="ord-btn-spinner" style={{borderColor:'rgba(255,255,255,0.3)',borderTopColor:'#fff'}} /> : 'Submit Order'}
+              </button>
+              <p className="ord-modal-note">All orders are reviewed by our procurement team and subject to compliance verification.</p>
+            </form>
+          </div>
+        </>
+      )}
     </>
   )
 }
