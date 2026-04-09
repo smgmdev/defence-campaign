@@ -16,7 +16,7 @@ export default function HomePage() {
   const [spinnerHidden, setSpinnerHidden] = useState(false)
   const [subToast, setSubToast] = useState('')
   const [toastVisible, setToastVisible] = useState(false)
-  const [activeOrders, setActiveOrders] = useState<{id: string, type: string, product: string, quantity: string, unit: string, date: string, user: string, orderUserId: string}[]>([])
+  const [activeOrders, setActiveOrders] = useState<{id: string, type: string, product: string, quantity: string, unit: string, date: string, user: string, orderUserId: string, notes: string, expiresAt: string | null}[]>([])
   const [ordersLoading, setOrdersLoading] = useState(true)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userId, setUserId] = useState('')
@@ -45,6 +45,8 @@ export default function HomePage() {
           date: new Date(o.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
           user: o.user_name || '',
           orderUserId: o.user_id || '',
+          notes: o.notes || '',
+          expiresAt: o.expires_at || null,
         })))
       }
     }).catch(() => {}).finally(() => setOrdersLoading(false))
@@ -110,7 +112,7 @@ export default function HomePage() {
     setActiveOrders(prev => [{
       id: o.id, type: o.type, product: o.product, quantity: o.quantity, unit: o.unit,
       date: new Date(o.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
-      user: o.user_name || '', orderUserId: o.user_id || '',
+      user: o.user_name || '', orderUserId: o.user_id || '', notes: o.notes || '', expiresAt: o.expires_at || null,
     }, ...prev].slice(0, 5))
   }
 
@@ -255,10 +257,13 @@ export default function HomePage() {
         }
         .order-type-badge.buy { background: #0a7c42; color: #fff; }
         .order-type-badge.sell { background: #c62828; color: #fff; }
+        .order-card-badges { display: flex; align-items: center; gap: 6px; }
+        .order-expiry-badge { font-size: 10px; font-weight: 800; letter-spacing: 1px; padding: 3px 8px; background: #000; color: #fff; }
         .order-card-date { font-size: 11px; color: #999; }
+        .order-card-notes { font-size: 14px; color: #000; line-height: 1.5; }
         .order-card-product { font-size: 14px; font-weight: 600; color: #000; margin-bottom: 8px; }
         .order-card-bottom { display: flex; align-items: center; justify-content: space-between; }
-        .order-card-qty { font-size: 12px; color: #888; }
+        .order-card-qty { font-size: 15px; font-weight: 400; color: #000; margin-bottom: 8px; }
         .order-engage-btn {
           background: transparent; border: 1px solid #ccc; color: #000;
           padding: 10px 28px; font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
@@ -351,7 +356,7 @@ export default function HomePage() {
           margin-top: 4px; transition: color 0.15s;
         }
         .orders-panel-viewall:hover { color: #ffd633; }
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
           .top-hero-grid { grid-template-columns: 1fr; gap: 32px; }
           .top-hero-right { width: 100%; }
         }
@@ -505,12 +510,16 @@ export default function HomePage() {
               activeOrders.map(o => (
                 <div key={o.id} className="order-card">
                   <div className="order-card-top">
-                    <span className={`order-type-badge ${o.type}`}>{o.type === 'buy' ? 'BUY' : 'SELL'}</span>
+                    <div className="order-card-badges">
+                      <span className={`order-type-badge ${o.type}`}>{o.type === 'buy' ? 'BUY' : 'SELL'}</span>
+                      <span className="order-expiry-badge">{o.expiresAt ? (() => { const diff = new Date(o.expiresAt).getTime() - Date.now(); return diff <= 0 ? 'Expired' : `${Math.floor(diff / 86400000)}d ${Math.floor((diff % 86400000) / 3600000)}h` })() : 'Perpetual'}</span>
+                    </div>
                     <span className="order-card-date">{o.date}</span>
                   </div>
                   <div className="order-card-product">{o.product}</div>
+                  <div className="order-card-qty">{o.quantity} {o.unit}</div>
                   <div className="order-card-bottom">
-                    <span className="order-card-qty">{o.quantity} {o.unit}</span>
+                    {o.notes && <span className="order-card-notes">{o.notes}</span>}
                     {o.orderUserId === userId && userId ? (
                       <button className="order-cancel-btn" onClick={e => { e.stopPropagation(); setCancelOrderId(o.id) }}>Cancel</button>
                     ) : (

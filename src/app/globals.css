@@ -339,7 +339,7 @@ a { color: inherit; }
   .ft-inner { grid-template-columns: 1fr; gap: 40px; }
   .ft-cols { grid-template-columns: repeat(2, 1fr); }
 }
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
   .main-nav { padding: 0 16px; position: relative; }
   .nav-links { display: none; }
   .hamburger { display: flex; }
