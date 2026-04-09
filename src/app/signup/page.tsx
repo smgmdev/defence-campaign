@@ -12,8 +12,12 @@ export default function SignupPage() {
   const [bodyOpen, setBodyOpen] = useState(false)
   useEffect(() => {
     function onKey(e: KeyboardEvent) { if (e.key === 'Escape') setBodyOpen(false) }
+    function onClick(e: MouseEvent) {
+      if (!(e.target as HTMLElement).closest('.custom-select-wrap')) setBodyOpen(false)
+    }
     window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
+    document.addEventListener('mousedown', onClick)
+    return () => { window.removeEventListener('keydown', onKey); document.removeEventListener('mousedown', onClick) }
   }, [])
 
   const bodyOptions = [
