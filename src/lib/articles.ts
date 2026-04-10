@@ -12,6 +12,96 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    slug: "getting-drone-interceptor-2026-easier-than-you-think",
+    title: "Getting a Drone Interceptor in 2026 Is Easier Than You Think",
+    date: "10 Apr 2026",
+    cat: "market",
+    source: "MARKET ANALYSIS",
+    region: "Global",
+    description: "A few years ago, getting your hands on a real counter-UAV system meant waiting years and knowing the right people. In 2026, honestly, it's a completely different story — and here's what changed.",
+    keywords: "drone interceptor, counter-UAV, C-UAS, anti-drone system, drone defence 2026, loitering munition interceptor, AI drone interceptor, made in USA drone interceptor, counter-drone procurement, defence trading drone interceptor",
+    body: `<p>I'll be honest — a few years back, if a client walked in and said "I need drone interceptors, how fast can you get them?" the conversation was pretty short. You'd explain the realities. Eighteen months, maybe two years, probably more. A tender process that was ninety percent politics and ten percent technical. A supplier list you could count on one hand. And even then, half of them wouldn't talk to you unless your government was already buying something bigger from them first.</p>
+
+        <p>That's not the conversation anymore. In 2026, drone interceptors are genuinely accessible in a way that still surprises people who haven't been close to the market recently. The supply exists. The production lines exist. The paperwork — while never going to be simple — moves faster than it used to. And if you're a legitimate buyer with a real requirement, you can have a capable system on the ground in a few months rather than a few years.</p>
+
+        <figure style="margin: 32px 0; text-align: center;">
+          <img src="/droneinterceptor.png" alt="Counter-UAV AI Destroyer — AI-guided drone interceptor made in USA" style="max-width: 100%; height: auto; display: block; margin: 0 auto;" />
+          <figcaption style="font-size: 12px; color: #666; margin-top: 12px; letter-spacing: 0.5px; text-transform: uppercase;">Counter-UAV AI Destroyer — Made in USA</figcaption>
+        </figure>
+
+        <h2>The reason any of this changed: Ukraine</h2>
+
+        <p>You can't talk about counter-UAV in 2026 without talking about what happened in Ukraine. That war didn't just use drones — it rewired how every serious military thinks about them. FPVs by the hundreds of thousands. Shahed-style one-way attack drones hitting grid infrastructure every night. Cheap quadcopters dropping grenades. Loitering munitions that could idle for an hour waiting for a target. All of it, at once, in volumes nobody's air defence planners had really prepared for.</p>
+
+        <p>And the uncomfortable lesson was that the existing answers didn't scale. You can't shoot down a four-hundred-dollar FPV with a two-million-dollar surface-to-air missile. I mean, you can — but you'll run out of missiles long before the other side runs out of drones. That simple arithmetic forced a completely different kind of procurement thinking across NATO, the Gulf, and everywhere else that was paying attention.</p>
+
+        <p>So the industry got to work. And fast. Companies that had been dabbling in counter-drone tech for years suddenly had real money thrown at them. Start-ups that couldn't get anyone to take a meeting in 2021 were raising serious rounds by 2023. The primes dusted off programmes they'd been sitting on and actually shipped them. And by 2026, the landscape looks nothing like it did when this all started.</p>
+
+        <h2>The supply problem basically solved itself</h2>
+
+        <p>The old bottleneck was never really demand. People wanted counter-UAV systems. The problem was that nobody could build them fast enough. That's changed. American manufacturers have dedicated interceptor lines putting out hundreds to thousands of units a month. European producers are doing the same. Israel, Turkey, South Korea — all shipping real volume. Even smaller players have become credible for specific sub-components or turnkey systems in certain regions.</p>
+
+        <p>What this means in practice is that when we quote a client today, the numbers we can promise aren't fantasy numbers. A thousand units a month of a solid mid-tier interceptor used to be something you'd say and then immediately hedge. Now it's a baseline — several producers can hit it without blinking. That's a massive change in a short amount of time.</p>
+
+        <h2>And the interceptors themselves are just... better</h2>
+
+        <p>Here's the thing that still kind of astonishes me. The systems available today aren't just more available — they're dramatically more capable than the stuff that was considered premium five years ago, and they often cost less. AI does most of the heavy lifting. You don't need an expensive seeker head to hit a manoeuvring quadcopter anymore; decent optics plus edge compute plus a trained model gets you hit rates north of ninety percent against the drone classes that actually matter.</p>
+
+        <p>Detection's moved the same direction. Compact X-band radars with ten- to twelve-kilometre ranges are basically standard equipment now. Layer in RF detection, acoustic, EO/IR, and you've got situational awareness that would've been a national-level capability not that long ago. All of it, at a price point that a medium-sized security agency can actually afford.</p>
+
+        <div class="product-spotlight">
+          <div class="product-spotlight-header">
+            <span class="product-spotlight-tag">Featured Product</span>
+            <span class="product-spotlight-name">Counter-UAV AI Destroyer · Made in USA</span>
+          </div>
+          <div style="padding: 24px; background: #f5f5f5; text-align: center;">
+            <img src="/droneinterceptor.png" alt="Counter-UAV AI Destroyer — Made in USA" style="max-width: 260px; width: 100%; height: auto; display: block; margin: 0 auto;" />
+          </div>
+          <div class="product-spotlight-body">
+            <p>This is the system we're currently supplying out of our US production partner, and it's a good example of where the market has landed. Autonomous interceptor, 360+ km/h, ten-kilometre operational radius. AI-guided engagement with pixel-level tracking and ≥90% recognition rate against the threat profiles it's trained on. X-band radar detects at ≥12 km, dual IR/visible EO sensors with laser ranging, and the whole thing runs in conditions from −20°C to +60°C.</p>
+            <p>We can place it at up to <strong>1,000 units per month</strong>. Production is in the United States, full export documentation, and the paperwork moves through our UAE-licensed trading channels. For a credible buyer, first deliveries are realistic within sixty to ninety days of a signed contract.</p>
+            <a href="/products" class="product-spotlight-link">View full product details →</a>
+          </div>
+        </div>
+
+        <h2>Export frameworks have actually adapted</h2>
+
+        <p>This is the part that surprises people outside the trade. Counter-UAV isn't treated like offensive weaponry by most Western licensing authorities. It's defensive by definition — you're shooting down threats to your people, your infrastructure, your airspace. That framing matters. The default posture at most licensing desks has shifted from "why should we approve this" to "how do we make this work for a legitimate end user."</p>
+
+        <p>That doesn't mean the paperwork is gone. End-use certificates are still mandatory, re-transfer restrictions are enforced, and every name gets screened against sanctions lists. All of that is non-negotiable and should be. But the political friction around counter-drone exports is genuinely lower than it is for almost any other munitions category, and that opens doors for buyers in the Middle East, Southeast Asia, North Africa, and Eastern Europe who are dealing with real drone threats right now and need an answer.</p>
+
+        <h2>Where trading companies fit in</h2>
+
+        <p>This is our part of the business, so I'll be direct about it. A buyer in, say, the Gulf or Central Asia often doesn't have a direct procurement relationship with a specific American or European manufacturer. In the old model, that meant you were out of luck unless your government had the diplomatic ties to force the conversation. A licensed trading company bridges that gap — legitimately, on paper, through proper channels. We handle the sourcing, we handle the export licensing on both ends, we handle the end-user certification, we handle the logistics, and the buyer ends up with a compliant, documented transaction they couldn't have structured on their own.</p>
+
+        <p>That's not a workaround. It's how international defence trade has worked for decades. The only difference in 2026 is that it works faster, because the upstream supply is finally there and the licensing authorities are more willing to cooperate on counter-UAV specifically.</p>
+
+        <h2>What the timeline actually looks like</h2>
+
+        <p>Here's a realistic schedule for a clean transaction, start to finish:</p>
+
+        <ul>
+          <li><strong>Spec and shortlist:</strong> one to three weeks. You've got options now, which means you can actually compare systems instead of taking whatever the one supplier who'll talk to you is offering.</li>
+          <li><strong>Commercials and LOI:</strong> two to four weeks. Producers are competing on delivery as much as price, so quotes move quickly.</li>
+          <li><strong>Export licensing:</strong> thirty to ninety days, depending on jurisdiction and end user. An experienced trading partner can keep this on the shorter end.</li>
+          <li><strong>Production and first delivery:</strong> sixty to ninety days from contract signing for an off-the-shelf system. Larger volumes follow on a rolling schedule.</li>
+        </ul>
+
+        <p>Add it up and you're looking at four to six months from the first phone call to equipment on the ground. For context, that used to be eighteen to thirty-six months, and that was for buyers who already had the relationships in place.</p>
+
+        <h2>The honest catch</h2>
+
+        <p>I don't want to oversell this. The easier part is the supply side. What hasn't changed — and shouldn't — is the requirement to be a legitimate, documented, credible end user. If you can't produce clean paperwork, or your end-use rationale doesn't hold up, or there's any diversion risk in the chain, the deal dies before it starts. The people doing that checking are sharper than they used to be, not less sharp.</p>
+
+        <p>But if you're a government buyer, a licensed security service, or a legitimate commercial operator protecting critical infrastructure or a sovereign airspace — and that covers the vast majority of people actually asking about this — the path from "we have a drone problem" to "we have interceptors on site" is genuinely shorter than anything the industry has offered before.</p>
+
+        <h2>To wrap this up</h2>
+
+        <p>The idea that drone interceptors are exotic, scarce, and out of reach is just out of date. They're being built in volume, by multiple credible producers, in jurisdictions with export frameworks that support legitimate trade. The technology is solid. The prices are fair. The timelines are real. The bureaucracy still exists but it's navigable if you know what you're doing.</p>
+
+        <p>If you've been assuming the door is closed on counter-UAV procurement because that's how it used to feel, my honest recommendation is to have the conversation again. We're currently placing the Counter-UAV AI Destroyer — Made in USA — at up to a thousand units a month, through compliant channels, with delivery windows that would have been impossible a few years ago. Reach out. You might be surprised how quickly this goes from problem to solution.</p>`
+  },
+  {
     slug: "tnt-demand-globally-2026-reasons-why",
     title: "What Is Going On with TNT Demand Globally? Reasons Why TNT Is Hitting Record Demand in 2026",
     date: "09 Apr 2026",
