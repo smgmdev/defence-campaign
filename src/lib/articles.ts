@@ -12,6 +12,85 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    slug: "strait-of-hormuz-fully-open-end-of-2026-analysis",
+    title: "Can the Strait of Hormuz Be Fully Opened by the End of 2026? A Professional Analysis",
+    date: "11 Apr 2026",
+    cat: "geo",
+    source: "GEOPOLITICAL ANALYSIS",
+    region: "Middle East",
+    description: "The Strait of Hormuz carries roughly a fifth of the world's seaborne oil. Whether it can return to fully unrestricted flow by year-end 2026 depends on a dozen moving parts — some trending better, some much worse. Here's the honest breakdown.",
+    keywords: "Strait of Hormuz 2026, Hormuz open shipping, Iran Hormuz, Persian Gulf oil flow, Hormuz blockade, tanker insurance Hormuz, Gulf maritime security, GCC naval operations, Hormuz traffic 2026, oil chokepoint analysis",
+    body: `<p>This is the question I keep getting asked lately, and I want to answer it honestly rather than give the diplomatic non-answer. Can the Strait of Hormuz be fully opened — meaning unrestricted commercial shipping, normal insurance rates, no military escorts required, no inspections at gunpoint, no seizures — by the end of 2026? The short version is: probably not fully, but meaningfully more open than it is right now, yes. The longer version is worth your time because the pieces on the board are actually moving, and some of them are moving faster than people expected.</p>
+
+        <p>Let me lay out the case both ways, as clearly as I can, without pretending the situation is simpler than it is.</p>
+
+        <h2>First, the baseline — what "fully open" actually means</h2>
+
+        <p>When shipping professionals talk about Hormuz being "open," they don't just mean that tankers are transiting. Tankers are always transiting, even during the worst escalations. Roughly a fifth of the world's seaborne oil goes through that corridor — about 17 to 20 million barrels a day in normal conditions, plus LNG from Qatar, plus containerised trade serving the Gulf, plus the everyday logistics of a region that feeds much of the world's hydrocarbon economy. It doesn't stop. What changes is the <em>cost</em> and the <em>risk profile</em> of using it.</p>
+
+        <p>"Fully open" in practical terms means: war-risk insurance premiums at normal levels, commercial vessels able to transit without naval escort, no seizures or harassment by Iranian IRGC naval forces, no GPS spoofing incidents, no attacks on tankers in the approaches, and crews willing to sign on without hazard bonuses. That is the bar. And by that bar, the Strait has not been fully open since roughly 2019, and it has been meaningfully more restricted since the Iran–Israel escalation cycle that ran through 2024 and 2025.</p>
+
+        <h2>The case that yes, it can be fully open by end of 2026</h2>
+
+        <h3>1. The regional diplomatic temperature has actually dropped</h3>
+
+        <p>The Saudi–Iranian reconciliation that started under Chinese brokering in 2023 has, against many predictions, held up through multiple shocks. That's not a small thing. Riyadh and Tehran still don't trust each other — nobody in the region expects them to — but they have maintained working diplomatic channels, they have exchanged ambassadors, and the quiet backchannel that allows each side to signal intent before crossing red lines is functional. Every serious analyst I talk to in the Gulf says the same thing: the 2026 climate is better than the 2019–2023 climate, even with everything else going on.</p>
+
+        <h3>2. Iran's economic incentives now point toward de-escalation</h3>
+
+        <p>This is the part that doesn't get enough attention. Iran's economy in 2026 is in genuinely rough shape. Sanctions pressure, currency collapse, domestic unrest, a leadership transition that is still settling in — none of that makes Tehran eager for a maritime confrontation that would collapse its own oil exports along with everyone else's. The IRGC can rattle the sabre, and it does, but the people making the actual strategic calls in Tehran are increasingly aware that closing Hormuz is not a weapon Iran can use without cutting its own throat. Chinese buyers — who are now the backbone of Iranian oil exports — have made it clear, privately and repeatedly, that a closure would be unacceptable.</p>
+
+        <h3>3. GCC naval capabilities have matured</h3>
+
+        <p>Five years ago, the Gulf states were essentially dependent on the US Fifth Fleet for serious maritime security in the Strait. That has changed. The UAE, Saudi Arabia, Oman, and Bahrain have invested heavily in naval modernisation — patrol vessels, mine countermeasures, maritime ISR, counter-drone systems on ships. The combined GCC naval posture in 2026 is materially more capable than it was in 2022. That matters for "open" because it means that even if the US were to shift focus (and there are strong indications it will), the regional actors have more ability to keep traffic flowing on their own.</p>
+
+        <h3>4. Technology has made the corridor more defensible</h3>
+
+        <p>Counter-drone systems, compact radar, AI-enabled threat detection, hardened satellite navigation for shipping — all of this is now deployable at a price point and timeline that didn't exist before. The single biggest threat to Hormuz traffic in recent years has been small-boat and drone harassment, not major naval engagement. Those are exactly the threats that modern counter-UAV and layered maritime defence are designed to handle. A GCC-led, US-supported protection regime using 2026-generation tech is a meaningfully harder target than the patchwork that existed a few years ago.</p>
+
+        <h3>5. Insurance and shipping markets want this</h3>
+
+        <p>War-risk premiums on Hormuz transits are a pain point for everyone — shippers, buyers, refiners, traders, the lot. There is significant commercial pressure from Lloyd's, from the major P&amp;I clubs, from the tanker pool operators, to normalise the corridor. When the commercial ecosystem wants something and the political ecosystem is moving in the same direction, change can happen faster than the headlines suggest.</p>
+
+        <h2>The case that no, it won't be fully open by end of 2026</h2>
+
+        <h3>1. The Iran–Israel track is still the wild card</h3>
+
+        <p>Here is the uncomfortable truth. Every scenario in which the Strait becomes a flashpoint in 2026 runs through the Iran–Israel axis, not the Iran–GCC axis. If there's a major Israeli strike on Iranian nuclear infrastructure, if there's a Houthi escalation that Tehran cannot disown, if there's an assassination or a covert operation that crosses a line — any of those can rapidly collapse the careful equilibrium in the Gulf. Iran's most plausible retaliation option, the one it rehearses and signals constantly, is disrupting maritime traffic. Not a full closure, probably, but enough harassment, enough seizures, enough insurance shocks to put the corridor back into restricted status within days. And the probability of at least one of those Israeli–Iranian friction events happening between now and December is, realistically, not low.</p>
+
+        <h3>2. The IRGC is not fully controlled by Tehran's civilian leadership</h3>
+
+        <p>This is a subtlety that people outside the region often miss. The IRGC Navy, which is the force that actually harasses shipping in the Strait, does not always operate on the same schedule as the Iranian foreign ministry. Local commanders have meaningful discretion, and there is a long history of tactical incidents — seizures, intercepts, harassment — that appear to be locally initiated rather than centrally directed. Even a Tehran leadership that wants Hormuz open cannot always guarantee that a junior IRGC officer in Bandar Abbas won't decide to make a point on a given afternoon. That alone makes "fully open" a very tall order.</p>
+
+        <h3>3. Houthi and proxy dynamics in the broader theatre</h3>
+
+        <p>The Houthis are not in the Strait of Hormuz, but the Red Sea crisis spills over into Gulf shipping markets in ways that make the whole region look riskier than a narrow Hormuz analysis would suggest. As long as Bab el-Mandeb remains contested, insurance underwriters will continue pricing Gulf risk as part of a broader Middle East package. The Strait can technically be quieter while the corridor as a whole stays expensive to insure. "Fully open" requires the wider theatre to stabilise, and there is no credible scenario in which the Houthi file is resolved by December 2026.</p>
+
+        <h3>4. The US posture is shifting, and shifts create uncertainty</h3>
+
+        <p>Washington's appetite for sustained forward naval presence in the Gulf has been visibly declining. Whether you view that as long-overdue or strategically reckless, the shift creates a transition period, and transitions are when miscalculations happen. Adversaries probe. Allies hedge. Commercial actors second-guess. Even if the eventual steady state is a GCC-led security arrangement that works fine, the transition to that arrangement during 2026 is itself a source of risk, and risk is the enemy of "fully open."</p>
+
+        <h3>5. Market memory is sticky</h3>
+
+        <p>Even if nothing bad happens for six straight months, insurance markets and tanker operators do not immediately reprice. Trust has to be rebuilt. Premiums come down slowly. Crew hazard pay sticks around longer than it should. The commercial recognition that a corridor is "normal" lags the political reality by months, sometimes longer. Even in the best-case scenario where the diplomats do everything right, the bar for "fully open" is commercial as much as political, and commercial normalisation is slow by nature.</p>
+
+        <h2>Weighing it honestly</h2>
+
+        <p>So where does that leave us? My best-faith assessment, and I'll own it, is this: the Strait of Hormuz will be <em>more open</em> by the end of 2026 than it is today. That part I'm reasonably confident about. Traffic volumes will be higher, harassment incidents will probably be fewer than the 2024–2025 peak, and the working assumption among shippers will likely have shifted from "this is a high-risk corridor" back toward "this is a manageable corridor with caveats." That is a meaningful improvement, and it is a realistic outcome.</p>
+
+        <p>Will it be <em>fully</em> open by the classical definition — war-risk premiums back to normal, no escort regimes, no hazard bonuses, no residual fear of the next incident? Probably not. Not by December. The structural risk factors, especially the Iran–Israel axis and the IRGC's decentralised decision-making, are too persistent for full normalisation in nine months. The commercial memory is too sticky. And the broader regional theatre is too unsettled for insurance markets to give the all-clear.</p>
+
+        <p>If I had to put a rough probability on "fully open by end of 2026" in the strictest sense, I would put it somewhere in the 20 to 30 percent range. That is not nothing. It is a real, achievable scenario if several things break correctly at once. But it requires no major Iran–Israel incident, continued GCC-Iran de-escalation, a successful US-to-GCC security handoff without visible cracks, and commercial underwriters being willing to move faster than they usually do. That is a lot to ask.</p>
+
+        <p>"Substantially more open, but not fully" — which I'd put at maybe 55 to 65 percent — is the realistic base case. And the downside scenario, where a major incident pushes the corridor back into acute crisis, is probably 15 to 20 percent. These are the ranges I'd defend in a room full of people who actually trade the risk.</p>
+
+        <h2>What this means if you are operating in the region</h2>
+
+        <p>For clients moving cargo, running maritime operations, or advising governments on Gulf security, the practical takeaway is that 2026 is a planning year, not a normalisation year. Hedge for improvement but do not bet on it. Keep the security assumptions conservative. Maintain the relationships — with insurers, with flag states, with GCC naval liaisons — that allow you to adapt quickly if conditions shift either way. Invest in the protective capabilities that make the harder scenarios survivable, because the probability of the harder scenarios is too high to ignore.</p>
+
+        <p>The Strait will keep carrying the world's oil through 2026. It has never stopped doing that, and it isn't going to. The question is at what cost and with what friction, and on those questions, my honest read is: better than today, not yet where anyone wants it to be. We'll have a cleaner answer by Q3 of this year, and I suspect the picture will look different again by then. That is just the nature of this particular stretch of water. It has never been simple, and 2026 is not going to be the year it finally becomes simple.</p>`
+  },
+  {
     slug: "getting-drone-interceptor-2026-easier-than-you-think",
     title: "Getting a Drone Interceptor in 2026 Is Easier Than You Think",
     date: "10 Apr 2026",
