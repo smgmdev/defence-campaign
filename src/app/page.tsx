@@ -279,7 +279,7 @@ export default function HomePage() {
           display: inline-flex; align-items: center; justify-content: center;
           background: #F5C400; color: #000; padding: 18px 44px;
           font-size: 15px; font-weight: 800; letter-spacing: 0.5px;
-          text-decoration: none; transition: background 0.15s; line-height: 1;
+          text-decoration: none; transition: background 0.15s; line-height: 1; border: none;
         }
         .btn-create-order:hover { background: #ffd633; }
         button.btn-create-order { border: none; cursor: pointer; font-family: inherit; }
@@ -444,7 +444,7 @@ export default function HomePage() {
           padding: 7px 20px; font-size: 13px; font-weight: 800; letter-spacing: 0.5px;
           margin-top: 8px; transition: background 0.15s, color 0.15s;
         }
-        .orders-panel-viewall:hover { background: #f0f0f0; color: #000; }
+        .orders-panel-viewall:hover { background: #000; color: #fff; }
         @media (max-width: 1024px) {
           .top-hero-grid { grid-template-columns: 1fr; gap: 32px; }
           .top-hero-right { width: 100%; }
@@ -523,7 +523,7 @@ export default function HomePage() {
           font-size: 13px; font-weight: 800; letter-spacing: 0.5px; margin-top: 8px;
           transition: background 0.15s;
         }
-        .featured-viewall:hover { background: #f0f0f0; }
+        .featured-viewall:hover { background: #000; color: #fff; }
         @media (max-width: 1024px) { .hero-content { grid-template-columns: 1fr; } }
         @media (max-width: 767px) { .hero-content { grid-template-columns: 1fr; gap: 32px; } .featured-grid { grid-template-columns: repeat(2, 1fr); } }
         .hero-spinner {

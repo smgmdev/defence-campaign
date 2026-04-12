@@ -39,7 +39,7 @@ export default function OrdersPage() {
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      if (e.key === 'Escape') { setShowCreate(false); setCancelOrderId(null) }
+      if (e.key === 'Escape') { setShowCreate(false); setCancelOrderId(null); setShowLoginPrompt(false) }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
@@ -56,6 +56,7 @@ export default function OrdersPage() {
   const [interestedSent, setInterestedSent] = useState<Set<string>>(new Set())
   const [engagingId, setEngagingId] = useState<string | null>(null)
 
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false)
   const [toastMsg, setToastMsg] = useState('')
   const [toastVisible, setToastVisible] = useState(false)
   const [cancelOrderId, setCancelOrderId] = useState<string | null>(null)
@@ -135,9 +136,7 @@ export default function OrdersPage() {
   async function handleInterested(e: React.MouseEvent, order: Order) {
     e.stopPropagation()
     if (!isLoggedIn) {
-      if (confirm('You need to sign in to engage. Go to login?')) {
-        window.location.href = '/login'
-      }
+      setShowLoginPrompt(true)
       return
     }
     if (interestedSent.has(order.id)) {
@@ -272,7 +271,10 @@ export default function OrdersPage() {
               <tbody>
                 {orders.map(o => (
                   <React.Fragment key={o.id}>
-                    <tr className="ord-row" onClick={() => setExpandedRow(expandedRow === o.id ? null : o.id)}>
+                    <tr className="ord-row" onClick={(e) => {
+                      const isOwner = (o as Order & {userId?: string}).userId === userId && userId
+                      if (isOwner) { setCancelOrderId(o.id) } else if (!interestedSent.has(o.id)) { handleInterested(e as unknown as React.MouseEvent, o) }
+                    }}>
                       <td><span className={`ord-type ord-type--${o.type}`}>{o.type.toUpperCase()}</span></td>
                       <td className="ord-cell-product">{o.product}</td>
                       <td className="ord-hide-mobile">{o.quantity} {o.unit}</td>
@@ -358,6 +360,21 @@ export default function OrdersPage() {
         </>
       )}
 
+      {/* LOGIN PROMPT MODAL */}
+      {showLoginPrompt && (
+        <>
+          <div className="ord-modal-backdrop" onClick={() => setShowLoginPrompt(false)} />
+          <div className="ord-cancel-modal">
+            <h3 className="ord-cancel-modal-title">Sign In Required</h3>
+            <p className="ord-cancel-modal-text">You need to sign in to engage with orders on the platform.</p>
+            <div className="ord-cancel-modal-btns">
+              <Link href="/login" className="ord-cancel-modal-no" style={{textDecoration:'none',textAlign:'center',background:'#000',color:'#fff',borderColor:'#000'}}>Go to Login</Link>
+              <button className="ord-cancel-modal-no" onClick={() => setShowLoginPrompt(false)}>Cancel</button>
+            </div>
+          </div>
+        </>
+      )}
+
       {/* TOAST */}
       <div className={`ord-toast${toastVisible ? ' show' : ''}`}>{toastMsg}</div>
 
@@ -384,8 +401,8 @@ export default function OrdersPage() {
 
         .ord-toolbar { background: #fff; border-bottom: none; }
         .ord-toolbar-inner { display: flex; align-items: center; gap: 16px; min-height: 52px; flex-wrap: wrap; }
-        .ord-create-btn { background: #fff; color: #000; border: 2px solid #000; padding: 10px 24px; font-size: 13px; font-weight: 700; font-family: inherit; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.15s; }
-        .ord-create-btn:hover { background: #f0f0f0; }
+        .ord-create-btn { background: #fff; color: #000; border: 2px solid #000; padding: 10px 24px; font-size: 13px; font-weight: 700; font-family: inherit; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.15s, color 0.15s; }
+        .ord-create-btn:hover { background: #000; color: #fff; }
         .ord-reset { background: none; border: none; font-size: 13px; font-family: inherit; cursor: pointer; color: #666; }
         .ord-reset:hover { color: #000; }
         .ord-count { margin-left: auto; font-size: 13px; color: #666; }
@@ -402,6 +419,10 @@ export default function OrdersPage() {
         .ord-table tbody tr:hover .ord-cell-product { color: #fff; }
         .ord-table tbody tr:hover .ord-expanded-label { color: #fff; }
         .ord-table tbody tr:hover .ord-expanded-item { color: rgba(255,255,255,0.6); }
+        .ord-table tbody tr:hover .ord-interested-btn { background: #fff; color: #000; }
+        .ord-table tbody tr:hover .ord-engaged { background: #ddd; color: #888; }
+        .ord-table tbody tr:hover .ord-expiry { background: #fff; color: #000; }
+        .ord-table tbody tr:hover .ord-expiry--expired { background: #c00; color: #fff; }
         .ord-cell-id { font-weight: 700; color: #000; white-space: nowrap; }
         .ord-cell-product { font-weight: 700; color: #000; }
         .ord-cell-notes { color: #000; max-width: 240px; font-size: 12px; line-height: 1.5; }

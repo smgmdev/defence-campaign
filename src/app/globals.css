@@ -113,8 +113,8 @@ button:focus, a:focus, input:focus, select:focus, textarea:focus { outline: none
 }
 .nav-links a:hover { border-bottom-color: var(--black); }
 .nav-links a.active { border-bottom-color: var(--red); font-weight: 700; }
-.nav-login-btn { background: #000; color: #fff; padding: 8px 20px; font-size: 12px; font-weight: 700; text-decoration: none; letter-spacing: 0.5px; margin-left: 12px; transition: background 0.15s; }
-.nav-login-btn:hover { background: #333; }
+.nav-login-btn { background: #000; color: #fff; padding: 8px 20px; font-size: 12px; font-weight: 700; text-decoration: none; letter-spacing: 0.5px; margin-left: 12px; transition: background 0.15s, color 0.15s; border: 1px solid #000; }
+.nav-login-btn:hover { background: #fff; color: #000; border-color: #000; }
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; outline: none; }
 .hamburger span:not(.hamburger-x) { display: block; width: 22px; height: 2px; background: var(--black); }
 .hamburger-x { font-size: 18px; color: var(--black); line-height: 1; display: block; width: auto; height: auto; background: none; }
