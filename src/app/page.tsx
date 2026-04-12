@@ -272,7 +272,7 @@ export default function HomePage() {
         .order-type-badge.sell { background: #c62828; color: #fff; }
         .order-card-badges { display: flex; align-items: center; gap: 4px; min-width: 0; }
         .order-expiry-badge { font-size: 9px; font-weight: 800; letter-spacing: 0.5px; padding: 2px 5px; background: #fff; color: #000; white-space: nowrap; }
-        .order-card-date { font-size: 10px; color: rgba(255,255,255,0.5); white-space: nowrap; }
+        .order-card-date { font-size: 10px; color: rgba(255,255,255,0.5); white-space: nowrap; margin-top: 8px; text-align: right; }
         .order-card-notes {
           font-size: 11px; color: rgba(255,255,255,0.6); line-height: 1.4; margin-bottom: 8px;
           display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
@@ -295,7 +295,7 @@ export default function HomePage() {
         .order-engage-btn.engaged { background: transparent; border-color: #0a7c42; color: #0a7c42; cursor: default; }
         .order-engage-btn:disabled { opacity: 0.6; cursor: not-allowed; }
         .order-cancel-btn {
-          background: transparent; border: 1px solid #ccc; color: #c62828;
+          background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #c62828;
           padding: 6px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
           cursor: pointer; transition: all 0.15s; font-family: inherit; width: 100%;
         }
@@ -547,7 +547,6 @@ export default function HomePage() {
                           <span className={`order-type-badge ${o.type}`}>{o.type === 'buy' ? 'BUY' : 'SELL'}</span>
                           <span className="order-expiry-badge">{o.expiresAt ? (() => { const diff = new Date(o.expiresAt).getTime() - Date.now(); return diff <= 0 ? 'Expired' : `${Math.floor(diff / 86400000)}d ${Math.floor((diff % 86400000) / 3600000)}h` })() : 'Perpetual'}</span>
                         </div>
-                        <span className="order-card-date">{o.date}</span>
                       </div>
                       <div className="order-card-product">{o.product}</div>
                       <div className="order-card-qty">{o.quantity} {o.unit}</div>
@@ -567,6 +566,7 @@ export default function HomePage() {
                           </button>
                         )}
                       </div>
+                      <div className="order-card-date">{o.date}</div>
                     </div>
                   ))}
               </div>
