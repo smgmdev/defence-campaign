@@ -30,13 +30,22 @@ export default function HomePage() {
   const [showCreate, setShowCreate] = useState(false)
   const [showLoginPrompt, setShowLoginPrompt] = useState(false)
   const [cancelOrderId, setCancelOrderId] = useState<string | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const searchWrapRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    const mql = window.matchMedia('(max-width: 767px)')
+    const update = () => setIsMobile(mql.matches)
+    update()
+    mql.addEventListener('change', update)
+    return () => mql.removeEventListener('change', update)
+  }, [])
+
+  useEffect(() => {
     fetch('/api/orders').then(r => r.json()).then(d => {
       if (d.orders) {
-        setActiveOrders(d.orders.slice(0, 5).map((o: Record<string, string>) => ({
+        setActiveOrders(d.orders.slice(0, 10).map((o: Record<string, string>) => ({
           id: o.id,
           type: o.type,
           product: o.product,
@@ -238,6 +247,9 @@ export default function HomePage() {
           font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
           color: rgba(255,255,255,0.4); margin-bottom: 4px;
         }
+        .orders-scroll {
+          display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+        }
         .orders-panel-loading { display: flex; align-items: center; justify-content: center; padding: 48px 0; }
         .orders-panel-spinner {
           width: 28px; height: 28px; border: 3px solid rgba(255,255,255,0.15);
@@ -247,35 +259,45 @@ export default function HomePage() {
           font-size: 14px; color: rgba(255,255,255,0.3); padding: 32px 0; text-align: center;
         }
         .order-card {
-          display: block; background: #fff; border: 1px solid #eee;
-          padding: 16px 18px; text-decoration: none; transition: box-shadow 0.15s;
+          display: flex; flex-direction: column; background: #fff; border: 1px solid #eee;
+          padding: 10px 12px; text-decoration: none; transition: box-shadow 0.15s;
+          min-width: 0;
         }
         .order-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
-        .order-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+        .order-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; gap: 4px; }
         .order-type-badge {
-          font-size: 10px; font-weight: 800; letter-spacing: 1px; padding: 3px 8px;
+          font-size: 9px; font-weight: 800; letter-spacing: 0.5px; padding: 2px 5px;
         }
         .order-type-badge.buy { background: #0a7c42; color: #fff; }
         .order-type-badge.sell { background: #c62828; color: #fff; }
-        .order-card-badges { display: flex; align-items: center; gap: 6px; }
-        .order-expiry-badge { font-size: 10px; font-weight: 800; letter-spacing: 1px; padding: 3px 8px; background: #000; color: #fff; }
-        .order-card-date { font-size: 11px; color: #999; }
-        .order-card-notes { font-size: 14px; color: #000; line-height: 1.5; }
-        .order-card-product { font-size: 14px; font-weight: 600; color: #000; margin-bottom: 8px; }
-        .order-card-bottom { display: flex; align-items: center; justify-content: space-between; }
-        .order-card-qty { font-size: 15px; font-weight: 400; color: #000; margin-bottom: 8px; }
+        .order-card-badges { display: flex; align-items: center; gap: 4px; min-width: 0; }
+        .order-expiry-badge { font-size: 9px; font-weight: 800; letter-spacing: 0.5px; padding: 2px 5px; background: #000; color: #fff; white-space: nowrap; }
+        .order-card-date { font-size: 10px; color: #999; white-space: nowrap; }
+        .order-card-notes {
+          font-size: 11px; color: #666; line-height: 1.4; margin-bottom: 8px;
+          display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        .order-card-product {
+          font-size: 12px; font-weight: 700; color: #000; margin-bottom: 4px;
+          line-height: 1.3;
+          display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        .order-card-bottom { display: flex; align-items: center; justify-content: flex-end; margin-top: auto; }
+        .order-card-qty { font-size: 12px; font-weight: 600; color: #000; margin-bottom: 6px; }
         .order-engage-btn {
           background: transparent; border: 1px solid #ccc; color: #000;
-          padding: 10px 28px; font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
-          cursor: pointer; transition: all 0.15s; font-family: inherit;
+          padding: 6px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
+          cursor: pointer; transition: all 0.15s; font-family: inherit; width: 100%;
         }
         .order-engage-btn:hover { background: #000; color: #fff; border-color: #000; }
         .order-engage-btn.engaged { background: transparent; border-color: #0a7c42; color: #0a7c42; cursor: default; }
         .order-engage-btn:disabled { opacity: 0.6; cursor: not-allowed; }
         .order-cancel-btn {
           background: transparent; border: 1px solid #ccc; color: #c62828;
-          padding: 10px 28px; font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
-          cursor: pointer; transition: all 0.15s; font-family: inherit;
+          padding: 6px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
+          cursor: pointer; transition: all 0.15s; font-family: inherit; width: 100%;
         }
         .order-cancel-btn:hover { background: #c62828; color: #fff; border-color: #c62828; }
         .cancel-confirm-yes {
@@ -364,6 +386,14 @@ export default function HomePage() {
           .top-hero { min-height: auto; }
           .top-hero-grid { padding: 48px 24px; }
           .hero-content { padding: 0 24px !important; }
+          .orders-scroll { grid-template-columns: 1fr; gap: 8px; }
+          .order-card { padding: 14px 16px; }
+          .order-card-product { font-size: 14px; -webkit-line-clamp: unset; }
+          .order-card-notes { font-size: 13px; -webkit-line-clamp: unset; }
+          .order-card-qty { font-size: 14px; }
+          .order-type-badge, .order-expiry-badge { font-size: 10px; padding: 3px 8px; }
+          .order-card-date { font-size: 11px; }
+          .order-engage-btn, .order-cancel-btn { padding: 10px 20px; font-size: 12px; }
         }
         .hero {
           position: relative; height: 620px;
@@ -507,35 +537,37 @@ export default function HomePage() {
             ) : activeOrders.length === 0 ? (
               <div className="orders-panel-empty">No active orders</div>
             ) : (
-              activeOrders.map(o => (
-                <div key={o.id} className="order-card">
-                  <div className="order-card-top">
-                    <div className="order-card-badges">
-                      <span className={`order-type-badge ${o.type}`}>{o.type === 'buy' ? 'BUY' : 'SELL'}</span>
-                      <span className="order-expiry-badge">{o.expiresAt ? (() => { const diff = new Date(o.expiresAt).getTime() - Date.now(); return diff <= 0 ? 'Expired' : `${Math.floor(diff / 86400000)}d ${Math.floor((diff % 86400000) / 3600000)}h` })() : 'Perpetual'}</span>
+              <div className="orders-scroll">
+                {(isMobile ? activeOrders.slice(-6) : activeOrders).map(o => (
+                    <div key={o.id} className="order-card">
+                      <div className="order-card-top">
+                        <div className="order-card-badges">
+                          <span className={`order-type-badge ${o.type}`}>{o.type === 'buy' ? 'BUY' : 'SELL'}</span>
+                          <span className="order-expiry-badge">{o.expiresAt ? (() => { const diff = new Date(o.expiresAt).getTime() - Date.now(); return diff <= 0 ? 'Expired' : `${Math.floor(diff / 86400000)}d ${Math.floor((diff % 86400000) / 3600000)}h` })() : 'Perpetual'}</span>
+                        </div>
+                        <span className="order-card-date">{o.date}</span>
+                      </div>
+                      <div className="order-card-product">{o.product}</div>
+                      <div className="order-card-qty">{o.quantity} {o.unit}</div>
+                      {o.notes && <div className="order-card-notes">{o.notes}</div>}
+                      <div className="order-card-bottom">
+                        {o.orderUserId === userId && userId ? (
+                          <button className="order-cancel-btn" onClick={e => { e.stopPropagation(); setCancelOrderId(o.id) }}>Cancel</button>
+                        ) : (
+                          <button
+                            className={`order-engage-btn${interestedSent.has(o.id) ? ' engaged' : ''}`}
+                            onClick={e => handleEngage(e, o)}
+                            disabled={engagingId === o.id}
+                          >
+                            {engagingId === o.id ? (
+                              <span className="order-engage-spinner" />
+                            ) : interestedSent.has(o.id) ? 'Engaged' : 'Engage'}
+                          </button>
+                        )}
+                      </div>
                     </div>
-                    <span className="order-card-date">{o.date}</span>
-                  </div>
-                  <div className="order-card-product">{o.product}</div>
-                  <div className="order-card-qty">{o.quantity} {o.unit}</div>
-                  <div className="order-card-bottom">
-                    {o.notes && <span className="order-card-notes">{o.notes}</span>}
-                    {o.orderUserId === userId && userId ? (
-                      <button className="order-cancel-btn" onClick={e => { e.stopPropagation(); setCancelOrderId(o.id) }}>Cancel</button>
-                    ) : (
-                      <button
-                        className={`order-engage-btn${interestedSent.has(o.id) ? ' engaged' : ''}`}
-                        onClick={e => handleEngage(e, o)}
-                        disabled={engagingId === o.id}
-                      >
-                        {engagingId === o.id ? (
-                          <span className="order-engage-spinner" />
-                        ) : interestedSent.has(o.id) ? 'Engaged' : 'Engage'}
-                      </button>
-                    )}
-                  </div>
-                </div>
-              ))
+                  ))}
+              </div>
             )}
             <Link href="/orders" className="orders-panel-viewall">View All Orders &rarr;</Link>
           </div>
