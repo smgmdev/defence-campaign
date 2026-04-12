@@ -476,6 +476,9 @@ export default function HomePage() {
           position: absolute; inset: 0;
           background: linear-gradient(100deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.1) 100%);
         }
+        @media (max-width: 767px) {
+          .hero-overlay { background: rgba(0,0,0,0.75); }
+        }
         .hero-content {
           position: relative; z-index: 1;
           display: grid; grid-template-columns: 1fr 540px; gap: 48px; align-items: center;
@@ -524,8 +527,26 @@ export default function HomePage() {
           transition: background 0.15s;
         }
         .featured-viewall:hover { background: #000; color: #fff; }
-        @media (max-width: 1024px) { .hero-content { grid-template-columns: 1fr; } }
-        @media (max-width: 767px) { .hero-content { grid-template-columns: 1fr; gap: 32px; } .featured-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 1024px) {
+          .hero-content { grid-template-columns: 1fr !important; }
+          .hero { min-height: auto !important; padding: 60px 0 !important; }
+        }
+        @media (max-width: 767px) {
+          .hero-content { grid-template-columns: 1fr !important; gap: 24px !important; padding: 0 20px !important; }
+          .hero { min-height: auto !important; height: auto !important; padding: 40px 0 !important; overflow: visible !important; }
+          .hero-content h1 { font-size: 24px !important; letter-spacing: -1px !important; margin-bottom: 12px !important; }
+          .hero-content p { font-size: 13px !important; margin-bottom: 16px !important; }
+          .hero-cta .btn-browse-products { padding: 10px 24px !important; font-size: 13px !important; }
+          .featured-panel-label { margin-top: 4px !important; }
+          .featured-grid { grid-template-columns: 1fr !important; gap: 8px !important; }
+          .feat-card { padding: 14px !important; flex-direction: column !important; }
+          .feat-card-img { width: 100% !important; height: 100px !important; margin-bottom: 10px !important; }
+          .feat-card-cat { font-size: 10px !important; margin-bottom: 4px !important; }
+          .feat-card-name { font-size: 15px !important; margin-bottom: 6px !important; }
+          .feat-card-desc { display: -webkit-box !important; font-size: 13px !important; -webkit-line-clamp: 2 !important; margin-bottom: 10px !important; }
+          .feat-card-btn { display: block !important; padding: 10px 14px !important; font-size: 13px !important; }
+          .featured-viewall { padding: 10px 16px !important; font-size: 13px !important; }
+        }
         .hero-spinner {
           position: absolute; inset: 0; z-index: 2;
           display: flex; align-items: center; justify-content: center;
