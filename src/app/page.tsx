@@ -31,6 +31,10 @@ export default function HomePage() {
   const [showLoginPrompt, setShowLoginPrompt] = useState(false)
   const [cancelOrderId, setCancelOrderId] = useState<string | null>(null)
   const [isMobile, setIsMobile] = useState(false)
+  const [enquiryProduct, setEnquiryProduct] = useState<{name: string, calibre: string} | null>(null)
+  const [enquirySubmitted, setEnquirySubmitted] = useState(false)
+  const [enquirySubmitting, setEnquirySubmitting] = useState(false)
+  const [enquiryError, setEnquiryError] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const searchWrapRef = useRef<HTMLDivElement>(null)
 
@@ -79,6 +83,40 @@ export default function HomePage() {
     setOrderToast(msg)
     setOrderToastVisible(true)
     setTimeout(() => setOrderToastVisible(false), 5000)
+  }
+
+  function openEnquiry(name: string, calibre: string) {
+    setEnquiryProduct({ name, calibre })
+    setEnquirySubmitted(false)
+    setEnquiryError(false)
+  }
+
+  async function handleEnquirySubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    if (!enquiryProduct) return
+    const f = new FormData(e.currentTarget)
+    const full_name = f.get('full_name') as string
+    const company = f.get('company') as string
+    const country = f.get('country') as string
+    const email = f.get('email') as string
+    const whatsapp = f.get('whatsapp') as string
+    setEnquirySubmitting(true)
+    setEnquiryError(false)
+    try {
+      const res = await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ product: enquiryProduct.name, calibre: enquiryProduct.calibre, full_name, company, country, email, whatsapp }),
+      })
+      if (res.ok) {
+        setEnquirySubmitted(true)
+      } else {
+        setEnquiryError(true)
+      }
+    } catch {
+      setEnquiryError(true)
+    }
+    setEnquirySubmitting(false)
   }
 
   async function handleEngage(e: React.MouseEvent, order: {id: string, type: string, product: string, quantity: string, unit: string}) {
@@ -131,7 +169,10 @@ export default function HomePage() {
     const hide = () => setSpinnerHidden(true)
     v.addEventListener('playing', hide)
     v.addEventListener('canplay', hide)
-    return () => { v.removeEventListener('playing', hide); v.removeEventListener('canplay', hide) }
+    v.addEventListener('loadeddata', hide)
+    if (v.readyState >= 3) hide()
+    const fallback = setTimeout(hide, 3000)
+    return () => { clearTimeout(fallback); v.removeEventListener('playing', hide); v.removeEventListener('canplay', hide); v.removeEventListener('loadeddata', hide) }
   }, [])
 
   useEffect(() => {
@@ -263,7 +304,10 @@ export default function HomePage() {
           padding: 10px 12px; text-decoration: none; transition: box-shadow 0.15s;
           min-width: 0;
         }
+        .order-card { cursor: pointer; }
         .order-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.5); border-color: #444; }
+        .order-card:hover .order-engage-btn { background: #fff; color: #000; border-color: #fff; }
+        .order-card:hover .order-cancel-btn { background: #c62828; color: #fff; border-color: #c62828; }
         .order-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; gap: 4px; }
         .order-type-badge {
           font-size: 9px; font-weight: 800; letter-spacing: 0.5px; padding: 2px 5px;
@@ -305,6 +349,27 @@ export default function HomePage() {
           background: #c62828; color: #fff; border: none; cursor: pointer; transition: background 0.15s;
         }
         .cancel-confirm-yes:hover { background: #a00; }
+        .enq-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9000; align-items: center; justify-content: center; padding: 20px; }
+        .enq-overlay.open { display: flex; }
+        .enq-modal { background: #fff; width: 100%; max-width: 520px; padding: 40px; position: relative; max-height: 90vh; overflow-y: auto; }
+        .enq-modal-close { position: absolute; top: 16px; right: 20px; font-size: 22px; font-weight: 300; cursor: pointer; color: #555; line-height: 1; background: none; border: none; }
+        .enq-modal-close:hover { color: #000; }
+        .enq-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #c8102e; margin-bottom: 8px; }
+        .enq-title { font-size: 20px; font-weight: 900; color: #000; margin-bottom: 6px; line-height: 1.2; }
+        .enq-product-name { font-size: 13px; color: #555; margin-bottom: 24px; }
+        .enq-field { margin-bottom: 16px; }
+        .enq-field label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #333; margin-bottom: 6px; }
+        .enq-field input, .enq-field select { width: 100%; padding: 11px 14px; border: 1.5px solid #ccc; font-size: 14px; font-family: inherit; outline: none; box-sizing: border-box; transition: border-color 0.15s; background: #fff; appearance: none; -webkit-appearance: none; }
+        .enq-field input:focus, .enq-field select:focus { border-color: #000; }
+        .enq-select-wrap { position: relative; }
+        .enq-select-wrap::after { content: ''; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid #000; pointer-events: none; }
+        .enq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .enq-submit { width: 100%; background: #000; color: #fff; border: none; padding: 14px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; margin-top: 8px; transition: background 0.15s; }
+        .enq-submit:hover { background: #c8102e; }
+        .enq-success { text-align: center; padding: 24px 0; }
+        .enq-success-icon { font-size: 40px; margin-bottom: 12px; }
+        .enq-success h3 { font-size: 20px; font-weight: 900; margin-bottom: 8px; }
+        .enq-success p { font-size: 14px; color: #555; }
         .order-engage-spinner {
           display: inline-block; width: 12px; height: 12px;
           border: 2px solid rgba(0,0,0,0.15); border-top-color: #000;
@@ -398,8 +463,9 @@ export default function HomePage() {
           .order-engage-btn, .order-cancel-btn { padding: 10px 20px; font-size: 12px; }
         }
         .hero {
-          position: relative; height: 620px;
+          position: relative; min-height: 620px;
           display: flex; align-items: center; overflow: hidden;
+          padding: 80px 0;
         }
         .hero-bg { position: absolute; inset: 0; background: #0a0a0a; }
         .hero-video {
@@ -410,7 +476,10 @@ export default function HomePage() {
           position: absolute; inset: 0;
           background: linear-gradient(100deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.1) 100%);
         }
-        .hero-content { position: relative; z-index: 1; }
+        .hero-content {
+          position: relative; z-index: 1;
+          display: grid; grid-template-columns: 1fr 540px; gap: 48px; align-items: center;
+        }
         .hero-content h1 {
           font-size: clamp(34px, 5.5vw, 64px); font-weight: 900; color: #fff;
           line-height: 1.01; letter-spacing: -2px; margin-bottom: 22px;
@@ -420,6 +489,43 @@ export default function HomePage() {
           line-height: 1.7; max-width: 500px; margin-bottom: 36px;
         }
         .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+        .featured-panel-label {
+          font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+          color: rgba(255,255,255,0.4); margin-bottom: 8px;
+        }
+        .featured-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .feat-card {
+          background: #000; border: 1px solid #222; padding: 10px 12px;
+          text-decoration: none; display: flex; flex-direction: column; transition: border-color 0.15s;
+          min-width: 0;
+        }
+        .feat-card { cursor: pointer; }
+        .feat-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.5); border-color: #444; }
+        .feat-card:hover .feat-card-btn { background: #fff; color: #000; border-color: #fff; }
+        .feat-card-img { width: 100%; height: 80px; object-fit: contain; margin-bottom: 8px; background: #111; display: block; }
+        .feat-card-cat { font-size: 9px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 6px; }
+        .feat-card-name { font-size: 12px; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 4px; }
+        .feat-card-desc {
+          font-size: 11px; color: rgba(255,255,255,0.6); line-height: 1.4; flex: 1;
+          display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+          margin-bottom: 8px;
+        }
+        .feat-card-btn {
+          display: block; width: 100%; text-align: center; padding: 6px 14px; font-size: 11px; font-weight: 700;
+          background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff;
+          cursor: pointer; transition: all 0.15s; font-family: inherit; text-decoration: none;
+          margin-top: auto;
+        }
+        .feat-card-btn:hover { background: #fff; color: #000; border-color: #fff; }
+        .featured-viewall {
+          display: block; width: 100%; box-sizing: border-box; text-align: center;
+          background: #fff; color: #000; text-decoration: none; padding: 7px 20px;
+          font-size: 13px; font-weight: 800; letter-spacing: 0.5px; margin-top: 8px;
+          transition: background 0.15s;
+        }
+        .featured-viewall:hover { background: #f0f0f0; }
+        @media (max-width: 1024px) { .hero-content { grid-template-columns: 1fr; } }
+        @media (max-width: 767px) { .hero-content { grid-template-columns: 1fr; gap: 32px; } .featured-grid { grid-template-columns: repeat(2, 1fr); } }
         .hero-spinner {
           position: absolute; inset: 0; z-index: 2;
           display: flex; align-items: center; justify-content: center;
@@ -541,7 +647,9 @@ export default function HomePage() {
             ) : (
               <div className="orders-scroll">
                 {(isMobile ? activeOrders.slice(-6) : activeOrders).map(o => (
-                    <div key={o.id} className="order-card">
+                    <div key={o.id} className="order-card" onClick={e => {
+                      if (o.orderUserId === userId && userId) { setCancelOrderId(o.id) } else { handleEngage(e as unknown as React.MouseEvent, o) }
+                    }}>
                       <div className="order-card-top">
                         <div className="order-card-badges">
                           <span className={`order-type-badge ${o.type}`}>{o.type === 'buy' ? 'BUY' : 'SELL'}</span>
@@ -596,10 +704,60 @@ export default function HomePage() {
         </div>
         <div className="hero-overlay"></div>
         <div className="hero-content pg-wrap">
-          <h1>The global marketplace for defence procurement</h1>
-          <p>Certified products, verified companies, and documented procurement channels — serving government and military clients worldwide.</p>
-          <div className="hero-cta">
-            <Link href="/products" className="btn-browse-products"><span>Browse Products</span></Link>
+          <div>
+            <h1>The global marketplace for defence procurement</h1>
+            <p>Certified products, verified companies, and documented procurement channels — serving government and military clients worldwide.</p>
+            <div className="hero-cta">
+              <Link href="/products" className="btn-browse-products"><span>Browse Products</span></Link>
+            </div>
+          </div>
+          <div>
+            <div className="featured-panel-label">Featured Products</div>
+            <div className="featured-grid">
+              <div className="feat-card" onClick={() => openEnquiry('Counter-UAV AI Destroyer', 'AI Autonomous')}>
+                <img className="feat-card-img" src="/droneinterceptor.png" alt="Counter-UAV AI Destroyer" />
+                <div className="feat-card-cat">Counter-UAV</div>
+                <div className="feat-card-name">Counter-UAV AI Destroyer</div>
+                <div className="feat-card-desc">Autonomous interceptor, 360+ km/h, AI guidance with ≥90% recognition. Made in USA.</div>
+                <span className="feat-card-btn">Enquire</span>
+              </div>
+              <div className="feat-card" onClick={() => openEnquiry('VIHOR', 'Light Tactical')}>
+                <img className="feat-card-img" src="/vihor.jpg" alt="VIHOR 4×4 LTV" />
+                <div className="feat-card-cat">Armored Vehicle</div>
+                <div className="feat-card-name">VIHOR 4×4 LTV</div>
+                <div className="feat-card-desc">Light armoured tactical vehicle, STANAG 4569 Level 2 protection, 120+ km/h.</div>
+                <span className="feat-card-btn">Enquire</span>
+              </div>
+              <div className="feat-card" onClick={() => openEnquiry('CAL 155MM HE M107', '155mm')}>
+                <img className="feat-card-img" src="/products/cal-155mm-he-m107.png" alt="155mm HE M107" />
+                <div className="feat-card-cat">Artillery</div>
+                <div className="feat-card-name">155mm HE M107</div>
+                <div className="feat-card-desc">NATO-standard HE artillery projectile. Compatible with M109, M198, M777.</div>
+                <span className="feat-card-btn">Enquire</span>
+              </div>
+              <div className="feat-card" onClick={() => openEnquiry('AK-47 ASSAULT RIFLE', '7.62×39mm')}>
+                <img className="feat-card-img" src="/products/ak47.png" alt="AK-47 Assault Rifle" />
+                <div className="feat-card-cat">Assault Rifle</div>
+                <div className="feat-card-name">AK-47 Assault Rifle</div>
+                <div className="feat-card-desc">7.62×39mm, MD 1963 configuration. 2×30 round magazines, cleaning kit included.</div>
+                <span className="feat-card-btn">Enquire</span>
+              </div>
+              <div className="feat-card" onClick={() => openEnquiry('RS9 VAMPIR – BLACK', '9×19mm PARA')}>
+                <img className="feat-card-img" src="/products/rs9-vampir-black.png" alt="RS9 VAMPIR" />
+                <div className="feat-card-cat">Pistol</div>
+                <div className="feat-card-name">RS9 VAMPIR</div>
+                <div className="feat-card-desc">9×19mm semi-auto pistol, 18-round magazine, chrome-moly barrel, 50m range.</div>
+                <span className="feat-card-btn">Enquire</span>
+              </div>
+              <div className="feat-card" onClick={() => openEnquiry('120MM M74 / M75', '120mm')}>
+                <img className="feat-card-img" src="/products/mortar-120mm-m74.png" alt="120mm M74/M75" />
+                <div className="feat-card-cat">Mortar System</div>
+                <div className="feat-card-name">120mm M74/M75</div>
+                <div className="feat-card-desc">Heavy mortar for battalion fire support. Towed or vehicle-mounted configurations.</div>
+                <span className="feat-card-btn">Enquire</span>
+              </div>
+            </div>
+            <Link href="/products" className="featured-viewall">View All Products &rarr;</Link>
           </div>
         </div>
       </section>
@@ -771,6 +929,62 @@ export default function HomePage() {
           onCreated={handleOrderCreated}
         />
       )}
+
+      {/* ENQUIRY MODAL */}
+      <div className={`enq-overlay${enquiryProduct ? ' open' : ''}`} onClick={e => { if (e.target === e.currentTarget) setEnquiryProduct(null) }}>
+        <div className="enq-modal">
+          <button className="enq-modal-close" onClick={() => setEnquiryProduct(null)}>×</button>
+          {enquiryProduct && !enquirySubmitted && (
+            <>
+              <div className="enq-label">Product Enquiry</div>
+              <div className="enq-title">Request Information</div>
+              <div className="enq-product-name">{enquiryProduct.name} — {enquiryProduct.calibre}</div>
+              <form onSubmit={handleEnquirySubmit}>
+                <div className="enq-grid">
+                  <div className="enq-field">
+                    <label>Full Name *</label>
+                    <input type="text" name="full_name" placeholder="Full name" required />
+                  </div>
+                  <div className="enq-field">
+                    <label>Company Name *</label>
+                    <input type="text" name="company" placeholder="Company / Government body" required />
+                  </div>
+                </div>
+                <div className="enq-field">
+                  <label>Country *</label>
+                  <div className="enq-select-wrap">
+                    <select name="country" required defaultValue="">
+                      <option value="" disabled>Select country</option>
+                      {['United Arab Emirates','Saudi Arabia','Qatar','Kuwait','Bahrain','Oman','United States','United Kingdom','Germany','France','Poland','Turkey','Israel','India','Pakistan','Egypt','Jordan','Morocco','Nigeria','South Africa','Other'].map(c => <option key={c}>{c}</option>)}
+                    </select>
+                  </div>
+                </div>
+                <div className="enq-grid">
+                  <div className="enq-field">
+                    <label>Business Email *</label>
+                    <input type="email" name="email" placeholder="Work email address" required />
+                  </div>
+                  <div className="enq-field">
+                    <label>WhatsApp Number *</label>
+                    <input type="tel" name="whatsapp" placeholder="+1 000 000 0000" required />
+                  </div>
+                </div>
+                {enquiryError && <div style={{color:'#E31837',fontSize:'13px',marginBottom:'8px'}}>Something went wrong — please try again.</div>}
+                <button type="submit" className="enq-submit" disabled={enquirySubmitting}>
+                  {enquirySubmitting ? 'Sending…' : 'Send Enquiry →'}
+                </button>
+              </form>
+            </>
+          )}
+          {enquiryProduct && enquirySubmitted && (
+            <div className="enq-success">
+              <div className="enq-success-icon"></div>
+              <h3>Enquiry Submitted</h3>
+              <p>Our procurement team will review your request and respond within 2 business days.</p>
+            </div>
+          )}
+        </div>
+      </div>
     </>
   )
 }
