@@ -259,11 +259,11 @@ export default function HomePage() {
           font-size: 14px; color: rgba(255,255,255,0.3); padding: 32px 0; text-align: center;
         }
         .order-card {
-          display: flex; flex-direction: column; background: #fff; border: 1px solid #eee;
+          display: flex; flex-direction: column; background: #000; border: 1px solid #222;
           padding: 10px 12px; text-decoration: none; transition: box-shadow 0.15s;
           min-width: 0;
         }
-        .order-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+        .order-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.5); border-color: #444; }
         .order-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; gap: 4px; }
         .order-type-badge {
           font-size: 9px; font-weight: 800; letter-spacing: 0.5px; padding: 2px 5px;
@@ -271,27 +271,27 @@ export default function HomePage() {
         .order-type-badge.buy { background: #0a7c42; color: #fff; }
         .order-type-badge.sell { background: #c62828; color: #fff; }
         .order-card-badges { display: flex; align-items: center; gap: 4px; min-width: 0; }
-        .order-expiry-badge { font-size: 9px; font-weight: 800; letter-spacing: 0.5px; padding: 2px 5px; background: #000; color: #fff; white-space: nowrap; }
-        .order-card-date { font-size: 10px; color: #999; white-space: nowrap; }
+        .order-expiry-badge { font-size: 9px; font-weight: 800; letter-spacing: 0.5px; padding: 2px 5px; background: #fff; color: #000; white-space: nowrap; }
+        .order-card-date { font-size: 10px; color: rgba(255,255,255,0.5); white-space: nowrap; }
         .order-card-notes {
-          font-size: 11px; color: #666; line-height: 1.4; margin-bottom: 8px;
+          font-size: 11px; color: rgba(255,255,255,0.6); line-height: 1.4; margin-bottom: 8px;
           display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
           overflow: hidden;
         }
         .order-card-product {
-          font-size: 12px; font-weight: 700; color: #000; margin-bottom: 4px;
+          font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 4px;
           line-height: 1.3;
           display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
           overflow: hidden;
         }
         .order-card-bottom { display: flex; align-items: center; justify-content: flex-end; margin-top: auto; }
-        .order-card-qty { font-size: 12px; font-weight: 600; color: #000; margin-bottom: 6px; }
+        .order-card-qty { font-size: 12px; font-weight: 600; color: #fff; margin-bottom: 6px; }
         .order-engage-btn {
-          background: transparent; border: 1px solid #ccc; color: #000;
+          background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff;
           padding: 6px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
           cursor: pointer; transition: all 0.15s; font-family: inherit; width: 100%;
         }
-        .order-engage-btn:hover { background: #000; color: #fff; border-color: #000; }
+        .order-engage-btn:hover { background: #fff; color: #000; border-color: #fff; }
         .order-engage-btn.engaged { background: transparent; border-color: #0a7c42; color: #0a7c42; cursor: default; }
         .order-engage-btn:disabled { opacity: 0.6; cursor: not-allowed; }
         .order-cancel-btn {
@@ -374,10 +374,12 @@ export default function HomePage() {
         .ord-modal-note { font-size: 11px; color: #aaa; text-align: center; margin-top: 16px; line-height: 1.5; }
         .ord-btn-spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(150,150,150,0.3); border-top-color: #999; border-radius: 50%; animation: spin 0.6s linear infinite; }
         .orders-panel-viewall {
-          font-size: 12px; font-weight: 600; color: #F5C400; text-decoration: none;
-          margin-top: 4px; transition: color 0.15s;
+          display: block; width: 100%; box-sizing: border-box;
+          background: #fff; color: #000; text-align: center; text-decoration: none;
+          padding: 7px 20px; font-size: 13px; font-weight: 800; letter-spacing: 0.5px;
+          margin-top: 8px; transition: background 0.15s, color 0.15s;
         }
-        .orders-panel-viewall:hover { color: #ffd633; }
+        .orders-panel-viewall:hover { background: #f0f0f0; color: #000; }
         @media (max-width: 1024px) {
           .top-hero-grid { grid-template-columns: 1fr; gap: 32px; }
           .top-hero-right { width: 100%; }
