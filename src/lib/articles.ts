@@ -12,6 +12,83 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    slug: "what-if-iran-us-war-escalates-what-happens-next",
+    title: "What If the Iran–US Conflict Escalates? Here's What Actually Happens Next",
+    date: "13 Apr 2026",
+    cat: "geo",
+    source: "GEOPOLITICAL ANALYSIS",
+    region: "Middle East",
+    description: "The tension between Iran and the United States has been simmering for decades, but the current trajectory feels different. If it tips into open escalation, the consequences hit the global defence market, energy supply, and Gulf security in very specific ways. This is a scenario-by-scenario breakdown.",
+    keywords: "Iran US war, Iran conflict escalation, US Iran military, Strait of Hormuz war, Gulf war 2026, Iran proxy war, defence market Iran, Middle East escalation, Iran missiles, GCC security Iran",
+    body: `<p>I've been getting asked this question a lot lately — by clients, by partners, by people in the region who can feel the temperature rising. What happens if the Iran–US thing actually goes kinetic? Not the usual posturing. Not another round of sanctions. Real escalation. Missiles, naval engagements, proxy activation across the theatre.</p>
+
+        <p>It's a fair question, and I think it deserves an honest answer rather than the vague "it would be destabilising" language you get from most analysis. So let me walk through what actually happens, scenario by scenario, based on what we know about the capabilities, the geography, and the way these things tend to unfold when they go past the point of no return.</p>
+
+        <h2>Where we are right now</h2>
+
+        <p>As of mid-April 2026, the situation is not good but it is not yet a shooting war. The US has maintained its carrier strike group presence in the Gulf. Iran has continued enrichment activity that most Western intelligence agencies assess is now at or near weapons-grade threshold. The IRGC Navy has conducted a series of provocative exercises in and around the Strait of Hormuz. Israel has conducted strikes on Iranian-linked targets in Syria and possibly inside Iran itself — depending on which reports you believe. The Houthis have not stopped targeting Red Sea shipping. And the diplomatic channels that existed through Oman and Qatar are, by most accounts, still functioning but under severe strain.</p>
+
+        <p>That is the baseline. Now let's talk about what happens if it gets worse.</p>
+
+        <h2>Scenario 1: Limited strikes and controlled escalation</h2>
+
+        <p>This is the scenario most analysts consider most likely if things tip over — and it's also the one people underestimate. A limited US strike on Iranian nuclear facilities or IRGC assets, followed by an Iranian response calibrated to be painful but not suicidal. Think a barrage of ballistic missiles at US bases in Iraq and the Gulf — Al Udeid, Al Dhafra, maybe Camp Arifjan — designed to cause casualties and make a political point without triggering an all-out war.</p>
+
+        <p>Iran showed in January 2020, after the Soleimani strike, that it can hit specific targets with reasonable precision and then stop. The question is whether that restraint holds in a scenario where the provocation is larger — say, a strike on Natanz or Fordow. My honest assessment: probably yes, but with a higher body count and a much narrower margin for miscalculation.</p>
+
+        <p><strong>What happens to the defence market:</strong> Immediate surge in demand for air defence systems, counter-ballistic missile capability, hardened infrastructure protection, and force protection equipment across the GCC. Every procurement office in Riyadh, Abu Dhabi, and Doha goes to wartime footing. Contracts that were in discussion for months get signed in days. Prices on everything from interceptors to body armour spike 20–40% overnight on scarcity alone. If you're a supplier with stock on hand, this is the scenario where you sell everything you have.</p>
+
+        <p><strong>What happens to energy:</strong> Oil spikes to $120–$150 per barrel within 48 hours, even if no oil infrastructure is directly hit. Insurance premiums on Gulf shipping go through the roof. Some tanker operators halt transits voluntarily. The spike is temporary if the escalation stays limited — prices normalise within weeks once it's clear both sides are backing off — but the shock is severe.</p>
+
+        <h2>Scenario 2: Strait of Hormuz gets contested</h2>
+
+        <p>This is the scenario that keeps energy traders up at night. Iran doesn't need to "close" the Strait — that's a Hollywood fantasy. What it can do is make transit so dangerous and so expensive that commercial shipping slows to a crawl. IRGC fast boats swarming the shipping lanes. Mines — Iran has thousands of them, including modern influence mines that are genuinely difficult to sweep. Anti-ship missiles fired from the Iranian coastline, which is only 30-odd kilometres from the shipping lanes at the narrowest point. GPS spoofing. Drone attacks on tankers.</p>
+
+        <p>The US Navy can fight its way through the Strait. That's not the issue. The issue is that commercial tankers are not warships, their crews are not combatants, and their insurers are not interested in covering transit through an active war zone. If Hormuz becomes contested, you lose 17–20 million barrels of oil per day from the global market — not because the oil doesn't exist, but because nobody will carry it through the gap.</p>
+
+        <p><strong>What happens to the defence market:</strong> This is where things get genuinely transformative. Naval mine countermeasures become the single most in-demand capability on earth. Counter-drone systems for ship protection go from "nice to have" to "existential." Every GCC navy accelerates procurement of patrol vessels, maritime surveillance, coastal defence systems. The demand for counter-UAS, naval radar, and maritime ISR goes vertical. Manufacturers with production capacity cannot build fast enough. Lead times, which are already stretched, become meaningless — everything is allocation-based.</p>
+
+        <p><strong>What happens to energy:</strong> Catastrophic in the short term. Oil doesn't spike — it gaps. $180, $200, pick your number. Saudi Arabia's East-West pipeline and the UAE's Fujairah bypass can move some volume around the Strait, but nowhere near enough to replace full Hormuz throughput. The global economy enters a supply shock within two weeks. This is the scenario where governments start talking about strategic reserve releases in coordinated fashion and China starts very quietly pressuring Tehran through every channel it has.</p>
+
+        <h2>Scenario 3: Proxy theatre goes region-wide</h2>
+
+        <p>Iran's real military strength has never been its conventional forces — it's the proxy network. Hezbollah in Lebanon. The Houthis in Yemen. Shia militias in Iraq. Various groups in Syria. And more recently, capabilities that have shown up in Bahrain, eastern Saudi Arabia, and even as far afield as West Africa and South America through Quds Force facilitation networks.</p>
+
+        <p>If Iran decides to activate this network in response to a US strike, the conflict isn't in one place — it's in ten places simultaneously. Rockets on northern Israel from Hezbollah. Drone and missile attacks on Saudi and Emirati oil infrastructure from the Houthis. IED and rocket attacks on US forces in Iraq and Syria. Possible sabotage operations against critical infrastructure in Bahrain and Kuwait. This is the scenario that stretches everyone thin.</p>
+
+        <p><strong>What happens to the defence market:</strong> Broad-based demand across every category. It's not just one type of system — it's everything. Counter-rocket and mortar systems. Air defence. Counter-drone. Armoured vehicles for force protection in urban environments. Ammunition at industrial scale — every calibre, every type. Intelligence, surveillance, and reconnaissance systems. Secure communications. Medical supplies. Logistics and transport. This scenario doesn't create a spike in one product line — it creates a sustained, multi-year procurement wave across the entire defence sector.</p>
+
+        <p><strong>What happens to the Gulf:</strong> The GCC states find themselves fighting on multiple fronts simultaneously, which is exactly what Iran's strategy is designed to achieve. Saudi Arabia has to deal with Houthi attacks from the south while watching the northern border. The UAE has to protect its critical infrastructure — ports, desalination plants, oil terminals — against drone and missile threats that are more sophisticated than anything the Houthis had five years ago. Qatar sits under the umbrella of Al Udeid but is geographically exposed. Bahrain has an internal sectarian dimension that Iran has historically tried to exploit. It's a nightmare scenario for regional security planners, and the procurement response is proportional.</p>
+
+        <h2>Scenario 4: The nuclear dimension</h2>
+
+        <p>I'm going to be careful here because this is the scenario nobody wants to think about but everyone should. If Iran is struck in a way that it perceives as existential — a sustained campaign to destroy its nuclear programme, regime-targeting strikes, or something that looks like a prelude to regime change — the calculus changes completely. An Iran that believes it has nothing left to lose behaves very differently from an Iran that is trying to manage escalation.</p>
+
+        <p>Whether Iran has a weapon or is weeks away from one is almost beside the point in this scenario. What matters is the perception of existential threat and the willingness to take actions — closing Hormuz for real, large-scale missile attacks on Gulf cities, activation of sleeper cells in Western countries — that would be irrational in any other context but become the last card a cornered regime has to play.</p>
+
+        <p><strong>What happens:</strong> I'm not going to war-game this one in detail because frankly the outcomes are too severe to be useful for commercial planning. If you're in this scenario, the defence market is no longer a market — it's a wartime allocation system and everything else is secondary to immediate military requirements. The planning horizon that matters is Scenarios 1–3.</p>
+
+        <h2>What this means for anyone in the defence supply chain</h2>
+
+        <p>If you've read this far, you're probably not looking for reassurance — you're looking for practical guidance. So here it is.</p>
+
+        <p><strong>Stock matters more than price.</strong> In every escalation scenario, the constraint is availability, not cost. Buyers will pay whatever it takes — the question is whether you have product to sell. If you're a supplier, holding inventory of high-demand items — counter-drone systems, ammunition, protective equipment, comms gear — is the single best hedge against every scenario above.</p>
+
+        <p><strong>Diversified supply lines matter.</strong> If your entire procurement chain runs through one country or one corridor, you're exposed. The companies and governments that have relationships with multiple suppliers across multiple jurisdictions are the ones that will maintain supply continuity in a crisis.</p>
+
+        <p><strong>Compliance doesn't stop in a crisis.</strong> There's a temptation in escalation scenarios to cut corners on end-use documentation, export licensing, and compliance. Don't. The regulatory scrutiny actually intensifies during a conflict, not the other way around. The deals that survive are the ones with clean paper.</p>
+
+        <p><strong>The GCC is the centre of gravity.</strong> In every scenario, the Gulf states are both the most exposed and the most active buyers. If you're positioned to supply the GCC market — with the licences, the relationships, and the logistics to deliver — you're positioned for whatever comes next.</p>
+
+        <h2>The honest conclusion</h2>
+
+        <p>Nobody I talk to in the region wants this war. Not the Emiratis, not the Saudis, not the Qataris, and frankly not most of the Iranian establishment either. The people who benefit from escalation are a narrow set of actors on all sides, and the people who pay the price are everyone else. The most likely outcome is still that this continues as a slow-burn rivalry with periodic crises that stop just short of the line — which is essentially what it's been since 1979.</p>
+
+        <p>But "most likely" is not "certain," and the gap between the current trajectory and a genuine escalation is narrower than it's been in years. The responsible thing to do — whether you're a government, a military, a security service, or a commercial operator in the region — is to plan for the scenarios above, build the supply relationships before you need them, and hope you never have to test them.</p>
+
+        <p>At Defence Trading, we've positioned our supply chain to function across all of these scenarios. Counter-UAV systems, ammunition, protective equipment, armoured vehicles, communications gear — sourced from multiple certified manufacturers across the US, Europe, and allied nations, with compliant export channels through the UAE. If you want to have the conversation about what your specific requirements look like under these conditions, we're ready to have it.</p>`
+  },
+  {
     slug: "strait-of-hormuz-fully-open-end-of-2026-analysis",
     title: "Can the Strait of Hormuz Be Fully Opened by the End of 2026? A Professional Analysis",
     date: "11 Apr 2026",
