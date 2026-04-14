@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import Link from 'next/link'
 
 const TABS = [
@@ -41,24 +42,28 @@ const TABS = [
 export default function CookieSettings() {
   const [open, setOpen] = useState(false)
   const [activeTab, setActiveTab] = useState('privacy')
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (e.key === 'Escape') setOpen(false)
     }
-    if (open) window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
+    if (open) {
+      window.addEventListener('keydown', onKey)
+      document.body.style.overflow = 'hidden'
+    }
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
   }, [open])
 
-  if (!open) {
-    return (
-      <button className="cs-trigger" onClick={() => setOpen(true)}>Cookie Settings</button>
-    )
-  }
-
-  return (
+  const modal = (
     <>
-      <button className="cs-trigger" onClick={() => setOpen(true)}>Cookie Settings</button>
       <div className="cs-backdrop" onClick={() => setOpen(false)} />
       <div className="cs-modal">
         <div className="cs-modal-head">
@@ -84,6 +89,13 @@ export default function CookieSettings() {
           <button className="cs-btn-reject" onClick={() => setOpen(false)}>Reject All</button>
         </div>
       </div>
+    </>
+  )
+
+  return (
+    <>
+      <button className="cs-trigger" onClick={() => setOpen(true)}>Cookie Settings</button>
+      {open && mounted && createPortal(modal, document.body)}
     </>
   )
 }
