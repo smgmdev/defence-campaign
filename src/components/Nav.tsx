@@ -25,6 +25,7 @@ export default function Nav() {
   const [searchOpen, setSearchOpen] = useState(false)
   const [searchVal, setSearchVal] = useState('')
   const [results, setResults] = useState<typeof PRODUCTS>([])
+  const [allOrders, setAllOrders] = useState<Array<{id: string; type: string; product: string; quantity: string; unit: string; notes: string}>>([])
   const [offeringsOpen, setOfferingsOpen] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -53,12 +54,20 @@ export default function Nav() {
     if (searchOpen) {
       setTimeout(() => inputRef.current?.focus(), 50)
       document.body.style.overflow = 'hidden'
+      if (allOrders.length === 0) {
+        fetch('/api/orders').then(r => r.json()).then(d => {
+          if (d.orders) setAllOrders(d.orders.map((o: Record<string, string>) => ({
+            id: o.id, type: o.type, product: o.product, quantity: o.quantity,
+            unit: o.unit, notes: o.notes || '',
+          })))
+        }).catch(() => {})
+      }
     } else {
       document.body.style.overflow = ''
       setSearchVal('')
       setResults([])
     }
-  }, [searchOpen])
+  }, [searchOpen, allOrders.length])
 
   useEffect(() => {
     function handleKey(e: KeyboardEvent) {
@@ -83,6 +92,15 @@ export default function Nav() {
       (p.tags || []).some(t => t.toLowerCase().includes(q))
     ))
   }
+
+  const searchQNorm = searchVal.trim().toLowerCase()
+  const orderResults = searchQNorm
+    ? allOrders.filter(o =>
+        o.product.toLowerCase().includes(searchQNorm) ||
+        (o.notes || '').toLowerCase().includes(searchQNorm) ||
+        o.type.toLowerCase().includes(searchQNorm)
+      )
+    : []
 
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/'
@@ -125,6 +143,12 @@ export default function Nav() {
 
       {/* ── MOBILE MENU OVERLAY ── */}
       <div className={`mobile-menu-overlay${menuOpen ? ' open' : ''}`}>
+        <div className="mobile-menu-header">
+          <Link href="/" className="mobile-menu-logo" onClick={() => setMenuOpen(false)}>
+            <span style={{color:'#fff'}}>DefenceTrading</span><span style={{color:'#E31837'}}>.</span>
+          </Link>
+          <button className="mobile-menu-close" onClick={() => setMenuOpen(false)} aria-label="Close menu">&#x2715;</button>
+        </div>
         <div className="mobile-menu-inner">
           <div className="mobile-menu-nav">
             <p className="mobile-menu-label">NAVIGATION</p>
@@ -175,29 +199,27 @@ export default function Nav() {
       {/* ── FULL-SCREEN SEARCH OVERLAY ── */}
       {searchOpen && (
         <div className="search-overlay">
-          <button className="search-overlay-close" onClick={() => setSearchOpen(false)} aria-label="Close search">
-            <kbd>ESC</kbd>
-            <span>&#x2715;</span>
-          </button>
+          <div className="search-overlay-field">
+            <input
+              ref={inputRef}
+              className="search-overlay-input"
+              placeholder="Start typing to search"
+              value={searchVal}
+              onChange={e => handleSearchInput(e.target.value)}
+              onKeyDown={e => {
+                if (e.key === 'Enter' && results.length > 0) {
+                  router.push(`/products?q=${encodeURIComponent(searchVal)}`)
+                  setSearchOpen(false)
+                }
+              }}
+            />
+            <button className="search-overlay-close" onClick={() => setSearchOpen(false)} aria-label="Close search">
+              <kbd>ESC</kbd>
+              <span>&#x2715;</span>
+            </button>
+          </div>
 
           <div className="search-overlay-inner">
-            <div className="search-overlay-field">
-              <input
-                ref={inputRef}
-                className="search-overlay-input"
-                placeholder="Start typing to search"
-                value={searchVal}
-                onChange={e => handleSearchInput(e.target.value)}
-                onKeyDown={e => {
-                  if (e.key === 'Enter' && results.length > 0) {
-                    router.push(`/products?q=${encodeURIComponent(searchVal)}`)
-                    setSearchOpen(false)
-                  }
-                }}
-              />
-              <div className="search-overlay-line" />
-            </div>
-
             {!searchVal && (
               <div className="search-popular">
                 <span className="search-popular-label">POPULAR SEARCHES</span>
@@ -211,25 +233,48 @@ export default function Nav() {
             )}
 
             {results.length > 0 && (
-              <div className="search-results-grid">
-                {results.map(p => (
-                  <Link key={p.id} href={`/products?q=${encodeURIComponent(p.name)}`} className="search-result-card"
-                    onClick={() => setSearchOpen(false)}>
-                    <div
-                      className="search-result-img"
-                      style={{ backgroundImage: `url(${p.img})`, backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}
-                    />
-                    <div className="search-result-info">
-                      <div className="search-result-name">{p.name}</div>
-                      <div className="search-result-cat">{p.category}</div>
-                    </div>
-                  </Link>
-                ))}
+              <div className="search-section">
+                <div className="search-section-label">Products</div>
+                <div className="search-results-grid">
+                  {results.map(p => (
+                    <Link key={p.id} href={`/products?q=${encodeURIComponent(p.name)}`} className="search-result-card"
+                      onClick={() => setSearchOpen(false)}>
+                      <div
+                        className="search-result-img"
+                        style={{ backgroundImage: `url(${p.img})`, backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}
+                      />
+                      <div className="search-result-info">
+                        <div className="search-result-name">{p.name}</div>
+                        <div className="search-result-cat">{p.category}</div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
               </div>
             )}
 
-            {searchVal && results.length === 0 && (
-              <p className="search-no-results">No products found for &ldquo;{searchVal}&rdquo;</p>
+            {orderResults.length > 0 && (
+              <div className="search-section">
+                <div className="search-section-label">Active Orders</div>
+                <div className="search-results-grid">
+                  {orderResults.map(o => (
+                    <Link key={o.id} href={`/orders?q=${encodeURIComponent(searchVal)}`} className="search-result-card"
+                      onClick={() => setSearchOpen(false)}>
+                      <div className="search-order-badge-wrap">
+                        <span className={`search-order-type ${o.type}`}>{o.type === 'buy' ? 'BUY' : 'SELL'}</span>
+                      </div>
+                      <div className="search-result-info">
+                        <div className="search-result-name">{o.product}</div>
+                        <div className="search-result-cat">{o.quantity} {o.unit}{o.notes ? ` · ${o.notes.slice(0, 40)}${o.notes.length > 40 ? '…' : ''}` : ''}</div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {searchVal && results.length === 0 && orderResults.length === 0 && (
+              <p className="search-no-results">No results found for &ldquo;{searchVal}&rdquo;</p>
             )}
           </div>
         </div>

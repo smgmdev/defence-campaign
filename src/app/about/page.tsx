@@ -103,8 +103,8 @@ export default function AboutPage() {
         .contact-banner { background: #f0ebe1; border-bottom: 1px solid #e0e0e0; }
         .contact-banner .pg-wrap { display: flex; align-items: center; justify-content: space-between; padding-top: 24px; padding-bottom: 24px; }
         .contact-banner-text { font-size: 18px; font-weight: 700; color: #000; }
-        .contact-banner-btn { background: #000; color: #fff; text-decoration: none; padding: 14px 28px; font-size: 14px; font-weight: 700; white-space: nowrap; transition: background 0.15s; }
-        .contact-banner-btn:hover { background: #333; }
+        .contact-banner-btn { background: #000; color: #fff; text-decoration: none; padding: 14px 28px; font-size: 14px; font-weight: 700; white-space: nowrap; border: 1px solid #000; transition: background 0.15s, color 0.15s, border-color 0.15s; }
+        .contact-banner-btn:hover { background: #fff; color: #000; border-color: #000; }
 
         /* WHY SECTION */
         .why-section { border-bottom: 1px solid #e0e0e0; }

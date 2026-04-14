@@ -2,7 +2,8 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { useState, useEffect, Suspense } from 'react'
 import { PRODUCTS } from '@/lib/products'
 import { supabase } from '@/lib/supabase'
 import CreateOrderModal from '@/components/CreateOrderModal'
@@ -24,7 +25,8 @@ interface Order {
 
 const SAMPLE_ORDERS: Order[] = []
 
-export default function OrdersPage() {
+function OrdersContent() {
+  const searchParams = useSearchParams()
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [filterType, setFilterType] = useState('')
   const [filterCat, setFilterCat] = useState('')
@@ -36,6 +38,11 @@ export default function OrdersPage() {
     document.body.style.overflow = showCreate ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [showCreate])
+
+  useEffect(() => {
+    const q = searchParams.get('q')
+    setSearchQ(q || '')
+  }, [searchParams])
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -575,5 +582,13 @@ export default function OrdersPage() {
         }
       `}</style>
     </>
+  )
+}
+
+export default function OrdersPage() {
+  return (
+    <Suspense fallback={<div style={{padding:'80px',textAlign:'center'}}>Loading…</div>}>
+      <OrdersContent />
+    </Suspense>
   )
 }

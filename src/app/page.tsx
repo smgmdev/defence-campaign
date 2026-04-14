@@ -11,6 +11,7 @@ const SEARCH_COMPANIES = [{"name":"Chase Tactical","category":"Protective Equipm
 
 export default function HomePage() {
   const [searchVal, setSearchVal] = useState('')
+  const [discoveryOpen, setDiscoveryOpen] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [dropdownItems, setDropdownItems] = useState<{type: string, name: string, category: string, sub: string}[]>([])
   const [spinnerHidden, setSpinnerHidden] = useState(false)
@@ -279,7 +280,7 @@ export default function HomePage() {
           border-bottom: 4px solid #F5C400;
         }
         .top-hero-grid {
-          display: grid; grid-template-columns: 1fr 540px; gap: 48px;
+          display: grid; grid-template-columns: 1fr 640px; gap: 48px;
           align-items: center; padding-top: 80px; padding-bottom: 80px; width: 100%;
         }
         .top-hero-left { text-align: left; }
@@ -299,13 +300,14 @@ export default function HomePage() {
         }
         .btn-create-order:hover { background: #ffd633; }
         button.btn-create-order { border: none; cursor: pointer; font-family: inherit; }
-        .top-hero-right { display: flex; flex-direction: column; gap: 8px; justify-self: end; width: 100%; }
+        .top-hero-right { display: flex; flex-direction: column; gap: 0; justify-self: end; width: 100%; }
+        .top-hero-right > .orders-panel-label { margin-bottom: 8px; }
         .orders-panel-label {
           font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
           color: rgba(255,255,255,0.4); margin-bottom: 4px;
         }
         .orders-scroll {
-          display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+          display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
         }
         .orders-panel-loading { display: flex; align-items: center; justify-content: center; padding: 48px 0; }
         .orders-panel-spinner {
@@ -316,39 +318,39 @@ export default function HomePage() {
           font-size: 14px; color: rgba(255,255,255,0.3); padding: 32px 0; text-align: center;
         }
         .order-card {
-          display: flex; flex-direction: column; background: #000; border: 1px solid #222;
-          padding: 10px 12px; text-decoration: none; transition: box-shadow 0.15s;
-          min-width: 0;
+          display: flex; flex-direction: column; background: #000; border: 1px solid #1a1a1a;
+          padding: 20px 22px; text-decoration: none; transition: box-shadow 0.15s;
+          min-width: 0; min-height: 200px;
         }
         .order-card { cursor: pointer; }
         .order-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.5); border-color: #444; }
         .order-card:hover .order-engage-btn { background: #fff; color: #000; border-color: #fff; }
         .order-card:hover .order-cancel-btn { background: #c62828; color: #fff; border-color: #c62828; }
-        .order-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; gap: 4px; }
+        .order-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; gap: 6px; }
         .order-type-badge {
-          font-size: 9px; font-weight: 800; letter-spacing: 0.5px; padding: 2px 5px;
+          font-size: 11px; font-weight: 800; letter-spacing: 0.5px; padding: 3px 8px;
         }
         .order-type-badge.buy { background: #0a7c42; color: #fff; }
         .order-type-badge.sell { background: #c62828; color: #fff; }
-        .order-card-badges { display: flex; align-items: center; gap: 4px; min-width: 0; }
-        .order-expiry-badge { font-size: 9px; font-weight: 800; letter-spacing: 0.5px; padding: 2px 5px; background: #fff; color: #000; white-space: nowrap; }
-        .order-card-date { font-size: 10px; color: rgba(255,255,255,0.5); white-space: nowrap; margin-top: 8px; text-align: right; }
+        .order-card-badges { display: flex; align-items: center; gap: 0; min-width: 0; }
+        .order-expiry-badge { font-size: 11px; font-weight: 800; letter-spacing: 0.5px; padding: 3px 8px; background: #fff; color: #000; white-space: nowrap; }
+        .order-card-date { font-size: 11px; color: rgba(255,255,255,0.5); white-space: nowrap; margin-top: 10px; text-align: right; }
         .order-card-notes {
-          font-size: 11px; color: rgba(255,255,255,0.6); line-height: 1.4; margin-bottom: 8px;
+          font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; margin-bottom: 10px;
           display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
           overflow: hidden;
         }
         .order-card-product {
-          font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 4px;
+          font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 6px;
           line-height: 1.3;
           display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
           overflow: hidden;
         }
         .order-card-bottom { display: flex; align-items: center; justify-content: flex-end; margin-top: auto; }
-        .order-card-qty { font-size: 12px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+        .order-card-qty { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 10px; }
         .order-engage-btn {
           background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff;
-          padding: 6px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
+          padding: 10px 18px; font-size: 13px; font-weight: 700; letter-spacing: 0.3px;
           cursor: pointer; transition: all 0.15s; font-family: inherit; width: 100%;
         }
         .order-engage-btn:hover { background: #fff; color: #000; border-color: #fff; }
@@ -356,7 +358,7 @@ export default function HomePage() {
         .order-engage-btn:disabled { opacity: 0.6; cursor: not-allowed; }
         .order-cancel-btn {
           background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #c62828;
-          padding: 6px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
+          padding: 10px 18px; font-size: 13px; font-weight: 700; letter-spacing: 0.3px;
           cursor: pointer; transition: all 0.15s; font-family: inherit; width: 100%;
         }
         .order-cancel-btn:hover { background: #c62828; color: #fff; border-color: #c62828; }
@@ -460,8 +462,8 @@ export default function HomePage() {
         .orders-panel-viewall {
           display: block; width: 100%; box-sizing: border-box;
           background: #fff; color: #000; text-align: center; text-decoration: none;
-          padding: 7px 20px; font-size: 13px; font-weight: 800; letter-spacing: 0.5px;
-          margin-top: 8px; transition: background 0.15s, color 0.15s;
+          padding: 14px 20px; font-size: 13px; font-weight: 800; letter-spacing: 0.5px;
+          margin-top: 0; transition: background 0.15s, color 0.15s;
         }
         .orders-panel-viewall:hover { background: #000; color: #fff; }
         @media (max-width: 1024px) {
@@ -472,8 +474,8 @@ export default function HomePage() {
           .top-hero { min-height: auto; }
           .top-hero-grid { padding: 48px 24px; }
           .hero-content { padding: 0 24px !important; }
-          .orders-scroll { grid-template-columns: 1fr; gap: 8px; }
-          .order-card { padding: 14px 16px; }
+          .orders-scroll { grid-template-columns: 1fr; gap: 0; }
+          .order-card { padding: 14px 16px; border: none; }
           .order-card-product { font-size: 14px; -webkit-line-clamp: unset; }
           .order-card-notes { font-size: 13px; -webkit-line-clamp: unset; }
           .order-card-qty { font-size: 14px; }
@@ -500,7 +502,7 @@ export default function HomePage() {
         }
         .hero-content {
           position: relative; z-index: 1;
-          display: grid; grid-template-columns: 1fr 540px; gap: 48px; align-items: center;
+          display: grid; grid-template-columns: 1fr 640px; gap: 48px; align-items: center;
         }
         .hero-content h1 {
           font-size: clamp(34px, 5.5vw, 64px); font-weight: 900; color: #fff;
@@ -515,25 +517,25 @@ export default function HomePage() {
           font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
           color: rgba(255,255,255,0.4); margin-bottom: 8px;
         }
-        .featured-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .featured-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
         .feat-card {
-          background: #000; border: 1px solid #222; padding: 10px 12px;
+          background: #000; border: 1px solid #1a1a1a; padding: 20px 22px;
           text-decoration: none; display: flex; flex-direction: column; transition: border-color 0.15s;
-          min-width: 0;
+          min-width: 0; min-height: 200px;
         }
         .feat-card { cursor: pointer; }
         .feat-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.5); border-color: #444; }
         .feat-card:hover .feat-card-btn { background: #fff; color: #000; border-color: #fff; }
-        .feat-card-img { width: 100%; height: 80px; object-fit: contain; margin-bottom: 8px; background: #111; display: block; }
-        .feat-card-cat { font-size: 9px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 6px; }
-        .feat-card-name { font-size: 12px; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 4px; }
+        .feat-card-img { width: 100%; height: 100px; object-fit: contain; margin-bottom: 12px; background: #111; display: block; }
+        .feat-card-cat { font-size: 11px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 6px; }
+        .feat-card-name { font-size: 15px; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 6px; }
         .feat-card-desc {
-          font-size: 11px; color: rgba(255,255,255,0.6); line-height: 1.4; flex: 1;
+          font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; flex: 1;
           display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-          margin-bottom: 8px;
+          margin-bottom: 12px;
         }
         .feat-card-btn {
-          display: block; width: 100%; text-align: center; padding: 6px 14px; font-size: 11px; font-weight: 700;
+          display: block; width: 100%; text-align: center; padding: 10px 18px; font-size: 13px; font-weight: 700;
           background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff;
           cursor: pointer; transition: all 0.15s; font-family: inherit; text-decoration: none;
           margin-top: auto;
@@ -541,8 +543,8 @@ export default function HomePage() {
         .feat-card-btn:hover { background: #fff; color: #000; border-color: #fff; }
         .featured-viewall {
           display: block; width: 100%; box-sizing: border-box; text-align: center;
-          background: #fff; color: #000; text-decoration: none; padding: 7px 20px;
-          font-size: 13px; font-weight: 800; letter-spacing: 0.5px; margin-top: 8px;
+          background: #fff; color: #000; text-decoration: none; padding: 14px 20px;
+          font-size: 13px; font-weight: 800; letter-spacing: 0.5px; margin-top: 0;
           transition: background 0.15s;
         }
         .featured-viewall:hover { background: #000; color: #fff; }
@@ -557,8 +559,8 @@ export default function HomePage() {
           .hero-content p { font-size: 13px !important; margin-bottom: 16px !important; }
           .hero-cta .btn-browse-products { padding: 10px 24px !important; font-size: 13px !important; }
           .featured-panel-label { margin-top: 4px !important; }
-          .featured-grid { grid-template-columns: 1fr !important; gap: 8px !important; }
-          .feat-card { padding: 14px !important; flex-direction: column !important; }
+          .featured-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
+          .feat-card { padding: 14px !important; flex-direction: column !important; border: none !important; }
           .feat-card-img { width: 100% !important; height: 100px !important; margin-bottom: 10px !important; }
           .feat-card-cat { font-size: 10px !important; margin-bottom: 4px !important; }
           .feat-card-name { font-size: 15px !important; margin-bottom: 6px !important; }
@@ -592,34 +594,56 @@ export default function HomePage() {
         .news-slide-title { font-size: 15px; font-weight: 600; color: #000; line-height: 1.4; margin-bottom: 16px; flex: 1; }
         .news-slide-meta { font-size: 11px; color: #aaa; }
 
-        .discovery { background: #f0ebe1; padding: 96px 0; }
-        .disc-inner { max-width: 860px; }
-        .disc-label {
-          font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #000;
-          padding-bottom: 6px; border-bottom: 2px solid #E31837; display: inline-block; margin-bottom: 24px;
+        .discovery {
+          background: #edc643; padding: 0; min-height: 80px;
+          position: relative; z-index: 20;
+          transition: z-index 0s 0.5s, padding-bottom 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
-        .disc-inner h2 { font-size: clamp(28px, 4.5vw, 56px); font-weight: 900; color: #000; line-height: 1.0; letter-spacing: -2px; margin-bottom: 20px; }
-        .disc-inner > p { font-size: 15px; color: #555; line-height: 1.75; max-width: 680px; margin-bottom: 52px; }
+        .discovery.open { z-index: 50; padding-bottom: 24px; transition: z-index 0s 0s, padding-bottom 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+        .disc-inner { max-width: 860px; }
+        .disc-header {
+          width: 100%; background: transparent; border: none; margin: 0;
+          height: 80px; padding: 0;
+          display: flex; align-items: center; justify-content: space-between; gap: 24px;
+          cursor: pointer; text-align: left; font-family: inherit;
+        }
+        .disc-header-left { flex: 1; min-width: 0; }
+        .disc-chevron { flex-shrink: 0; color: #000; transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); display: inline-flex; }
+        .disc-chevron.open { transform: rotate(180deg); }
+        .disc-inner h2 {
+          font-size: clamp(28px, 4.5vw, 56px); font-weight: 900; color: #000; line-height: 1.0; letter-spacing: -2px;
+          margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .disc-collapse {
+          max-height: 0; opacity: 0; overflow: hidden;
+          transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease;
+        }
+        .discovery.open .disc-collapse {
+          max-height: 900px; opacity: 1; overflow: visible;
+          transition: max-height 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease 0.1s, overflow 0s 0.6s;
+        }
+        .disc-inner > .disc-collapse p { font-size: 15px; color: #555; line-height: 1.75; max-width: 680px; margin-bottom: 36px; }
+        .disc-collapse > p:first-child { padding-top: 4px; }
         .disc-search-wrap { position: relative; max-width: 820px; }
-        .disc-search { display: flex; align-items: center; overflow: hidden; background: #fff; max-width: 820px; height: 72px; }
+        .disc-search { display: flex; align-items: center; overflow: hidden; background: #fff; max-width: 820px; height: 48px; }
         .disc-search input {
-          flex: 1; border: none; background: transparent; padding: 0 32px;
-          font-size: 16px; font-family: inherit; outline: none; color: #000; height: 100%;
+          flex: 1; border: none; background: transparent; padding: 0 18px;
+          font-size: 14px; font-family: inherit; outline: none; color: #000; height: 100%;
         }
         .disc-search input::placeholder { color: #aaa; }
         .disc-search-btn {
-          width: 72px; height: 100%; background: #000; border: none; cursor: pointer;
+          width: 48px; height: 100%; background: #000; border: none; cursor: pointer;
           flex-shrink: 0; display: flex; align-items: center; justify-content: center;
           transition: background 0.25s ease;
         }
         .disc-search-btn:hover { background: #333; }
-        .disc-search-btn svg { width: 20px; height: 20px; fill: #fff; }
-        .disc-disclaimer { font-size: 13px; color: #555; line-height: 1.65; max-width: 640px; margin-top: 36px; }
+        .disc-search-btn svg { width: 16px; height: 16px; fill: #fff; }
+        .disc-disclaimer { font-size: 13px; color: #555; line-height: 1.65; max-width: 640px; margin-top: 36px; margin-bottom: 0; padding-bottom: 20px; }
         .disc-disclaimer strong { color: #000; }
         .disc-dropdown {
           display: none; position: absolute; top: 100%; left: 0; right: 0; margin-top: -1px;
           background: #fff; box-shadow: 0 8px 32px rgba(0,0,0,0.14);
-          overflow: hidden; z-index: 100; max-height: 400px; overflow-y: auto;
+          overflow: hidden; z-index: 150; max-height: 400px; overflow-y: auto;
         }
         .disc-dropdown.open { display: block; }
         .disc-dd-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #aaa; padding: 12px 20px 6px; }
@@ -649,7 +673,6 @@ export default function HomePage() {
         .fs-content p { font-size: clamp(14px, 1.7vw, 17px); color: rgba(255,255,255,0.78); line-height: 1.7; max-width: 500px; margin-bottom: 36px; }
         @media (max-width: 900px) {
           .featured-split { height: 440px; }
-          .discovery { padding: 64px 0; }
         }
         @media (max-width: 767px) {
           .hero { height: 520px; }
@@ -659,7 +682,6 @@ export default function HomePage() {
           .news-slider { padding: 48px 0; }
           .news-slide { flex: 0 0 260px; padding: 20px 18px; }
           .news-slide-title { font-size: 14px; }
-          .discovery { padding: 48px 0; }
           .disc-search { height: 60px; }
           .disc-search input { font-size: 12px; padding: 0 14px; }
           .disc-search-btn { width: 60px; }
@@ -803,11 +825,25 @@ export default function HomePage() {
       </section>
 
       {/* DISCOVERY SECTION */}
-      <section className="discovery">
+      <section className={`discovery${discoveryOpen ? ' open' : ''}`}>
         <div className="pg-wrap">
           <div className="disc-inner">
-            <div className="disc-label">Defence Trading Catalogue</div>
-            <h2>Find the right defence product or partner</h2>
+            <button
+              className="disc-header"
+              onClick={() => setDiscoveryOpen(v => !v)}
+              aria-expanded={discoveryOpen}
+            >
+              <div className="disc-header-left">
+                <h2>Find the right defence product</h2>
+              </div>
+              <span className={`disc-chevron${discoveryOpen ? ' open' : ''}`} aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </span>
+            </button>
+
+            <div className="disc-collapse">
             <p>Each procurement requirement is different — and we are steadfast partners to our clients because we listen. Browse our full range of certified products and verified companies across every defence category.</p>
             <div className="disc-search-wrap" ref={searchWrapRef}>
               <div className="disc-search">
@@ -856,6 +892,7 @@ export default function HomePage() {
               </div>
             </div>
             <p className="disc-disclaimer"><strong>Authorised enquiries only.</strong> All products are available through compliant, documented procurement channels. Defence Trading trades with licensed companies only. All outreach must comply with applicable export control regulations and end-user certification requirements.</p>
+            </div>
           </div>
         </div>
       </section>
