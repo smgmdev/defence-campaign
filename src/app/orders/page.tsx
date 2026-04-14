@@ -59,6 +59,7 @@ export default function OrdersPage() {
   const [showLoginPrompt, setShowLoginPrompt] = useState(false)
   const [toastMsg, setToastMsg] = useState('')
   const [toastVisible, setToastVisible] = useState(false)
+  const [cancelling, setCancelling] = useState(false)
   const [cancelOrderId, setCancelOrderId] = useState<string | null>(null)
   const [, setTick] = useState(0)
 
@@ -101,6 +102,34 @@ export default function OrdersPage() {
         })))
       }
     }).catch(() => {}).finally(() => setPageLoading(false))
+  }, [])
+
+  useEffect(() => {
+    const channel = supabase
+      .channel('orders-list')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'orders' }, (payload) => {
+        const o = payload.new as Record<string, string>
+        setDbOrders(prev => [{
+          id: o.id,
+          type: o.type as 'buy' | 'sell',
+          product: o.product,
+          category: '',
+          quantity: o.quantity,
+          unit: o.unit,
+          status: 'Open',
+          date: new Date(o.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+          notes: o.notes || '',
+          user: o.user_name || '',
+          userId: o.user_id || '',
+          expiresAt: o.expires_at || null,
+        }, ...prev.filter(x => x.id !== o.id)])
+      })
+      .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'orders' }, (payload) => {
+        const id = (payload.old as { id?: string })?.id
+        if (id) setDbOrders(prev => prev.filter(x => x.id !== id))
+      })
+      .subscribe()
+    return () => { supabase.removeChannel(channel) }
   }, [])
 
   const allOrders = [...dbOrders, ...SAMPLE_ORDERS]
@@ -350,11 +379,20 @@ export default function OrdersPage() {
             <h3 className="ord-cancel-modal-title">Cancel Order</h3>
             <p className="ord-cancel-modal-text">Are you sure you want to cancel this order? This action cannot be undone.</p>
             <div className="ord-cancel-modal-btns">
-              <button className="ord-cancel-modal-yes" onClick={() => {
-                fetch('/api/orders/cancel', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({orderId: cancelOrderId, userId}) })
-                  .then(() => { setDbOrders(prev => prev.filter(x => x.id !== cancelOrderId)); setCancelOrderId(null) })
-              }}>Yes, Cancel Order</button>
-              <button className="ord-cancel-modal-no" onClick={() => setCancelOrderId(null)}>Keep Order</button>
+              <button className="ord-cancel-modal-yes" disabled={cancelling} onClick={async () => {
+                const id = cancelOrderId
+                setCancelling(true)
+                try {
+                  await fetch('/api/orders/cancel', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({orderId: id, userId}) })
+                  setDbOrders(prev => prev.filter(x => x.id !== id))
+                  setCancelOrderId(null)
+                } finally {
+                  setCancelling(false)
+                }
+              }}>
+                {cancelling ? <span className="ord-cancel-spinner" /> : 'Yes, Cancel Order'}
+              </button>
+              <button className="ord-cancel-modal-no" disabled={cancelling} onClick={() => setCancelOrderId(null)}>Keep Order</button>
             </div>
           </div>
         </>
@@ -415,8 +453,10 @@ export default function OrdersPage() {
         .ord-table th:hover { color: #666; }
         .ord-table td { padding: 12px 10px; border-bottom: 1px solid #eee; vertical-align: middle; transition: background 0.15s, color 0.15s; }
         .ord-table tbody tr:hover td { background: #0a0a0a; color: #fff; }
-        .ord-table tbody tr:hover .ord-cell-notes { color: #fff; }
-        .ord-table tbody tr:hover .ord-cell-product { color: #fff; }
+        .ord-table tbody tr:hover td.ord-cell-notes,
+        .ord-table tbody tr:hover .ord-cell-notes { color: #fff !important; }
+        .ord-table tbody tr:hover td.ord-cell-product,
+        .ord-table tbody tr:hover .ord-cell-product { color: #fff !important; }
         .ord-table tbody tr:hover .ord-expanded-label { color: #fff; }
         .ord-table tbody tr:hover .ord-expanded-item { color: rgba(255,255,255,0.6); }
         .ord-table tbody tr:hover .ord-interested-btn { background: #fff; color: #000; }
@@ -494,8 +534,10 @@ export default function OrdersPage() {
         .ord-cancel-modal-title { font-size: 20px; font-weight: 700; color: #000; margin-bottom: 10px; }
         .ord-cancel-modal-text { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 28px; }
         .ord-cancel-modal-btns { display: flex; flex-direction: column; gap: 10px; }
-        .ord-cancel-modal-yes { width: 100%; padding: 14px; font-size: 14px; font-weight: 700; font-family: inherit; background: #c00; color: #fff; border: none; cursor: pointer; transition: background 0.15s; }
+        .ord-cancel-modal-yes { width: 100%; padding: 14px; font-size: 14px; font-weight: 700; font-family: inherit; background: #c00; color: #fff; border: none; cursor: pointer; transition: background 0.15s; display: inline-flex; align-items: center; justify-content: center; min-height: 46px; }
         .ord-cancel-modal-yes:hover { background: #a00; }
+        .ord-cancel-modal-yes:disabled { background: #a00; cursor: wait; }
+        .ord-cancel-spinner { width: 18px; height: 18px; border: 2.5px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; display: inline-block; }
         .ord-cancel-modal-no { width: 100%; padding: 14px; font-size: 14px; font-weight: 700; font-family: inherit; background: #fff; color: #000; border: 2px solid #000; cursor: pointer; transition: background 0.15s; }
         .ord-cancel-modal-no:hover { background: #f5f5f5; }
 

@@ -18,6 +18,8 @@ export default function AccountPage() {
   const [ordersLoading, setOrdersLoading] = useState(true)
   const [expandedMyOrder, setExpandedMyOrder] = useState<string | null>(null)
   const [expandedEngaged, setExpandedEngaged] = useState<number | null>(null)
+  const [cancelOrderId, setCancelOrderId] = useState<string | null>(null)
+  const [cancelling, setCancelling] = useState(false)
 
   // Password change
   const [newPassword, setNewPassword] = useState('')
@@ -183,10 +185,10 @@ export default function AccountPage() {
                           <td><span className={`acc-ord-type acc-ord-type--${o.type}`}>{o.type.toUpperCase()}</span></td>
                           <td style={{fontWeight:700}}>{o.product}</td>
                           <td className="acc-hide-mobile">{o.quantity} {o.unit}</td>
-                          <td className="acc-hide-mobile" style={{color:'#666',fontSize:'12px'}}>{o.notes || '—'}</td>
+                          <td className="acc-hide-mobile acc-cell-notes" style={{fontSize:'12px'}}>{o.notes || '—'}</td>
                           <td className="acc-hide-mobile" style={{fontSize:'12px'}}>{(o as Record<string,string>).expires_at ? new Date((o as Record<string,string>).expires_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : 'Perpetual'}</td>
                           <td className="acc-hide-mobile">{new Date(o.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</td>
-                          <td><button className="acc-cancel-btn" onClick={e => { e.stopPropagation(); if (confirm('Are you sure you want to cancel this order?')) { fetch('/api/orders/cancel', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({orderId: o.id, userId: user?.id}) }).then(() => setMyOrders(prev => prev.filter(x => x.id !== o.id))) } }}>Cancel</button></td>
+                          <td><button className="acc-cancel-btn" onClick={e => { e.stopPropagation(); setCancelOrderId(o.id) }}>Cancel</button></td>
                         </tr>
                         {expandedMyOrder === o.id && (
                           <tr><td colSpan={7} style={{padding:'12px 8px',background:'#fafafa',borderBottom:'1px solid #eee'}}>
@@ -387,6 +389,8 @@ export default function AccountPage() {
         .acc-order-table td { padding: 8px 8px; border-bottom: 1px solid #eee; vertical-align: middle; transition: background 0.15s, color 0.15s; }
         .acc-order-table tbody tr:hover td { background: #0a0a0a; color: #fff; }
         .acc-order-table tbody tr:hover td span { color: #fff; }
+        .acc-cell-notes { color: #666; }
+        .acc-order-table tbody tr:hover .acc-cell-notes { color: #fff !important; }
         .acc-order-table tbody tr:hover .acc-cancel-btn { color: #fff; border-color: rgba(255,255,255,0.3); }
         .acc-order-table tbody tr:hover .acc-cancel-btn:hover { background: #c00; border-color: #c00; }
         .acc-ord-type { font-size: 10px; font-weight: 800; letter-spacing: 1px; padding: 3px 8px; color: #fff; }
@@ -417,6 +421,49 @@ export default function AccountPage() {
           .acc-page { padding: 32px 0 60px; }
         }
       `}</style>
+
+      {/* CANCEL ORDER MODAL */}
+      {cancelOrderId && (
+        <>
+          <div className="acc-modal-backdrop" onClick={() => setCancelOrderId(null)} />
+          <div className="acc-cancel-modal">
+            <div className="acc-cancel-modal-icon">⚠</div>
+            <h3 className="acc-cancel-modal-title">Cancel Order</h3>
+            <p className="acc-cancel-modal-text">Are you sure you want to cancel this order? This action cannot be undone.</p>
+            <div className="acc-cancel-modal-btns">
+              <button className="acc-cancel-modal-yes" disabled={cancelling} onClick={async () => {
+                const id = cancelOrderId
+                setCancelling(true)
+                try {
+                  await fetch('/api/orders/cancel', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({orderId: id, userId: user?.id}) })
+                  setMyOrders(prev => prev.filter(x => x.id !== id))
+                  setCancelOrderId(null)
+                } finally {
+                  setCancelling(false)
+                }
+              }}>
+                {cancelling ? <span className="acc-cancel-spinner" /> : 'Yes, Cancel Order'}
+              </button>
+              <button className="acc-cancel-modal-no" disabled={cancelling} onClick={() => setCancelOrderId(null)}>Keep Order</button>
+            </div>
+          </div>
+          <style>{`
+            .acc-modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 900; }
+            .acc-cancel-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); background: #fff; z-index: 901; width: min(420px, 90vw); padding: 40px 32px; text-align: center; }
+            .acc-cancel-modal-icon { font-size: 36px; margin-bottom: 16px; }
+            .acc-cancel-modal-title { font-size: 20px; font-weight: 700; color: #000; margin-bottom: 10px; }
+            .acc-cancel-modal-text { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 28px; }
+            .acc-cancel-modal-btns { display: flex; flex-direction: column; gap: 10px; }
+            .acc-cancel-modal-yes { width: 100%; padding: 14px; font-size: 14px; font-weight: 700; font-family: inherit; background: #c00; color: #fff; border: none; cursor: pointer; transition: background 0.15s; display: inline-flex; align-items: center; justify-content: center; min-height: 46px; }
+            .acc-cancel-modal-yes:hover { background: #a00; }
+            .acc-cancel-modal-yes:disabled { background: #a00; cursor: wait; }
+            .acc-cancel-spinner { width: 18px; height: 18px; border: 2.5px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; display: inline-block; }
+            @keyframes spin { to { transform: rotate(360deg); } }
+            .acc-cancel-modal-no { width: 100%; padding: 14px; font-size: 14px; font-weight: 700; font-family: inherit; background: #fff; color: #000; border: 2px solid #000; cursor: pointer; transition: background 0.15s, color 0.15s; }
+            .acc-cancel-modal-no:hover { background: #000; color: #fff; }
+          `}</style>
+        </>
+      )}
     </>
   )
 }

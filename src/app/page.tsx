@@ -30,6 +30,7 @@ export default function HomePage() {
   const [showCreate, setShowCreate] = useState(false)
   const [showLoginPrompt, setShowLoginPrompt] = useState(false)
   const [cancelOrderId, setCancelOrderId] = useState<string | null>(null)
+  const [cancelling, setCancelling] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [enquiryProduct, setEnquiryProduct] = useState<{name: string, calibre: string} | null>(null)
   const [enquirySubmitted, setEnquirySubmitted] = useState(false)
@@ -49,7 +50,7 @@ export default function HomePage() {
   useEffect(() => {
     fetch('/api/orders').then(r => r.json()).then(d => {
       if (d.orders) {
-        setActiveOrders(d.orders.slice(0, 10).map((o: Record<string, string>) => ({
+        setActiveOrders(d.orders.slice(0, 20).map((o: Record<string, string>) => ({
           id: o.id,
           type: o.type,
           product: o.product,
@@ -160,8 +161,23 @@ export default function HomePage() {
       id: o.id, type: o.type, product: o.product, quantity: o.quantity, unit: o.unit,
       date: new Date(o.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
       user: o.user_name || '', orderUserId: o.user_id || '', notes: o.notes || '', expiresAt: o.expires_at || null,
-    }, ...prev].slice(0, 5))
+    }, ...prev.filter(x => x.id !== o.id)].slice(0, 20))
   }
+
+  useEffect(() => {
+    const channel = supabase
+      .channel('orders-home')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'orders' }, (payload) => {
+        const o = payload.new as Record<string, string>
+        handleOrderCreated(o)
+      })
+      .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'orders' }, (payload) => {
+        const id = (payload.old as { id?: string })?.id
+        if (id) setActiveOrders(prev => prev.filter(x => x.id !== id))
+      })
+      .subscribe()
+    return () => { supabase.removeChannel(channel) }
+  }, [])
 
   useEffect(() => {
     const v = videoRef.current
@@ -349,6 +365,9 @@ export default function HomePage() {
           background: #c62828; color: #fff; border: none; cursor: pointer; transition: background 0.15s;
         }
         .cancel-confirm-yes:hover { background: #a00; }
+        .cancel-confirm-yes { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; }
+        .cancel-confirm-yes:disabled { background: #a00; cursor: wait; }
+        .home-cancel-spinner { width: 18px; height: 18px; border: 2.5px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; display: inline-block; }
         .enq-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9000; align-items: center; justify-content: center; padding: 20px; }
         .enq-overlay.open { display: flex; }
         .enq-modal { background: #fff; width: 100%; max-width: 520px; padding: 40px; position: relative; max-height: 90vh; overflow-y: auto; }
@@ -667,7 +686,7 @@ export default function HomePage() {
               <div className="orders-panel-empty">No active orders</div>
             ) : (
               <div className="orders-scroll">
-                {(isMobile ? activeOrders.slice(-6) : activeOrders).map(o => (
+                {(isMobile ? activeOrders.slice(0, 6) : activeOrders.slice(0, 6)).map(o => (
                     <div key={o.id} className="order-card" onClick={e => {
                       if (o.orderUserId === userId && userId) { setCancelOrderId(o.id) } else { handleEngage(e as unknown as React.MouseEvent, o) }
                     }}>
@@ -915,11 +934,20 @@ export default function HomePage() {
             <h3>Cancel Order</h3>
             <p>Are you sure you want to cancel this order? This action cannot be undone.</p>
             <div className="login-prompt-btns">
-              <button className="cancel-confirm-yes" onClick={() => {
-                fetch('/api/orders/cancel', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({orderId: cancelOrderId, userId}) })
-                  .then(() => { setActiveOrders(prev => prev.filter(x => x.id !== cancelOrderId)); setCancelOrderId(null) })
-              }}>Yes, Cancel Order</button>
-              <button className="login-prompt-no" onClick={() => setCancelOrderId(null)}>Keep Order</button>
+              <button className="cancel-confirm-yes" disabled={cancelling} onClick={async () => {
+                const id = cancelOrderId
+                setCancelling(true)
+                try {
+                  await fetch('/api/orders/cancel', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({orderId: id, userId}) })
+                  setActiveOrders(prev => prev.filter(x => x.id !== id))
+                  setCancelOrderId(null)
+                } finally {
+                  setCancelling(false)
+                }
+              }}>
+                {cancelling ? <span className="home-cancel-spinner" /> : 'Yes, Cancel Order'}
+              </button>
+              <button className="login-prompt-no" disabled={cancelling} onClick={() => setCancelOrderId(null)}>Keep Order</button>
             </div>
           </div>
         </>
