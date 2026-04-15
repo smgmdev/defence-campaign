@@ -173,6 +173,7 @@ function ProductsContent() {
         .prod-tag { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #999; }
         .enquire-btn { background: #000; color: #fff; border: none; padding: 7px 14px; font-size: 11px; font-weight: 700; cursor: pointer; font-family: inherit; letter-spacing: 0.5px; transition: background 0.15s; text-decoration: none; display: inline-block; }
         .enquire-btn:hover { background: #E31837; }
+        .prod-card:hover .enquire-btn { background: #E31837; }
         .list-view table { width: 100%; border-collapse: collapse; }
         .list-view thead tr { border-top: 2px solid #000; border-bottom: 2px solid #000; }
         .list-view th { padding: 10px 12px; font-size: 11px; font-weight: 700; text-align: left; white-space: nowrap; cursor: pointer; }
@@ -200,7 +201,7 @@ function ProductsContent() {
         .enq-product-name { font-size: 13px; color: #555; margin-bottom: 24px; }
         .enq-field { margin-bottom: 16px; }
         .enq-field label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #333; margin-bottom: 6px; }
-        .enq-field input, .enq-field select { width: 100%; padding: 11px 14px; border: 1.5px solid #ccc; font-size: 14px; font-family: inherit; outline: none; box-sizing: border-box; transition: border-color 0.15s; background: #fff; appearance: none; -webkit-appearance: none; }
+        .enq-field input, .enq-field select { width: 100%; padding: 11px 14px; border: 1.5px solid #ccc; border-radius: 0; font-size: 14px; font-family: inherit; outline: none; box-sizing: border-box; transition: border-color 0.15s; background: #fff; appearance: none; -webkit-appearance: none; }
         .enq-field input:focus, .enq-field select:focus { border-color: #000; }
         .enq-select-wrap { position: relative; }
         .enq-select-wrap::after { content: ''; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid #000; pointer-events: none; }
@@ -308,7 +309,7 @@ function ProductsContent() {
                   </div>
                   <div className="grid-view">
                     {grouped[cat].map(p => (
-                      <div key={p.id} className="prod-card">
+                      <div key={p.id} className="prod-card" onClick={() => { setEnquiryProduct(p); setEnquirySubmitted(false); setEnquiryError(false) }} style={{cursor:'pointer'}}>
                         <div className="prod-img">
                           {!imgErrors[p.id] ? (
                             <>
@@ -330,7 +331,7 @@ function ProductsContent() {
                           <div className="prod-desc">{p.desc}</div>
                         </div>
                         <div className="prod-footer">
-                          <button className="enquire-btn" onClick={() => { setEnquiryProduct(p); setEnquirySubmitted(false); setEnquiryError(false) }}>Enquire →</button>
+                          <button className="enquire-btn" onClick={e => { e.stopPropagation(); setEnquiryProduct(p); setEnquirySubmitted(false); setEnquiryError(false) }}>Enquire</button>
                         </div>
                       </div>
                     ))}
@@ -379,7 +380,7 @@ function ProductsContent() {
                       <td className="list-cat">{p.category}</td>
                       <td className="list-type">{p.type}</td>
                       <td>
-                        <button className="enquire-btn" onClick={() => { setEnquiryProduct(p); setEnquirySubmitted(false); setEnquiryError(false) }}>Enquire →</button>
+                        <button className="enquire-btn" onClick={() => { setEnquiryProduct(p); setEnquirySubmitted(false); setEnquiryError(false) }}>Enquire</button>
                       </td>
                     </tr>
                   ))}
@@ -431,7 +432,7 @@ function ProductsContent() {
                 </div>
                 {enquiryError && <div style={{color:'#E31837',fontSize:'13px',marginBottom:'8px'}}>Something went wrong — please try again.</div>}
                 <button type="submit" className="enq-submit" disabled={enquirySubmitting}>
-                  {enquirySubmitting ? 'Sending…' : 'Send Enquiry →'}
+                  {enquirySubmitting ? 'Sending…' : 'Send Enquiry'}
                 </button>
               </form>
             </>

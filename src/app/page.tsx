@@ -199,7 +199,7 @@ export default function HomePage() {
       }
     }
     function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') { setDropdownOpen(false); setShowCreate(false); setShowLoginPrompt(false); setCancelOrderId(null) }
+      if (e.key === 'Escape') { setDropdownOpen(false); setShowCreate(false); setShowLoginPrompt(false); setCancelOrderId(null); setEnquiryProduct(null) }
     }
     document.addEventListener('mousedown', handleClickOutside)
     document.addEventListener('keydown', handleKeyDown)
@@ -380,7 +380,7 @@ export default function HomePage() {
         .enq-product-name { font-size: 13px; color: #555; margin-bottom: 24px; }
         .enq-field { margin-bottom: 16px; }
         .enq-field label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #333; margin-bottom: 6px; }
-        .enq-field input, .enq-field select { width: 100%; padding: 11px 14px; border: 1.5px solid #ccc; font-size: 14px; font-family: inherit; outline: none; box-sizing: border-box; transition: border-color 0.15s; background: #fff; appearance: none; -webkit-appearance: none; }
+        .enq-field input, .enq-field select { width: 100%; padding: 11px 14px; border: 1.5px solid #ccc; border-radius: 0; font-size: 14px; font-family: inherit; outline: none; box-sizing: border-box; transition: border-color 0.15s; background: #fff; appearance: none; -webkit-appearance: none; }
         .enq-field input:focus, .enq-field select:focus { border-color: #000; }
         .enq-select-wrap { position: relative; }
         .enq-select-wrap::after { content: ''; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid #000; pointer-events: none; }
@@ -411,9 +411,9 @@ export default function HomePage() {
         .login-prompt-yes:hover { background: #222; }
         .login-prompt-no {
           width: 100%; padding: 14px; font-size: 14px; font-weight: 700; font-family: inherit;
-          background: #fff; color: #000; border: 2px solid #000; cursor: pointer; transition: background 0.15s;
+          background: #fff; color: #000; border: 2px solid #000; cursor: pointer; transition: background 0.15s, color 0.15s;
         }
-        .login-prompt-no:hover { background: #f5f5f5; }
+        .login-prompt-no:hover { background: #000; color: #fff; }
         .csel-wrap { position: relative; }
         .csel-trigger {
           width: 100%; padding: 10px 12px; font-size: 14px; font-family: inherit;
@@ -684,6 +684,8 @@ export default function HomePage() {
           .news-slide-title { font-size: 14px; }
           .disc-inner h2 { font-size: 20px; letter-spacing: -0.5px; }
           .disc-search { height: 60px; }
+          .enq-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
+          .enq-modal { padding: 28px 20px !important; }
           .disc-search input { font-size: 12px; padding: 0 14px; }
           .disc-search-btn { width: 60px; }
         }
@@ -1058,7 +1060,7 @@ export default function HomePage() {
                 </div>
                 {enquiryError && <div style={{color:'#E31837',fontSize:'13px',marginBottom:'8px'}}>Something went wrong — please try again.</div>}
                 <button type="submit" className="enq-submit" disabled={enquirySubmitting}>
-                  {enquirySubmitting ? 'Sending…' : 'Send Enquiry →'}
+                  {enquirySubmitting ? 'Sending…' : 'Send Enquiry'}
                 </button>
               </form>
             </>

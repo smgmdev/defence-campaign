@@ -545,8 +545,8 @@ function OrdersContent() {
         .ord-cancel-modal-yes:hover { background: #a00; }
         .ord-cancel-modal-yes:disabled { background: #a00; cursor: wait; }
         .ord-cancel-spinner { width: 18px; height: 18px; border: 2.5px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; display: inline-block; }
-        .ord-cancel-modal-no { width: 100%; padding: 14px; font-size: 14px; font-weight: 700; font-family: inherit; background: #fff; color: #000; border: 2px solid #000; cursor: pointer; transition: background 0.15s; }
-        .ord-cancel-modal-no:hover { background: #f5f5f5; }
+        .ord-cancel-modal-no { width: 100%; padding: 14px; font-size: 14px; font-weight: 700; font-family: inherit; background: #fff; color: #000; border: 2px solid #000; cursor: pointer; transition: background 0.15s, color 0.15s; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; }
+        .ord-cancel-modal-no:hover { background: #000; color: #fff; }
 
         .ord-toast { position: fixed; bottom: 32px; right: 32px; background: #000; color: #fff; padding: 16px 24px; font-size: 14px; line-height: 1.5; max-width: 380px; z-index: 9999; opacity: 0; transform: translateY(12px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; }
         .ord-toast.show { opacity: 1; transform: translateY(0); pointer-events: auto; }

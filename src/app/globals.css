@@ -131,7 +131,7 @@ button:focus, a:focus, input:focus, select:focus, textarea:focus { outline: none
   padding: 18px 24px; background: #1c1c1c;
   border-bottom: 1px solid rgba(255,255,255,0.12);
 }
-.mobile-menu-logo { font-size: 16px; font-weight: 900; letter-spacing: -0.5px; text-decoration: none; }
+.mobile-menu-logo { font-size: 22px; font-weight: 900; letter-spacing: -0.8px; text-decoration: none; }
 .mobile-menu-close {
   background: none; border: none; color: #fff; font-size: 22px; line-height: 1;
   cursor: pointer; padding: 6px 10px; font-family: inherit;
