@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
+import { authFetch } from '@/lib/authFetch'
 
 export default function AccountPage() {
   const router = useRouter()
@@ -22,6 +23,7 @@ export default function AccountPage() {
   const [cancelling, setCancelling] = useState(false)
 
   // Password change
+  const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [pwMsg, setPwMsg] = useState('')
@@ -58,7 +60,7 @@ export default function AccountPage() {
       // Fetch user's orders and engagements
       Promise.all([
         fetch('/api/orders').then(r => r.json()),
-        fetch(`/api/engagements?userId=${data.user!.id}`).then(r => r.json()),
+        authFetch(`/api/engagements`).then(r => r.json()),
       ]).then(([ordData, engData]) => {
         if (ordData.orders) {
           setMyOrders(ordData.orders.filter((o: Record<string,string>) => o.user_id === data.user!.id))
@@ -81,6 +83,10 @@ export default function AccountPage() {
     setPwMsg('')
     setPwError('')
 
+    if (!currentPassword) {
+      setPwError('Please enter your current password.')
+      return
+    }
     if (newPassword.length < 8) {
       setPwError('Password must be at least 8 characters.')
       return
@@ -91,11 +97,24 @@ export default function AccountPage() {
     }
 
     setPwLoading(true)
+
+    // Re-authenticate with current password before allowing change
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email: user?.email || '',
+      password: currentPassword,
+    })
+    if (signInError) {
+      setPwError('Current password is incorrect.')
+      setPwLoading(false)
+      return
+    }
+
     const { error } = await supabase.auth.updateUser({ password: newPassword })
     if (error) {
       setPwError(error.message)
     } else {
       setPwMsg('Password updated successfully.')
+      setCurrentPassword('')
       setNewPassword('')
       setConfirmPassword('')
     }
@@ -276,10 +295,12 @@ export default function AccountPage() {
               </div>
               <div className="acc-card-body">
                 <form onSubmit={handlePasswordChange}>
-                  <label className="acc-label">New password</label>
-                  <input className="acc-input" type="password" placeholder="Minimum 8 characters" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
+                  <label className="acc-label">Current password</label>
+                  <input className="acc-input" type="password" placeholder="Your current password" value={currentPassword} onChange={e => setCurrentPassword(e.target.value)} autoComplete="current-password" />
+                  <label className="acc-label" style={{ marginTop: '14px' }}>New password</label>
+                  <input className="acc-input" type="password" placeholder="Minimum 8 characters" value={newPassword} onChange={e => setNewPassword(e.target.value)} autoComplete="new-password" />
                   <label className="acc-label" style={{ marginTop: '14px' }}>Confirm new password</label>
-                  <input className="acc-input" type="password" placeholder="Re-enter new password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
+                  <input className="acc-input" type="password" placeholder="Re-enter new password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} autoComplete="new-password" />
                   {pwError && <div className="acc-error">{pwError}</div>}
                   {pwMsg && <div className="acc-msg">{pwMsg}</div>}
                   <button className="acc-btn" type="submit" disabled={pwLoading}>
@@ -323,10 +344,10 @@ export default function AccountPage() {
                     <div className="acc-delete-btns">
                       <button className="acc-btn acc-btn--danger" disabled={delLoading} onClick={async () => {
                         setDelLoading(true)
-                        const res = await fetch('/api/delete-account', {
+                        const res = await authFetch('/api/delete-account', {
                           method: 'POST',
                           headers: { 'Content-Type': 'application/json' },
-                          body: JSON.stringify({ userId: user.id }),
+                          body: JSON.stringify({}),
                         })
                         const data = await res.json()
                         if (data.success) {
@@ -435,7 +456,7 @@ export default function AccountPage() {
                 const id = cancelOrderId
                 setCancelling(true)
                 try {
-                  await fetch('/api/orders/cancel', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({orderId: id, userId: user?.id}) })
+                  await authFetch('/api/orders/cancel', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({orderId: id}) })
                   setMyOrders(prev => prev.filter(x => x.id !== id))
                   setCancelOrderId(null)
                 } finally {

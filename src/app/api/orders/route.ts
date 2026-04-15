@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { checkRateLimit } from '@/lib/rate-limit'
+import { verifyAuth } from '@/lib/auth'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
@@ -14,6 +15,9 @@ function getClient() {
 export async function GET() {
   try {
     const sb = getClient()
+    // Public marketplace view: expose product/quantity/notes/user_id (for
+    // ownership check on client) + user_name (display only). Never expose
+    // user_email here — it is private.
     const { data, error } = await sb.from('orders').select('id, type, product, quantity, unit, notes, expires_at, created_at, user_id, user_name').order('created_at', { ascending: false })
     if (error) return NextResponse.json({ error: error.message }, { status: 400 })
     return NextResponse.json({ orders: data })
@@ -29,12 +33,13 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Too many requests. Please try again later.' }, { status: 429 })
     }
 
-    const body = await req.json()
-
-    // Auth verification: userId is required
-    if (!body.userId) {
+    // Verify bearer token -> authenticated user
+    const user = await verifyAuth(req)
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const body = await req.json()
 
     // Validate type
     if (!body.type || !['buy', 'sell'].includes(body.type)) {
@@ -70,12 +75,22 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Notes must not contain phone numbers.' }, { status: 400 })
     }
 
-    // Verify userId corresponds to a valid Supabase user
-    const sb = getClient()
-    const { data: userData, error: userError } = await sb.auth.admin.getUserById(body.userId)
-    if (userError || !userData?.user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    // Validate expiresAt if provided
+    let expiresAt: string | null = null
+    if (body.expiresAt) {
+      const d = new Date(body.expiresAt)
+      if (isNaN(d.getTime())) {
+        return NextResponse.json({ error: 'Invalid expiresAt date.' }, { status: 400 })
+      }
+      expiresAt = d.toISOString()
     }
+
+    const sb = getClient()
+    // user_id, user_email, user_name come from the verified auth token,
+    // NOT from the request body.
+    const userName = (user.user_metadata as Record<string, unknown>)?.full_name as string | undefined
+      || user.email?.split('@')[0]
+      || ''
 
     const { data, error } = await sb.from('orders').insert({
       type: body.type,
@@ -83,10 +98,10 @@ export async function POST(req: Request) {
       quantity: body.quantity.trim(),
       unit: body.unit,
       notes,
-      expires_at: body.expiresAt || null,
-      user_id: body.userId,
-      user_email: body.userEmail || '',
-      user_name: body.userName || '',
+      expires_at: expiresAt,
+      user_id: user.id,
+      user_email: user.email || '',
+      user_name: userName,
     }).select().single()
 
     if (error) return NextResponse.json({ error: error.message }, { status: 400 })

@@ -6,13 +6,17 @@ function escapeHtml(str: string): string {
 }
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY || ''
-const SECRET = 'dt_verify_secret_2026'
+const SECRET = process.env.VERIFY_TOKEN_SECRET || ''
 
 export async function POST(req: Request) {
   try {
+    if (!SECRET) {
+      return NextResponse.json({ error: 'Server misconfigured.' }, { status: 500 })
+    }
+
     const { token } = await req.json()
 
-    if (!token) {
+    if (!token || typeof token !== 'string') {
       return NextResponse.json({ error: 'Invalid token.' }, { status: 400 })
     }
 
@@ -23,7 +27,10 @@ export async function POST(req: Request) {
     }
 
     const expectedSig = crypto.createHmac('sha256', SECRET).update(payload).digest('base64url')
-    if (sig !== expectedSig) {
+    // Timing-safe comparison
+    const sigBuf = Buffer.from(sig, 'utf8')
+    const expBuf = Buffer.from(expectedSig, 'utf8')
+    if (sigBuf.length !== expBuf.length || !crypto.timingSafeEqual(sigBuf, expBuf)) {
       return NextResponse.json({ error: 'Invalid token signature.' }, { status: 400 })
     }
 

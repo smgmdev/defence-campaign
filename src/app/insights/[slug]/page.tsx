@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import DOMPurify from 'isomorphic-dompurify'
 import { ARTICLES, getArticle } from '@/lib/articles'
 
 export async function generateStaticParams() {
@@ -47,7 +48,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const article = getArticle(slug)
   if (!article) notFound()
 
-  const bodyHtml = article.body
+  const bodyHtml = DOMPurify.sanitize(article.body, {
+    ALLOWED_TAGS: ['p', 'h1', 'h2', 'h3', 'h4', 'strong', 'em', 'ul', 'ol', 'li', 'a', 'blockquote', 'br', 'hr', 'span', 'div', 'figure', 'figcaption', 'img', 'table', 'thead', 'tbody', 'tr', 'th', 'td'],
+    ALLOWED_ATTR: ['href', 'target', 'rel', 'src', 'alt', 'class', 'style', 'width', 'height', 'cellpadding', 'cellspacing', 'colspan', 'rowspan', 'align'],
+    ALLOW_DATA_ATTR: false,
+  })
   const related = ARTICLES.filter(a => a.slug !== slug && (a.cat === article.cat || a.region === article.region)).slice(0, 4)
   const more = ARTICLES.filter(a => a.slug !== slug).slice(0, 4)
 

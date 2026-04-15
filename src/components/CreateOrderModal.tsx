@@ -92,7 +92,8 @@ export default function CreateOrderModal({ userId, userEmail, userName, onClose,
     setCreating(true)
     const hours = EXPIRY_MAP[newOrder.expiry]
     const expiresAt = hours ? new Date(Date.now() + hours * 3600000).toISOString() : null
-    const res = await fetch('/api/orders', {
+    const { authFetch } = await import('@/lib/authFetch')
+    const res = await authFetch('/api/orders', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -102,7 +103,6 @@ export default function CreateOrderModal({ userId, userEmail, userName, onClose,
         unit: newOrder.unit,
         notes: newOrder.notes,
         expiresAt,
-        userId, userEmail, userName,
       }),
     })
     const data = await res.json()

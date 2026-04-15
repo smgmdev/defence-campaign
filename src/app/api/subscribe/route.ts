@@ -1,6 +1,7 @@
 import { Resend } from 'resend'
 import { NextResponse } from 'next/server'
 import { checkRateLimit } from '@/lib/rate-limit'
+import { isValidEmail } from '@/lib/auth'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 const AUDIENCE_ID = '56eef90f-316b-4a16-9ba0-c1c0140fb864'
@@ -11,16 +12,21 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Too many requests. Please try again later.' }, { status: 429 })
   }
 
-  const { email, company, location } = await req.json()
+  const body = await req.json().catch(() => ({}))
+  const email = typeof body.email === 'string' ? body.email.slice(0, 254) : ''
+  const company = typeof body.company === 'string' ? body.company.slice(0, 200) : ''
+  const location = typeof body.location === 'string' ? body.location.slice(0, 100) : ''
 
-  if (!email) return NextResponse.json({ ok: false }, { status: 400 })
+  if (!isValidEmail(email)) {
+    return NextResponse.json({ ok: false, error: 'Invalid email address.' }, { status: 400 })
+  }
 
   const { data, error } = await resend.contacts.create({
     audienceId: AUDIENCE_ID,
     email,
     unsubscribed: false,
-    firstName: company || '',
-    lastName: location || '',
+    firstName: company,
+    lastName: location,
   })
 
   if (error || !data?.id) {

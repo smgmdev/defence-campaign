@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { checkRateLimit } from '@/lib/rate-limit'
+import { verifyAuth } from '@/lib/auth'
 
 function getAdminClient() {
   return createClient(
@@ -10,25 +12,21 @@ function getAdminClient() {
 
 export async function POST(req: Request) {
   try {
-    const { userId } = await req.json()
+    const ip = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown'
+    if (!checkRateLimit(`delete-account:${ip}`, 3, 3600000)) {
+      return NextResponse.json({ error: 'Too many requests. Please try again later.' }, { status: 429 })
+    }
 
-    // Auth verification: userId is required
-    if (!userId) {
+    const user = await verifyAuth(req)
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     const supabaseAdmin = getAdminClient()
-
-    // Verify the user exists before deleting
-    const { data: userData, error: userError } = await supabaseAdmin.auth.admin.getUserById(userId)
-    if (userError || !userData?.user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
-
-    const { error } = await supabaseAdmin.auth.admin.deleteUser(userId)
+    const { error } = await supabaseAdmin.auth.admin.deleteUser(user.id)
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 400 })
+      return NextResponse.json({ error: 'Failed to delete account.' }, { status: 400 })
     }
 
     return NextResponse.json({ success: true })

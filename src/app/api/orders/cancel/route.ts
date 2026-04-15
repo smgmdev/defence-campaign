@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { checkRateLimit } from '@/lib/rate-limit'
+import { verifyAuth } from '@/lib/auth'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
@@ -10,23 +12,30 @@ function getClient() {
 
 export async function POST(req: Request) {
   try {
-    const { orderId, userId } = await req.json()
-    if (!orderId) return NextResponse.json({ error: 'Order ID required.' }, { status: 400 })
+    const ip = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown'
+    if (!checkRateLimit(`cancel:${ip}`, 20, 60000)) {
+      return NextResponse.json({ error: 'Too many requests. Please try again later.' }, { status: 429 })
+    }
 
-    // Auth verification: userId is required
-    if (!userId) {
+    const user = await verifyAuth(req)
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const { orderId } = await req.json()
+    if (!orderId || typeof orderId !== 'string') {
+      return NextResponse.json({ error: 'Order ID required.' }, { status: 400 })
     }
 
     const sb = getClient()
 
-    // Verify the order belongs to the requesting user
+    // Verify the order belongs to the authenticated user
     const { data: order, error: fetchError } = await sb.from('orders').select('user_id').eq('id', orderId).single()
     if (fetchError || !order) {
       return NextResponse.json({ error: 'Order not found.' }, { status: 404 })
     }
-    if (order.user_id !== userId) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    if (order.user_id !== user.id) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 403 })
     }
 
     const { error } = await sb.from('orders').delete().eq('id', orderId)

@@ -6,6 +6,7 @@ import { PRODUCTS } from '@/lib/products'
 import { ARTICLES } from '@/lib/articles'
 import { supabase } from '@/lib/supabase'
 import CreateOrderModal from '@/components/CreateOrderModal'
+import { authFetch } from '@/lib/authFetch'
 
 const SEARCH_COMPANIES = [{"name":"Chase Tactical","category":"Protective Equipment","location":"USA"},{"name":"Hard Head Veterans","category":"Protective Equipment","location":"Sweetwater, TX"},{"name":"Hardwire LLC","category":"Protective Equipment","location":"Pocomoke City, MD"},{"name":"Sarkar Tactical","category":"Protective Equipment","location":"El Paso, TX"},{"name":"RMA Armament","category":"Protective Equipment","location":"Centerville, IA"},{"name":"Armor Express","category":"Protective Equipment","location":"Eden, NC"},{"name":"Team Wendy","category":"Protective Equipment","location":"Cleveland, OH"},{"name":"Gentex Corporation","category":"Protective Equipment","location":"Carbondale, PA"},{"name":"Point Blank Enterprises","category":"Protective Equipment","location":"Pompano Beach, FL"},{"name":"Revision Military","category":"Protective Equipment","location":"Essex Junction, VT"},{"name":"Crye Precision","category":"Military Uniforms","location":"Brooklyn, NY"},{"name":"5.11 Tactical","category":"Military Uniforms","location":"Modesto, CA"},{"name":"Viasat Inc.","category":"Communications Gear","location":"Carlsbad, CA"},{"name":"Silvus Technologies","category":"Communications Gear","location":"Los Angeles, CA"},{"name":"Leonardo DRS","category":"Communications Gear","location":"Arlington, VA"},{"name":"ADS Inc.","category":"Logistics & Supply","location":"Virginia Beach, VA"},{"name":"Oshkosh Defense","category":"Military Vehicles","location":"Oshkosh, WI"},{"name":"MBDA","category":"Defence Systems","location":"France/UK/Germany"},{"name":"Rohde & Schwarz","category":"Communications Gear","location":"Germany"}]
 
@@ -72,7 +73,7 @@ export default function HomePage() {
         setUserName(data.session.user.user_metadata?.full_name || '')
         setUserBody(data.session.user.user_metadata?.body || '')
         setUserId(data.session.user.id)
-        fetch(`/api/engagements?userId=${data.session.user.id}`).then(r => r.json()).then(d => {
+        authFetch(`/api/engagements`).then(r => r.json()).then(d => {
           if (d.engagements) {
             setInterestedSent(new Set(d.engagements.map((e: Record<string,string>) => e.order_id)))
           }
@@ -130,11 +131,10 @@ export default function HomePage() {
     }
     if (interestedSent.has(order.id)) return
     setEngagingId(order.id)
-    await fetch('/api/engagements', {
+    await authFetch('/api/engagements', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        userId, userEmail, userName,
         orderId: order.id, product: order.product,
         orderType: order.type, quantity: `${order.quantity} ${order.unit}`,
       }),
@@ -978,7 +978,7 @@ export default function HomePage() {
                 const id = cancelOrderId
                 setCancelling(true)
                 try {
-                  await fetch('/api/orders/cancel', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({orderId: id, userId}) })
+                  await authFetch('/api/orders/cancel', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({orderId: id}) })
                   setActiveOrders(prev => prev.filter(x => x.id !== id))
                   setCancelOrderId(null)
                 } finally {

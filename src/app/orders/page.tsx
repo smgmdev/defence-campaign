@@ -4,6 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useState, useEffect, Suspense } from 'react'
+import { authFetch } from '@/lib/authFetch'
 import { PRODUCTS } from '@/lib/products'
 import { supabase } from '@/lib/supabase'
 import CreateOrderModal from '@/components/CreateOrderModal'
@@ -84,7 +85,7 @@ function OrdersContent() {
         setUserBody(data.session.user.user_metadata?.body || '')
         setUserId(data.session.user.id)
         // Load engagements for this user
-        fetch(`/api/engagements?userId=${data.session.user.id}`).then(r => r.json()).then(d => {
+        authFetch(`/api/engagements`).then(r => r.json()).then(d => {
           if (d.engagements) {
             setInterestedSent(new Set(d.engagements.map((e: Record<string,string>) => e.order_id)))
           }
@@ -180,11 +181,10 @@ function OrdersContent() {
     }
     setEngagingId(order.id)
     // Save engagement to DB
-    await fetch('/api/engagements', {
+    await authFetch('/api/engagements', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        userId, userEmail, userName,
         orderId: order.id, product: order.product,
         orderType: order.type, quantity: `${order.quantity} ${order.unit}`,
       }),
@@ -390,7 +390,7 @@ function OrdersContent() {
                 const id = cancelOrderId
                 setCancelling(true)
                 try {
-                  await fetch('/api/orders/cancel', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({orderId: id, userId}) })
+                  await authFetch('/api/orders/cancel', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({orderId: id}) })
                   setDbOrders(prev => prev.filter(x => x.id !== id))
                   setCancelOrderId(null)
                 } finally {
