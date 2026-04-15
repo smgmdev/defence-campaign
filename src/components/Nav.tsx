@@ -258,7 +258,7 @@ export default function Nav() {
                 <div className="search-section-label">Active Orders</div>
                 <div className="search-results-grid">
                   {orderResults.map(o => (
-                    <Link key={o.id} href={`/orders?q=${encodeURIComponent(searchVal)}`} className="search-result-card"
+                    <Link key={o.id} href={`/orders?q=${encodeURIComponent(o.product)}`} className="search-result-card"
                       onClick={() => setSearchOpen(false)}>
                       <div className="search-order-badge-wrap">
                         <span className={`search-order-type ${o.type}`}>{o.type === 'buy' ? 'BUY' : 'SELL'}</span>
