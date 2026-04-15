@@ -180,6 +180,35 @@ export default function HomePage() {
     return () => { supabase.removeChannel(channel) }
   }, [])
 
+  // Fallback: refetch on tab focus + periodic polling so the UI heals
+  // even if realtime DELETE broadcasts aren't firing.
+  useEffect(() => {
+    function refetch() {
+      fetch('/api/orders').then(r => r.json()).then(d => {
+        if (!d.orders) return
+        setActiveOrders(d.orders.slice(0, 20).map((o: Record<string, string>) => ({
+          id: o.id,
+          type: o.type,
+          product: o.product,
+          quantity: o.quantity,
+          unit: o.unit,
+          date: new Date(o.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+          user: o.user_name || '',
+          orderUserId: o.user_id || '',
+          notes: o.notes || '',
+          expiresAt: o.expires_at || null,
+        })))
+      }).catch(() => {})
+    }
+    const onVis = () => { if (document.visibilityState === 'visible') refetch() }
+    document.addEventListener('visibilitychange', onVis)
+    const interval = setInterval(refetch, 30000)
+    return () => {
+      document.removeEventListener('visibilitychange', onVis)
+      clearInterval(interval)
+    }
+  }, [])
+
   useEffect(() => {
     const v = videoRef.current
     if (!v) return

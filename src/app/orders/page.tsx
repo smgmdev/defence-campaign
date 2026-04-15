@@ -140,6 +140,36 @@ function OrdersContent() {
     return () => { supabase.removeChannel(channel) }
   }, [])
 
+  // Fallback: refetch on focus + periodic polling so cancelled/created
+  // orders reflect across browsers even if realtime broadcasts miss.
+  useEffect(() => {
+    function refetch() {
+      fetch('/api/orders').then(r => r.json()).then(ordData => {
+        if (!ordData.orders) return
+        setDbOrders(ordData.orders.map((o: Record<string, string>) => ({
+          id: o.id,
+          type: o.type,
+          product: o.product,
+          quantity: o.quantity,
+          unit: o.unit,
+          notes: o.notes || '',
+          status: 'Open',
+          date: new Date(o.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+          user: o.user_name || '',
+          userId: o.user_id || '',
+          expiresAt: o.expires_at || null,
+        })))
+      }).catch(() => {})
+    }
+    const onVis = () => { if (document.visibilityState === 'visible') refetch() }
+    document.addEventListener('visibilitychange', onVis)
+    const interval = setInterval(refetch, 30000)
+    return () => {
+      document.removeEventListener('visibilitychange', onVis)
+      clearInterval(interval)
+    }
+  }, [])
+
   const allOrders = [...dbOrders, ...SAMPLE_ORDERS]
   const orders = allOrders.filter(o => {
     if (filterType && o.type !== filterType) return false
