@@ -682,6 +682,7 @@ export default function HomePage() {
           .news-slider { padding: 48px 0; }
           .news-slide { flex: 0 0 260px; padding: 20px 18px; }
           .news-slide-title { font-size: 14px; }
+          .disc-inner h2 { font-size: 20px; letter-spacing: -0.5px; }
           .disc-search { height: 60px; }
           .disc-search input { font-size: 12px; padding: 0 14px; }
           .disc-search-btn { width: 60px; }
