@@ -12,6 +12,87 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    slug: "did-world-war-3-just-end-strait-of-hormuz-drama-over",
+    title: "Did World War III Just End? And Are We Finally Free of the Strait of Hormuz Drama?",
+    date: "18 Apr 2026",
+    cat: "geo",
+    source: "GEOPOLITICAL ANALYSIS",
+    region: "Global",
+    description: "Headlines are declaring victory. Diplomats are shaking hands. Oil traders are exhaling. But has the threat actually passed — or has the world simply moved from one phase of instability to the next? A clear-eyed look at what just happened, what it means, and what the defence market should expect next.",
+    keywords: "World War 3 over, Strait of Hormuz 2026, Iran US ceasefire, Middle East peace 2026, Gulf shipping normalisation, Hormuz oil flow, defence market post-conflict, geopolitical reset 2026, WW3 ended, oil prices Hormuz",
+    body: `<p>The past seventy-two hours have produced the kind of headlines that make normal people feel relieved and defence professionals feel nervous. "Iran and US step back from the brink." "Gulf shipping routes to normalise within weeks." "World War III averted — diplomats celebrate breakthrough." The mood in capitals from Washington to Riyadh to Tehran is cautiously optimistic, and the oil price has already dropped twelve dollars on the news.</p>
+
+        <p>So the question being asked in every procurement office, every trading desk, and every ministry of defence right now is straightforward: is it over? Did the thing everyone feared — a cascading, multi-theatre, great-power-adjacent conflict that some commentators labelled "World War III" — actually end? And are the Strait of Hormuz shipping lanes genuinely, durably safe again?</p>
+
+        <p>The honest answer is more complicated than the headlines suggest. Something significant has happened. But calling it "the end" requires a definition of what was happening in the first place, and a willingness to distinguish between a tactical pause and a structural resolution. Those are very different things.</p>
+
+        <h2>What actually happened</h2>
+
+        <p>The diplomatic breakthrough that triggered the headlines was a package deal brokered through Omani and Chinese channels, with quiet American backing. The core elements, based on what has been publicly confirmed and credibly reported:</p>
+
+        <ul>
+          <li>Iran has agreed to cap enrichment at 60% and allow enhanced IAEA monitoring at key facilities, in exchange for targeted sanctions relief on oil exports and central bank access</li>
+          <li>The IRGC Navy has issued standing orders to cease harassment of commercial shipping in the Strait of Hormuz and the wider Gulf</li>
+          <li>The Houthis have signalled — through Saudi intermediaries — a willingness to scale back Red Sea attacks as part of a broader Yemen peace framework, though no formal agreement has been signed</li>
+          <li>Israel has not publicly endorsed the deal but has refrained from undermining it, which in this context counts as tacit acceptance</li>
+          <li>The US has quietly redeployed one of its two carrier strike groups out of the Gulf, a de-escalation signal that speaks louder than any press statement</li>
+        </ul>
+
+        <p>This is real. It is meaningful. It represents the most significant de-escalation in the Gulf since the Saudi–Iranian normalisation of 2023. But it is not peace. It is not a treaty. And it is not irreversible.</p>
+
+        <h2>Why the "World War III is over" framing is misleading</h2>
+
+        <p>The term "World War III" was always more media shorthand than analytical category. What actually existed was a set of interlocking regional conflicts — Gaza, Lebanon, Yemen, the Iran–Israel shadow war, the broader US–Iran strategic rivalry — that collectively created the conditions for a potential escalation into something larger. At no point were NATO and a peer adversary engaged in direct combat. At no point were nuclear weapons used or credibly threatened in an operational context. The conflict environment was dangerous, destabilising, and economically costly, but it was not a world war by any historical definition.</p>
+
+        <p>What the current diplomatic breakthrough does is reduce the probability of the escalation scenario that people feared most: an Iran–Israel direct military exchange spiralling into US involvement, Hormuz closure, global energy crisis, and potential great-power entanglement. That probability has dropped meaningfully — from perhaps 20–25% in the assessment published on this platform last week to something closer to 8–12% in the near term. That is a significant improvement. But 8–12% is not zero, and the structural drivers of the tension have not been resolved.</p>
+
+        <h2>The Strait of Hormuz: what "normalisation" actually means</h2>
+
+        <p>The IRGC Navy's standing order to cease harassment is the most immediately impactful element of the deal for commercial shipping. If it holds — and early indications suggest it is being observed — then the practical effect is a meaningful reduction in transit risk for tankers and cargo vessels moving through the Strait.</p>
+
+        <p>But "normalisation" in the shipping industry has a specific, measurable meaning: war-risk insurance premiums return to baseline, crew hazard pay is eliminated, vessels transit without escort, and operators no longer route around the Gulf. By that standard, normalisation is not yet here. Insurance underwriters have signalled that premium reductions will lag the diplomatic developments by 60–90 days as they assess whether the ceasefire holds. Tanker operators are cautiously resuming normal routing but have not yet withdrawn contingency plans. Crew agencies are maintaining hazard designations pending review.</p>
+
+        <p>The realistic timeline for genuine normalisation — premiums back to pre-2023 levels, full commercial confidence restored — is Q4 2026 at the earliest, assuming no incidents in the interim. That is a best-case scenario. A single IRGC fast-boat provocation, a rogue Houthi launch, or an Israeli strike that Tehran feels compelled to respond to would reset the clock instantly.</p>
+
+        <h2>The Houthi question remains wide open</h2>
+
+        <p>The weakest link in the entire framework is Yemen. The Houthis have "signalled willingness" to scale back Red Sea attacks, but they have not signed anything. Their track record of honouring verbal commitments made through intermediaries is, to be generous, inconsistent. The Houthi leadership calculates its moves based on domestic political benefit, and the attacks on shipping have been domestically popular in a way that few other policies have been.</p>
+
+        <p>The Saudi-brokered peace framework for Yemen is real and has momentum, but it addresses the internal Yemeni conflict — power-sharing, revenue distribution, port access — not the Red Sea shipping issue specifically. The Houthis have successfully separated the two files: they will negotiate on governance while reserving the right to attack shipping as long as they consider regional conditions to justify it.</p>
+
+        <p>For the Bab el-Mandeb strait and Red Sea shipping specifically, the honest assessment remains the same as it was last month: no resolution before 2027 at the earliest. The current breakthrough does not change this.</p>
+
+        <h2>What the defence market should actually expect</h2>
+
+        <p>This is where the analysis matters most for readers of this publication. If a procurement officer or a defence trading firm takes the "WW3 is over" headline at face value, they risk making planning errors that will be expensive to correct. Here is what the market should actually expect:</p>
+
+        <p><strong>Counter-UAV and air defence demand does not decline.</strong> The drone threat has been structurally validated by the past three years of conflict. Every military in the Gulf, Europe, and Asia Pacific has permanently upgraded its assessment of the counter-drone requirement. Systems on order stay on order. New programmes continue. Production backlogs persist.</p>
+
+        <p><strong>Ammunition restocking continues for years.</strong> NATO and allied nations drew down ammunition stocks to support Ukraine and to maintain elevated readiness during the Gulf crisis. Replenishing those stocks is a multi-year, multi-billion-dollar programme that is completely independent of whether Iran and the US shake hands. The 155mm shell shortage does not end because of a diplomatic breakthrough in Muscat.</p>
+
+        <p><strong>Naval and maritime security procurement accelerates.</strong> The Red Sea crisis has permanently changed how navies think about commercial shipping protection. Mine countermeasures, patrol vessels, maritime surveillance, and autonomous systems are all seeing elevated demand that will persist through the end of the decade regardless of Houthi behaviour.</p>
+
+        <p><strong>Gulf state defence budgets stay elevated.</strong> Saudi Arabia, the UAE, Qatar, Kuwait, and Oman have all increased defence spending to levels justified by the threat environment of 2024–2026. Those budgets are sticky — they do not contract the quarter after a ceasefire. Programmes that are funded, contracted, and in production continue. New programmes that were accelerated during the crisis maintain their elevated priority. The institutional memory of how close things came is now baked into planning assumptions.</p>
+
+        <p><strong>European defence spending continues its structural increase.</strong> The European rearmament triggered by Ukraine and reinforced by the Gulf crisis is a generational shift, not a cyclical one. Germany's Zeitenwende, Poland's 4% GDP target, Scandinavian NATO accession and associated capability builds — none of these reverse because of an Iran deal.</p>
+
+        <p><strong>Pricing normalises slowly.</strong> Input costs for metals, propellants, electronic components, and energetics will come down from their crisis peaks, but the decline will be gradual. Manufacturers who invested in capacity expansion during the crisis will need sustained demand to justify those investments, which means pricing stays above pre-2023 levels for the foreseeable future.</p>
+
+        <h2>The structural picture has not changed</h2>
+
+        <p>The most important thing to understand about the current moment is that the <em>structural</em> drivers of defence demand — great-power competition, regional instability, technological disruption (drones, AI, cyber), ageing NATO equipment fleets, supply-chain vulnerabilities exposed by Ukraine — are all completely unaffected by the Iran deal. These are decade-long trends. They do not flex with quarterly diplomatic developments.</p>
+
+        <p>What the deal does is reduce the <em>acute</em> crisis premium — the additional urgency and price inflation driven by the specific fear of Hormuz closure and Iran–US war. That premium was real, and its reduction is welcome. But underneath it, the baseline demand trajectory was already elevated and remains so.</p>
+
+        <h2>So did World War III end?</h2>
+
+        <p>It did not end because it did not start — not in the sense that the term implies. What happened was that a dangerous escalation cycle between Iran and the Western-aligned bloc was interrupted by diplomacy before it reached the point of no return. That is good. That is what diplomacy is for. But the underlying strategic competition between Iran and Israel, the unresolved nuclear file, the Houthi problem, the fragility of the Gaza ceasefire, and the broader reordering of global security architecture — all of that continues.</p>
+
+        <p>The Strait of Hormuz is safer today than it was last week. It is not safe in the way it was in 2019. The Red Sea is not safe at all. The global defence market is not entering a post-conflict contraction — it is entering a post-acute phase of a structural expansion that has years left to run.</p>
+
+        <p>For defence procurement professionals, the message is clear: celebrate the de-escalation, welcome the reduced risk of catastrophic scenarios, and do not — under any circumstances — slow down your procurement programmes on the assumption that the threat environment has fundamentally changed. It has not. It has moderated. And moderation, in this region, is a temporary condition until proven otherwise.</p>`
+  },
+  {
     slug: "chances-middle-east-war-ending-q3-2026-analysis",
     title: "What Are the Chances of the Middle East Conflict Ending During Q3 2026? A Realistic Assessment",
     date: "17 Apr 2026",
