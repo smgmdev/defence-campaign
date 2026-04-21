@@ -12,6 +12,83 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    slug: "what-next-strait-of-hormuz-trump-iran-negotiations",
+    title: "What's Next for the Strait of Hormuz — and What Can We Realistically Expect from Trump–Iran Negotiations?",
+    date: "21 Apr 2026",
+    cat: "geo",
+    source: "GEOPOLITICAL ANALYSIS",
+    region: "Middle East",
+    description: "The Omani channel has produced a pause, not a peace. With Washington and Tehran now moving into a second round of formal talks, the real question is what kind of deal is actually achievable — and what it means for Gulf shipping, Iranian oil, and defence procurement over the next eighteen months.",
+    keywords: "Strait of Hormuz 2026, Trump Iran negotiations, US Iran deal 2026, Iran nuclear talks, IRGC Hormuz, Gulf shipping outlook, Iran sanctions relief, Witkoff Araghchi talks, Oman back channel, defence market Middle East, Hormuz normalisation, Iran oil exports 2026",
+    body: `<p>Three days after the Muscat breakthrough, the initial euphoria has given way to the harder work of translating a diplomatic signal into a durable framework. The White House has confirmed a second round of direct talks in Rome next week, with Steve Witkoff leading for the United States and Abbas Araghchi for Iran. The Omanis continue to host the informal channel in parallel. The Chinese are watching closely. The Israelis are openly uncomfortable. And the Gulf monarchies — Saudi, Emirati, Qatari — are engaged in quiet shuttle diplomacy to make sure whatever deal emerges does not leave their security architecture worse off than it was before.</p>
+
+        <p>For commercial shipping, oil markets, and the defence industry, the practical question is no longer "is a deal possible?" — it clearly is — but "what kind of deal, on what timeline, and how durable?" The answers to those three questions determine whether the current easing of Gulf tensions is the start of a multi-year stabilisation or a six-month window before the next cycle of escalation.</p>
+
+        <h2>Where the Strait of Hormuz actually stands today</h2>
+
+        <p>The operational picture in the Strait has shifted measurably since last week. IRGC Navy fast-boat activity is down sharply — commercial operators report near-zero harassment incidents over the past five days, compared with a running average of two to three per week during the February–March peak. The seizure of foreign-flagged tankers, which had become a recurring coercive tool, has halted. One US carrier strike group has repositioned east of Hormuz; the second remains in the Gulf but on a lower posture.</p>
+
+        <p>This is the tactical reality. It is better than anything since 2022. But the structural reality is that none of the drivers that produced the tension have been removed. The IRGC retains full capability to disrupt the Strait on twenty-four hours' notice. Iran's anti-ship missile inventory, naval mines, mini-submarine fleet, and swarming-boat doctrine are all intact. What has changed is intent, not capability — and intent is the most reversible variable in any security assessment.</p>
+
+        <p>For the shipping industry, the immediate question is insurance. Lloyd's and the major marine underwriters have signalled that war-risk premiums will ease, but in stages. The first cut — probably 15–20% off current elevated levels — is expected within 30 days if no incidents occur. A return to 2023 baseline would require 90–120 incident-free days plus evidence that the diplomatic track is producing enforceable commitments. Operators are not taking the escort vessels out of their contingency plans yet.</p>
+
+        <h2>The Trump–Iran talks: what is actually on the table</h2>
+
+        <p>The administration's negotiating position has clarified considerably since the initial framework was leaked. Based on public statements from Witkoff, background briefings from the NSC, and what Iranian officials have confirmed through the Tehran Times and IRNA, the contours of a potential Phase One deal look roughly as follows:</p>
+
+        <p><strong>On the US side, the offer includes:</strong> a structured lifting of secondary sanctions on Iranian oil exports, a phased release of frozen assets (initial tranche estimated at $6–10 billion), reinstatement of civil aviation spare-parts waivers, and a commitment not to pursue a formal snapback of UN sanctions during the negotiation window. Critically, the administration is <em>not</em> offering a return to the 2015 JCPOA framework — the President has been explicit that the previous deal is dead and what replaces it will carry his name.</p>
+
+        <p><strong>On the Iranian side, the commitments under discussion include:</strong> an enrichment cap at 60% with a hard ceiling on stockpile size, full IAEA access under the Additional Protocol, a verified freeze on advanced centrifuge R&D at Natanz and Fordow, standing orders to the IRGC to cease harassment of commercial shipping, and an informal — not written — understanding on restraining Houthi and Iraqi militia activity against US and allied targets.</p>
+
+        <p>What is conspicuously absent from the first-phase framework: any meaningful limitation on Iran's ballistic missile programme, any constraint on regional proxy support beyond the specific channels mentioned, and any formal architecture for dispute resolution. These are being deferred to a "Phase Two" that everyone involved privately acknowledges may never happen.</p>
+
+        <h2>The deal that is achievable vs. the deal the Israelis want</h2>
+
+        <p>The single biggest risk to the current track is the gap between what Washington can realistically extract and what Jerusalem considers acceptable. The Israeli government has been clear, in public and private, that anything short of the Libya model — full dismantlement, not limitation — is unacceptable. That position is politically understandable and strategically coherent from an Israeli perspective. It is also not achievable through diplomacy. No Iranian government, whether reformist or hardline, can sign an agreement that hands over the enrichment infrastructure that represents four decades of national investment and is constitutionally tied to the regime's identity.</p>
+
+        <p>This creates a structural tension that the administration has so far managed but not resolved. The current approach appears to be: sign what is achievable with Tehran, rely on private assurances to Jerusalem that military options remain available if Iran cheats, and let the Israelis make their own calculations about strikes on specific facilities if they conclude the deal is inadequate. This is a workable short-term posture. It is not a stable long-term equilibrium.</p>
+
+        <p>The scenario the market should watch carefully is an Israeli strike on Iranian nuclear or missile infrastructure during the negotiation window. The Netanyahu government has signalled that such a strike would not be coordinated with Washington if it judged the deal insufficient. If it happens — and credible sources put the probability at 15–25% over the next six months — every element of the current de-escalation reverses within 48 hours.</p>
+
+        <h2>What the Gulf states actually want</h2>
+
+        <p>One of the underappreciated dynamics of the current moment is that Saudi Arabia, the UAE, and Qatar are genuinely supportive of the diplomatic track, but for reasons that differ sharply from the American framing. The Gulf capitals do not want Iran contained in the sense of being weakened — they want it normalised in the sense of being predictable. A weak, cornered, escalating Iran is a worse neighbour than a sanctioned but stable one. The Saudi–Iranian rapprochement of 2023 and the deepening UAE–Iran trade ties of 2024–2025 reflect this calculation.</p>
+
+        <p>What this means for the deal architecture is that the Gulf states are lobbying Washington to keep the scope narrow — nuclear constraints, shipping security, a cooling of the proxy wars — and to avoid the kind of maximalist demands that would collapse the talks. They are also positioning themselves as the guarantors and verifiers of regional behaviour, which serves both their diplomatic standing and their procurement interests. A Gulf that is seen as the central mediator of US–Iran stability is a Gulf that commands higher-tier weapons transfers, closer intelligence sharing, and more deference on regional files.</p>
+
+        <h2>Three scenarios for the next eighteen months</h2>
+
+        <p>Based on the current trajectory, three scenarios dominate the planning assumptions being used inside Gulf ministries of defence and among the better-informed commercial operators:</p>
+
+        <p><strong>Scenario A — Phase One deal signed, partial normalisation (probability ~45%).</strong> Talks produce a framework agreement within 90 days. Iranian oil exports recover to 2.0–2.3 million barrels per day by Q4 2026. Hormuz shipping normalises, with war-risk premiums returning to within 20% of 2019 levels by year-end. Houthi activity in the Red Sea continues but at a reduced intensity. The defence market sees a modest easing of the acute crisis premium, but structural demand — counter-drone, air defence, ammunition, naval — remains elevated through 2027.</p>
+
+        <p><strong>Scenario B — Talks stall, managed ambiguity continues (probability ~35%).</strong> The negotiations neither collapse nor produce a signed agreement. Both sides benefit from the appearance of progress — Iran gets informal sanctions easing through reduced enforcement, Washington gets a pause in escalation — and the formal framework remains perpetually three months away. Hormuz stays quiet but fragile. Oil markets price in a persistent risk premium. Defence procurement continues at current elevated levels because nothing has actually been resolved.</p>
+
+        <p><strong>Scenario C — Talks collapse, escalation resumes (probability ~20%).</strong> Either an Israeli strike, a Houthi provocation that Tehran feels compelled to back, a hardliner victory in the Iranian internal debate, or a domestic political shift in Washington causes the framework to fall apart. The Strait returns to the February–March threat environment within weeks. War-risk premiums spike. A full Hormuz closure becomes a 10–15% probability again. The defence market experiences a renewed acute-crisis premium on top of existing structural demand.</p>
+
+        <h2>What defence procurement should do right now</h2>
+
+        <p>For buyers, traders, and ministries of defence, the operating question is how to position for the next twelve to eighteen months given this probability distribution. The practical guidance is unchanged from last week's analysis but worth restating with the new information in view:</p>
+
+        <p><strong>Do not cancel or defer programmes on the expectation of a deal.</strong> Even under Scenario A, the structural drivers of defence demand remain fully intact. Counter-UAV, air defence, ammunition replenishment, naval surveillance, and mine countermeasures all continue on elevated trajectories regardless of whether Witkoff and Araghchi shake hands in Rome.</p>
+
+        <p><strong>Lock in current pricing where possible.</strong> The acute-crisis premium on input costs — metals, propellants, electronics — will ease under Scenario A, but manufacturers are unlikely to pass through reductions quickly. For long-lead items being tendered now, current prices will look reasonable by Q4 if any of the three scenarios plays out.</p>
+
+        <p><strong>Accelerate Gulf-based inventory and logistics.</strong> Whatever scenario materialises, the Gulf remains the strategic centre of gravity for Middle East defence trade. Forward-positioned stock in the UAE, Oman, and Saudi depots reduces exposure to any renewed Hormuz disruption and positions suppliers closer to the region's sustained procurement pipeline.</p>
+
+        <p><strong>Watch the Israeli signal more than the Iranian one.</strong> The single highest-impact variable for the next six months is not Tehran's behaviour — which is now broadly predictable within the negotiating framework — but Jerusalem's tolerance for a deal it considers inadequate. Israeli political signalling, intelligence leaks about Iranian nuclear progress, and the cadence of Netanyahu's public statements are the leading indicators worth tracking.</p>
+
+        <p><strong>Do not discount Houthi risk.</strong> The Red Sea track remains separate from the Hormuz track. Even a successful Phase One deal does not resolve Bab el-Mandeb. Procurement and routing plans for Red Sea exposure should continue to assume elevated threat through 2027.</p>
+
+        <h2>The honest assessment</h2>
+
+        <p>A deal is more likely than not. A good deal, by the standards anyone would have set two years ago, is possible. A comprehensive deal that resolves the underlying Iran question is not on offer and will not be in this round of negotiations. What is on offer is a period of managed stability — narrower than peace, broader than the current pause — that could hold for several years if the political conditions in Washington, Tehran, and Jerusalem all remain broadly favourable simultaneously. That is a demanding set of conditions.</p>
+
+        <p>The defence market is not entering a post-crisis contraction. It is entering a post-acute phase of a structural expansion that still has years of runway, with the specific Middle East overlay now downgraded from "potential catastrophic disruption" to "persistent elevated risk." For Gulf-based trading firms, allied procurement offices, and manufacturers with exposure to the region, this is a more favourable operating environment than the one that existed in March — but it is not the end of the story, and it should not be treated as such.</p>
+
+        <p>The Strait of Hormuz is quieter today than it has been in years. The question every professional in this industry should be asking is not whether to celebrate that fact, but how long it lasts, and what position the Rome talks leave the region in when the next cycle begins.</p>`
+  },
+  {
     slug: "did-world-war-3-just-end-strait-of-hormuz-drama-over",
     title: "Did World War III Just End? And Are We Finally Free of the Strait of Hormuz Drama?",
     date: "18 Apr 2026",
