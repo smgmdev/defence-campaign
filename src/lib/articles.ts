@@ -12,6 +12,90 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    slug: "short-term-economic-recovery-q3-2026-us-iran-ceasefire",
+    title: "Can We Expect a Short-Term Economic Recovery in Q3 2026 as the US–Iran Ceasefire Holds?",
+    date: "23 Apr 2026",
+    cat: "market",
+    source: "MARKET ANALYSIS",
+    region: "Global",
+    description: "Oil has fallen, equities have rallied, and freight rates are softening — but is this the start of a real recovery, or a short-lived relief bounce priced on a ceasefire that has not yet become a deal? A practical view of what Q3 2026 could realistically deliver for the global economy, defence procurement, and Gulf trade.",
+    keywords: "short term economic recovery 2026, Q3 2026 outlook, US Iran ceasefire economy, oil price 2026, Hormuz shipping recovery, defence market 2026, Middle East economic rebound, global equities rally 2026, inflation Q3 2026, Gulf trade recovery, Iran sanctions relief economic impact",
+    body: `<p>Something has shifted in the market mood over the past two weeks. Brent is trading twelve dollars below its March peak. The S&P 500 and STOXX 600 have both clawed back the losses of Q1. Container rates on the Asia–Europe route have come off their crisis highs. Gulf equities are at their strongest levels since late 2024. Analysts who were writing about stagflation in February are now quietly upgrading their growth forecasts for the second half of the year.</p>
+
+        <p>The obvious question for anyone planning procurement, budgets, or trade flows over the next two quarters is whether this is the real thing. Is a short-term economic recovery in Q3 2026 now a reasonable base case, or is the market front-running a ceasefire that has not yet been converted into a durable agreement? The honest answer is that a recovery is plausible, but the version of it that is actually achievable is narrower and more fragile than the current enthusiasm suggests.</p>
+
+        <h2>What is actually driving the rebound</h2>
+
+        <p>The immediate catalyst is straightforward. The Muscat breakthrough and the follow-up Rome talks between Steve Witkoff and Abbas Araghchi have removed — for now — the single largest tail risk that was hanging over global markets in the first quarter: a Hormuz closure scenario triggered by an Iran–Israel escalation spiral. That tail risk carried an enormous implicit premium across multiple asset classes. Oil, shipping, freight forward rates, Gulf sovereign spreads, regional equities, even European industrial stocks exposed to energy-intensive manufacturing — all of them were pricing in a meaningful probability of a disruptive event that now looks less likely.</p>
+
+        <p>The rebound, therefore, is not really a recovery in the sense of new underlying growth. It is the unwinding of a crisis premium. That distinction matters because it tells you where the easy gains end and where the market will need fresh positive inputs to go further.</p>
+
+        <h2>The case for Q3 2026 being genuinely better</h2>
+
+        <p>Beyond the unwind, there are a handful of real structural drivers that could give Q3 2026 a measurably stronger profile than Q1 or Q2:</p>
+
+        <p><strong>Energy disinflation feeds through.</strong> A sustained oil price in the 72–78 dollar range, rather than the 88–95 band of Q1, translates into lower input costs for manufacturers, lower headline inflation, and more room for central banks to hold or cut rates. The ECB has already signalled a willingness to resume cuts if the disinflation trend holds; the Federal Reserve is watching the same data. By August or September, a 25–50 basis point easing cycle across the developed markets is very much on the table.</p>
+
+        <p><strong>Iranian oil re-enters the market.</strong> If the phased sanctions relief proceeds on the current track, Iranian exports recover from roughly 1.6 million barrels per day today to 2.0–2.3 million by the end of Q3. That is not enough to crash prices, but it is enough to reinforce the downward drift in the crude complex and to give refiners cheaper feedstock. The secondary effect is greater revenue flowing into the Iranian economy, which supports regional trade and reduces the incentive for escalation.</p>
+
+        <p><strong>Gulf shipping costs normalise.</strong> War-risk insurance premiums on Hormuz and Gulf-adjacent routes are already easing and should be back to within 25% of 2019 levels by late Q3, assuming no incidents. Shipping is the quiet plumbing of global trade, and a 40–50% cut in the wartime surcharge matters for landed cost of goods across every category that transits the Gulf.</p>
+
+        <p><strong>Gulf state fiscal spending accelerates.</strong> Saudi Arabia, the UAE, and Qatar have been running cautiously in Q1 and Q2 while the regional situation was uncertain. With the near-term threat downgraded, Gulf sovereigns are expected to release held-back capital expenditure — infrastructure, giga-projects, defence procurement, industrial investment — which feeds directly into regional contractor revenues and indirectly into global equipment suppliers.</p>
+
+        <p><strong>European industrial confidence lifts.</strong> Germany and Italy, in particular, have been dragged by energy cost uncertainty. A calmer Gulf environment and a softer oil price complex remove one of the main headwinds. Purchasing manager indices in the EU are already ticking higher, and the order books in capital goods are starting to refill.</p>
+
+        <h2>The case for caution</h2>
+
+        <p>Against that, several structural constraints mean the recovery, even in a good scenario, is likely to be shallow, uneven, and vulnerable to reversal.</p>
+
+        <p><strong>The deal is not signed.</strong> What has happened is a ceasefire and a negotiating framework, not a binding agreement. The Rome talks could stall. An Israeli strike during the negotiation window, which credible analysts still rate at 15–25% probability over the next six months, would reset the clock on the entire complex. The market is currently pricing as if the framework is a certainty. It is not.</p>
+
+        <p><strong>Structural inflation remains sticky.</strong> Energy relief is real, but services inflation, wage growth, and ongoing supply-chain reconfiguration costs are not going away. Headline inflation will ease; core inflation will be stickier. That limits the scope for aggressive rate cuts and, therefore, the scope for a full-throated equity rerating.</p>
+
+        <p><strong>China's recovery is uneven.</strong> The second-largest driver of global growth is still navigating a property-sector workout, demographic headwinds, and a trade-policy environment that has grown more restrictive. A Middle East calm does not solve the China question, and without China's contribution a "global" recovery is really a North Atlantic plus Gulf recovery.</p>
+
+        <p><strong>US election-year uncertainty.</strong> The United States is in a politically charged environment where policy continuity on Iran, trade, and broader foreign economic policy is not assured. Market participants are pricing the current administration's approach as durable; that pricing is subject to review as the political calendar evolves through Q4.</p>
+
+        <p><strong>The Red Sea has not been resolved.</strong> The Hormuz de-escalation does not extend automatically to Bab el-Mandeb. Houthi activity remains a live variable, and the insurance and routing implications of Red Sea risk persist. For any shipping-exposed procurement or supply chain, the Gulf calm does not translate into a full normalisation of maritime trade costs.</p>
+
+        <h2>What the base case actually looks like</h2>
+
+        <p>Pulling the drivers and the constraints together, the most defensible base case for Q3 2026 is a <em>mild, uneven, disinflationary recovery</em>. In numerical terms, that means:</p>
+
+        <ul>
+          <li>Global GDP growth running roughly 20–40 basis points above the consensus that was being written in Q1 — still modest in absolute terms, but directionally better</li>
+          <li>Headline inflation in the OECD averaging 50–80 basis points lower than Q1 as energy base effects and Iranian supply kick in</li>
+          <li>Brent oil in the 70–80 dollar range, with downside risk on any incremental sanctions relief and upside risk on any Israeli or Houthi incident</li>
+          <li>Equity markets consolidating the recovery gains rather than extending sharply; single-stock dispersion increasing as the easy beta-trade from the unwind completes</li>
+          <li>Gulf sovereign spreads tightening further, with regional equity markets maintaining their outperformance relative to developed-market benchmarks</li>
+          <li>Developed-market central banks delivering 25–50 basis points of cuts by end of Q3, earlier than was priced in February</li>
+        </ul>
+
+        <p>That is a better environment than Q1. It is not a boom. And it is contingent on the negotiating track not breaking down.</p>
+
+        <h2>What it means for defence procurement</h2>
+
+        <p>For readers in the defence-trade community, the recovery picture has a specific set of implications that do not line up with the broader consumer narrative.</p>
+
+        <p><strong>Defence demand is insulated from the cyclical picture.</strong> The structural drivers — NATO rearmament, Ukraine-driven ammunition replenishment, Gulf modernisation programmes, counter-drone investment, ageing fleet refresh cycles — are not sensitive to whether global GDP growth is 2.4% or 2.8%. They are sensitive to the threat perception, which remains elevated even under a ceasefire, and to the multi-year budget cycles already locked in.</p>
+
+        <p><strong>Input cost pressure eases slowly.</strong> A lower oil price helps with energy-intensive fabrication, logistics costs, and forward freight rates. But metals, propellants, and specialised electronic components are tight for reasons that are largely independent of energy prices — capacity, supply-chain concentration, and elevated demand from multiple end-markets simultaneously. Expect input-cost relief but do not plan for it to be large or fast.</p>
+
+        <p><strong>Gulf procurement accelerates.</strong> As fiscal confidence returns in Riyadh, Abu Dhabi, Doha, Manama, and Muscat, held-back procurement decisions are likely to move forward in Q3. Suppliers with active bids or contracts in those markets should expect decision velocity to improve. This is genuinely positive, not a mirage.</p>
+
+        <p><strong>Pricing discipline matters more than volume discipline.</strong> The quarters ahead are likely to see volume broadly sustained with gradual softening of crisis-era pricing. Trading firms and manufacturers should plan for margin normalisation rather than contraction — pass-through of lower input costs needs to be managed against customer expectations of price relief.</p>
+
+        <p><strong>Inventory positioning is the key operational call.</strong> A ceasefire that holds is an opportunity to rebuild strategic inventory of long-lead items at more reasonable prices. A ceasefire that breaks down means everyone who did not rebuild pays a second premium later. The asymmetry of outcomes favours building inventory now, even if the ceasefire ultimately fails, because the downside of being short is greater than the downside of being modestly long.</p>
+
+        <h2>The honest assessment</h2>
+
+        <p>Yes, a short-term economic recovery in Q3 2026 is a reasonable base case. No, it is not guaranteed, and the version that is achievable is milder than the market's current enthusiasm implies. The recovery is mostly a crisis-premium unwind, partly a genuine improvement in underlying conditions, and entirely dependent on the Rome diplomatic track not breaking down over the next three months.</p>
+
+        <p>For defence procurement, the practical upshot is that the macroeconomic tailwind is real but modest — the structural demand drivers that matter for this industry were already in place before the ceasefire, and they remain in place regardless of how the recovery evolves. The Q3 picture is better than Q1, worth planning for, and not worth betting the balance sheet on. Take the improvements where they come, keep your exposure to a reversal manageable, and do not mistake a relief rally for a new economic cycle.</p>
+
+        <p>The global economy is likely to be in a better place three months from now than it is today. It is also likely to be further from a real resolution than it looks. Both things can be true at the same time, and the procurement professionals who do best through Q3 2026 will be the ones who plan for both simultaneously.</p>`
+  },
+  {
     slug: "what-next-strait-of-hormuz-trump-iran-negotiations",
     title: "What's Next for the Strait of Hormuz — and What Can We Realistically Expect from Trump–Iran Negotiations?",
     date: "21 Apr 2026",

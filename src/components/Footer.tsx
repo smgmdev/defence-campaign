@@ -11,7 +11,7 @@ export default function Footer() {
 
         {/* Left col */}
         <div className="ft-left">
-          <div className="ft-copy">© 2026 Defence Trading.<br />All rights reserved.</div>
+          <div className="ft-copy">© 2026 Defence Trading by Black Rock Military, Abu Dhabi. License No: CN-6183305.<br />All rights reserved.</div>
           <div className="ft-divider" />
           <CookieSettings />
         </div>

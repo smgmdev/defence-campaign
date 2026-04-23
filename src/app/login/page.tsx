@@ -147,7 +147,7 @@ function LoginContent() {
 
         </div>
         <div className="auth-footer">
-          <span>© 2026 Defence Trading. All rights reserved.</span>
+          <span>© 2026 Defence Trading by Black Rock Military, Abu Dhabi. License No: CN-6183305. All rights reserved.</span>
         </div>
       </div>
 
