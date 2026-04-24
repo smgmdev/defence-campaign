@@ -12,6 +12,115 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    slug: "most-traded-military-equipment-q2-2026",
+    title: "The Most Traded Military Equipment of Q2 2026: A Mid-Quarter Snapshot of What's Actually Moving",
+    date: "24 Apr 2026",
+    cat: "market",
+    source: "MARKET ANALYSIS",
+    region: "Global",
+    description: "With Q2 more than half complete, the defence trade picture has clarified. 155mm artillery ammunition, counter-UAS systems, and short-range air defence remain the headline categories — but the real story is in the shifts happening beneath the top line. A data-led look at the categories moving the most volume, where prices are heading, and what procurement teams should be reading into the pattern.",
+    keywords: "most traded military equipment Q2 2026, defence trade volumes 2026, 155mm artillery shortage 2026, counter-UAS demand, short-range air defence procurement, loitering munitions market, NATO ammunition restocking, defence export trends, Gulf procurement Q2 2026, global arms trade 2026, Ukraine war equipment demand, defence market snapshot",
+    body: `<p>Q2 2026 is more than half complete, and the defence trade data from the first seven weeks of the quarter is now clear enough to draw meaningful conclusions about where the market is actually moving capital, volume, and capacity. The headlines from Q1 — artillery ammunition, drones, counter-drone systems, air defence — remain broadly valid. But underneath that top line, the composition of demand is shifting in ways that matter for how procurement teams, traders, and manufacturers should be positioned through the rest of the year.</p>
+
+        <p>This is a mid-quarter snapshot of what is genuinely moving in the global defence trade. It draws on tender data, public procurement announcements, export licence filings from the major origin countries, and the pattern of buy-side activity observable across the marketplace. The ranking below reflects trade volume and deal count, not headline contract values, which are distorted by a small number of very large programmes that dominate dollar figures without reflecting the day-to-day rhythm of the market.</p>
+
+        <h2>1. 155mm artillery ammunition — still the single largest category</h2>
+
+        <p>Artillery ammunition remains the most traded defence product by a wide margin, and 155mm NATO-standard rounds dominate within that category. The structural shortage that opened in 2023 under Ukraine support has not closed in 2026 — it has shifted phase. Western production capacity has roughly tripled from the 2022 baseline, but demand has expanded in parallel: Ukraine consumption, NATO member replenishment of depleted reserves, Gulf stockpile increases, and Asia-Pacific partners preparing for their own contingencies.</p>
+
+        <p>Pricing in Q2 is running 15–20% above Q4 2025 levels for comparable HE and base-bleed variants, reflecting continued capacity-constrained supply. Precision-guided variants (Excalibur, Vulcano, BONUS) are trading at a premium of 3–4x over standard HE, with delivery windows extending into 2027 for most buyers. The only major category where prices have eased is training rounds, where Czech, Slovak, and Polish output has closed the gap.</p>
+
+        <p>The interesting development of Q2 is the acceleration of non-Western participation in the supply chain. Korean, Indian, and Brazilian producers are winning tenders in markets that would have been closed to them two years ago, and UAE-origin trading houses are increasingly structuring multi-origin deals to blend Western and non-Western stock to meet buyer requirements and delivery timelines.</p>
+
+        <h2>2. Counter-UAS systems — the fastest-growing category by deal count</h2>
+
+        <p>If 155mm wins on volume, counter-UAS wins on momentum. Deal count for counter-drone solutions — radar, RF detection, jammers, effectors, integrated C2 — is running at roughly 2.4x the Q2 2025 rate and has now overtaken traditional short-range air defence on deal-count terms. This is a direct consequence of the lessons learned from Ukraine, the Red Sea, and the Iran–Israel exchanges: drones are cheaper to attack with than they are to defend against, and every serious military is trying to close that asymmetry.</p>
+
+        <p>The most traded sub-categories are: small-form RF detection and jamming (handheld and vehicle-mounted), mid-range integrated systems with radar plus kinetic effectors, and — increasingly — drone-on-drone interceptor systems that use low-cost UAS to take out hostile UAS. That last sub-category barely existed in Q1 and is now visible on a meaningful share of Gulf and European tenders.</p>
+
+        <p>Pricing is mixed. Entry-level handheld jammers are commoditising rapidly, with Chinese, Turkish, and domestic-origin alternatives driving prices down 30–40% year-on-year. At the integrated-system level, prices are holding or rising as demand outstrips the supply of proven, deployable solutions.</p>
+
+        <h2>3. Short-range air defence (SHORAD) — elevated and broadening</h2>
+
+        <p>SHORAD systems — MANPADS, vehicle-mounted AA, Gepard-class and successor systems, low-altitude radar — remain among the most traded categories with steady Q2 activity. The composition of demand has broadened. Traditional NATO buyers continue to restock MANPADS inventories depleted by Ukraine support. Gulf states have accelerated integrated SHORAD procurement against drone and cruise missile threats. And, notably, African and Southeast Asian buyers have entered the market in meaningful numbers for the first time, driven by regional threat environments and improved financing availability.</p>
+
+        <p>Stinger, Mistral, Piorun, RBS-70, and Starstreak families dominate the man-portable segment. At the system level, Skyranger, NASAMS, IRIS-T SLS, and a growing number of Korean and Israeli offerings are the most active. Production backlogs are the primary constraint; pricing is stable but delivery windows continue to stretch.</p>
+
+        <h2>4. Loitering munitions — now a mainstream category</h2>
+
+        <p>Loitering munitions have moved decisively out of the specialist category and into the mainstream of defence trade. The range of active products has expanded from roughly a dozen serious offerings in 2022 to more than forty in 2026, and the price band has stratified into clear tiers: sub-$10k consumable attritable systems, $20–60k tactical-range variants with seekers, and $150k+ longer-range or more capable systems approaching the lower end of cruise-missile performance.</p>
+
+        <p>Q2 2026 is the quarter in which loitering munitions have become a routine line item on medium-power procurement lists, not an experimental purchase. Gulf, Eastern European, and Asia-Pacific buyers are all active. Turkish, Israeli, Polish, Ukrainian, Korean, and Iranian-origin (by export proxy) systems are all competing for share. Pricing is surprisingly stable given the demand growth, because capacity has expanded faster in this category than in almost any other.</p>
+
+        <h2>5. Tactical UAS (ISR and small strike) — steady at high volume</h2>
+
+        <p>Below the loitering-munition tier, the tactical UAS market continues to run at high volume. Class 1 and Class 2 ISR drones, including mid-range multi-rotor and fixed-wing variants, are moving in bulk across every major procurement geography. The sourcing pattern has changed — Chinese export channels are more constrained in Western markets, which has opened space for Turkish, Polish, Ukrainian, Indian, and domestic European suppliers. Prices are easing modestly as competition intensifies.</p>
+
+        <p>The sub-category with the steepest growth in Q2 is what could be called "loyal wingman" style Group 3 UAS — larger fixed-wing platforms with meaningful payload and autonomy, capable of both ISR and precision strike roles. Several programmes that were in trials last year have moved into initial serial production this quarter.</p>
+
+        <h2>6. Body armour, helmets, and personal protective systems</h2>
+
+        <p>The unglamorous but consistently high-volume category. Q2 2026 trade volumes in body armour, helmets, and associated personal protective equipment are running in line with Q1 and slightly above Q4 2025. The main shift is in specification: demand for higher-level ballistic protection (NIJ IV and equivalents, multi-hit rated) has risen as the threat profile facing deployed forces continues to include more capable small-arms and fragment threats.</p>
+
+        <p>Pricing is stable to modestly higher. Supply is generally adequate. The UAE, Turkey, Colombia, India, and several Eastern European producers are capturing share from traditional Western suppliers on cost and lead-time grounds, while premium segments remain dominated by US and European brands.</p>
+
+        <h2>7. Armoured wheeled vehicles and MRAP refurbishment</h2>
+
+        <p>New-build armoured wheeled vehicle trade is running at a measured pace in Q2 — good order books, but production-constrained rather than demand-constrained. What has surged is the refurbishment and upgrade trade for legacy MRAP and light armoured vehicle fleets. Countries that absorbed large MRAP donations during the 2010s are now putting those fleets through mid-life upgrades, and the specialist firms that do remanufacturing, armour upgrades, powerpack swaps, and integration work are at capacity.</p>
+
+        <p>This is a quieter market than the new-build tracked segment, but it is generating substantial deal flow for trading houses positioned in the refurbishment and surplus space.</p>
+
+        <h2>8. Night vision, thermal, and optronics</h2>
+
+        <p>Solid Q2 activity. Demand is broad-based, with Gen 3+ night vision, thermal monoculars and weapon sights, and integrated fire-control solutions all moving steadily. The notable trend is the closing of the performance gap between premium Western optronics and mid-tier Asian and Israeli offerings, which is putting gentle downward pressure on prices in the mid-market while leaving high-end military-grade pricing stable.</p>
+
+        <h2>9. Military medical and first-responder supplies</h2>
+
+        <p>An often-overlooked category that has had a strong quarter. Tourniquets, haemostatic agents, tactical combat casualty care kits, field medical supplies, and the consumable end of the medical logistics chain are all moving at elevated volumes, driven by both active conflict consumption and the sustained increase in field-medicine budgets across allied militaries.</p>
+
+        <h2>10. Naval patrol and mine countermeasures — the rising category</h2>
+
+        <p>Naval trade is the quiet growth story of the quarter. Patrol vessels (OPVs, fast patrol boats, interceptors), mine countermeasures platforms, and associated sensors and autonomous systems are all seeing elevated tender activity. The Red Sea experience has validated investment in this area for every nation with a meaningful coastline or maritime trade exposure. Gulf buyers are particularly active, and European builders are carrying strong order books into the second half of the year.</p>
+
+        <h2>What is NOT moving as much as expected</h2>
+
+        <p>Three categories where market activity is below what many predicted at the start of the year:</p>
+
+        <p><strong>Main battle tanks.</strong> Despite the headline-grabbing programmes in Poland, Germany, and a handful of other markets, global MBT trade volumes in Q2 2026 are modest in deal-count terms. The programmes that matter are very large, but they are few.</p>
+
+        <p><strong>Fixed-wing fighter aircraft.</strong> The fighter market is dominated by a handful of long-running programmes with multi-year delivery profiles. There is no meaningful new-buyer activity in Q2 that has not already been flagged in earlier quarters.</p>
+
+        <p><strong>Heavy cruise missiles.</strong> The structural backlog and the limited number of approved export destinations keep this category's deal count low, even as strategic importance rises.</p>
+
+        <h2>Pricing snapshot — the Q2 picture</h2>
+
+        <p>Taken as a whole, pricing across the actively traded defence categories in Q2 2026 is showing three distinct patterns:</p>
+
+        <ul>
+          <li><strong>Capacity-constrained categories (155mm, SHORAD, integrated counter-UAS):</strong> prices stable to rising, delivery windows stretching</li>
+          <li><strong>Competition-driven categories (handheld jammers, tactical UAS, mid-tier optronics):</strong> prices easing as non-Western and new-entrant supply expands</li>
+          <li><strong>Specification-driven categories (premium body armour, precision munitions, high-end optronics):</strong> prices stable with demand shifting upward in spec rather than downward in cost</li>
+        </ul>
+
+        <h2>What this means for procurement and trading</h2>
+
+        <p>The operational takeaways from the Q2 snapshot:</p>
+
+        <p><strong>Act on the capacity-constrained categories now.</strong> If 155mm, integrated counter-UAS, or SHORAD are on your procurement roadmap for the next 18 months, placing orders and locking delivery in Q2 or early Q3 is significantly preferable to waiting. These categories are not going to normalise on the buyer's timeline.</p>
+
+        <p><strong>Let the commoditising categories come to you.</strong> For handheld counter-UAS, tactical ISR drones, and mid-tier night vision, competition is working in the buyer's favour. There is no urgency to lock in pricing now; Q3 and Q4 will likely offer better terms.</p>
+
+        <p><strong>Diversify origin.</strong> The single biggest structural change in defence trade in Q2 2026 is the mainstreaming of non-traditional supplier countries. Turkish, Korean, Indian, Polish, UAE-origin, and Brazilian suppliers are winning share in markets that would have defaulted to Western origin two years ago. Buyers who have not built relationships in those supply channels are at a cost and delivery-speed disadvantage compared with those who have.</p>
+
+        <p><strong>Position for Q3 acceleration.</strong> As discussed in our Q3 recovery note, Gulf fiscal spending is expected to accelerate through the second half of the year. Trading houses and manufacturers with active positions in Gulf procurement should expect decision velocity to improve.</p>
+
+        <h2>The bottom line</h2>
+
+        <p>Q2 2026 is not a quarter of dramatic category shifts but of clear category reinforcement. The patterns established in the Ukraine and Gulf cycles continue to dominate: artillery, counter-drone, air defence, loitering munitions, and the infrastructure around them. The meaningful change is in the supply side — more origins, more capacity, more competition in the mid-market — and in the gradual stratification of pricing across capacity-constrained versus competition-driven segments.</p>
+
+        <p>For trading firms, manufacturers, and procurement offices, the message is straightforward: the broad demand picture is stable and elevated, the specific category dynamics are clarifying, and the advantage in the second half of the year will go to the organisations that know precisely which bucket each of their programmes falls into and adjust their positioning accordingly.</p>`
+  },
+  {
     slug: "short-term-economic-recovery-q3-2026-us-iran-ceasefire",
     title: "Can We Expect a Short-Term Economic Recovery in Q3 2026 as the US–Iran Ceasefire Holds?",
     date: "23 Apr 2026",
