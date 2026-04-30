@@ -12,6 +12,105 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    slug: "is-the-war-finally-over-will-countries-keep-arming",
+    title: "Is the War Finally Over — and Will Nations Continue to Strengthen Their Defence?",
+    date: "30 Apr 2026",
+    cat: "geo",
+    source: "GEOPOLITICAL ANALYSIS",
+    region: "Global",
+    description: "Ceasefires are holding, diplomatic channels are reopening, and headlines are beginning to speak the language of de-escalation. But the question that matters for defence policymakers, procurement teams, and trading firms is not whether the shooting stops — it is whether the lessons of the past four years now permanently reshape how nations prepare for the next conflict. A clear-eyed assessment of what comes after the war.",
+    keywords: "is the war over 2026, post-war defence spending, NATO rearmament 2026, defence budgets after ceasefire, Ukraine war end, Middle East ceasefire 2026, global defence procurement post-conflict, military buildup 2026, defence industry after war, peace dividend 2026, sustained defence spending, Gulf rearmament, European defence autonomy 2026",
+    body: `<p>For the first time in years, the headlines are softening. Ceasefires are holding longer than expected. Diplomatic envoys are travelling rather than threatening. Energy markets are pricing in stability. Editorial pages that spent the past four years writing about escalation are now cautiously discussing de-escalation, post-war settlements, and the architecture of whatever order replaces the one that broke in 2022.</p>
+
+        <p>It is a reasonable moment to ask the obvious question: is the war finally over? And if it is — or even if it merely looks that way for the next several quarters — will nations continue to invest in their militaries at the elevated pace of the past four years, or will the familiar gravitational pull of the peace dividend reassert itself?</p>
+
+        <p>The honest answer is that the first question is more complicated than it appears, and the second question is the one that actually matters for the defence-industrial economy, for procurement strategy, and for the trading firms that operate in the supply chain connecting the two. Both deserve a careful look.</p>
+
+        <h2>Has the war actually ended?</h2>
+
+        <p>The instinct to declare an era over is strong, and it is almost always premature. What the world is currently experiencing is better described as the early stages of a fragile de-escalation, rather than the conclusion of a conflict cycle. The active phases of fighting in Eastern Europe, the Red Sea, and the Levant have all moderated. Ceasefires are in place. Negotiations are progressing. The catastrophic-escalation scenarios that dominated risk modelling in 2024 and 2025 now look meaningfully less likely.</p>
+
+        <p>None of that, however, amounts to peace. A ceasefire is a pause, not a settlement. The political grievances that drove the past four years of conflict have not been resolved — they have been frozen in place at whatever line the fighting reached. Frozen conflicts are a familiar feature of the international system, and the historical record on them is sobering: most do not end so much as wait. The Korean armistice has held for more than seventy years without ever becoming a peace treaty. Cyprus, Kashmir, Nagorno-Karabakh, the Western Sahara, the Korean DMZ — each is a reminder that the absence of fighting is not the presence of resolution.</p>
+
+        <p>In the present cycle, several specific factors argue against treating the current calm as the end of anything:</p>
+
+        <p><strong>Underlying revisionist intent has not changed.</strong> The strategic objectives that drove Russia, Iran, and other revisionist actors into open conflict have been blunted but not abandoned. Capability has been degraded; intent has not. Capability can be rebuilt over a five-to-ten-year horizon. Intent persists.</p>
+
+        <p><strong>The geopolitical architecture remains contested.</strong> The fundamental question of whether the post-Cold War security order can be preserved, modified, or replaced is still open. Ceasefires do not answer that question — they merely defer it.</p>
+
+        <p><strong>Allied unity is harder to sustain than to mobilise.</strong> The coalitions that responded to the past four years of crises were impressive in their cohesion but expensive in their political capital. Sustaining that cohesion through a long period of negotiation, compromise, and uneven enforcement is a different and harder challenge than rallying it during an acute crisis.</p>
+
+        <p><strong>Hybrid and grey-zone activity has not paused.</strong> Cyber operations, disinformation, sabotage, electoral interference, and proxy activity continue at elevated levels. The most accurate description of the current moment is not that the war has ended but that it has descended a rung on the escalation ladder.</p>
+
+        <p>So no, the war is not finally over in any meaningful sense. What has changed is the volume — and the world has wisely decided to take advantage of the quieter moment to negotiate, rebuild, and reposition. That is a meaningful improvement on the alternative, and worth treating as such. But it should not be confused with closure.</p>
+
+        <h2>Will countries continue to invest in defence?</h2>
+
+        <p>This is the question with the more interesting answer, and the one that matters most for defence-industrial planning. The short version: yes, and at a structurally higher level than at any point since the end of the Cold War — but the composition of that spending is going to shift in ways that will reward some suppliers and punish others.</p>
+
+        <p>The evidence for sustained defence investment is now substantial:</p>
+
+        <p><strong>NATO has rebased.</strong> The 2% of GDP target that was once aspirational is now the floor for serious members, with several allies committed to 3% or beyond and a small number openly discussing 4%. This is not the rhetoric of an alliance preparing to draw down — it is the rhetoric of an alliance preparing to hold a higher posture for a generation. Defence budgets, once raised, are politically very difficult to cut.</p>
+
+        <p><strong>Industrial policy has caught up to security policy.</strong> Across Europe, the United States, Korea, Japan, the Gulf, India, and Australia, the past four years have seen a wave of defence-industrial policy that goes well beyond procurement. Long-term capacity contracts, multi-year ammunition agreements, sovereign manufacturing investments, and strategic-stockpile programmes have all been put in place. These are not the kind of commitments that unwind in a single political cycle.</p>
+
+        <p><strong>The lessons of unpreparedness are recent and vivid.</strong> Every defence ministry in the world spent 2022 to 2025 confronting how thin its inventories had become, how fragile its industrial base had grown, and how dependent it was on a small number of single-source suppliers. Those lessons are now embedded in doctrine, planning documents, and budget submissions. They will outlast any individual ceasefire.</p>
+
+        <p><strong>The threat picture remains crowded.</strong> Even if Eastern Europe stabilises, the Indo-Pacific picture has not. China's force modernisation continues. North Korea's missile programme continues. Iranian regional networks remain intact. Non-state actors retain access to drones, precision munitions, and asymmetric capabilities. A defence planner in 2026 looking at the global threat map sees more, not fewer, contingencies to prepare for than a planner in 2018.</p>
+
+        <p><strong>Defence is now an economic strategy, not just a security one.</strong> Several major economies — France, Germany, the United Kingdom, Korea, Türkiye, the UAE, Poland, Australia — have publicly framed defence-industrial expansion as part of their broader industrial and technological strategy. When defence becomes part of how a country grows its economy, the spending becomes structurally embedded, not cyclically discretionary.</p>
+
+        <h2>What changes when the shooting moderates</h2>
+
+        <p>Sustained defence spending does not mean the same defence spending. The composition of demand shifts in predictable ways once the immediate consumption pressure of active conflict eases.</p>
+
+        <p><strong>Replenishment continues — and possibly accelerates.</strong> The first call on every ministry of defence in the wake of an active phase is to refill the inventories that were drawn down. NATO ammunition stocks, particularly artillery, air defence interceptors, and precision munitions, will absorb capacity for years. The pause in fighting actually makes this easier to plan and execute, because production can be allocated against confirmed gaps rather than ongoing consumption.</p>
+
+        <p><strong>Capability investment shifts from urgent to deliberate.</strong> Wartime procurement is necessarily fast, expensive, and tolerant of compromise. Post-active-phase procurement is slower, more competitive, and more demanding on specification. Suppliers who built businesses around emergency contracting will find the next phase requires a different operating model. Suppliers with platform depth, integration capability, and through-life support will be advantaged.</p>
+
+        <p><strong>The capability mix rebalances toward the next conflict.</strong> The last war never tells you exactly how to fight the next one. The lessons of the recent cycle — drones, counter-drones, electronic warfare, autonomous systems, dispersed logistics, resilient communications, contested space — will drive the bulk of the new investment, even as legacy categories continue to absorb replenishment dollars.</p>
+
+        <p><strong>Allied procurement becomes more coordinated.</strong> Periods of relative calm are when joint programmes, shared stockpiles, and pooled-capability arrangements actually get negotiated. Expect more European multinational programmes, more NATO-pooled inventories, more Gulf-Asian defence cooperation, and more allied technology-sharing frameworks over the next three years.</p>
+
+        <p><strong>Industrial-base investment continues at pace.</strong> Manufacturing capacity is the single hardest part of defence-industrial readiness to build, and the lesson of the past four years is that capacity must be standing before it is needed. Governments that learned that lesson are not going to walk away from the capacity they have just paid to build, even if active demand softens.</p>
+
+        <h2>The risks to the sustained-investment picture</h2>
+
+        <p>Three variables could weaken the structural case for continued defence investment, and they are worth tracking honestly.</p>
+
+        <p><strong>Fiscal pressure.</strong> Several major economies are running uncomfortable debt-to-GDP ratios. If sovereign-debt markets force a meaningful tightening of fiscal posture, defence is among the easier categories to slow. Ministries of finance never give up easily on the peace-dividend instinct. The political cost of cutting defence is higher than it was, but it is not zero.</p>
+
+        <p><strong>Political reversal.</strong> Democratic systems produce policy oscillation. A new administration in any of the major spending economies could choose to draw down defence commitments more aggressively than the strategic environment justifies. This is a real risk, particularly across multi-year horizons.</p>
+
+        <p><strong>A sudden, durable peace.</strong> The least likely scenario, but worth naming. If a comprehensive settlement of the Eastern European, Middle Eastern, and Indo-Pacific tensions were to materialise simultaneously, the political logic for sustained defence-industrial investment would weaken meaningfully. There is no serious analyst predicting this outcome, but it is the upside risk to the threat picture.</p>
+
+        <p>None of these risks invalidates the central case for continued elevated defence investment. Each of them is a reason to plan for a defence-spending environment that is structurally higher but not monotonic — peaks and troughs around a much higher floor than existed five years ago.</p>
+
+        <h2>What this means for procurement and trading</h2>
+
+        <p>For defence procurement teams, manufacturers, and trading firms, the practical implications of this picture are straightforward and worth acting on.</p>
+
+        <p><strong>Plan for sustained, not surge.</strong> Surge-era contracting practices — premium pricing, accelerated delivery, single-source flexibility — are giving way to a more measured procurement environment. Suppliers who can win on full-life cost, reliability, and integration will outperform those who built businesses on emergency demand.</p>
+
+        <p><strong>Invest in replenishment capacity.</strong> The replenishment cycle is multi-year and well funded. Capacity in artillery, air defence, precision munitions, and stockpile categories will be absorbed for the foreseeable future. This is the most predictable revenue stream in defence right now.</p>
+
+        <p><strong>Position for the next-conflict capabilities.</strong> The categories that defined the past cycle — counter-UAS, electronic warfare, autonomous systems, dispersed and resilient logistics, contested communications — are where deliberate capability investment will concentrate. Suppliers in these categories should expect strong, sustained demand.</p>
+
+        <p><strong>Build for allied integration.</strong> The next three years will see more joint and pooled procurement than the last ten. Suppliers who can plug into multinational programmes — interoperable, exportable, integration-ready — will win share that single-customer suppliers cannot reach.</p>
+
+        <p><strong>Take advantage of the calmer planning environment.</strong> When fighting moderates, procurement decisions become more deliberate. That is an opportunity for suppliers and trading firms to invest in the relationships, partnerships, and positioning that surge-era pace did not allow time for. Use it.</p>
+
+        <h2>The honest assessment</h2>
+
+        <p>The war is not over. What has happened is that the world has descended a rung on the escalation ladder, and the moment of relative calm is being used — wisely — to negotiate, rebuild, and reposition. That is a real and welcome development, and it should be treated as such. It is not, however, a return to the security environment of 2018, and no serious defence ministry is planning as if it were.</p>
+
+        <p>The structural case for continued elevated defence investment is intact and, in several respects, strengthening. Budgets have rebased upward. Industrial policy has caught up to security policy. The lessons of unpreparedness are recent and politically vivid. The threat picture remains crowded across multiple regions. And defence has become embedded in the economic strategies of major economies in a way it was not five years ago.</p>
+
+        <p>What changes is the texture of the spending, not its scale. Surge gives way to sustained. Replenishment becomes deliberate. Next-conflict capabilities take a larger share. Allied integration accelerates. And the firms best positioned for the next phase will be the ones that recognise the difference between a quieter market and a smaller one — and plan accordingly.</p>
+
+        <p>For defence trading specifically, the message is clear: the cycle is not ending, it is maturing. The opportunity remains substantial, but it will reward different qualities than the surge years did. Capacity, integration depth, allied compatibility, and through-life support will matter more than they did at the peak of the crisis. The firms that adapt to that shift will own the next decade of the market.</p>`
+  },
+  {
     slug: "uae-exits-opec-what-it-means-for-military-trading",
     title: "The UAE Exits OPEC: What It Means for Defence Trading and the Wider Military Procurement Market",
     date: "29 Apr 2026",
