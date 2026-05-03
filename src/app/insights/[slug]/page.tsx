@@ -73,11 +73,24 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     url: `https://www.defencetrading.com/insights/${slug}`,
     articleSection: CAT_LABELS[article.cat] || article.source,
     keywords: article.keywords,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `https://www.defencetrading.com/insights/${slug}` },
+    isPartOf: { '@id': 'https://www.defencetrading.com/#website' },
+  }
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.defencetrading.com' },
+      { '@type': 'ListItem', position: 2, name: 'Insights', item: 'https://www.defencetrading.com/insights' },
+      { '@type': 'ListItem', position: 3, name: article.title, item: `https://www.defencetrading.com/insights/${slug}` },
+    ],
   }
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <style>{`
         .art-header { border-bottom: 1px solid #e0e0e0; padding: 56px 0 48px; }
         .art-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #666; margin-bottom: 32px; }

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import './globals.css'
 import LayoutWrapper from '@/components/LayoutWrapper'
+import JsonLd, { organizationSchema, websiteSchema } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
   title: {
@@ -37,6 +38,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
+        <JsonLd data={organizationSchema} />
+        <JsonLd data={websiteSchema} />
 <Script async src="https://www.googletagmanager.com/gtag/js?id=G-5F8DS9XVG4" strategy="afterInteractive" />
         <Script id="gtag-init" strategy="afterInteractive">{`
           window.dataLayer = window.dataLayer || [];
