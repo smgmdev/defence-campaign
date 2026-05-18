@@ -12,6 +12,115 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    slug: "global-defence-trading-market-projections-2026-to-2030",
+    title: "Global Defence Trading Market Projections from 2026 Through 2030 and the Equipment Categories Governments Are Investing in Most",
+    date: "18 May 2026",
+    cat: "market",
+    source: "MARKET ANALYSIS",
+    region: "Global",
+    description: "The global defence trading market is on a trajectory unlike anything seen in the post-Cold War era. Total global defence expenditure is projected to climb from roughly USD 2.6 trillion in 2026 toward USD 3.4 to 3.6 trillion by 2030, with the procurement and trading share rising even faster as governments rebuild inventories, modernise capabilities, and prepare for the security environment of the next decade. A clear-eyed look at where the growth is coming from, which equipment categories will absorb the largest share of new spending, and what it means for the firms operating across the defence trade.",
+    keywords: "defence trading market projections 2026 to 2030, defence market forecast 2030, global defence spending forecast, military procurement growth 2026 2030, most procured defence products 2030, defence industry growth forecast, government defence spending outlook, ammunition market forecast 2030, counter-UAS market 2030, air defence market forecast, naval procurement 2030, defence trading outlook, Indo-Pacific defence spend 2030, NATO defence budgets 2030, Gulf defence procurement 2030, defence industrial base forecast",
+    body: `<p>The global defence trading market enters the second half of the 2020s on a growth trajectory that few would have predicted at the start of the decade. Aggregate global defence expenditure crossed the USD 2.6 trillion mark in 2026 and is now on a path that most credible forecasters expect to deliver USD 3.4 to 3.6 trillion by 2030. The procurement and trading share of that total, which is the portion that actually flows through industry order books, factories, and trading houses, is rising even faster than the headline number, as governments confront the dual pressures of restocking inventories depleted by the past four years of high-intensity activity and modernising capability for the security environment of the next decade. For procurement teams, manufacturers, and the trading firms that connect them, the next five years will be the most active and consequential period in the modern defence economy.</p>
+
+        <p>This projection is built from the public budget submissions of major spending governments through 2030, from the order books of the leading defence manufacturers, from the tender activity visible across the global procurement landscape, and from the macroeconomic and geopolitical drivers that shape both the supply and demand sides of the industry. It is not a single line forecast. It is a structured view of where the growth is coming from, which categories will absorb the largest share of new spending, and what the implications are for firms positioned in the defence trade. The picture is unambiguous in its broad strokes and worth working through in detail.</p>
+
+        <h2>The drivers of growth from 2026 through 2030</h2>
+
+        <p>Five forces account for the bulk of the projected expansion in defence spending over the next five years, and the firms positioned to benefit from one or more of them will see the strongest commercial outcomes.</p>
+
+        <p><strong>NATO restocking and rebasing.</strong> The Alliance has firmly internalised a higher steady-state defence posture, with the 2 per cent of GDP target now a floor rather than a ceiling and several members committed to 3 per cent or beyond by the end of the decade. Restocking of ammunition, air defence interceptors, and platform inventories depleted during the war in Ukraine will continue to absorb capacity through 2027 and 2028, while modernisation programmes will dominate the back half of the projection window. <a href="/insights/germanys-zeitenwende-is-real-this-time">Germany's Zeitenwende is now firmly embedded in budget reality</a>, and Poland, the Baltics, the Nordics, the Netherlands, France, and the United Kingdom are all running expansion programmes that will continue through 2030.</p>
+
+        <p><strong>The Indo-Pacific buildup.</strong> Japan, South Korea, Australia, Taiwan, the Philippines, India, and a long list of regional partners are accelerating procurement, capacity, and joint planning at a pace that has not been seen in the region since the early Cold War. Our analysis of the <a href="/insights/indo-pacific-defence-buildup-2026-taiwan-strait-global-procurement">Indo-Pacific defence buildup of 2026</a> sets out the country-by-country picture in detail. Aggregate Indo-Pacific defence spending is projected to grow from roughly USD 800 billion in 2026 toward USD 1.1 trillion by 2030, with procurement intensity even higher than the headline rate.</p>
+
+        <p><strong>Sustained Gulf and broader Middle East procurement.</strong> Saudi Arabia, the United Arab Emirates, Qatar, Egypt, Israel, and an expanding list of Gulf and Levant buyers continue to invest at elevated rates. Saudi Arabia's <a href="/insights/saudi-arabia-50-percent-defence-manufacturing-by-2030">commitment to localise 50 per cent of defence manufacturing by 2030</a> is anchoring a large industrial-investment programme, and the broader regional procurement landscape continues to be shaped by the recent active phases of the Red Sea and Iran-related crises that <a href="/insights/red-sea-crisis-permanently-altered-gulf-defence-procurement">permanently altered Gulf defence procurement priorities</a>.</p>
+
+        <p><strong>US recapitalisation and modernisation.</strong> The Pentagon's budget trajectory continues upward, with the <a href="/insights/pentagon-886-billion-budget-americas-strategic-priorities">886 billion dollar Pentagon budget that defined America's strategic priorities</a> now serving as a base level rather than a ceiling. By 2030, US defence spending is projected to approach USD 1.05 trillion, with modernisation of nuclear, naval, air, space, and cyber capabilities all absorbing substantial new investment.</p>
+
+        <p><strong>The new entrants and the structurally elevated baseline.</strong> Countries that historically operated below 1 per cent of GDP on defence are now building serious defence budgets and procurement programmes. African, Latin American, Southeast Asian, and Central Asian buyers are all entering the procurement landscape in meaningful numbers, and the cumulative effect on the global market is significant even where individual budgets remain modest. <a href="/insights/defence-industry-best-decade-since-cold-war">The current decade is shaping up to be the strongest the defence industry has seen since the end of the Cold War</a>, and the trajectory through 2030 supports that assessment.</p>
+
+        <h2>Total market projections through 2030</h2>
+
+        <p>Bringing the drivers together produces a clear picture of the trajectory. Total global defence expenditure is projected to rise from USD 2.6 trillion in 2026 to USD 2.85 trillion in 2027, USD 3.05 trillion in 2028, USD 3.25 trillion in 2029, and approach USD 3.45 trillion by 2030. The procurement and modernisation share of that total, currently estimated at roughly USD 950 billion in 2026, is projected to rise faster, approaching USD 1.45 trillion by 2030. This is the portion of the defence economy that flows through industry, and the firms positioned for it will see the strongest growth in revenue, order books, and capacity utilisation.</p>
+
+        <p>The trading layer of the market, which captures the international flow of equipment between origin countries and destination buyers, is projected to grow from roughly USD 165 billion in 2026 toward USD 250 billion by 2030. This trading layer is where verified specialist intermediaries operate and where the gap between licensed legitimate trade and unregulated activity is most visible. Buyers and suppliers operating through licensed channels, including the <a href="/insights/sourcing-military-defence-equipment-verified-suppliers-defence-trading">verified supplier networks that increasingly dominate legitimate cross-border defence trade</a>, will capture a disproportionate share of this growth.</p>
+
+        <h2>The equipment categories absorbing the most new investment</h2>
+
+        <p>The growth is not distributed evenly across product categories. Some categories will absorb a disproportionate share of new procurement spending through 2030, and procurement teams, manufacturers, and trading firms need to internalise which categories sit at the top of the priority list.</p>
+
+        <p><strong>Artillery ammunition and precision munitions.</strong> The single largest category by volume and one of the most consistently capacity-constrained, artillery ammunition will continue to dominate procurement budgets through 2030. NATO restocking alone is expected to absorb USD 90 billion of ammunition spending across the projection window, and Gulf, Asia-Pacific, and African buyers will add substantially to that figure. <a href="/insights/155mm-artillery-shells-dominating-global-defence-market">155 millimetre artillery shells will continue dominating the global defence market</a> as the central category within this segment, with precision-guided variants representing the fastest-growing sub-category.</p>
+
+        <p><strong>Air defence and counter-UAS systems.</strong> Integrated air and missile defence, layered counter-drone systems, and the wider ecosystem of effectors, sensors, and command-and-control are projected to be among the fastest-growing categories through 2030. Total air defence and counter-UAS procurement is expected to grow from roughly USD 70 billion in 2026 to over USD 115 billion by 2030. The drone-related portion is where the steepest growth sits, and <a href="/insights/procurement-best-drone-interception-systems">procurement of the best drone interception systems</a> has now become a standard line item in nearly every modern defence budget.</p>
+
+        <p><strong>Naval platforms and undersea systems.</strong> Surface combatants, patrol craft, mine countermeasures, submarines, and the rapidly maturing uncrewed undersea systems category will absorb significant new investment, particularly across the Indo-Pacific and the Gulf. Aggregate naval procurement is projected to rise from USD 110 billion in 2026 toward USD 165 billion by 2030. AUKUS submarine production, Japanese and Korean shipyard expansion, and Gulf naval buildup will be the primary engines of this growth.</p>
+
+        <p><strong>Long-range precision strike.</strong> Tomahawk-class and equivalent cruise missiles, hypersonics, long-range anti-ship missiles, and the broader category of standoff munitions are projected to grow from approximately USD 45 billion in annual procurement in 2026 to over USD 80 billion by 2030. The category is moving rapidly from a US-exclusive capability into a much more widely procured one across allied and partner states.</p>
+
+        <p><strong>Uncrewed systems across all domains.</strong> Air, sea, and undersea uncrewed systems are projected to be among the fastest-growing categories in percentage terms. Aggregate procurement across all domains is expected to grow from USD 40 billion in 2026 to over USD 75 billion by 2030, with the sharpest growth in tactical and operational categories where the lessons of recent conflicts have produced clear procurement momentum.</p>
+
+        <p><strong>Electronic warfare, cyber, and integrated C4ISR.</strong> Investments in the multi-domain operations stack, including electronic warfare, secure communications, intelligent decision support, contested-environment networking, and AI-augmented command-and-control, are projected to grow from approximately USD 60 billion in 2026 toward USD 105 billion by 2030. This is a less visible category in headline terms but one of the most consequential in capability terms.</p>
+
+        <p><strong>Body armour, personal protective equipment, and soldier systems.</strong> The unglamorous but consistently high-volume category will continue to grow at a steady pace, supported by sustained military strength increases across NATO and Indo-Pacific partners and by elevated demand from Gulf and African buyers. Total procurement is projected to rise from approximately USD 18 billion in 2026 to USD 26 billion by 2030.</p>
+
+        <p><strong>Armoured vehicles, both new-build and refurbishment.</strong> New-build heavy and light armoured vehicle procurement is projected to remain steady around USD 55 to 65 billion annually through 2030, with the largest programmes in Poland, Germany, Korea, India, and selected Gulf states. The refurbishment and upgrade segment, which is often underestimated, is projected to grow at higher rates as legacy fleets across multiple regions reach the mid-life modernisation window.</p>
+
+        <p><strong>Aerospace, including fighter aircraft, transport aircraft, and helicopters.</strong> The fighter market remains dominated by a handful of long-running programmes, but aggregate aerospace procurement, including transport aircraft, helicopters, ISR aircraft, and tankers, is projected to rise from roughly USD 130 billion in 2026 to USD 175 billion by 2030.</p>
+
+        <p><strong>Military medical, CBRN protection, and field logistics.</strong> Often overlooked in headline analyses, these categories have grown substantially over the past three years and are projected to continue at elevated rates. Aggregate procurement is expected to rise from USD 22 billion in 2026 to USD 32 billion by 2030.</p>
+
+        <h2>Which items are governments most interested in right now</h2>
+
+        <p>Translating the projection into operational priorities, the categories that procurement officers, ministries, and defence agencies are most actively engaged in through 2026 and into 2027 are, in approximate order of intensity, the following.</p>
+
+        <p>The first priority across nearly every major procurement is the rebuilding of ammunition inventories, with artillery, air-defence interceptors, and precision munitions all at the top of the list. Gulf, NATO, and Indo-Pacific buyers are running parallel programmes that are stretching supplier capacity. The <a href="/insights/europes-ammunition-gap-bigger-than-anyone-admits">European ammunition gap that is bigger than most have admitted</a> remains a defining feature of the market through at least 2027.</p>
+
+        <p>The second priority is layered counter-drone capability. Every modern military has internalised the lesson that drones can no longer be treated as a niche threat. Procurement of integrated radar, electronic warfare, kinetic effectors, and drone-on-drone interceptor systems is now standard across all major procurement programmes. Operators that need to <a href="/insights/getting-drone-interceptor-2026-easier-than-you-think">acquire drone interceptor systems quickly and through licensed channels</a> have more options in 2026 than in any previous year.</p>
+
+        <p>The third priority is air and missile defence at every layer. Patriot, THAAD, NASAMS, IRIS-T, Korean L-SAM and M-SAM, and the rapidly growing family of counter-hypersonic interceptor concepts are all under active procurement.</p>
+
+        <p>The fourth priority is long-range strike, which is now central to the deterrence posture of nearly every major spender.</p>
+
+        <p>The fifth priority is uncrewed systems across all domains, with the integration challenge increasingly more important than the platform acquisition challenge.</p>
+
+        <p>The sixth priority is naval, particularly for buyers with meaningful coastline or maritime trade exposure, where the Red Sea experience continues to influence procurement decisions.</p>
+
+        <p>The seventh priority is cyber, electronic warfare, and integrated C4ISR, often less visible in headline numbers but rising rapidly in budget importance.</p>
+
+        <p>The eighth priority is the broad personal protective equipment and soldier-system category, with sustained demand for higher-specification body armour, helmets, and integrated tactical gear.</p>
+
+        <p>The ninth priority is military medical and CBRN, which has moved into a more visible procurement position than at any time in the past two decades.</p>
+
+        <p>The tenth priority is industrial-localisation and offset commitments, which are increasingly bundled into major procurement decisions rather than treated as separate negotiations. Saudi Arabia, the UAE, Turkey, India, Korea, and a long list of mid-tier countries now demand meaningful industrial participation in any significant procurement, and suppliers that arrive without a credible localisation story will struggle to win competitive programmes.</p>
+
+        <h2>The geographic distribution of growth</h2>
+
+        <p>The growth through 2030 will be distributed unevenly across regions. North America is projected to grow at roughly 5 to 6 per cent annually, anchored by the Pentagon's modernisation programme. Europe is projected to grow at 7 to 9 per cent annually as the rebasing of NATO defence spending continues to feed through. The Indo-Pacific is projected to grow at 8 to 10 per cent annually, with Korea, Japan, Australia, the Philippines, and India all running ambitious programmes. The Middle East and Gulf are projected to grow at 6 to 8 per cent annually, with sustained programmes across multiple buyers. Africa is projected to grow at 9 to 12 per cent annually from a smaller base, with mobile-money-enabled buyers and improving regulatory frameworks supporting accelerated procurement. Latin America is projected to grow at 6 to 8 per cent annually, with Brazil, Mexico, and Colombia as the primary engines.</p>
+
+        <h2>The trading layer and how to position for it</h2>
+
+        <p>For the trading layer specifically, the growth picture has clear operational implications. Buyers that work through verified specialist trading channels rather than fragmented informal intermediaries will continue to gain a structural advantage in speed, compliance posture, and counterparty quality. Suppliers that build relationships with credible regional trading hubs, particularly UAE-based licensed firms operating under the established Tawazun framework, will reach a broader buyer set with less friction. The UAE in particular is projected to handle a meaningfully growing share of the global trading layer through 2030, supported by its predictable regulatory framework, sophisticated logistics infrastructure, and the political relationships that allow it to facilitate trade between counterparties that other capitals struggle to host.</p>
+
+        <p>For operators and procurement teams looking to engage a credible trading partner positioned for this growth environment, the path is straightforward. Working through a UAE-licensed channel such as Defence Trading provides the verified supplier network, structured intake, end-to-end compliance, and specialist logistics that the trading layer of the modern defence market requires. The <a href="/insights/what-is-defence-trading-and-how-does-it-work">mechanics of defence trading itself</a> have been explained in detail elsewhere, and the <a href="/insights/how-to-source-legitimate-defence-products-via-defence-trading">practical workflow of sourcing legitimate equipment through the platform</a> is now well documented.</p>
+
+        <h2>What this means for procurement, manufacturing, and trading firms</h2>
+
+        <p>The operational implications of the 2026 to 2030 picture are direct and worth acting on.</p>
+
+        <p><strong>Procurement teams</strong> should treat the next eighteen months as the window in which to lock delivery on capacity-constrained categories. Artillery ammunition, integrated counter-UAS, air defence interceptors, and selected munitions categories are not going to normalise on the buyer's timeline within the projection window, and waiting will cost both money and operational readiness.</p>
+
+        <p><strong>Manufacturers</strong> should continue to invest in capacity in the categories that remain capacity-constrained and should prepare for margin compression in the categories where competition is intensifying. The 2026 to 2030 window will reward firms that scale ammunition, air defence, counter-UAS, undersea systems, and long-range strike capacity, and will punish firms that wait for demand to normalise before investing.</p>
+
+        <p><strong>Trading firms</strong> should position for sustained elevated activity across multiple regions, with particular focus on the connective trade between Indo-Pacific, Gulf, African, and Latin American buyers and the supplier ecosystems of the West, Korea, Japan, India, Turkey, and increasingly the UAE itself.</p>
+
+        <h2>The honest assessment</h2>
+
+        <p>The global defence trading market between 2026 and 2030 will be the most active period in the modern industry's history. Total expenditure will rise materially. The procurement and modernisation share will rise faster. The cross-border trading layer will rise faster still. Capacity constraints in selected categories will persist through at least 2027 and possibly longer. Competition in commoditising categories will intensify as new entrants from Korea, Turkey, India, Brazil, and the UAE expand their export reach. Industrial-localisation expectations will continue to harden across major buyers.</p>
+
+        <p>For procurement teams, manufacturers, and trading firms, the message is straightforward. The growth is real and durable. The categories that will absorb the most new investment are already clear. The firms positioned to support buyers across compliance, sourcing, logistics, and delivery will capture the largest share of the value created over the next five years. The defence trade is no longer a marginal corner of the global economy. It is one of its central engines of growth, and the next five years will reshape its structure for the decade beyond.</p>
+
+        <p>For organisations preparing to position for this environment, the right starting point is a direct conversation with a licensed specialist trading partner. Defence Trading is built specifically to support procurement teams and suppliers operating across this expanding market, and the platform is positioned to grow with the buyers and suppliers that build durable partnerships through this period of structural expansion.</p>`
+  },
+  {
     slug: "indo-pacific-defence-buildup-2026-taiwan-strait-global-procurement",
     title: "The Indo-Pacific Defence Buildup of 2026 and What It Means for Global Procurement",
     date: "11 May 2026",
